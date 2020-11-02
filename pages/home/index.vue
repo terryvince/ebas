@@ -1,14 +1,12 @@
+<!-- page 样式不能写在scope下 -->
+<style lang="less">
+	page{
+		background: #F6F6F6;
+	}
+</style>
 <style scoped lang="less">
 	.index {
-		background-color: #EFEDEB;
-	}
-	.slider-banner{
-		padding: 0 20rpx;
-		box-sizing: border-box;
-		margin: 0 0 22rpx;
-	}
-	.swiper-item {
-		height: 100%;
+		background-color: #F6F6F6;
 	}
 
 	.fixed-header {
@@ -42,6 +40,8 @@
 	}
 	.nav{
 		background: white;
+		margin: 0 20rpx;
+		border-radius: 20rpx;
 	}
 	.top-20{
 		margin-top: 20rpx;
@@ -115,11 +115,24 @@
 			top: 0;
 		}
 	}
+	// banner
+	.index .banner swiper,.index .banner image {
+		border-radius: 20rpx;
+	    height: 304rpx;
+	}
+	.slider-banner{
+		padding: 0 20rpx;
+		box-sizing: border-box;
+		margin: 20rpx 0 0rpx;
+	}
+	.swiper-item {
+		height: 100%;
+	}
 	.slider-banner.banner{
-	  padding: 0 20rpx 20rpx;
-	  background: white;
+	  padding: 0 20rpx 0rpx;
 	  height: auto;
 	}
+	
 	.icon-notify{
 		width: 33rpx;
 		height: 33rpx;
@@ -143,6 +156,47 @@
 		height: 24rpx;
 		background-color: #909090;
 	}
+	.features-box{
+		margin: 18rpx 18rpx;
+		text{
+			margin-left: 9rpx;
+			font-size: 22rpx;
+			color: #949494;
+		}
+	}
+	.index-coupon-wrap{
+		width: auto;
+		margin:0 20rpx;
+		background-size: 100% 100%;
+		padding: 63rpx 22rpx 36rpx;
+		position: relative;
+	}
+	.coupon-list{
+		width:auto;
+		// padding: ;
+	}
+	.coupon-item{
+		height: 122rpx;
+		flex:0 0 33.333%;
+	}
+	.money-img{
+		position: absolute;
+		left: 22rpx;
+		bottom: 6rpx;
+	}
+	.color-linear-yellow{
+		background-image: linear-gradient(0deg, #F1EEC3 0.48828125%, #FFFEF1 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color:transparent; 
+	}
+	.radius-btn{
+		width: 61rpx;
+		background: #FFFFFF;
+		border-radius: 15rpx;
+		padding:9rpx 11rpx;
+		box-sizing: border-box;
+	}
 </style>
 <template>
 	<view class="index">
@@ -160,7 +214,9 @@
 				<image src="@/static/images/qr.png" />
 			</view> -->
 		</view>
+		<!-- 搜索栏占位 -->
 		<view class="fixed-header-box"></view>
+		<!-- banner -->
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular>
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
@@ -172,7 +228,27 @@
 				</block>
 			</swiper>
 		</view>
-
+		<!-- 间隙文字 -->
+		<view class="features-box flex-main-between">
+			<view class="feature flex-main-start">
+				<image src="../../static/logo.png" style="width: 19rpx;height: 19rpx;" mode=""></image>
+				<text>优选严检</text>
+			</view>
+			<view class="feature flex-main-start">
+				<image src="../../static/logo.png" style="width: 23rpx;height: 19rpx;" mode=""></image>
+				<text>品质溯源</text>
+			</view>
+			<view class="feature flex-main-start">
+				<image src="../../static/logo.png" style="width: 16rpx;height: 20rpx;" mode=""></image>
+				<text>全程安全</text>
+			</view>
+			<view class="feature flex-main-start">
+				<image src="../../static/logo.png" style="width: 20rpx;height: 19rpx;" mode=""></image>
+				<text>专享客服</text>
+			</view>
+		</view>
+		
+		<!-- 导航 -->
 		<view class="nav acea-row">
 			<view @click="goWxappUrl(item)" class="item" v-for="(item, menusIndex) in menus" :key="menusIndex">
 				<view class="pictrue">
@@ -182,65 +258,38 @@
 			</view>
 		</view>
 		
+		<!-- 优惠券栏 -->
+		<view class="index-coupon-wrap" style="background: linear-gradient(0deg, #FE413F 0%, #FF6C5C 100%);">
+			<view class="more flex-main-end fs-20 color-white" style="margin-top: 18rpx;">
+				<text>更多</text>
+				<text class="iconfont icon-jiantou fs-20"></text>
+			</view>
+			<view class="coupon-list flex-main-start">
+				<view class="coupon-item flex-main-center" style="background-color: #FFF76B5B;">
+					<view class="flex-main-center" style="position: relative; top: -10rpx;">
+						<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;">￥</text>
+						<text class="color-linear-yellow txt-bold lh-1" style="font-size: 65rpx;">10</text>
+						<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 6rpx;">
+							<text>优</text>
+							<text>惠</text>
+							<text>券</text>
+						</view>
+					</view>
+					<view class="color-red fs-20 radius-btn">点击领取</view>
+				</view>
+			</view>
+			<image class="money-img" src="../../static/logo.png" style="width: 74rpx;height: 62rpx;"></image>
+		</view>
 		
-		<!-- <view class="news acea-row ">
-			<view class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
-				<image src="@/static/images/news.png" />
-			</view>
-			<view class="swiper-no-swiping new-banner">
-				<swiper class="swiper-wrapper" v-if="roll.length > 0" :indicator-dots="false" autoplay circular vertical>
-					<block v-for="(item, rollIndex) in roll" :key="rollIndex">
-						<swiper-item class="swiper-slide">
-							<view @click="goRoll(item)" class="swiper-item acea-row row-between-wrapper">
-								<view class="text acea-row row-between-wrapper">
-									<view class="label" v-if="item.show === '是'">最新</view>
-									<view class="newsTitle line1">{{ item.info }}</view>
-								</view>
-								<view class="iconfont icon-xiangyou"></view>
-							</view>
-						</swiper-item>
-					</block>
-				</swiper>
-			</view>
-		</view> -->
-		<!-- <view class="wrapper hot" v-if="likeInfo.length > 0"> -->
-		<view class="notice flex-main-between top-20">
+		<!-- <view class="notice flex-main-between top-20">
 			<view class="fs-34 txt-bold txt-italic flex-none">
 				<image src="https://res.chunghengtrade.com/title-avtivity.png" mode="widthFix" class="image-activity"></image>
 			</view>
 			<text class="y-line gray flex-none" style="height:45rpx;margin-left:20rpx"></text>
 			<view class="icon-notify"></view>
 			<uni-notice-bar class="flex-1" scrollable="true" @click="goRoll(singNew)" color="#212121" single="true" speed="10" :showIcon="false" :text="singNew.info" background-color="#fff"></uni-notice-bar>
-		</view>
-		<!-- <view @click="goMyNotify()" class="flex-main-center">
-			跳转我的消息
 		</view> -->
-		<!-- <view class="wrapper hot" v-if="bastList.length > 0">
-			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
-			<view class="title no-border acea-row row-between-wrapper">
-				<div class="text line1">
-					<span class="iconfont icon-remen"></span>
-					<span class="label">热门榜单</span>
-				</div>
-				<view @click="goHotNewGoods(2)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<view class="newProducts">
-				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
-					<view class="newProductsScroll">
-						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, likeInfoIndex) in likeInfo" :key="likeInfoIndex">
-							<view class="img-box">
-								<image :src="item.image" />
-							</view>
-							<view class="pro-info line1"><text>{{ item.storeName }}</text></view>
-							<view class="money font-color-red"><text>￥{{ item.price }}</text></view>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-		</view> -->
+		
 		<!-- 加一个flex容器，方便模块间排序 -->
 		<view class="flex flex-wrap">
 		<!-- 限时折扣 -->
