@@ -13,11 +13,12 @@
 	}
 </script>
 
-	
+
 <style lang="less">
-    /*每个页面公共css */
+	/*每个页面公共css */
 	@import "animate.css";
 	@import "./assets/iconfont/iconfont.css";
+	@import "./assets/iconfont/iconfont1.css";
 	@import "./assets/css/base.less";
 	@import "./assets/css/reset.less";
 	@import "./assets/css/style.less";

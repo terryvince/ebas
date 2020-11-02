@@ -1,33 +1,34 @@
 <template>
-  <view
-    class="address-management"
-    :class="addressList.length < 1 && page > 1 ? 'on' : ''"
-    ref="container"
-  >
-    <view class="line" v-if="addressList.length > 0">
-      <image src="@/static/images/line.jpg" />
-    </view>
-    <view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
-      <view class="address">
-        <view class="consignee">
-          收货人：{{ item.realName }}
-          <text class="phone">{{ item.phone }}</text>
-        </view>
-        <view>
-          收货地址：{{ item.province }}{{ item.city }}{{ item.district
-          }}{{ item.detail }}
-        </view>
-      </view>
-      <view class="operation acea-row row-between-wrapper">
-        <view class="select-btn">
-          <view class="checkbox-wrapper">
-            <checkbox-group @change="radioChange(item.id)">
-              <label class="well-check">
-                <checkbox value :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
-                <text class="default">设为默认</text>
-              </label>
-            </checkbox-group>
-            <!-- <label class="well-check">
+	<view class="address-management" :class="addressList.length < 1 && page > 1 ? 'on' : ''" ref="container">
+		<!-- 		<view class="line" v-if="addressList.length > 0">
+			<image src="@/static/images/line.jpg" />
+		</view> -->
+		<view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
+			<view class="address">
+				<view class="consignee">
+					{{ item.realName }}
+					<text class="phone">{{ item.phone }}</text>
+					<text class="left-10 bg-color-green color-white padding-5 txt-center  fs-20">默认</text>
+				</view>
+				<view class="address-detail">
+					{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+				</view>
+				
+				<view @click="editAddress(addressListIndex)">
+					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-address-edit.png" mode="" class="address-edit"></image>
+					<!-- http://qj5wtf3w8.hn-bkt.clouddn.com/icon-address-edit.png -->
+				</view>
+			</view>
+			<!-- 			<view class="operation acea-row row-between-wrapper">
+				<view class="select-btn">
+					<view class="checkbox-wrapper">
+						<checkbox-group @change="radioChange(item.id)">
+							<label class="well-check">
+								<checkbox value :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
+								<text class="default">设为默认</text>
+							</label>
+						</checkbox-group> -->
+			<!-- <label class="well-check">
               <input
                 type="radio"
                 name="default"
@@ -38,46 +39,75 @@
               <i class="icon"></i>
               <text class="default">设为默认</text>
             </label>-->
-          </view>
-        </view>
-        <view class="acea-row row-middle">
-          <view @click="editAddress(addressListIndex)">
-            <text class="iconfont icon-bianji"></text>编辑
-          </view>
-          <view @click="delAddress(addressListIndex)">
-            <text class="iconfont icon-shanchu"></text>删除
-          </view>
-        </view>
-      </view>
-    </view>
-    <Loading :loaded="loadend" :loading="loading"></Loading>
-    <view class="noCommodity" v-if="addressList.length < 1 && page > 1">
-      <view class="noPictrue">
-        <image src="@/static/images/noAddress.png" class="image" />
-      </view>
-    </view>
-    <view style="height:100rpx;"></view>
-    <view class="footer acea-row row-between-wrapper">
-      <view class="addressBnt bg-color-red" v-if="isWechat" @click="addAddress">
+			<!-- 					</view>
+				</view>
+				<view class="acea-row row-middle">
+					<view @click="editAddress(addressListIndex)">
+						<text class="iconfont icon-bianji"></text>编辑
+					</view>
+					<view @click="delAddress(addressListIndex)">
+						<text class="iconfont icon-shanchu"></text>删除
+					</view>
+				</view>
+			</view> -->
+		</view>
+		<Loading :loaded="loadend" :loading="loading"></Loading>
+		<view class="noCommodity" v-if="addressList.length < 1 && page > 1">
+			<view class="noPictrue">
+				<image src="@/static/images/noAddress.png" class="image" />
+			</view>
+		</view>
+		<view style="height:100rpx;"></view>
+		<view class="footer acea-row row-between-wrapper">
+			<view class="addressBnt on bg-color-green" @click="addAddress">
+				添加收货地址
+			</view>
+			<!--      <view class="addressBnt bg-color-red" v-if="isWechat" @click="addAddress">
         <text class="iconfont icon-tianjiadizhi"></text>添加新地址
       </view>
       <view class="addressBnt on bg-color-red" v-else @click="addAddress">
         <text class="iconfont icon-tianjiadizhi"></text>添加新地址
-      </view>
-      <!--<view class="addressBnt wxbnt" v-if="isWechat" @click="getAddress">-->
-      <!--<text class="iconfont icon-weixin2"></text>导入微信地址-->
-      <!--</view>-->
-    </view>
-  </view>
+      </view> -->
+			<!--<view class="addressBnt wxbnt" v-if="isWechat" @click="getAddress">-->
+			<!--<text class="iconfont icon-weixin2"></text>导入微信地址-->
+			<!--</view>-->
+		</view>
+	</view>
 </template>
 <style scoped lang="less">
-.address-management.on {
+	.address-management.on {
   background-color: #fff;
   height: 100vh;
 }
+.address-management{
+	background-color: #f5f5f5;
+}
+.item{
+	margin: 20rpx !important;
+}
+.phone{
+	margin-left: 88rpx !important;
+	
+}
+.phone .consignee{
+	font-size: 32rpx !important;
+	font-weight: bold !important;
+}
+.address-detail{
+	font-size: 28rpx !important;
+	color: #828282;
+}
+.address-edit{
+	width: 16*2rpx;
+	height: 14*2rpx;
+	position: fixed;
+	right: 50rpx;
+	top: 90rpx;
+}
+
 </style>
 <script type="text/babel">
-import {
+	import {
   getAddressList,
   getAddressRemove,
   getAddressDefaultSet,

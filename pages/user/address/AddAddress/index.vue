@@ -20,7 +20,7 @@
               :items="district"
             ></CitySelect>
           </view>
-          <view class="iconfont icon-dizhi font-color-red"></view>
+          <view class="iconfont1 icon-dizhi1 font-color-red"></view>
         </view>
       </view>
       <view class="item acea-row row-between-wrapper">
@@ -41,7 +41,7 @@
       </view>
     </view>
     <view></view>
-    <view class="keepBnt bg-color-red" @tap="submit">立即保存</view>
+    <view class="keepBnt bg-color-green" @tap="submit">立即保存</view>
     <view class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</view>
   </view>
 </template>
