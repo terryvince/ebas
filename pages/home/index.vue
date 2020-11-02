@@ -91,9 +91,10 @@
 	}
 	.header.fixed-header{
 		background-color: white;
+		padding: 0 20rpx;
 		.search{
-			background-color: #fff;
-			border: 1px solid #fe565f;
+			background-color: #EEEEEE;
+			border: 1px solid #EEEEEE;
 			border-radius: 50rpx;
 			overflow: hidden;
 		}
@@ -103,7 +104,7 @@
 		.search-button{
 			box-sizing: border-box;
 			border: none;
-			background-color:#fe565f;
+			background: linear-gradient(80deg, #71D676, #5FCB55);
 			height: 100%;
 			border-radius:50rpx 0 0 50rpx;
 			line-height: 1;
@@ -134,6 +135,9 @@
 		padding:45rpx 0;
 		width: 336rpx;
 	}
+	.color-placeholder{
+		color: #909090;
+	}
 </style>
 <template>
 	<view class="index">
@@ -142,7 +146,7 @@
 				<!-- <text class="iconfont icon-xiazai5"></text> -->
 				<view class="acea-row row-middle">
 					<image class="icon-search" src="../../static/icon-search-red.png" mode="widthFix"></image>
-					<text class="left-10">搜索请输入关键词</text>
+					<text class="left-10 color-placeholder">搜索请输入关键词</text>
 				</view>
 				<view class="search-button flex-main-center">搜索</view>
 			</view>
@@ -231,19 +235,22 @@
 				</scroll-view>
 			</view>
 		</view> -->
+		<!-- 加一个flex容器，方便模块间排序 -->
+		<view class="flex flex-wrap">
 		<!-- 限时折扣 -->
-		<view v-if="discountList.length>0" class="discount-goods bg-white">
-			<view class="flex-main-center">
-				<image src="https://res.chunghengtrade.com/home-title-2.png" class="home-title" mode="widthFix"></image>
+			<view v-if="discountList.length>0" class="discount-goods bg-white flex-1" style="order:0">
+				<view class="flex-main-center">
+					<image src="https://res.chunghengtrade.com/home-title-2.png" class="home-title" mode="widthFix"></image>
+				</view>
+				<goods-list from="seckill" :list="discountList"></goods-list>
 			</view>
-			<goods-list from="seckill" :list="discountList"></goods-list>
-		</view>
-		<!-- 精选商品新版 -->
-		<view v-if="pickList.length > 0" class="choice-goods bg-white x-line gray">
-			<view class="flex-main-center">
-				<image src="https://res.chunghengtrade.com/home-title-1.png" class="home-title" mode="widthFix"></image>
+			<!-- 精选商品新版 -->
+			<view v-if="pickList.length > 0" class="choice-goods bg-white x-line gray flex-1" style="order:1">
+				<view class="flex-main-center">
+					<image src="https://res.chunghengtrade.com/home-title-1.png" class="home-title" mode="widthFix"></image>
+				</view>
+				<goods-list :list="pickList"></goods-list>
 			</view>
-			<goods-list :list="pickList"></goods-list>
 		</view>
 		<!-- 精选商品旧版 -->
 	<!-- 	<view class="wrapper" v-if="bastList.length > 0">

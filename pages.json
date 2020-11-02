@@ -1,3 +1,8 @@
+// 新增页面
+// subpackage/integralDesc/integralDesc		积分说明
+// subpackage/userProtocoll/userProtocoll	用户协议
+// subpackage/couponProtocol/couponProtocol	优惠券协议
+
 {
 	"subPackages": [
 		// 子包1
@@ -148,6 +153,32 @@
                     "style" : {
 						"navigationBarTitleText":"视频"
 					}
+                }
+                ,{
+                    "path" : "integralDesc/integralDesc",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "协议",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "userProtocoll/userProtocoll",
+                    "style" :{
+						"navigationBarTitleText": "协议",
+						"enablePullDownRefresh": false
+					}
+                
+                }
+                ,{
+                    "path" : "couponProtocol/couponProtocol",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "协议",
+                    "enablePullDownRefresh": false
+                }
+                
                 }
             ]
 		}
@@ -586,8 +617,8 @@
 	},
 	// 小程序无法修改大小
 	"tabBar": {
-		"color": "#7B7B7B",
-		"selectedColor": "#036DB7",
+		"color": "#7C7B7C",
+		"selectedColor": "#6CD36C",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"height": "50px",

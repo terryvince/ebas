@@ -8,6 +8,11 @@ import dialog from "./utils/dialog";
 // import cookie from "@/utils/store/cookie";
 import dayjs from 'dayjs'
 
+// #ifdef H5
+	import VConsole from 'vconsole';
+	var vConsole = new VConsole();
+// #endif
+
 // // import "@/assets/iconfont/iconfont";
 // import "@/assets/iconfont/iconfont.css";
 // // import "@/assets/js/media_750";

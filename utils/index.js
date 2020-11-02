@@ -161,7 +161,7 @@ export const login = () => {
 			// 调用登录接口
 			console.log('调用登录接口, 环境:',Vue.prototype.$deviceType)
 			if(Vue.prototype.$deviceType == 'h5'){
-				console.log('h5登录，暂未实现。。。')
+				console.log('h5登录，暂未实现。。。',uni.getStorageSync('wxcode'))
 				
 				return
 			}
@@ -721,6 +721,13 @@ export const PosterCanvas = (store, successCallBack) => {
 
 
 export const handleLoginFailure = () => {
+	
+	// if(store.state.$deviceType === 'h5'){
+	// 	console.log('————————')
+	// 	console.log('退出登录，标记当前页面为授权页面，防止多次跳转')
+	// 	console.log('————————')
+	// 	return
+	// }
 
 	console.log('————————')
 	console.log('退出登录，标记当前页面为授权页面，防止多次跳转')

@@ -78,6 +78,23 @@ export default {
       });
       return;
     }
+	
+	if(this.$deviceType == "h5") {
+		const hasCode = location.href.includes('code')
+		if(!hasCode){ // 没有code就获取code
+			this.getCodeApi()
+			return
+		}
+		let query = {}
+		let params = location.href.split('?')[1].split('&')
+		searchs.forEach(data=>{
+			let key = decodeURIComponent(data.split('=')[0])
+			let value = decodeURIComponent(data.split('=')[1])
+			query[key] = value
+		})
+		uni.setStorageSync('wxcode',query.code) // 有code就设置code
+	}
+	
     login().finally(() => {
       this.$yrouter.switchTab({
         path: "/pages/home/index"
@@ -86,6 +103,17 @@ export default {
   },
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
+	// 授权
+	getCodeApi() {
+	  const redirect_uri = encodeURIComponent(location.href)
+	  // const redirect_uri = encodeURIComponent('https://apis.huacunkj.com/ebashih5')
+	  const scope = 'snsapi_userinfo'
+	  const appid = 'wx007347fbd7deb6f9'
+	  const state = ''
+	  const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=${state}#wechat_redirect`
+	  console.log('重定向url:',decodeURIComponent(redirect_uri))
+	  window.location.replace(url)
+	},
     toLaunch() {
       console.log("loading home");
       this.changeAuthorization(false);
