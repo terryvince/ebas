@@ -138,6 +138,11 @@
 	.color-placeholder{
 		color: #909090;
 	}
+	.y-line{
+		width: 2rpx;
+		height: 24rpx;
+		background-color: #909090;
+	}
 </style>
 <template>
 	<view class="index">
@@ -146,6 +151,7 @@
 				<!-- <text class="iconfont icon-xiazai5"></text> -->
 				<view class="acea-row row-middle">
 					<image class="icon-search" src="../../static/icon-search-red.png" mode="widthFix"></image>
+					<span class="y-line left-10"></span>
 					<text class="left-10 color-placeholder">搜索请输入关键词</text>
 				</view>
 				<view class="search-button flex-main-center">搜索</view>
