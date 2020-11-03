@@ -1,29 +1,52 @@
 <style scoped lang="less">
- .goods-list{
-	 background: white;
-	 display: flex;
-	 justify-content: space-between;
-	 flex-wrap: wrap;
+// 多行多列布局
+.grid(@count:4,@itemWidth:20,@itemHeight:auto){
+	@rest:100 - @itemWidth * @count; // 剩余空间
+	@space: @rest/(@count - 1) * 1%; // 边距
+	display: flex;
+	& > view {
+		flex: 0 0 @itemWidth * 1%;
+		height: @itemHeight;
+		margin-right: @space;
+		margin-top: @space;
+		box-sizing: border-box;
+		&:nth-child( @{count}n ){
+			margin-right: 0;
+		}
+		&:nth-child( -n + @{count} ){
+			margin-top: 0;
+		}
+		&:last-child{
+			margin-right: auto;
+		}
+	}
+}
+ .good-list-card{
 	 padding:30rpx 25rpx 0;
+	 .grid(2,48);
 	 .list-item{
-		 width:336rpx;
-		 margin-bottom: 30rpx;
-		 flex: none;
+		 background-color: white;
+		 border-radius: 20rpx;
+		 overflow: hidden;
+		 flex-wrap: wrap;
 	 }
 	 .img-wrap{
 		 width: 100%;
-		 height: 260rpx;
+		 height: 345rpx;
 		 border-radius:8rpx 4rpx 4rpx 4rpx;
 	 }
+	 .content{
+		 padding: 22rpx 18rpx;
+	 }
  }
- .top-23{
-	 margin-top: 23rpx;
+ .top-31{
+	 margin-top: 31rpx;
+ }
+ .top-22{
+	 margin-top:22rpx;
  }
  .top-19{
 	 margin-top:19rpx;
- }
- .top-10{
-	 margin-top:10rpx;
  }
  .left-6{
 	 margin-left: 6rpx;
@@ -43,20 +66,46 @@
  }
 </style>
 <template>
-	<view class="goods-list" :style="{padding: hasPadding? '30rpx 25rpx 0': '0'}">
-		<view @click="goDetail(item)" :class="['list-item lh-1']" v-for="(item,i) in list" :key="i">
-			<view class="img-wrap over-hide relative">
-				<view class="overlay full" v-show="item.isShow == 0">
-					<image src="../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
+	<view>
+		<!-- 普通商品或者积分商品 -->
+		<view v-if="from == 'goods' || from == 'point'" class="good-list-card">
+			<view @click="goDetail(item)" :class="['list-item lh-1']" v-for="(item,i) in list" :key="i">
+				<!-- 商品下架蒙尘 -->
+				<view class="img-wrap over-hide relative">
+					<view class="overlay full" v-show="item.isShow == 0">
+						<image src="../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
+					</view>
+					<image :src="item.image" class="full"></image>
 				</view>
-				<image :src="item.image" class="full"></image>
-			</view> 
-			<view class="fs-28 color-text top-19 txt-bold width-full txt-ellipsis">{{item.storeName}}</view>
-			<view class="flex-main-start fs-28 top-23">
-				<text class="color-danger">¥{{item.price|toFixed}} </text>
-				<text class="color-text-secondary del-line left-6">¥{{item.otPrice|toFixed}}</text>
+				<view class="content">
+					<!-- 商品名 -->
+					<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 56rpx;">{{item.storeName}}</view>
+					<view v-if="from == 'goods'">
+						<!-- 商品价格 -->
+						<view class="flex-main-start top-31 fs-22">
+							<text class="color-danger">¥</text>
+							<text class="color-danger fs-32">{{item.price|toFixed}} </text>
+							<text class="color-text-secondary del-line left-6">¥{{item.otPrice|toFixed}}</text>
+						</view>
+						<!-- 商户已售 -->
+						<view class="fs-20 color-text-secondary top-19 flex-main-between">
+							<text class="txt-bold">鹅把式商户</text>
+							<text class="txt-light">已售{{item.sales}}</text>
+						</view>
+					</view>
+					<view v-else class="color-danger txt-heavy fs-28">
+						199积分 
+					</view>
+				</view>
 			</view>
-			<view class="fs-24 color-text-secondary top-10">已售{{item.sales}}</view>
+		</view>
+		<!-- 团购 -->
+		<view v-else-if="from='group'">
+			
+		</view>
+		<!-- 秒杀商品 -->
+		<view v-else-if="from='seckill'">
+			
 		</view>
 	</view>
 </template>
@@ -65,19 +114,14 @@
 	export default {
 		name:'GoodsList',
 		props:{
-			list:{
+			list:{  // 列表数据，元素项暂定符合格式{storeName:"商品名",price:'商品现价',otPrice:'商品原价',sales:'已售数量',image:'商品图片'}
 				type:[Array],
 				default:[]
-			},
-			// 是否具有内边距
-			hasPadding:{
-				type:[Boolean],
-				default:true
 			},
 			// 什么来源，普通商品，秒杀商品
 			from:{
 				type:[String],
-				default:'goods'  // seckill 秒杀商品 goods 普通商品
+				default:'goods'  // seckill 秒杀商品 goods 普通商品 point 积分商品 group 团购商品
 			},
 		},
 		filters:{
@@ -107,7 +151,7 @@
 					})
 					return
 				}
-				// console.log('------限时',this.from)
+				
 				if(this.from == 'seckill'){ //秒杀商品
 					this.$yrouter.push({
 					  path: "/pages/activity/SeckillDetails/index",

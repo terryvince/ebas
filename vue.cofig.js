@@ -1,19 +1,41 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
+let stylePath = path.resolve(__dirname, 'assets/css/utils.less')
 module.exports = {
+	// css: {
+	// 		loaderOptions: {
+	// 			less: {
+	// 				// additionalData: `@import "~@/assets/css/utils.less";`,
+	// 				// additionalData: (content, loaderContext) => {
+	// 				// 	const { resourcePath, rootContext } = loaderContext;
+	// 				// 	const relativePath = path.relative(rootContext, resourcePath);
+	// 				// 	console.log('less options1:',content)
+	// 				// 	return `@import "~@/assets/css/utils.less";` + content;
+	// 				// },
+	// 				globalVars:{
+	// 					"hack": `true; @import "${stylePath}"`,
+	// 					"primary":'blue'
+	// 				}
+	// 			}
+	// 		}
+	// },
+	// chainWebpack: config =>{
+	// 	config.module.rule('less').use('less-loader').loader('less-loader').tap(options=>{
+	// 		options.additionalData = `@import "~@/assets/css/utils.less";`
+	// 		return options
+	// 	})
+	// 	return config
+	// },
 	// pluginOptions: {
-	// 	'style-resources-loader': {
-	// 		preProcessor: 'less',
-	// 		patterns: [
-	// 			// 这个是加上自己的路径,不能使用(如下:alias)中配置的别名路径
-	// 			path.resolve(__dirname, './assets/css/public.less')
-	// 		]
-	// 	}
+	//       'style-resources-loader': {
+	//         preProcessor: 'less',
+	//         patterns: [path.resolve(__dirname, "assets/css/utils.less")] // 引入全局样式变量
+	//       }
 	// },
 	configureWebpack: {
 		plugins: [
-			new CopyWebpackPlugin([{
+			new CopyWebpackPlugin([{ 
 				from: path.join(__dirname, '/subpackage/static'),
 				to: path.join(__dirname + '/unpackage/', 'dist', process.env.NODE_ENV === 'production' ? 'build' : 'dev',
 					process.env.UNI_PLATFORM, '/')

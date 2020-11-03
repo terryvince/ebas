@@ -5,6 +5,7 @@
 	}
 </style>
 <style scoped lang="less">
+	@import "~@/assets/css/utils.less";
 	.index {
 		background-color: #F6F6F6;
 	}
@@ -171,13 +172,23 @@
 		padding: 63rpx 22rpx 36rpx;
 		position: relative;
 	}
-	.coupon-list{
+	.index-coupon-list{
 		width:auto;
+		.grid(3,32,122rpx)
 		// padding: ;
 	}
 	.coupon-item{
-		height: 122rpx;
-		flex:0 0 33.333%;
+		
+		// height: 122rpx;
+		// flex:0 0 32%;
+		// margin-right: 4% / 2;
+		padding: 0 8rpx;
+		box-sizing: border-box;
+		border-radius: 16rpx;
+		border: 2rpx solid #fff;
+		// &:last-child{
+		// 	margin-right: 0;
+		// }
 	}
 	.money-img{
 		position: absolute;
@@ -185,6 +196,7 @@
 		bottom: 6rpx;
 	}
 	.color-linear-yellow{
+		color: #F1EEC3;
 		background-image: linear-gradient(0deg, #F1EEC3 0.48828125%, #FFFEF1 100%);
 		background-clip: text;
 		-webkit-background-clip: text;
@@ -264,12 +276,12 @@
 				<text>更多</text>
 				<text class="iconfont icon-jiantou fs-20"></text>
 			</view>
-			<view class="coupon-list flex-main-start">
-				<view class="coupon-item flex-main-center" style="background-color: #FFF76B5B;">
+			<view class="index-coupon-list top-10">
+				<view v-for="item of [1,2,3]" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
 					<view class="flex-main-center" style="position: relative; top: -10rpx;">
-						<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;">￥</text>
+						<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;position: relative;right: -6rpx;top: -6rpx;">￥</text>
 						<text class="color-linear-yellow txt-bold lh-1" style="font-size: 65rpx;">10</text>
-						<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 6rpx;">
+						<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
 							<text>优</text>
 							<text>惠</text>
 							<text>券</text>
@@ -293,14 +305,14 @@
 		<!-- 加一个flex容器，方便模块间排序 -->
 		<view class="flex flex-wrap">
 		<!-- 限时折扣 -->
-			<view v-if="discountList.length>0" class="discount-goods bg-white flex-1" style="order:0">
+			<view v-if="discountList.length>0" class="discount-goods flex-1" style="order:0">
 				<view class="flex-main-center">
 					<image src="https://res.chunghengtrade.com/home-title-2.png" class="home-title" mode="widthFix"></image>
 				</view>
 				<goods-list from="seckill" :list="discountList"></goods-list>
 			</view>
 			<!-- 精选商品新版 -->
-			<view v-if="pickList.length > 0" class="choice-goods bg-white x-line gray flex-1" style="order:1">
+			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
 				<view class="flex-main-center">
 					<image src="https://res.chunghengtrade.com/home-title-1.png" class="home-title" mode="widthFix"></image>
 				</view>

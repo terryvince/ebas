@@ -15,5 +15,6 @@
     "dayjs": "^1.8.22",
     "vconsole": "^3.3.4",
     "vue-ydui": "^1.2.6"
-  }
+  },
+  "devDependencies": {}
 }
