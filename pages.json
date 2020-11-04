@@ -372,13 +372,13 @@
 		{
 			"path": "pages/user/promotion/PromoterOrder/index",
 			"style": {
-				"navigationBarTitleText": "分销详情"
+				"navigationBarTitleText": "下级订单"
 			}
 		},
 		{
 			"path": "pages/user/promotion/PromoterList/index",
 			"style": {
-				"navigationBarTitleText": "分销列表"
+				"navigationBarTitleText": "推广人统计"
 			}
 		},
 		{
