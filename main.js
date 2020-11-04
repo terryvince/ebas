@@ -38,6 +38,8 @@ Vue.prototype.$validator = function(rule) {
 	return new schema(rule);
 };
 
+Vue.prototype.toPx = uni.upx2px;
+
 Vue.filter('toFixed',function(value, keepNumber=2){
 	// console.log(value, '调用toFixed过滤器')
 	if(typeof value !== 'number'){

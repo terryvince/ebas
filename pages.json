@@ -224,7 +224,7 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "中恒跨境商城",
+				"navigationBarTitleText": "鹅把式商城",
 				"navigationBarBackgroundColor":"#FFFFFF"
 			}
 		},

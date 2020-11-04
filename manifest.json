@@ -158,6 +158,7 @@
             "treeShaking" : {
                 "enable" : true
             }
-        }
+        },
+        "title" : "鹅把式商城"
     }
 }

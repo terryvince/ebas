@@ -33,10 +33,11 @@
 		.letter-box{
 			position: absolute;
 			height: 220rpx;
-			left: -28rpx;
-			right: -24rpx;
-			bottom: -220rpx;
-			background: white;
+			left: -32rpx;
+			right: -30rpx;
+			bottom: -200rpx;
+			background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/protocol-1-v1.png)no-repeat center;
+			background-size: 100% 100%;
 		}
 	}
 </style>
