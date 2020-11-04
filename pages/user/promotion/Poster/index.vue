@@ -14,7 +14,7 @@
         </block>
       </swiper>
     </view>
-    <view class="keep bg-color-red" @click="saveImg">保存海报</view>
+    <view class="keep bg-color-green" @click="saveImg">保存海报</view>
   </view>
 </template>
 <script>

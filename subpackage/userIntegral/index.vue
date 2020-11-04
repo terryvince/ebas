@@ -1,7 +1,7 @@
 <style lang="less">
 	/*我的账户*/
 	.user-account .wrapper {
-		background-color: #fff;
+		background-color: none !important;
 		// padding: 0.32*100rpx 0 0.34*100rpx 0;
 		padding-top: 0rpx;
 		// margin-bottom: 0.14*100rpx;
@@ -9,7 +9,7 @@
 
 	.user-account .wrapper .header {
 		width: 100%;
-		height: 2.5*100rpx;
+		height: 2.0*100rpx;
 		// background-image: linear-gradient(to right, #eb3729 0%, #eb3729 100%);
 		// background-image: -moz-linear-gradient(to right, #eb3729 0%, #eb3729 100%);
 		border-radius: 0.16*100rpx;
@@ -20,11 +20,12 @@
 	}
 
 	.user-account .wrapper .header .headerCon {
-		background-image: url('https://res.chunghengtrade.com/personal-bg.png');
+		background-image: url('http://qj5wtf3w8.hn-bkt.clouddn.com/img-usercredit-bg.png');
 		background-repeat: no-repeat;
 		background-size: 100%;
 		height: 100%;
-		width: 100%+2rpx;
+		width: 100%+1;
+		margin-left: -4rpx;
 		// padding: 0.36*100rpx 0 0.29*100rpx 0;
 	}
 
@@ -47,11 +48,11 @@
 	.user-account .wrapper .header .headerCon .account .recharge {
 		font-size: 0.20*100rpx;
 		// margin-top: 40rpx;
-		width: 1.6*100rpx;
-		height: 0.54*100rpx;
+		width: 1.2*100rpx;
+		height: 0.44*100rpx;
 		border-radius: 0.27*100rpx;
 		text-align: center;
-		line-height: 0.54*100rpx;
+		line-height: 0.44*100rpx;
 		margin-top: 60rpx;
 		border-style: solid;
 		border-width: 1rpx;
@@ -78,7 +79,7 @@
 
 		position: fixed;
 		top: 190rpx;
-		bottom: 150rpx;
+		bottom: 0rpx;
 
 		.cell {
 			background-color: #FFF;
@@ -117,38 +118,14 @@
 		}
 	}
 
-	.user-account .continueView {
-		background-color: #fff;
-		width: 100%;
-		height: 140rpx;
-		position: fixed;
-		bottom: 0rpx;
-
-		.continue {
-			background-color: #3B89FF;
-			width: auto;
-			height: 100rpx;
-			right: 20rpx;
-			left: 20rpx;
-			bottom: 25rpx;
-			position: fixed;
-			border-radius: 10rpx;
-			text-align: center;
-			align-items: center;
-			color: #ffffff;
-			font-size: 30rpx;
-			line-height: 100rpx;
-		}
-	}
-
 	.fixed-header {
 		position: fixed;
 		z-index: -1;
 		top: 0;
 		left: 0;
 		right: 0;
-		background: #fff;
-		box-shadow: 0 0 20rpx -10rpx #aaa;
+		// background: #fff;
+		// box-shadow: 0 0 20rpx -10rpx #aaa;
 	}
 </style>
 
@@ -163,8 +140,7 @@
 							<view class="money">{{ info.integral }}</view>
 						</view>
 						<navigator url="/subpackage/userIntegral/transferRule" class="recharge font-color-whitle">
-							<image class="rechargeIcon" src="/subpackage/static/userAccount/withdraw.png" mode="aspectFit"></image>
-							转换规则
+							积分说明
 						</navigator>
 					</view>
 				</view>
@@ -184,13 +160,6 @@
 				</view>
 			</view>
 		</scroll-view>
-
-		<view class="continueView">
-			<view class="continue" @click="continueAction">
-				积分转换余额
-			</view>
-		</view>
-
 	</view>
 </template>
 

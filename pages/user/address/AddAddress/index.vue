@@ -1,59 +1,84 @@
 <template>
-  <view class="addAddress absolute">
-    <view class="list">
-      <view class="item acea-row row-between-wrapper">
-        <view class="name">姓名</view>
-        <input type="text" placeholder="请输入姓名" v-model="userAddress.realName" required />
-      </view>
-      <view class="item acea-row row-between-wrapper">
-        <view class="name">联系电话</view>
-        <input type="text" placeholder="请输入联系电话" v-model="userAddress.phone" required />
-      </view>
-      <view class="item acea-row row-between-wrapper">
-        <view class="name">所在地区</view>
-        <view class="picker acea-row row-between-wrapper select-value form-control">
-          <view class="address">
-            <CitySelect
-              ref="cityselect"
-              :defaultValue="addressText"
-              @callback="result"
-              :items="district"
-            ></CitySelect>
-          </view>
-          <view class="iconfont1 icon-dizhi1 font-color-red"></view>
-        </view>
-      </view>
-      <view class="item acea-row row-between-wrapper">
-        <view class="name">详细地址</view>
-        <input type="text" placeholder="请填写具体地址" v-model="userAddress.detail" required />
-      </view>
-    </view>
-    <view class="default acea-row row-middle">
-      <view class="select-btn">
-        <view class="checkbox-wrapper">
-          <checkbox-group @change="ChangeIsDefault">
-            <label class="well-check">
-              <checkbox value :checked="userAddress.isDefault ? true : false"></checkbox>
-              <text class="def">设置为默认地址</text>
-            </label>
-          </checkbox-group>
-        </view>
-      </view>
-    </view>
-    <view></view>
-    <view class="keepBnt bg-color-green" @tap="submit">立即保存</view>
-    <view class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</view>
-  </view>
+	<view class="addAddress absolute">
+		<view class="list">
+			<view class="item acea-row row-between-wrapper">
+				<view class="name">姓名：</view>
+				<input type="text" placeholder="请输入姓名" v-model="userAddress.realName" required />
+			</view>
+			<view class="item acea-row row-between-wrapper">
+				<view class="name">电话：</view>
+				<input type="text" placeholder="请输入联系电话" v-model="userAddress.phone" required />
+			</view>
+			<view class="item acea-row row-between-wrapper">
+				<view class="name">地区</view>
+				<view class="picker acea-row row-between-wrapper select-value form-control">
+					<view class="address">
+						<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText"  @callback="result" :items="district"></CitySelect>
+					</view>
+					<view class="iconfont icon-jiantou"></view>
+				</view>
+			</view>
+			<view class="item acea-row row-between-wrapper">
+				<view class="name">详细地址</view>
+				<input type="text" placeholder="请填写具体地址" v-model="userAddress.detail" required />
+			</view>
+		</view>
+		<view class="default acea-row row-middle">
+			<view class="select-btn">
+				<view class="checkbox-wrapper">
+					<checkbox-group @change="ChangeIsDefault">
+						<label class="well-check">
+							<checkbox value :checked="userAddress.isDefault ? true : false"></checkbox>
+							<text class="def">设置为默认地址</text>
+						</label>
+					</checkbox-group>
+				</view>
+			</view>
+		</view>
+		<view></view>
+		<view v-if="id" class="keepBnt button-del" @tap="delAddress">删除地址</view>
+		<view class="keepBnt bg-color-green" @tap="submit">立即保存</view>
+		<!-- 		<view class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</view> -->
+	</view>
 </template>
 
+
+<style lang="less">
+	.address {
+		text {
+			width: 100%;
+			display: block;
+		}	
+	}
+	.addAddress{
+		padding: 20rpx;
+		border-radius: 10rpx;
+	}
+	.addAddress .list .item .name {
+		width: auto;
+	}
+	.keepBnt{
+		margin-top: 20rpx !important; 
+	}
+	.button-del{
+		margin-top: 60rpx !important; 
+		margin-bottom: 10rpx !important;
+		background-color: #CCCCCC;
+	}
+	.iconfont {
+	    font-size: 26rpx !important;
+	    color: #666;
+	}
+</style>
+
 <script type="text/babel">
-import CitySelect from "@/components/CitySelect";
-import { getAddress, postAddress, getCity } from "@/api/user";
+	import CitySelect from "@/components/CitySelect";
+import { getAddress, postAddress, getCity,  getAddressRemove,
+  getAddressDefaultSet,} from "@/api/user";
 import attrs, { required, chs_phone } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
 // import { openAddress } from "@/libs/wechat";
 import { isWeixin } from "@/utils";
-
 export default {
   name: "AddAddress",
   components: {
@@ -66,7 +91,7 @@ export default {
       userAddress: { isDefault: 0 },
       address: {},
       isWechat: isWeixin(),
-      addressText: ""
+      addressText: "111"
     };
   },
   mounted: function() {
@@ -76,11 +101,46 @@ export default {
     this.getCityList();
   },
   watch: {
-    addressText(nextModel2) {
-      console.log(nextModel2, 8585858585);
-    }
+    // addressText(nextModel2) {
+    //   console.log(nextModel2, 8585858585);
+    // }
   },
   methods: {
+	  /**
+	   * 删除地址
+	   */
+	  delAddress: function(index) {
+		  var that = this;
+		  uni.showModal({
+		        title: '提示',
+		        content: '确认删除该地址?',
+		        success(res) {
+						    let id = that.id;
+						    getAddressRemove(id).then(function() {
+						      uni.showToast({
+						        title: "删除成功!",
+						        icon:"success",
+						        duration: 2000,
+						        complete: () => {
+											uni.navigateBack({
+													delta: 1
+											});
+						        }
+						      });
+						    });
+							}
+		   })
+	  },
+	  /**
+	   * 设置默认地址
+	   */
+	  radioChange: function(id) {
+	    getAddressDefaultSet(id).then(res => {
+	      this.refresh();
+	      uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
+	    });
+	  },
+	  
     getCityList: function() {
       let that = this;
       getCity()
@@ -94,14 +154,13 @@ export default {
     },
     getUserAddress: function() {
       if (!this.id) return false;
-      let that = this;
-      getAddress(that.id).then(res => {
-        that.userAddress = res.data;
-        that.addressText =
-          res.data.province + " " + res.data.city + " " + res.data.district;
-        that.address.province = res.data.province;
-        that.address.city = res.data.city;
-        that.address.district = res.data.district;
+      getAddress(this.id).then(res => {
+        this.userAddress = res.data;
+        this.addressText = res.data.province + " " + res.data.city + " " + res.data.district;
+        this.address.province = res.data.province;
+        this.address.city = res.data.city;
+        this.address.district = res.data.district;
+		this.$forceUpdate()
       });
     },
     getAddress() {},
@@ -187,12 +246,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-.address {
-  text {
-    width: 100%;
-    display: block;
-  }
-}
-</style>

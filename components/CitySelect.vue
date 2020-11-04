@@ -91,7 +91,7 @@ export default {
     uniPopupMessage,
     uniPopupDialog
   },
-  props: ["callback", "items", "defaultValue"],
+  props: ["callback", "items", "defaultValue","value1"],
   data() {
     return {
       value: "请选择",
@@ -109,7 +109,10 @@ export default {
     items(nextItem) {
       console.log(nextItem);
       this.province = nextItem;
-    }
+    },
+	value1(value1){
+		this.value = value1;
+	}
   },
   mounted() {
     console.log(this);
@@ -249,8 +252,8 @@ export default {
     text-overflow: ellipsis;
     max-width: 40%;
     &.active {
-      color: #f23030 !important;
-      border-bottom: 1rpx solid #f23030;
+      color: #6ED470 !important;
+      border-bottom: 1rpx solid #6ED470;
     }
   }
 }

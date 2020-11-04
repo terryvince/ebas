@@ -1,55 +1,23 @@
 <template>
 	<view class="address-management" :class="addressList.length < 1 && page > 1 ? 'on' : ''" ref="container">
-		<!-- 		<view class="line" v-if="addressList.length > 0">
-			<image src="@/static/images/line.jpg" />
-		</view> -->
 		<view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
 			<view class="address">
-				<view class="consignee">
-					{{ item.realName }}
-					<text class="phone">{{ item.phone }}</text>
-					<text class="left-10 bg-color-green color-white padding-5 txt-center  fs-20">默认</text>
+				<view style="margin-right: 100rpx;">
+					<view class="consignee">
+						{{ item.realName }}
+						<text class="phone">{{ item.phone }}</text>
+						<text v-if="item.isDefault==1" class="left-10 bg-color-green color-white padding-5 txt-center  fs-20">默认</text>
+					</view>
+					<view class="address-detail">
+						{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+					</view>
 				</view>
-				<view class="address-detail">
-					{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
-				</view>
-				
+
 				<view @click="editAddress(addressListIndex)">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-address-edit.png" mode="" class="address-edit"></image>
-					<!-- http://qj5wtf3w8.hn-bkt.clouddn.com/icon-address-edit.png -->
 				</view>
+
 			</view>
-			<!-- 			<view class="operation acea-row row-between-wrapper">
-				<view class="select-btn">
-					<view class="checkbox-wrapper">
-						<checkbox-group @change="radioChange(item.id)">
-							<label class="well-check">
-								<checkbox value :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
-								<text class="default">设为默认</text>
-							</label>
-						</checkbox-group> -->
-			<!-- <label class="well-check">
-              <input
-                type="radio"
-                name="default"
-                value
-                :checked="item.isDefault ? true : false"
-                @click="radioChange(addressListIndex)"
-              />
-              <i class="icon"></i>
-              <text class="default">设为默认</text>
-            </label>-->
-			<!-- 					</view>
-				</view>
-				<view class="acea-row row-middle">
-					<view @click="editAddress(addressListIndex)">
-						<text class="iconfont icon-bianji"></text>编辑
-					</view>
-					<view @click="delAddress(addressListIndex)">
-						<text class="iconfont icon-shanchu"></text>删除
-					</view>
-				</view>
-			</view> -->
 		</view>
 		<Loading :loaded="loadend" :loading="loading"></Loading>
 		<view class="noCommodity" v-if="addressList.length < 1 && page > 1">
@@ -62,15 +30,6 @@
 			<view class="addressBnt on bg-color-green" @click="addAddress">
 				添加收货地址
 			</view>
-			<!--      <view class="addressBnt bg-color-red" v-if="isWechat" @click="addAddress">
-        <text class="iconfont icon-tianjiadizhi"></text>添加新地址
-      </view>
-      <view class="addressBnt on bg-color-red" v-else @click="addAddress">
-        <text class="iconfont icon-tianjiadizhi"></text>添加新地址
-      </view> -->
-			<!--<view class="addressBnt wxbnt" v-if="isWechat" @click="getAddress">-->
-			<!--<text class="iconfont icon-weixin2"></text>导入微信地址-->
-			<!--</view>-->
 		</view>
 	</view>
 </template>
@@ -97,12 +56,16 @@
 	font-size: 28rpx !important;
 	color: #828282;
 }
+.address{
+	position: relative;
+}
+
 .address-edit{
 	width: 16*2rpx;
 	height: 14*2rpx;
-	position: fixed;
-	right: 50rpx;
-	top: 90rpx;
+	position: absolute;
+	right: 20rpx;
+	top: 60rpx;
 }
 
 </style>
@@ -165,43 +128,15 @@ export default {
         that.page = that.page + 1;
       });
     },
-    /**
-     * 编辑地址
-     */
-    editAddress: function(index) {
-      this.$yrouter.push({
-        path: "/pages/user/address/AddAddress/index",
-        query: { id: this.addressList[index].id }
-      });
-    },
-    /**
-     * 删除地址
-     */
-    delAddress: function(index) {
-      let that = this;
-      let address = this.addressList[index];
-      let id = address.id;
-      getAddressRemove(id).then(function() {
-        uni.showToast({
-          title: "删除成功!",
-          icon:"success",
-          duration: 2000,
-          complete: () => {
-            that.addressList.splice(index, 1);
-            that.$set(that, "addressList", that.addressList);
-          }
-        });
-      });
-    },
-    /**
-     * 设置默认地址
-     */
-    radioChange: function(id) {
-      getAddressDefaultSet(id).then(res => {
-        this.refresh();
-        uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
-      });
-    },
+       /**
+        * 编辑地址
+        */
+       editAddress: function(index) {
+         this.$yrouter.push({
+           path: "/pages/user/address/AddAddress/index",
+           query: { id: this.addressList[index].id }
+         });
+       },
     /**
      * 新增地址
      */
@@ -210,44 +145,6 @@ export default {
         path: "/pages/user/address/AddAddress/index"
       });
     },
-    getAddress() {
-      // openAddress().then(userInfo => {
-      //   uni.showLoading({ title: "加载中" });
-      //   postAddress({
-      //     real_name: userInfo.userName,
-      //     phone: userInfo.telNumber,
-      //     address: {
-      //       province: userInfo.provinceName,
-      //       city: userInfo.cityName,
-      //       district: userInfo.countryName
-      //     },
-      //     detail: userInfo.detailInfo,
-      //     post_code: userInfo.postalCode,
-      //     wx_export: 1
-      //   })
-      //     .then(() => {
-      //       this.page = 1;
-      //       this.loading = false;
-      //       this.loadend = false;
-      //       this.addressList = [];
-      //       this.AddressList();
-      //       uni.hideLoading();
-      // uni.showToast({
-      // 											title: "添加成功",
-      // 											icon: 'success',
-      // 											duration: 2000
-      // 										});
-      //     })
-      //     .catch(err => {
-      //       uni.hideLoading();
-      // uni.showToast({
-      // 	title: err.msg || err.response.data.msg|| err.response.data.message,
-      // 	icon: 'none',
-      // 	duration: 2000
-      // });
-      //     });
-      // });
-    }
   }
 };
 </script>
