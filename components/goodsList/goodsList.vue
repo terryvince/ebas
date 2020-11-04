@@ -93,19 +93,20 @@
 							<text class="txt-light">已售{{item.sales}}</text>
 						</view>
 					</view>
+					<!-- 积分商品 -->
 					<view v-else class="color-danger txt-heavy fs-28">
-						199积分 
+						{{item.price}}积分 
 					</view>
 				</view>
 			</view>
 		</view>
 		<!-- 团购 -->
-		<view v-else-if="from='group'">
-			
+		<view v-else-if="from=='group'">
+			11
 		</view>
 		<!-- 秒杀商品 -->
-		<view v-else-if="from='seckill'">
-			
+		<view v-else-if="from=='seckill'">
+			22
 		</view>
 	</view>
 </template>

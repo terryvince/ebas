@@ -8,6 +8,7 @@
 	@import "~@/assets/css/utils.less";
 	.index {
 		background-color: #F6F6F6;
+		padding-bottom: 30rpx;
 	}
 
 	.fixed-header {
