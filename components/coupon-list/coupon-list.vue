@@ -74,7 +74,7 @@
 			<text class="iconfont icon-jiantou fs-20"></text>
 		</view>
 		<view class="index-coupon-list top-10">
-			<view v-for="item of [1,2,3]" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
+			<view v-for="item of list" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
 				<view class="flex-main-center" style="position: relative; top: -10rpx;">
 					<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;position: relative;right: -6rpx;top: -6rpx;">￥</text>
 					<text class="color-linear-yellow txt-bold lh-1" style="font-size: 65rpx;">10</text>
@@ -93,6 +93,12 @@
 
 <script>
 	export default {
+		props:{
+			list:{
+				type:[Array],
+				default:[]
+			}
+		},
 		data() {
 			return {
 				

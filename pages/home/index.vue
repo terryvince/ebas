@@ -257,7 +257,7 @@
 		</view>
 		
 		<!-- 优惠券栏 -->
-		<coupon-list></coupon-list>
+		<coupon-list :list="[1,2,3]"></coupon-list>
 		
 		<!-- <view class="notice flex-main-between top-20">
 			<view class="fs-34 txt-bold txt-italic flex-none">
