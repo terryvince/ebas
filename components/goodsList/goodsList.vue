@@ -64,7 +64,7 @@
 	 }
  }
  .group-list{
-	 background-color: white;
+	 // background-color: white;
 	.group-img-wrap{
 		width: 279rpx;
 		height: 212rpx;
@@ -89,7 +89,7 @@
 	}
  }
  .seckill-list{
- 	 background-color: white;
+ 	 // background-color: white;
  	.seckill-img-wrap{
  		width: 279rpx;
  		height: 212rpx;

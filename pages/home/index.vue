@@ -211,6 +211,35 @@
 		padding:9rpx 11rpx;
 		box-sizing: border-box;
 	}
+	.group-list{
+		min-height: 400rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-bg-green.png) no-repeat left top,#fff;
+		background-size: 100% 280rpx;
+		padding: 48rpx 20rpx 28rpx;
+		border-radius: 20rpx;
+	}
+	.group-title-img{
+		width: 29rpx;
+		height: 29rpx;
+	}
+	.seckill-title-img{
+		width: 31rpx;
+		height: 31rpx;
+	}
+	.seckill-list{
+		min-height: 400rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-bg-red.png)no-repeat left top,#fff;
+		background-size: 100% 250rpx;
+		padding: 54rpx 20rpx 28rpx;
+		border-radius: 20rpx;
+	}
+	.pick-more{
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+	}
 </style>
 <template>
 	<view class="index">
@@ -315,20 +344,39 @@
 			</view> -->
 			<!-- 精选商品新版 -->
 			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
-				<view class="flex-main-center">
+				<view class="flex-main-center relative">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
+					<view class="pick-more fs-20 color-text-secondary flex-main-start">
+						<text>更多</text>
+						<view class="iconfont icon-jiantou fs-20"></view>
+					</view>
 				</view>
 				<goods-list :list="pickList"></goods-list>
 			</view>
 			
 			<!-- 团购 -->
-			<view class="xxx top-30 flex-1" style="order:2">
+			<view class="group-list top-30 flex-1" style="order:2">
+				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
+					<view class="flex-main-start fs-34 txt-heavy">
+						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-mark.png" class="group-title-img"></image>
+						<text class="left-10 lh-1">商品团购</text>
+					</view>
+					<view class="flex-main-start fs-20">
+						<text class="txt-bold">更多</text>
+						<view class="iconfont icon-jiantou fs-20 left-5"></view>
+					</view>
+				</view>
 				<goods-list :list="pickList" from="group"></goods-list>
 			</view>
 			
 			<!-- 秒杀, -->
-			<view v-if="discountList.length>0" class="xxx top-30 flex-1" style="order:3">
-				<goods-list :list="discountList" from="seckill"></goods-list>
+			<view class="seckill-list top-30 flex-1" style="order:3">
+				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
+					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
+					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
+					<!-- <text></text> -->
+				</view>
+				<goods-list :list="pickList" from="seckill"></goods-list>
 			</view>
 		</view>
 		
@@ -477,8 +525,6 @@
 			}).catch(console.error)
 		},
 		onShow: function() {
-			// 测试专用启动跳转
-			// this.$yrouter.push('/subpackage/mediaPlay/videoPlay/videoPlay')
 			
 			this.getLocation()
 			let that = this;
