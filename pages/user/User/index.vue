@@ -1,3 +1,74 @@
+<style scoped lang="less">
+.footer-line-height {
+  height: 1 * 100rpx;
+}
+
+.order-status-num {
+  min-width: 0.33 * 100rpx;
+  background-color: #fff;
+  color: #eb3729;
+  border-radius: 15px;
+  position: absolute;
+  right: -0.14 * 100rpx;
+  top: -0.15 * 100rpx;
+  font-size: 0.2 * 100rpx;
+  padding: 0 0.08 * 100rpx;
+  border: 1px solid #eb3729;
+}
+
+.pictrue {
+  position: relative;
+}
+
+.switch-h5 {
+  margin-left: 0.2 * 100rpx;
+}
+
+.binding {
+  margin-top: 0.1 * 100rpx;
+  display: inline-block;
+  padding: 0.05 * 100rpx 0.2 * 100rpx;
+  background-color: transparent;
+  border-radius: 50px;
+  font-size: 0.22 * 100rpx;
+  line-height: 1.5;
+  border: 2rpx solid #E3E3E3;
+  color: #ffffff;
+  margin-top: 20rpx;
+  &::after{
+	  border: none;
+  }
+}
+
+.by {
+  text-align: center;
+  padding: 30rpx 0;
+}
+.by-text {
+  text-align: center;
+  font-size: 24rpx;
+}
+.identity{
+	height: 33rpx;
+	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-2.png)no-repeat left top,#fff;
+	background-size: 98rpx 100%;
+	padding-left:40rpx;
+	padding-right: 16rpx;
+	box-sizing: border-box;
+	border-radius: 10rpx;
+}
+.my-point{
+	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-3.png)no-repeat center;
+	background-size: 100% 100%;
+}
+.shopping-point{
+	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-4.png)no-repeat center;
+	background-size: 100% 100%;
+}
+.my-point,.shopping-point{
+	height: 140rpx;
+}
+</style>
 <template>
   <view class="user">
     <view v-if="$store.getters.token||userInfo.uid">
@@ -9,10 +80,12 @@
           <view class="text">
             <view class="acea-row row-middle">
               <view class="name line1">{{ userInfo.nickname }}</view>
-              <view class="member acea-row row-middle" v-if="userInfo.vip">
+              <!-- <view class="member acea-row row-middle" v-if="userInfo.vip">
                 <image :src="userInfo.vipIcon" />
                 <text>{{ userInfo.vipName }}</text>
-              </view>
+              </view> -->
+			  <!-- vip -->
+			  <view class="identity color-cyan fs-24 txt-normal left-10">养殖户</view>
             </view>
             <view @click="goPersonalData()" class="id" v-if="userInfo.phone">
               <text>ID：{{ userInfo.uid || 0}}</text>
@@ -30,8 +103,8 @@
         </view>
         <text class="iconfont icon-shezhi" @click="goPersonalData()"></text>
       </view>
-      <view class="wrapper z-index-2 relative" style="margin-top: -72rpx;">
-        <view class="nav acea-row row-middle">
+      <view class="wrapper z-index-2 relative" style="margin-top: 20rpx;">
+        <!-- <view class="nav acea-row row-middle">
           <view @click="goUserAccount()" class="item">
             <text>我的余额</text>
             <text class="num">{{ userInfo.nowMoney || 0 }}</text>
@@ -52,8 +125,18 @@
             <text>转盘活动</text>
             <text class="num">{{ lotteryTypeNum || 0 }}</text>
           </view>
-        </view>
-        <view class="myOrder">
+        </view> -->
+		<!-- 我的积分,积分商城 -->
+		<view class="flex-main-between fs-26 color-white txt-heavy lh-1">
+			<view class="my-point flex-main-center flex-column flex-1">
+				<text>我的积分</text>
+				<text class="top-25 txt-medium">9999</text>
+			</view>
+			<view class="shopping-point flex-main-center left-10 flex-1">
+				<text>积分商城</text>
+			</view>
+		</view>
+        <view class="myOrder top-20">
           <view class="title acea-row row-between-wrapper">
             <text>我的订单</text>
             <text @click="goMyOrder()" class="allOrder">
@@ -135,11 +218,7 @@
           </view>
         </view>
       </view>
-      <view class="by">
-        <!-- <view>
-          <text class="by-text">www.yixiang.co提供技术支持</text>
-        </view> -->
-      </view>
+      <view class="by"></view>
       <!-- <SwitchWindow
         v-on:changeswitch="changeswitch"
         :switchActive="switchActive"
@@ -395,56 +474,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-.binding{
-	background-color: transparent!important;
-	border-color: rgba(227,227,227,1)!important;
-	margin-top: 20rpx!important;
-}
-.footer-line-height {
-  height: 1 * 100rpx;
-}
-
-.order-status-num {
-  min-width: 0.33 * 100rpx;
-  background-color: #fff;
-  color: #eb3729;
-  border-radius: 15px;
-  position: absolute;
-  right: -0.14 * 100rpx;
-  top: -0.15 * 100rpx;
-  font-size: 0.2 * 100rpx;
-  padding: 0 0.08 * 100rpx;
-  border: 1px solid #eb3729;
-}
-
-.pictrue {
-  position: relative;
-}
-
-.switch-h5 {
-  margin-left: 0.2 * 100rpx;
-}
-
-.binding {
-  margin-top: 0.1 * 100rpx;
-  display: inline-block;
-  padding: 0.05 * 100rpx 0.2 * 100rpx;
-  background-color: #ca1f10;
-  border-radius: 50px;
-  font-size: 0.22 * 100rpx;
-  line-height: 1.5;
-  border: 1px solid #e8695e;
-  color: #ffffff;
-}
-
-.by {
-  text-align: center;
-  padding: 30rpx 0;
-}
-.by-text {
-  text-align: center;
-  font-size: 24rpx;
-}
-</style>

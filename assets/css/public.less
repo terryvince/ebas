@@ -13,6 +13,9 @@
 .color-primary{
   color:#00C65D;
 }
+.color-cyan{
+	color: #09BD93;
+}
 
 .color-placeholder{
 	color: #909090;
@@ -380,8 +383,10 @@ each(range(5,30,5),{
 	margin: 0;
 	box-sizing: border-box;
 	line-height: 1;
-	border: none;
-	outline: none;
+	border: 2rpx solid transparent;
+	&::after{
+		border: none;
+	}
 	&.btn-fix-width{
 		width: 116rpx;
 		padding: 14rpx 0;
