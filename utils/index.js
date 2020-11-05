@@ -161,8 +161,29 @@ export const login = () => {
 			// 调用登录接口
 			console.log('调用登录接口, 环境:',Vue.prototype.$deviceType)
 			if(Vue.prototype.$deviceType == 'h5'){
-				console.log('h5登录，暂未实现。。。',uni.getStorageSync('wxcode'))
-				
+				// console.log('h5登录，暂未实现。。。',uni.getStorageSync('wxcode'))
+				wxappAuth({
+					code: uni.getStorageSync('wxcode'),
+					spread: cookie.get("spread")
+				},'h5').then(({data})=>{
+					console.log('登录接口调用成功')
+					console.log('开始处理登录信息保存，并获取用户详情')
+					uni.hideLoading();
+					store.commit("login", data.token, dayjs(data.expires_time));
+					store.dispatch('userInfo', true)
+					getUserInfo().then(user => {
+						console.log('获取用户信息成功')
+						store.dispatch('setUserInfo', user.data)
+						resolve(user)
+					}).catch(error => {
+						console.log('获取用户信息失败')
+						reject('获取用户信息失败')
+					});
+				}).catch(error => {
+					console.log(error)
+					console.log('登录接口调用失败')
+					reject('登录接口调用失败')
+				});
 				return
 			}
 			uni.login({
@@ -170,8 +191,8 @@ export const login = () => {
 				success: function (loginRes) {
 					// 微信登录
 					console.log('登录接口调用成功')
-					console.log('开始检查用户信息授权')
 					let code = loginRes.code;
+					console.log('开始检查用户信息授权', code)
 					// 检查授权， 检查用户信息授权
 					authorize('userInfo').then(() => {
 						console.log('授权通过')

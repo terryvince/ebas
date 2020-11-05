@@ -1,7 +1,7 @@
 import request from "@/utils/request";
 
 /**
- * 省市区
+ * 省市区wxappAuth
  */
 export function getCity(data) {
 	return request.get("/city_list", data, {
@@ -123,8 +123,12 @@ export function getUserInfo() {
 /*
  * 小程序登陆
  * */
-export function wxappAuth(data) {
-
+export function wxappAuth(data,from) {
+	if(from == 'h5'){
+		return request.get("/wechat/auth", data, {
+			login: false
+		});
+	}
 	return request.post("/wxapp/auth", data, {
 		login: false
 	});

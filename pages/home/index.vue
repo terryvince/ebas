@@ -101,7 +101,7 @@
 			overflow: hidden;
 		}
 		.icon-search{
-			width: 34rpx;
+			width: 22rpx;
 		}
 		.search-button{
 			box-sizing: border-box;
@@ -148,7 +148,7 @@
 	}
 	.home-title{
 		padding:45rpx 0;
-		width: 336rpx;
+		width: 210rpx;
 	}
 	.color-placeholder{
 		color: #909090;
@@ -169,8 +169,9 @@
 	.index-coupon-wrap{
 		width: auto;
 		margin:0 20rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-coupon.png)no-repeat center;
 		background-size: 100% 100%;
-		padding: 63rpx 22rpx 36rpx;
+		padding: 24rpx 22rpx 36rpx;
 		position: relative;
 	}
 	.index-coupon-list{
@@ -193,7 +194,7 @@
 	}
 	.money-img{
 		position: absolute;
-		left: 22rpx;
+		left: 10rpx;
 		bottom: 6rpx;
 	}
 	.color-linear-yellow{
@@ -217,7 +218,7 @@
 			<view @click="goGoodSearch()" class="search flex-main-start relative">
 				<!-- <text class="iconfont icon-xiazai5"></text> -->
 				<view class="acea-row row-middle">
-					<image class="icon-search" src="../../static/icon-search-red.png" mode="widthFix"></image>
+					<image class="icon-search" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
 					<span class="y-line left-10"></span>
 					<text class="left-10 color-placeholder">搜索请输入关键词</text>
 				</view>
@@ -244,19 +245,19 @@
 		<!-- 间隙文字 -->
 		<view class="features-box flex-main-between">
 			<view class="feature flex-main-start">
-				<image src="../../static/logo.png" style="width: 19rpx;height: 19rpx;" mode=""></image>
+				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-1.png" style="width: 19rpx;height: 19rpx;" mode=""></image>
 				<text>优选严检</text>
 			</view>
 			<view class="feature flex-main-start">
-				<image src="../../static/logo.png" style="width: 23rpx;height: 19rpx;" mode=""></image>
+				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-2.png" style="width: 23rpx;height: 19rpx;" mode=""></image>
 				<text>品质溯源</text>
 			</view>
 			<view class="feature flex-main-start">
-				<image src="../../static/logo.png" style="width: 16rpx;height: 20rpx;" mode=""></image>
+				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-3.png" style="width: 16rpx;height: 20rpx;" mode=""></image>
 				<text>全程安全</text>
 			</view>
 			<view class="feature flex-main-start">
-				<image src="../../static/logo.png" style="width: 20rpx;height: 19rpx;" mode=""></image>
+				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-4.png" style="width: 20rpx;height: 19rpx;" mode=""></image>
 				<text>专享客服</text>
 			</view>
 		</view>
@@ -272,8 +273,8 @@
 		</view>
 		
 		<!-- 优惠券栏 -->
-		<view class="index-coupon-wrap" style="background: linear-gradient(0deg, #FE413F 0%, #FF6C5C 100%);">
-			<view class="more flex-main-end fs-20 color-white" style="margin-top: 18rpx;">
+		<view class="index-coupon-wrap">
+			<view class="more flex-main-end fs-20 color-white">
 				<text>更多</text>
 				<text class="iconfont icon-jiantou fs-20"></text>
 			</view>
@@ -291,7 +292,7 @@
 					<view class="color-red fs-20 radius-btn">点击领取</view>
 				</view>
 			</view>
-			<image class="money-img" src="../../static/logo.png" style="width: 74rpx;height: 62rpx;"></image>
+			<image class="money-img" src="http://qj5wtf3w8.hn-bkt.clouddn.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
 		</view>
 		
 		<!-- <view class="notice flex-main-between top-20">
@@ -304,81 +305,33 @@
 		</view> -->
 		
 		<!-- 加一个flex容器，方便模块间排序 -->
-		<view class="flex flex-wrap">
+		<view class="flex flex-wrap padding-beside-20">
 		<!-- 限时折扣 -->
-			<view v-if="discountList.length>0" class="discount-goods flex-1" style="order:0">
+			<!-- <view v-if="discountList.length>0" class="discount-goods flex-1" style="order:0">
 				<view class="flex-main-center">
 					<image src="https://res.chunghengtrade.com/home-title-2.png" class="home-title" mode="widthFix"></image>
 				</view>
 				<goods-list from="seckill" :list="discountList"></goods-list>
-			</view>
+			</view> -->
 			<!-- 精选商品新版 -->
 			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
 				<view class="flex-main-center">
-					<image src="https://res.chunghengtrade.com/home-title-1.png" class="home-title" mode="widthFix"></image>
+					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
 				</view>
 				<goods-list :list="pickList"></goods-list>
 			</view>
+			
+			<!-- 团购 -->
+			<view class="xxx top-30 flex-1" style="order:2">
+				<goods-list :list="pickList" from="group"></goods-list>
+			</view>
+			
+			<!-- 秒杀, -->
+			<view v-if="discountList.length>0" class="xxx top-30 flex-1" style="order:3">
+				<goods-list :list="discountList" from="seckill"></goods-list>
+			</view>
 		</view>
-		<!-- 精选商品旧版 -->
-	<!-- 	<view class="wrapper" v-if="bastList.length > 0">
-			<view class="title no-border acea-row row-between-wrapper">
-				<view class="text">
-					<div class="name line1">
-						 <span class="iconfont icon-jingpintuijian"></span>
-			  <span class="label">精品推荐</span>
-					</div>
-				</view>
-				<view @click="goHotNewGoods(1)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<Good-list :good-list="bastList" :is-sort="false"></Good-list>
-		</view> -->
-
-		<!-- <view class="wrapper" v-if="firstList.length > 0">
-			<view class="title acea-row row-between-wrapper">
-				<view class="text">
-					<view class="name line1">
-						 <span class="iconfont icon-xinpin"></span>
-			  			  <span class="label">首发新品</span>
-					</view>
-				</view>
-				<view @click="goHotNewGoods(3)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<view class="newProducts">
-				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
-					<view class="newProductsScroll">
-						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, firstListIndex) in firstList" :key="firstListIndex">
-							<view class="img-box">
-								<image :src="item.image" />
-							</view>
-							<view class="pro-info line1">{{ item.storeName }}</view>
-							<view class="money font-color-red">￥{{ item.price }}</view>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-		</view> -->
-		<!-- <view class="wrapper" v-if="benefit.length > 0">
-			<view class="title acea-row row-center">
-				<view class="text text-center">
-					<div class="name line1 new-name">
-              <span class="iconfont icon-shoucang"></span>
-              <span class="txt">猜你喜欢</span>
-            </div>
-				</view> -->
-				<!-- <view @click="goGoodsPromotion(4)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view> -->
-			<!-- </view>
-		</view>-->
-		<!-- <PromotionGood :benefit="benefit"></PromotionGood> -->
+		
 		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window>
 		<view :class="['modal-shadow modal-content-center',isShowLottery ? 'visible' : '']">
 			<view class="relative" @click.stop="()=>false">

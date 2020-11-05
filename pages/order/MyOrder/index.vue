@@ -1,6 +1,40 @@
+<style scoped lang="less">
+	.noCart {
+		margin-top: 0.17 * 100rpx;
+		padding-top: 0.1 * 100rpx;
+	}
+
+	.noCart .pictrue {
+		width: 4 * 100rpx;
+		height: 3 * 100rpx;
+		overflow: hidden;
+		margin: 0.7 * 100rpx auto 0.5 * 100rpx auto;
+	}
+
+	.noCart .pictrue image {
+		width: 4 * 100rpx;
+		height: 3 * 100rpx;
+	}
+
+
+	.my-order {
+		.header {
+			height: 200rpx;
+		}
+
+		.nav {
+			background-color: #fff;
+			width: 100%;
+			height: 140rpx;
+			border-radius: 6rpx;
+			margin: 0rpx auto 0 auto;
+		}
+	}
+</style>
+
 <template>
 	<view class="my-order" ref="container">
-		<view class="header bg-color-red">
+		<view class="header bg-color-green">
 			<view class="picTxt acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name">订单信息</view>
@@ -208,12 +242,12 @@
 				this.$yrouter.push({
 					path: "/pages/order/GoodsReturn/index",
 					query: {
-						refundType:orderInfo.refundType,
+						refundType: orderInfo.refundType,
 						id: orderInfo.orderId,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
 						refundReasonWap: orderInfo.refundReasonWap,
-						refundReasonWapExplain:orderInfo.refundReasonWapExplain,
+						refundReasonWapExplain: orderInfo.refundReasonWapExplain,
 					}
 				});
 			},
@@ -327,22 +361,3 @@
 		}
 	};
 </script>
-
-<style scoped lang="less">
-	.noCart {
-		margin-top: 0.17 * 100rpx;
-		padding-top: 0.1 * 100rpx;
-	}
-
-	.noCart .pictrue {
-		width: 4 * 100rpx;
-		height: 3 * 100rpx;
-		overflow: hidden;
-		margin: 0.7 * 100rpx auto 0.5 * 100rpx auto;
-	}
-
-	.noCart .pictrue image {
-		width: 4 * 100rpx;
-		height: 3 * 100rpx;
-	}
-</style>

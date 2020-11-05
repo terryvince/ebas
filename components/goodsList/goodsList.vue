@@ -22,7 +22,6 @@
 	}
 }
  .good-list-card{
-	 padding:30rpx 25rpx 0;
 	 .grid(2,48);
 	 .list-item{
 		 background-color: white;
@@ -64,9 +63,52 @@
 		 top: 0;
 	 }
  }
+ .group-list{
+	 background-color: white;
+	.group-img-wrap{
+		width: 279rpx;
+		height: 212rpx;
+		border-radius: 20rpx;
+		overflow: hidden;
+	}
+	.group-item{
+		margin-bottom: 20rpx;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+	.group-badge{
+		width: 140rpx;
+		box-sizing: border-box;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.group-title{
+		height: 64rpx;
+	}
+ }
+ .seckill-list{
+ 	 background-color: white;
+ 	.seckill-img-wrap{
+ 		width: 279rpx;
+ 		height: 212rpx;
+ 		border-radius: 20rpx;
+ 		overflow: hidden;
+ 	}
+ 	.seckill-item{
+ 		margin-bottom: 32rpx;
+ 		&:last-child{
+ 			margin-bottom: 0;
+ 		}
+ 	}
+ 	.seckill-title{
+ 		height: 64rpx;
+ 	}
+ }
 </style>
 <template>
-	<view>
+	<view class="wi">
 		<!-- 普通商品或者积分商品 -->
 		<view v-if="from == 'goods' || from == 'point'" class="good-list-card">
 			<view @click="goDetail(item)" :class="['list-item lh-1']" v-for="(item,i) in list" :key="i">
@@ -100,13 +142,68 @@
 				</view>
 			</view>
 		</view>
-		<!-- 团购 -->
-		<view v-else-if="from=='group'">
-			11
+		<!-- 团购商品 -->
+		<view v-else-if="from=='group'" class="group-list color-text lh-1">
+			<view class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
+				<view class="group-img-wrap flex-none">
+					<image :src="item.image" class="full"></image>
+				</view>
+				<view class="group-content left-20 flex-1">
+					<view class="group-title fs-28 relative">
+						<text class="group-badge badge badge-mini-extra badge-primary badge-radius">渝北区可拼</text>
+						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;text-indent: 150rpx;">
+							{{item.storeName}}
+						</text>
+					</view>
+					<view class="color-gray fs-20 txt-baseline" style="margin-top: 26rpx;">
+						<text class="txt-bold">鹅把式商户</text>
+						<text class="left-10 fs-26 txt-bold">2</text>
+						<text class="txt-medium">人成团</text>
+					</view>
+					<view class="group-extra flex-main-between top-30">
+						<view>
+							<view class="fs-22 txt-heavy color-danger txt-baseline">
+								<text>￥</text>
+								<text class="fs-32">{{item.price|toFixed}}</text>
+								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{item.otPrice|toFixed}}</text>
+							</view>
+							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">9999</text> 件</view>
+						</view>
+						<button class="btn btn-linear-green btn-fix-width">拼团</button>
+					</view>
+					
+				</view>
+			</view>
 		</view>
 		<!-- 秒杀商品 -->
-		<view v-else-if="from=='seckill'">
-			22
+		<view v-else-if="from=='seckill'" class="seckill-list color-text lh-1">
+			<view class="seckill-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
+				<view class="seckill-img-wrap flex-none">
+					<image :src="item.image" class="full"></image>
+				</view>
+				<view class="seckill-content flex-1 left-20">
+					<view class="seckill-title fs-28">
+						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;">
+							{{item.storeName}}
+						</text>
+					</view>
+					<view class="progress-box top-30">
+						<progress percent="40" active :stroke-width="toPx(18)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
+					</view>
+					<view class="seckill-extra flex-main-between" style="margin-top: 23rpx;">
+						<view>
+							<view class="fs-22 txt-heavy color-danger txt-baseline">
+								<text>秒杀价</text>
+								<text class="left-5">￥</text>
+								<text class="fs-32">{{item.price|toFixed}}</text>
+							</view>
+							<view class="color-gray fs-20 txt-medium top-15">鹅把式商户</view>
+						</view>
+						<button class="btn btn-linear-orange btn-fix-width">马上抢</button>
+					</view>
+					
+				</view>
+			</view>
 		</view>
 	</view>
 </template>

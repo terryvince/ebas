@@ -18,7 +18,7 @@
 	<view class="over-hide">
 		<textarea class="boder-radius" v-model="text" placeholder="从多个角度评价,帮助更多想买的人~" />
 		<view class="fix-bottom">
-			<view @click="post()" class="post-btn bg-danger">立即提交</view>
+			<view @click="post()" class="post-btn bg-color-green">立即提交</view>
 		</view>
 	</view>	
 </template>

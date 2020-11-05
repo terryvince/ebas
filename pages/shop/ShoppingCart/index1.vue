@@ -1,8 +1,4 @@
 <style lang="less">
-	page {
-		background-color: #F0F0F0 !important;
-	}
-
 	.overlay {
 		background-color: rgba(0, 0, 0, .6);
 		position: absolute;
@@ -17,56 +13,22 @@
 			top: 0;
 		}
 	}
-
-	.shoppingCart .list .item .picTxt {
-		width: 590rpx;
-	}
-
-	.shoppingCart .list .item .picTxt .text {
-		width: 420rpx;
-	}
-
-	.shoppingCart .list {
-		margin-top: 10rpx;
-		background-color: none !important;
-	}
-
-	.shopListClass {
-		margin-top: 100rpx;
-		background-color: #F0F0F0;
-	}
-
-	.shopClass {
-		margin-left: 20rpx;
-		margin-right: 20rpx;
-		border-radius: 15rpx;
-		margin-top: 6rpx;
-		background-color: #FFFFFF;
-
-		.item {
-			background-color: transparent !important;
-		}
-	}
-
-	.shoppingCart .nav .administrate.active {
-		background: #71D676;
-		border-color: #71D676;
-	}
-
-	.btn-linear-blue {
-		color: white !important;
-		background: linear-gradient(90deg, #71D676, #71D676) !important;
-	}
-
-	.placeOrder {
-		width: 206rpx;
-		height: 60rpx;
-	}
 </style>
 <template>
 	<view class="shoppingCart">
 		<view v-if="$store.getters.token||userInfo.uid">
-			<view class="nav acea-row row-between-wrapper" style="top: 2rpx !important;">
+			<view class="labelNav acea-row row-around row-middle">
+				<view class="item">
+					<text class="iconfont icon-xuanzhong"></text>100%正品保证
+				</view>
+				<view class="item">
+					<text class="iconfont icon-xuanzhong"></text>所有商品精挑细选
+				</view>
+				<view class="item">
+					<text class="iconfont icon-xuanzhong"></text>售后无忧
+				</view>
+			</view>
+			<view class="nav acea-row row-between-wrapper">
 				<view>
 					<text>购物数量</text>
 					<text class="num font-color-red" style="margin-left: 10rpx;">{{ count }}</text>
@@ -74,71 +36,54 @@
 				<view v-if="cartList.valid.length > 0" :class="['administrate acea-row row-center-wrapper',footerswitch ? 'active': '']"
 				 @click="manage">{{ footerswitch ? '取消' : '管理' }}</view>
 			</view>
-			<view style="top: 0rpx; height: 2rpx; width: 100%; background-color: #F0F0F0; z-index: 3; position: fixed;"></view>
-			<view class="shopListClass" v-if="shopList.length > 0">
-				<view class="list" v-for="(item, shopIndex) in shopList" :key="shopIndex">
-					<view class="shopClass">
-						<view class="item acea-row row-between-wrapper" style="height: 30rpx;">
-							<view class="select-btn flex-main-start" style="border-radius: 15rpx;">
-								<view class="checkbox-wrapper">
-									<checkbox-group @change="switchSelect(cartListValidIndex)">
-										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="item.checked"></checkbox>
-										</label>
-									</checkbox-group>
-								</view>
-								<text style="font-size: 28rpx;">{{item.name}}</text>
-							</view>
-							<text style="font-size: 28rpx;">共2件商品</text>
 
-						</view>
-						<view class="line-top"></view>
-						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in validList" :key="cartListValidIndex">
-							<view class="select-btn">
-								<view class="checkbox-wrapper">
-									<checkbox-group @change="switchSelect(cartListValidIndex)">
-										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="item.checked"></checkbox>
-										</label>
-									</checkbox-group>
-								</view>
+
+			<view v-if="validList.length > 0 || cartList.invalid.length > 0">
+				<view class="list">
+					<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in validList" :key="cartListValidIndex">
+						<view class="select-btn">
+							<view class="checkbox-wrapper">
+								<checkbox-group @change="switchSelect(cartListValidIndex)">
+									<label class="well-check">
+										<checkbox color="#0572B7" value :checked="item.checked"></checkbox>
+									</label>
+								</checkbox-group>
 							</view>
-							<view class="picTxt acea-row row-between-wrapper">
-								<view class="pictrue relative" @click="goGoodsCon(item)">
-									<view class="overlay full" v-show="item.productInfo.isShow == 0">
-										<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
-									</view>
-									<image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
-									<image :src="item.productInfo.image" v-else />
+						</view>
+						<view class="picTxt acea-row row-between-wrapper">
+							<view class="pictrue relative" @click="goGoodsCon(item)">
+								<view class="overlay full" v-show="item.productInfo.isShow == 0">
+									<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
 								</view>
-								<view class="text">
-									<view class="line1">{{ item.productInfo.storeName }}</view>
-									<view class="infor line1" v-if="item.productInfo.attrInfo">属性：{{ item.productInfo.attrInfo.sku }}</view>
-									<view class="money color-danger">￥{{ item.truePrice }}</view>
-								</view>
-								<view class="carnum acea-row row-center-wrapper">
-									<view class="reduce" :class="validList[cartListValidIndex].cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(cartListValidIndex)">-</view>
-									<view class="num">{{ item.cartNum }}</view>
-									<view class="plus" v-if="validList[cartListValidIndex].attrInfo" :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].attrInfo.stock ? 'on' : ''"
-									 @click.prevent="plus(cartListValidIndex)">+</view>
-									<view class="plus" v-else :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].stock ? 'on' : ''"
-									 @click.prevent="plus(cartListValidIndex)">+</view>
-								</view>
+								<image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
+								<image :src="item.productInfo.image" v-else />
+							</view>
+							<view class="text">
+								<view class="line1">{{ item.productInfo.storeName }}</view>
+								<view class="infor line1" v-if="item.productInfo.attrInfo">属性：{{ item.productInfo.attrInfo.sku }}</view>
+								<view class="money color-danger">￥{{ item.truePrice }}</view>
+							</view>
+							<view class="carnum acea-row row-center-wrapper">
+								<view class="reduce" :class="validList[cartListValidIndex].cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(cartListValidIndex)">-</view>
+								<view class="num">{{ item.cartNum }}</view>
+								<view class="plus" v-if="validList[cartListValidIndex].attrInfo" :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].attrInfo.stock ? 'on' : ''"
+								 @click.prevent="plus(cartListValidIndex)">+</view>
+								<view class="plus" v-else :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].stock ? 'on' : ''"
+								 @click.prevent="plus(cartListValidIndex)">+</view>
 							</view>
 						</view>
 					</view>
 				</view>
-
 				<view class="invalidGoods" v-if="cartList.invalid.length > 0">
 					<view class="goodsNav acea-row row-between-wrapper">
 						<view @click="goodsOpen">
-							<text class="iconfont" :class="invalidGoodsHidden === true ? 'icon-xiangyou' : 'icon-xiangxia'"></text>失效商品
+							<text class="iconfont" :class="goodsHidden === true ? 'icon-xiangyou' : 'icon-xiangxia'"></text>失效商品
 						</view>
 						<view class="del" @click="delInvalidGoods">
 							<text class="iconfont icon-shanchu1"></text>清空
 						</view>
 					</view>
-					<view class="goodsList" :hidden="invalidGoodsHidden">
+					<view class="goodsList" :hidden="goodsHidden">
 						<view v-for="(item, cartListinvalidIndex) in cartList.invalid" :key="cartListinvalidIndex">
 							<view @click="goGoodsCon(item)" class="item acea-row row-between-wrapper" v-if="item.productInfo">
 								<view class="invalid acea-row row-center-wrapper">失效</view>
@@ -165,11 +110,23 @@
 				</view>
 				<Recommend></Recommend>
 			</view>
-			<view style="height:100rpx"></view>
+			<view style="height:210rpx"></view>
 			<view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
 				<view>
 					<view class="select-btn">
 						<view class="checkbox-wrapper">
+							<!-- <label class="well-check">
+              <input
+                type="checkbox"
+                name
+                value
+                :checked="isAllSelect && cartCount > 0"
+                @click="allChecked"
+              />
+              <i class="icon"></i>
+              <text class="checkAll">全选 ({{ cartCount }})</text>
+              </label>-->
+
 							<checkbox-group @change="allChecked">
 								<label class="well-check">
 									<checkbox color="#0572B7" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
@@ -226,9 +183,8 @@
 		data: function() {
 			return {
 				shopList: [{
-					name: "店铺1",
-				}, {
-					name: "店铺2",
+					name: "",
+
 				}],
 				cartList: {
 					invalid: [],
@@ -238,7 +194,7 @@
 				isAllSelect: false,
 				cartCount: 0,
 				countmoney: 0,
-				invalidGoodsHidden: false,
+				goodsHidden: true,
 				footerswitch: false,
 				count: 0,
 				checkedIds: [],
@@ -254,7 +210,7 @@
 		//         this.countMoney();
 		//         this.getCartList();
 		//         this.gainCount();
-		//         this.invalidGoodsHidden = true;
+		//         this.goodsHidden = true;
 		//         this.footerswitch = false;
 		//       }
 		//     },
@@ -313,7 +269,7 @@
 					this.cartList.valid.forEach(cart => {
 						if (checkedIds.indexOf(cart.id) !== -1) cart.checked = true;
 					});
-					// this.cartList.invalid = this.cartList.valid;
+					that.cartList.invalid = that.cartList.valid;
 					if (checkedIds.length) {
 						that.checkedIds = checkedIds;
 						that.isAllSelect = checkedIds.length === this.cartList.valid.length;
@@ -448,7 +404,7 @@
 			},
 			goodsOpen: function() {
 				let that = this;
-				that.invalidGoodsHidden = !that.invalidGoodsHidden;
+				that.goodsHidden = !that.goodsHidden;
 			},
 			//加
 			plus: function(index) {

@@ -13,7 +13,7 @@
 				<view class="name">地区</view>
 				<view class="picker acea-row row-between-wrapper select-value form-control">
 					<view class="address">
-						<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText"  @callback="result" :items="district"></CitySelect>
+						<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect>
 					</view>
 					<view class="iconfont icon-jiantou"></view>
 				</view>
