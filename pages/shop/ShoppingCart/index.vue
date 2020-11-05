@@ -81,16 +81,16 @@
 						<view class="item acea-row row-between-wrapper" style="height: 30rpx;">
 							<view class="select-btn flex-main-start" style="border-radius: 15rpx;">
 								<view class="checkbox-wrapper">
-									<checkbox-group @change="switchSelect(cartListValidIndex)">
+									<checkbox-group @change="shopAllChecked(item)">
+										<!-- <checkbox color="#0572B7" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox> -->
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#0572B7" value="allSelect"  :checked="isAllSelect"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
 								<text style="font-size: 28rpx;">{{item.name}}</text>
 							</view>
 							<text style="font-size: 28rpx;">共2件商品</text>
-
 						</view>
 						<view class="line-top"></view>
 						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in validList" :key="cartListValidIndex">
@@ -292,6 +292,9 @@
 			}
 		},
 		methods: {
+			shopAllChecked(item){
+				console.log(item);
+			},
 			goGoodsCon(item) {
 				// 已下架的商品不允许跳详情
 				if (item.productInfo.isShow == 0) {

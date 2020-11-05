@@ -1,147 +1,7 @@
-<style scoped lang="less">
-	.geoPage {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		z-index: 10000;
-	}
-
-	.order-details .writeOff {
-		background-color: #fff;
-		margin-top: 0.13 * 100rpx;
-		padding-bottom: 0.3 * 100rpx;
-	}
-
-	.order-details .writeOff .title {
-		font-size: 0.3 * 100rpx;
-		color: #282828;
-		height: 0.87 * 100rpx;
-		border-bottom: 1px solid #f0f0f0;
-		padding: 0 0.3 * 100rpx;
-		line-height: 0.87 * 100rpx;
-	}
-
-	.order-details .writeOff .grayBg {
-		background-color: #f2f5f7;
-		width: 5.9 * 100rpx;
-		height: 3.84 * 100rpx;
-		border-radius: 0.2 * 100rpx 0.2 * 100rpx 0 0;
-		margin: 0.5 * 100rpx auto 0 auto;
-		padding-top: 0.55 * 100rpx;
-	}
-
-	.order-details .writeOff .grayBg .pictrue {
-		width: 2.9 * 100rpx;
-		height: 2.9 * 100rpx;
-		margin: 0 auto;
-	}
-
-	.order-details .writeOff .grayBg .pictrue img {
-		width: 100%;
-		height: 100%;
-		display: block;
-	}
-
-	.order-details .writeOff .gear {
-		width: 5.9 * 100rpx;
-		height: 0.3 * 100rpx;
-		margin: 0 auto;
-	}
-
-	.order-details .writeOff .gear img {
-		width: 100%;
-		height: 100%;
-		display: block;
-	}
-
-	.order-details .writeOff .num {
-		background-color: #f0c34c;
-		width: 5.9 * 100rpx;
-		height: 0.84 * 100rpx;
-		color: #282828;
-		font-size: 0.48 * 100rpx;
-		margin: 0 auto;
-		border-radius: 0 0 0.2 * 100rpx 0.2 * 100rpx;
-		text-align: center;
-		padding-top: 0.04 * 100rpx;
-	}
-
-	.order-details .writeOff .rules {
-		margin: 0.46 * 100rpx 0.3 * 100rpx 0 0.3 * 100rpx;
-		border-top: 0.01 * 100rpx solid #f0f0f0;
-		padding-top: 0.1 * 100rpx;
-	}
-
-	.order-details .writeOff .rules .item {
-		margin-top: 0.15 * 100rpx;
-	}
-
-	.order-details .writeOff .rules .item .rulesTitle {
-		font-size: 0.28 * 100rpx;
-		color: #282828;
-	}
-
-	.order-details .writeOff .rules .item .rulesTitle .iconfont {
-		font-size: 0.3 * 100rpx;
-		color: #333;
-		margin-right: 0.08 * 100rpx;
-		margin-top: 0.05 * 100rpx;
-	}
-
-	.order-details .writeOff .rules .item .info {
-		font-size: 0.28 * 100rpx;
-		color: #999;
-		margin-top: 0.05 * 100rpx;
-	}
-
-	.order-details .writeOff .rules .item .info .time {
-		margin-left: 0.2 * 100rpx;
-	}
-
-	.order-details .map {
-		height: 0.86 * 100rpx;
-		font-size: 0.3 * 100rpx;
-		color: #282828;
-		line-height: 0.86 * 100rpx;
-		border-bottom: 0.01 * 100rpx solid #f0f0f0;
-		margin-top: 0.13 * 100rpx;
-		background-color: #fff;
-		padding: 0 0.3 * 100rpx;
-	}
-
-	.order-details .map .place {
-		font-size: 0.26 * 100rpx;
-		width: 1.76 * 100rpx;
-		height: 0.5 * 100rpx;
-		border-radius: 0.25 * 100rpx;
-		line-height: 0.5 * 100rpx;
-		text-align: center;
-	}
-
-	.order-details .map .place .iconfont {
-		font-size: 0.27 * 100rpx;
-		height: 0.27 * 100rpx;
-		line-height: 0.27 * 100rpx;
-		margin: 0.02 * 100rpx 0.03 * 100rpx 0 0;
-	}
-
-	.order-details .address .name .iconfont {
-		font-size: 0.34 * 100rpx;
-		margin-left: 0.1 * 100rpx;
-	}
-
-	.actualPay {
-		left: 25rpx;
-		position: absolute;
-		font-size: 29rpx;
-	}
-</style>
-
 <template>
 	<view class="order-details">
 		<!-- 给header上与data上加on为退款订单-->
-		<view class="header bg-color-green acea-row row-middle" :class="refundOrder ? 'on' : ''">
+		<view class="header bg-color-red acea-row row-middle" :class="refundOrder ? 'on' : ''">
 			<view class="data" :class="refundOrder ? 'on' : ''">
 				<view class="state">{{ orderInfo._status._msg }}</view>
 				<view>
@@ -150,6 +10,63 @@
 			</view>
 		</view>
 		<template v-if="!refundOrder">
+			<view class="nav">
+				<view class="navCon acea-row row-between-wrapper">
+					<view :class="{ on: status.type === 0 || status.type === 9 }">待付款</view>
+					<view :class="{ on: status.type === 1 }" v-if="orderInfo.shippingType === 2">待核销</view>
+					<view :class="{ on: status.type === 1 }" v-else>待发货</view>
+					<view :class="{ on: status.type === 2 }" v-if="orderInfo.shippingType === 1">待收货</view>
+					<view :class="{ on: status.type === 3 }">待评价</view>
+					<view :class="{ on: status.type === 4 }">已完成</view>
+				</view>
+				<view class="progress acea-row row-between-wrapper">
+					<view class="iconfont" :class="[
+              status.type === 0 || status.type === 9
+                ? 'icon-webicon318'
+                : 'icon-yuandianxiao',
+              status.type >= 0 ? 'font-color-red' : ''
+            ]"></view>
+					<view class="line" :class="{ 'bg-color-red': status.type > 0 && status.type != 9 }"></view>
+					<view class="iconfont" :class="[
+              status.type === 1 ? 'icon-webicon318' : 'icon-yuandianxiao',
+              status.type >= 1 && status.type != 6 && status.type != 9
+                ? 'font-color-red'
+                : ''
+            ]"></view>
+					<view class="line" :class="{
+              'bg-color-red':
+                status.type > 1 && status.type != 6 && status.type != 9
+            }"
+					 v-if="orderInfo.shippingType === 1"></view>
+					<view class="iconfont" :class="[
+              status.type === 2 ? 'icon-webicon318' : 'icon-yuandianxiao',
+              status.type >= 2 && status.type != 6 && status.type != 9
+                ? 'font-color-red'
+                : ''
+            ]"
+					 v-if="orderInfo.shippingType === 1"></view>
+					<view class="line" :class="{
+              'bg-color-red':
+                status.type > 2 && status.type != 6 && status.type != 9
+            }"></view>
+					<view class="iconfont" :class="[
+              status.type === 3 ? 'icon-webicon318' : 'icon-yuandianxiao',
+              status.type >= 3 && status.type != 6 && status.type != 9
+                ? 'font-color-red'
+                : ''
+            ]"></view>
+					<view class="line" :class="{
+              'bg-color-red':
+                status.type > 3 && status.type != 6 && status.type != 9
+            }"></view>
+					<view class="iconfont" :class="[
+              status.type == 4 ? 'icon-webicon318' : 'icon-yuandianxiao',
+              status.type >= 4 && status.type != 6 && status.type != 9
+                ? 'font-color-red'
+                : ''
+            ]"></view>
+				</view>
+			</view>
 			<div class="writeOff" v-if="orderInfo.shippingType === 2 && orderInfo.paid === 1">
 				<div class="title">核销信息</div>
 				<div class="grayBg">
@@ -323,19 +240,16 @@
 				<view>运费：</view>
 				<view class="conter">￥{{ orderInfo.payPostage }}</view>
 			</view>
-		</view>
-
-		<view style="height:100rpx;" v-if="!refundOrder && offlineStatus"></view>
-
-		<view class="footer acea-row row-right row-middle" v-if="!refundOrder && offlineStatus">
 			<view class="actualPay acea-row row-right">
-				应付：
+				实付款：
 				<text class="money font-color-red">￥{{ orderInfo.payPrice }}</text>
 			</view>
-
+		</view>
+		<view style="height:100rpx;" v-if="!refundOrder && offlineStatus"></view>
+		<view class="footer acea-row row-right row-middle" v-if="!refundOrder && offlineStatus">
 			<template v-if="status.type == 0">
 				<view class="bnt cancel" @click="cancelOrder">取消订单</view>
-				<view class="bnt bg-color-green" @click="pay = true">立即付款</view>
+				<view class="bnt bg-color-red" @click="pay = true">立即付款</view>
 			</template>
 			<template v-if="status.type == 1 || status.type == 2">
 				<view class="bnt cancel" @click="goGoodsReturn(orderInfo)">
@@ -349,7 +263,7 @@
 
 			<template v-if="status.type == 2">
 				<view class="bnt default" @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})">查看物流</view>
-				<view class="bnt bg-color-green" @click="takeOrder">确认收货</view>
+				<view class="bnt bg-color-red" @click="takeOrder">确认收货</view>
 			</template>
 			<template v-if="status.type == 3 && orderInfo.deliveryType == 'express'">
 				<view class="bnt default" @click="
@@ -363,7 +277,7 @@
         ">查看物流</view>
 			</template>
 			<template v-if="status.type == 6">
-				<view class="bnt bg-color-green" @click="goGroupRule(orderInfo)">查看拼团</view>
+				<view class="bnt bg-color-red" @click="goGroupRule(orderInfo)">查看拼团</view>
 			</template>
 		</view>
 		<Payment v-model="pay" :types="payType" @checked="toPay" :balance="userInfo.nowMoney"></Payment>
@@ -372,7 +286,139 @@
 		</view>
 	</view>
 </template>
+<style scoped lang="less">
+	.geoPage {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		z-index: 10000;
+	}
 
+	.order-details .writeOff {
+		background-color: #fff;
+		margin-top: 0.13 * 100rpx;
+		padding-bottom: 0.3 * 100rpx;
+	}
+
+	.order-details .writeOff .title {
+		font-size: 0.3 * 100rpx;
+		color: #282828;
+		height: 0.87 * 100rpx;
+		border-bottom: 1px solid #f0f0f0;
+		padding: 0 0.3 * 100rpx;
+		line-height: 0.87 * 100rpx;
+	}
+
+	.order-details .writeOff .grayBg {
+		background-color: #f2f5f7;
+		width: 5.9 * 100rpx;
+		height: 3.84 * 100rpx;
+		border-radius: 0.2 * 100rpx 0.2 * 100rpx 0 0;
+		margin: 0.5 * 100rpx auto 0 auto;
+		padding-top: 0.55 * 100rpx;
+	}
+
+	.order-details .writeOff .grayBg .pictrue {
+		width: 2.9 * 100rpx;
+		height: 2.9 * 100rpx;
+		margin: 0 auto;
+	}
+
+	.order-details .writeOff .grayBg .pictrue img {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+	.order-details .writeOff .gear {
+		width: 5.9 * 100rpx;
+		height: 0.3 * 100rpx;
+		margin: 0 auto;
+	}
+
+	.order-details .writeOff .gear img {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+	.order-details .writeOff .num {
+		background-color: #f0c34c;
+		width: 5.9 * 100rpx;
+		height: 0.84 * 100rpx;
+		color: #282828;
+		font-size: 0.48 * 100rpx;
+		margin: 0 auto;
+		border-radius: 0 0 0.2 * 100rpx 0.2 * 100rpx;
+		text-align: center;
+		padding-top: 0.04 * 100rpx;
+	}
+
+	.order-details .writeOff .rules {
+		margin: 0.46 * 100rpx 0.3 * 100rpx 0 0.3 * 100rpx;
+		border-top: 0.01 * 100rpx solid #f0f0f0;
+		padding-top: 0.1 * 100rpx;
+	}
+
+	.order-details .writeOff .rules .item {
+		margin-top: 0.15 * 100rpx;
+	}
+
+	.order-details .writeOff .rules .item .rulesTitle {
+		font-size: 0.28 * 100rpx;
+		color: #282828;
+	}
+
+	.order-details .writeOff .rules .item .rulesTitle .iconfont {
+		font-size: 0.3 * 100rpx;
+		color: #333;
+		margin-right: 0.08 * 100rpx;
+		margin-top: 0.05 * 100rpx;
+	}
+
+	.order-details .writeOff .rules .item .info {
+		font-size: 0.28 * 100rpx;
+		color: #999;
+		margin-top: 0.05 * 100rpx;
+	}
+
+	.order-details .writeOff .rules .item .info .time {
+		margin-left: 0.2 * 100rpx;
+	}
+
+	.order-details .map {
+		height: 0.86 * 100rpx;
+		font-size: 0.3 * 100rpx;
+		color: #282828;
+		line-height: 0.86 * 100rpx;
+		border-bottom: 0.01 * 100rpx solid #f0f0f0;
+		margin-top: 0.13 * 100rpx;
+		background-color: #fff;
+		padding: 0 0.3 * 100rpx;
+	}
+
+	.order-details .map .place {
+		font-size: 0.26 * 100rpx;
+		width: 1.76 * 100rpx;
+		height: 0.5 * 100rpx;
+		border-radius: 0.25 * 100rpx;
+		line-height: 0.5 * 100rpx;
+		text-align: center;
+	}
+
+	.order-details .map .place .iconfont {
+		font-size: 0.27 * 100rpx;
+		height: 0.27 * 100rpx;
+		line-height: 0.27 * 100rpx;
+		margin: 0.02 * 100rpx 0.03 * 100rpx 0 0;
+	}
+
+	.order-details .address .name .iconfont {
+		font-size: 0.34 * 100rpx;
+		margin-left: 0.1 * 100rpx;
+	}
+</style>
 <script>
 	import OrderGoods from "@/components/OrderGoods";
 	import {
@@ -446,13 +492,13 @@
 					path: "/pages/order/GoodsReturn/index",
 					query: {
 						id: orderInfo.orderId,
-						refundType: orderInfo.refundType,
+						refundType:orderInfo.refundType,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
-						refundReasonWap: orderInfo.refundReasonWap,
-						refundReasonWapExplain: orderInfo.refundReasonWapExplain,
-						refundDeliveryId: orderInfo.refundDeliveryId,
-						refundDeliveryName: orderInfo.refundDeliveryName,
+						refundReasonWap:orderInfo.refundReasonWap,
+						refundReasonWapExplain:orderInfo.refundReasonWapExplain,
+						refundDeliveryId:orderInfo.refundDeliveryId,
+						refundDeliveryName:orderInfo.refundDeliveryName,
 					}
 				});
 			},
