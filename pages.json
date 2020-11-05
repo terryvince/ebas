@@ -14,7 +14,7 @@
 					"path": "notify/index",
 					"style": {
 						"navigationBarTitleText": "我的消息",
-						"backgroundColor":"#F5F5F5"
+						"backgroundColor": "#F5F5F5"
 					}
 				},
 				{
@@ -78,118 +78,109 @@
 					"style": {
 						"navigationBarTitleText": "发票"
 					}
-				}
-                ,{
-                    "path" : "advice/index",
-                    "style" : {
-						"navigationBarTitleText":"投诉建议",
-						"backgroundColor":"#F5F5F5"
+				}, {
+					"path": "advice/index",
+					"style": {
+						"navigationBarTitleText": "投诉建议",
+						"backgroundColor": "#F5F5F5"
 					}
-                }
-                ,{
-                    "path" : "accessHistory/index",
-                    "style" : {
-						"navigationBarTitleText":"浏览足迹",
-						"backgroundColor":"#F5F5F5",
-						"enablePullDownRefresh":true
-					}
-                },
-				{
-				    "path" : "pointShopping/index",
-				    "style" : {
-						"navigationBarTitleText":"积分商城",
-						"backgroundColor":"#F5F5F5",
-						"enablePullDownRefresh":true
+				}, {
+					"path": "accessHistory/index",
+					"style": {
+						"navigationBarTitleText": "浏览足迹",
+						"backgroundColor": "#F5F5F5",
+						"enablePullDownRefresh": true
 					}
 				},
 				{
-				    "path" : "vip/grade/index",
-				    "style" : {
-						"navigationBarTitleText":"会员等级",
-						"backgroundColor":"#F5F5F5"
+					"path": "pointShopping/index",
+					"style": {
+						"navigationBarTitleText": "积分商城",
+						"backgroundColor": "#F5F5F5",
+						"enablePullDownRefresh": true
 					}
-				}
-                ,{
-                    "path" : "vip/pay/index",
-                    "style" : {
-						"navigationBarTitleText":"会员等级",
-						"backgroundColor":"#F5F5F5"
+				},
+				{
+					"path": "vip/grade/index",
+					"style": {
+						"navigationBarTitleText": "会员等级",
+						"backgroundColor": "#F5F5F5"
 					}
-                }
-                ,{
-                    "path" : "aboutUs/aboutUs",
-                    "style" : {
-						"navigationBarTitleText":"公司简介",
-						"backgroundColor":"#ffffff"
+				}, {
+					"path": "vip/pay/index",
+					"style": {
+						"navigationBarTitleText": "会员等级",
+						"backgroundColor": "#F5F5F5"
 					}
-                }
-                ,{
-                    "path" : "lotteryDraw/lotteryType/lotteryType",
-                    "style" : {
-						"navigationBarTitleText":"转盘奖品",
-						"backgroundColor":"#F5F5F5"
+				}, {
+					"path": "aboutUs/aboutUs",
+					"style": {
+						"navigationBarTitleText": "公司简介",
+						"backgroundColor": "#ffffff"
 					}
-                }
-                ,{
-                    "path" : "lotteryDraw/lottery/lottery",
-                    "style" : {
-						"navigationBarTitleText":"欢乐抽奖"
+				}, {
+					"path": "lotteryDraw/lotteryType/lotteryType",
+					"style": {
+						"navigationBarTitleText": "转盘奖品",
+						"backgroundColor": "#F5F5F5"
 					}
-                }
-                ,{
-                    "path" : "lotteryDraw/lotteryRule/lotteryRule",
-                    "style" : {
-                    	"navigationBarTitleText":"抽奖规则"
-                    }
-                }
-                ,{
-                    "path" : "lotteryDraw/lotteryHistory/lotteryHistory",
-                    "style" : {
-                    	"navigationBarTitleText":"中奖记录"
-                    }
-                }
-                ,{
-                    "path" : "mediaPlay/videoPlay/videoPlay",
-                    "style" : {
-						"navigationBarTitleText":"视频"
+				}, {
+					"path": "lotteryDraw/lottery/lottery",
+					"style": {
+						"navigationBarTitleText": "欢乐抽奖"
 					}
-                }
-                ,{
-                    "path" : "integralDesc/integralDesc",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "协议",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "userProtocoll/userProtocoll",
-                    "style" :{
+				}, {
+					"path": "lotteryDraw/lotteryRule/lotteryRule",
+					"style": {
+						"navigationBarTitleText": "抽奖规则"
+					}
+				}, {
+					"path": "lotteryDraw/lotteryHistory/lotteryHistory",
+					"style": {
+						"navigationBarTitleText": "中奖记录"
+					}
+				}, {
+					"path": "mediaPlay/videoPlay/videoPlay",
+					"style": {
+						"navigationBarTitleText": "视频"
+					}
+				}, {
+					"path": "integralDesc/integralDesc",
+					"style": {
 						"navigationBarTitleText": "协议",
 						"enablePullDownRefresh": false
 					}
-                
-                }
-                ,{
-                    "path" : "couponProtocol/couponProtocol",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "协议",
-                    "enablePullDownRefresh": false
-                }
-                
-                },
+
+				}, {
+					"path": "userProtocoll/userProtocoll",
+					"style": {
+						"navigationBarTitleText": "协议",
+						"enablePullDownRefresh": false
+					}
+
+				}, {
+					"path": "couponProtocol/couponProtocol",
+					"style": {
+						"navigationBarTitleText": "协议",
+						"enablePullDownRefresh": false
+					}
+
+				},
 				{
-				    "path" : "shop/shop",
-				    "style" :                                                                                    
-				{
-				    "navigationBarTitleText": "鵝把式店鋪",
-				    "enablePullDownRefresh": false
+					"path": "shop/shop",
+					"style": {
+						"navigationBarTitleText": "鵝把式店鋪",
+						"enablePullDownRefresh": false
+					}
+
+				}, {
+					"path": "support/support",
+					"style": {
+						"navigationBarTitleText": "申请售后",
+						"enablePullDownRefresh": false
+					}
 				}
-				
-				}
-            ]
+			]
 		}
 	],
 	"pages": [
@@ -234,7 +225,7 @@
 			"path": "pages/home/index",
 			"style": {
 				"navigationBarTitleText": "鹅把式商城",
-				"navigationBarBackgroundColor":"#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
@@ -247,14 +238,14 @@
 			"path": "pages/shop/GoodsClass/index",
 			"style": {
 				"navigationBarTitleText": "商品分类",
-				"navigationBarBackgroundColor":"#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
 			"path": "pages/shop/ShoppingCart/index",
 			"style": {
 				"navigationBarTitleText": "购物车",
-				"navigationBarBackgroundColor":"#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{
@@ -279,7 +270,7 @@
 			"path": "pages/user/User/index",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"navigationBarBackgroundColor":"#FFFFFF"
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		},
 		{

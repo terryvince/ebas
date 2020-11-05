@@ -16,7 +16,6 @@
 		height: 3 * 100rpx;
 	}
 
-
 	.my-order {
 		.header {
 			height: 200rpx;
@@ -30,6 +29,15 @@
 			margin: 0rpx auto 0 auto;
 		}
 	}
+
+	.my-order .list {
+		width: 720rpx;
+	}
+
+	// .my-order .nav .item.on {
+	//     font-weight: bold;
+	//     border-bottom: 5rpx solid #71D676 !important;
+	// }
 </style>
 
 <template>
@@ -42,6 +50,7 @@
 				</view>
 			</view>
 		</view>
+
 		<view class="nav acea-row row-around">
 			<view class="item" :class="{ on: type === 0 }" @click="changeType(0)">
 				<view>待付款</view>
@@ -117,25 +126,27 @@
 						</view>
 					</view>
 				</view>
-				<view class="totalPrice">
-					共{{ order.cartInfo.length || 0 }}件商品，总金额
-					<text class="money font-color-red">￥{{ order.payPrice }}</text>
+				<view class="totalPrice flex-main-end" style="padding-bottom: 0rpx !important;">
+					<view class="flex-cross-center top-30">
+						共{{ order.cartInfo.length || 0 }}件商品，应付:
+						<text class="money font-color-red">￥{{ order.payPrice }}</text>
+					</view>
 				</view>
 				<view class="bottom acea-row row-right row-middle">
 					<template v-if="order._status._type == 0">
 						<view class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</view>
-						<view class="bnt bg-color-red" @click="goOrderDetails(order)">立即付款</view>
+						<view class="bnt bg-color-green" @click="goOrderDetails(order)">立即付款</view>
 					</template>
 					<!-- 假设订单详情一定会有商品 -->
 					<template v-if="(order._status._type == 1 || order._status._type == 2 )&& order.cartInfo[0].productInfo.id>6">
 						<view class="bnt cancelBnt" @click="goGoodsReturn(order)">申请退款</view>
 					</template>
 					<template v-if="order._status._type == 1 || order._status._type == 9">
-						<view class="bnt bg-color-red" @click="goOrderDetails(order)">查看详情</view>
+						<view class="bnt bg-color-green" @click="goOrderDetails(order)">查看详情</view>
 					</template>
 					<template v-if="order._status._type == 2">
 						<view class="bnt default" @click="goLogistics(order)">查看物流</view>
-						<view class="bnt bg-color-red" @click="takeOrder(order)">确认收货</view>
+						<view class="bnt bg-color-green" @click="takeOrder(order)">确认收货</view>
 					</template>
 					<template v-if="order._status._type == 3">
 						<!--<view-->
@@ -147,10 +158,10 @@
 						<!--&gt;-->
 						<!--查看物流-->
 						<!--</view>-->
-						<view class="bnt bg-color-red" @click="goOrderDetails(order)">去评价</view>
+						<view class="bnt bg-color-green" @click="goOrderDetails(order)">去评价</view>
 					</template>
 					<template v-if="order._status._type === 4">
-						<view class="bnt bg-color-red" @click="goOrderDetails(order)">查看订单</view>
+						<view class="bnt bg-color-green" @click="goOrderDetails(order)">查看订单</view>
 					</template>
 				</view>
 			</view>
@@ -206,7 +217,7 @@
 			return {
 				offlinePayStatus: 2,
 				orderData: {},
-				type: "",
+				type: 0,
 				page: 1,
 				limit: 20,
 				loaded: false,
