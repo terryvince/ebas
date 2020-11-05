@@ -312,6 +312,16 @@
 		margin-bottom: 10rpx;
 	}
 }
+.style-type{
+	padding:0 8rpx;
+	background-color: #fff;
+	border-radius: 6rpx;
+}
+.style-receive{
+	padding:6rpx 16rpx;
+	background-color: #64CE5E;
+	border-radius: 10rpx;
+}
 </style>
 <template>
 	<view :class="productConClass">
@@ -328,18 +338,23 @@
 			</swiper>
 			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+level]">
 				<view class="meta-wrap flex-1">
-					<view class="v-grade flex-main-start fs-32">
+					<!-- <view class="v-grade flex-main-start fs-32">
 						<text>L{{level}}</text>
 						<text class="left-10">会员价</text>
-					</view>
+					</view> -->
 					<view class="flex-main-between flex-baseline">
-						<view class="flex-main-start flex-baseline">
-							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
-							<text class="fs-30 left-20">原价{{ mode=='point' ? `${storeInfo.otPrice}积分` : `&yen;${storeInfo.otPrice}` }}</text>
-						</view>
 						<view class="flex-main-start">
+							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===1">积分</text>
+							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===3">精选</text>
+							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48 left-20">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
+							<text class="fs-30 left-20 del-price-line">原价{{ mode=='point' ? `${storeInfo.otPrice}积分` : `&yen;${storeInfo.otPrice}` }}</text>
+						</view>
+						<!-- <view class="flex-main-start">
 							<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
 							<text class="left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+						</view> -->
+						<view class="share flex-main-end">
+							<image @click="listenerActionSheet" src="../../../static/share.png" mode="widthFix" style="width:40rpx;"></image>
 						</view>
 					</view>
 				</view>
@@ -347,55 +362,46 @@
 
 			<view class="wrapper over-hide">
 				<view class="introduce txt-ellipsis row-2">{{ storeInfo.storeName }}</view>
+				<view class="share flex-main-between line-top">
+					<view>
+						<text class="fs-24 color-number">运费：{{ tempName }}</text>
+					</view>
+					<view>
+						<text class="fs-24 color-number">库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
+						<text class="fs-24 color-number left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+					</view>
+				</view>
 				<view @click="selecAttrTap" class="list">
 					<view class="list-item list-between">
 						<text class="fs-28 color-text">数量选择</text>
 						<view class="iconfont icon-jiantou arrow-atr"></view>
 					</view>
 				</view>
-				<view class="share flex-main-end line-top">
-					<!-- <view class="money font-color-red">
-            <text>￥</text>
-            <text class="num">{{ storeInfo.price }}</text>
-            <text
-              class="vip-money"
-              v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
-            >￥{{ storeInfo.vipPrice }}</text>
-            <image
-              src="@/static/images/vip.png"
-              class="image"
-              v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
-            />
-          </view> -->
-					<view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
-				</view>
 				<!-- <view class="label acea-row row-between-wrapper">
           <text>原价:￥{{ storeInfo.otPrice }}</text>
           <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
           <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
         </view> -->
-				<view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
+				<!-- <view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
 					<text class="hide line1 acea-row">
 						<text>优惠券：</text>
 						<text class="activity" v-for="(item, couponListEq) in couponList" :key="couponListEq">满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
 					</text>
 					<view class="iconfont icon-jiantou arrow-atr"></view>
-				</view>
+				</view> -->
 			</view>
-			<div class="attribute acea-row row-between-wrapper">
-				<div>
-					运费：
-					<span class="atterTxt">{{ tempName }}</span>
-				</div>
-			</div>
+			<view class="attribute flex-main-between">
+				<text class="fs-28 color-text">优惠券</text>
+				<text class="fs-28 style-receive color-white">领取</text>
+			</view>
 
-			<view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
+			<!-- <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
 				<view>
 					<text>{{ attrTxt }}：</text>
 					<text class="atterTxt">{{ attrValue }}</text>
 				</view>
 				<view class="iconfont icon-jiantou arrow-atr"></view>
-			</view>
+			</view> -->
 			<!-- <view class="store-info">
         <view class="title acea-row row-between-wrapper no-border line-down">
           <view>门店信息</view>
@@ -441,7 +447,7 @@
       </view> -->
 
 			<!-- 新版评价 -->
-			<view v-if="replyCount" class="user-comment bg-white top-15">
+			<view v-if="replyCount" class="user-comment bg-white top-5">
 				<view class="list">
 					<view class="list-item list-between" @click="goEvaluateList(id)">
 						<text class="fs-28 color-text">用户评价（{{replyCount}}）</text>
@@ -473,6 +479,23 @@
 					</view>
 				</view>
 			</view>
+			<!-- 店铺介绍 -->
+			<view class="bg-white top-20 comment-box">
+				<view class="flex-main-between">
+					<view class="flex-main-start">
+						<image class="avator flex-none" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"></image>
+						<text class="left-15 fs-34">鹅把式店铺</text>
+					</view>
+					<view>
+						<text @click="goShopManage()" class="fs-28 style-receive color-white">进入店铺</text>
+					</view>
+				</view>
+				<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
+					第一时间账务最新核心技术，让我们的产品高效便捷，贴合前 沿产品风向，让我们的解决方案永不落后,第一时间账务最新核 心技术，让我
+				</view>
+			</view>
+
+
 			<!-- 优品推荐 -->
 			<!-- <view class="superior">
         <view class="title acea-row row-center-wrapper">
@@ -505,7 +528,7 @@
         <view class="conter" v-html="storeInfo.description"></view>
       </view> -->
 			<!-- 新版产品介绍 -->
-			<view class="gd-intro top-20 bg-white">
+			<view class="bg-white">
 				<view class="flex-main-center">
 					<view class="gd-title fs-24 color-text">商品详情</view>
 				</view>
@@ -517,42 +540,45 @@
 
 			<view style="height:100rpx;"></view>
 			<view class="footer acea-row row-between-wrapper">
-				<view class="item" @click="setCollect" v-if="storeInfo.userCollect">
-					<view class="iconfont icon-shoucang1"></view>
-					<text>收藏</text>
+				<!-- <block v-if="mode!='point'"> -->
+				<!-- <view @click="goShoppingCart()" class="item animated bounceIn">
+						<image src="../../../static/icon-shop.png" mode=""></image>
+						<text>店鋪</text>
+					</view> -->
+				<view @click="goShopManage()" class="item relative">
+					<!-- <view class="iconfont icon-shoucang1"></view> -->
+					<image src="../../../static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<text>店鋪</text>
 				</view>
-				<view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
-					<view class="iconfont icon-shoucang"></view>
-					<text>收藏</text>
-				</view>
+				<!-- 					<view @click="goShoppingCart()" class="item animated" v-if="!animated">
+						<view class="iconfont icon-gouwuche1">
+							<text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
+						</view>
+						<text>购物车</text>
+					</view> -->
+				<!-- </block> -->
 				<view class="item relative">
 					<button type="default" class="hide-full" open-type="contact"></button>
 					<!-- <view class="iconfont icon-shoucang1"></view> -->
 					<image src="../../../static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>客服</text>
 				</view>
-				<block v-if="mode!='point'">
-					<view @click="goShoppingCart()" v-if="animated" class="item animated bounceIn">
-						<view class="iconfont icon-gouwuche1">
-							<text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
-						</view>
-						<text>购物车</text>
-					</view>
-					<view @click="goShoppingCart()" class="item animated" v-if="!animated">
-						<view class="iconfont icon-gouwuche1">
-							<text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
-						</view>
-						<text>购物车</text>
-					</view>
-				</block>
+				<view class="item" @click="setCollect" v-if="storeInfo.userCollect">
+					<image src="../../../static/icon-collection.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<text>收藏</text>
+				</view>
+				<view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
+					<image src="../../../static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<text>收藏</text>
+				</view>
 				<view class="bnt acea-row">
-					<view v-if="mode=='point'" style="background-color:rgba(254,133,99,.7);" class="btn-left" @click="joinCart">
+					<view v-if="mode=='point'" style="background-color:#0972B9" class="btn-left" @click="joinCart">
 						<text>加入购物车</text>
 					</view>
-					<view v-else class="btn-left" style="background-color: #fe8563;" @click="joinCart">
+					<view v-else class="btn-left" style="background-color: #72B0F6;" @click="joinCart">
 						<text>加入购物车</text>
 					</view>
-					<view class="btn-right bg-danger" @click="tapBuy()">
+					<view class="btn-right" style="background-color: #64CE5E;" @click="tapBuy()">
 						<text>立即购买</text>
 					</view>
 				</view>
@@ -667,7 +693,7 @@
 				isOpen: false, //是否打开属性组件
 				productValue: [],
 				id: 0,
-				uid:0,
+				uid: 0,
 				storeInfo: {},
 				couponList: [],
 				attrTxt: "请选择",
@@ -701,26 +727,26 @@
 			};
 		},
 		computed: mapGetters(["isLogin", "location"]),
-		onLoad(options){
-			if(options.scene){  // 处理扫码场景
+		onLoad(options) {
+			if (options.scene) { // 处理扫码场景
 				const scene = decodeURIComponent(options.scene)
 				const params = scene.split("&")
 				let ob = {}
-				params.forEach(v=>{
+				params.forEach(v => {
 					let key = v.split('=')[0]
 					let value = v.split('=')[1]
 					ob[key] = value
 				})
 				this._route.query = ob
 			}
-			console.log('onload:',options,this._route.query)
+			console.log('onload:', options, this._route.query)
 		},
 		mounted: function() {
 			let url = handleQrCode();
-			console.log('mounted:url',url)
-			console.log('this._route.query:',this._route.query)
+			console.log('mounted:url', url)
+			console.log('this._route.query:', this._route.query)
 			if (url && (url.productId || url.id)) {
-				this.id = url.productId||url.id
+				this.id = url.productId || url.id
 				this._route.query = url
 			} else {
 				this.id = this._route.query.id || this._route.query.productId;
@@ -737,11 +763,11 @@
 			var userinfo = uni.getStorageSync('userInfo')
 			this.level = userinfo ? userinfo.level : 0
 			this.uid = userinfo ? userinfo.uid : 0
-			if(this._route.query.uid && this._route.query.uid!=this.uid){ // 存在上级id,并且不是自己，发起上级绑定
+			if (this._route.query.uid && this._route.query.uid != this.uid) { // 存在上级id,并且不是自己，发起上级绑定
 				bindSuperior({
-					spread:this._route.query.uid
-				}).then(()=>console.log('绑定上级成功！')).catch(err=>{
-					console.log('绑定上级失败：',err)
+					spread: this._route.query.uid
+				}).then(() => console.log('绑定上级成功！')).catch(err => {
+					console.log('绑定上级失败：', err)
 				})
 			}
 		},
@@ -755,7 +781,7 @@
 				}
 			}
 		},
-		onShareAppMessage(){
+		onShareAppMessage() {
 			return {
 				title: this.storeInfo.storeName,
 				path: `/pages/shop/GoodsCon/index?id=${this.id}&mode=${this.mode}&from=share&uid=${this.uid}`
@@ -770,8 +796,9 @@
 					phoneNumber: number
 				});
 			},
-			goShoppingCart() {
-				this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");
+			// 进入店铺
+			goShopManage() {
+				this.$yrouter.push("/subpackage/shop/shop");
 			},
 			goCustomerList() {
 				this.$yrouter.push({
@@ -1054,10 +1081,10 @@
 			},
 			//  点击加入购物车按钮
 			joinCart: function() {
-				if(this.mode=='point'){
+				if (this.mode == 'point') {
 					uni.showToast({
-						icon:'none',
-						title:'积分商品不能加入哦'
+						icon: 'none',
+						title: '积分商品不能加入哦'
 					})
 					return
 				}
@@ -1097,8 +1124,7 @@
 					cartNum: that.attr.productSelect.cart_num,
 					new: news,
 					uniqueId: that.attr.productSelect !== undefined ?
-						that.attr.productSelect.unique :
-						""
+						that.attr.productSelect.unique : ""
 				};
 				postCartAdd(q)
 					.then(function(res) {
@@ -1109,7 +1135,7 @@
 								path: "/pages/order/OrderSubmission/index",
 								query: {
 									id: res.data.cartId,
-									mode:that.mode
+									mode: that.mode
 								}
 							});
 						} else {

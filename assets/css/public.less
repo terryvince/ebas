@@ -30,6 +30,12 @@
 .color-text{
 	color: #303030;
 }
+.color-type{
+	color: #64CE5E;
+}
+.color-number{
+	color: #636363;
+}
 // 次级文本
 .color-text-secondary{
 	color: #7C7979;
@@ -86,6 +92,21 @@
 		width: 100%;
 		height: 2rpx;
 		background: #9E9E9E;
+	}
+}
+.del-price-line{
+	position: relative;
+	&::after{
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		transform: translate(0,-50%);
+		width: 100%;
+		height: 2rpx;
+		background: #fff;
 	}
 }
 // 竖线
@@ -208,7 +229,7 @@ each(range(12,48,2),{
 .line(right);
 
 // 生成上下左右边距 10 - 30，5递增，left-10，left-15... 
-each(range(10,30,5),{
+each(range(5,30,5),{
 	.left-@{value} {
 		margin-left: @value*1rpx;
 	}

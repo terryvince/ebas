@@ -179,7 +179,16 @@
                     "enablePullDownRefresh": false
                 }
                 
-                }
+                },
+				{
+				    "path" : "shop/shop",
+				    "style" :                                                                                    
+				{
+				    "navigationBarTitleText": "鵝把式店鋪",
+				    "enablePullDownRefresh": false
+				}
+				
+				}
             ]
 		}
 	],
