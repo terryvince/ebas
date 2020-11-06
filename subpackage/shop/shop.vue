@@ -1,93 +1,8 @@
-<template>
-	<view class="shopManage">
-		<view class="">
-			<image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1603365312,3218205429&fm=26&gp=0.jpg" style="width: 100%;"
-			 mode="widthFix"></image>
-		</view>
-		<!-- 店铺介绍 -->
-		<view class="bg-white comment-box">
-			<view class="flex-main-between">
-				<view class="flex-main-start">
-					<image class="avator flex-none" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"></image>
-					<text class="left-15 fs-34">鹅把式店铺</text>
-				</view>
-				<view>
-					<text class="fs-28 style-receive color-white">联系客服</text>
-				</view>
-			</view>
-			<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-				第一时间账务最新核心技术，让我们的产品高效便捷，贴合前 沿产品风向，让我们的解决方案永不落后,第一时间账务最新核 心技术，让我
-			</view>
-		</view>
-		<view class="goodsCoupon bg-gray">
-			<!-- 优惠券领取 -->
-			<view class="index-coupon-wrap couponIndex" style="background: linear-gradient(0deg, #FE413F 0%, #FF6C5C 100%);">
-				<view class="more flex-main-end fs-20 color-white" style="margin-top: 18rpx;">
-					<text>更多</text>
-					<text class="iconfont icon-jiantou fs-20"></text>
-				</view>
-				<view class="index-coupon-list top-10">
-					<view v-for="item of [1,2,3]" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
-						<view class="flex-main-center" style="position: relative; top: -10rpx;">
-							<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;position: relative;right: -6rpx;top: -6rpx;">￥</text>
-							<text class="color-linear-yellow txt-bold lh-1" style="font-size: 65rpx;">10</text>
-							<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
-								<text>优</text>
-								<text>惠</text>
-								<text>券</text>
-							</view>
-						</view>
-						<view class="color-red fs-20 radius-btn">点击领取</view>
-					</view>
-				</view>
-				<!-- <image class="money-img" src="../../static/logo.png" style="width: 74rpx;height: 62rpx;"></image> -->
-			</view>
-			<!-- 商品 -->
-			<!-- <view class="goodsList" style="margin-top: 200rpx;">
-				<view class="nav acea-row row-middle">
-					<view class="item" :class="title ? 'font-color-red' : ''" @click="set_where(0)">{{ title ? title : "综合" }}</view>
-					<view class="item" @click="set_where(1)">
-						价格
-						<image src="../../../static/images/horn.png" v-if="price === 0" />
-						<image src="@/static/images/up.png" v-if="price === 1" />
-						<image src="@/static/images/down.png" v-if="price === 2" />
-					</view>
-					<view class="item" @click="set_where(2)">
-						销量
-						<image src="@/static/images/horn.png" v-if="stock === 0" />
-						<image src="@/static/images/up.png" v-if="stock === 1" />
-						<image src="@/static/images/down.png" v-if="stock === 2" />
-					</view>
-					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
-				</view>
-				<view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container">
-					<view @click="goGoodsCon(item)" class="item" :class="Switch === true ? '' : 'on'" v-for="(item, productListIndex) in productList"
-					 :key="productListIndex" :title="item.storeName">
-						<view class="pictrue" :class="Switch === true ? '' : 'on'">
-							<image :src="item.image" :class="Switch === true ? '' : 'on'" />
-						</view>
-						<view class="text" :class="Switch === true ? '' : 'on'">
-							<view class="name line1">{{ item.storeName }}</view>
-							<view class="money font-color-red" :class="Switch === true ? '' : 'on'">
-								￥
-								<text class="num">{{ item.price }}</text>
-							</view>
-							<view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
-								<view class="vip-money">￥{{ item.otPrice }}</view>
-								<view>已售{{ item.sales }}件</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view> -->
-		</view>
-
-	</view>
-</template>
-
-<script>
-</script>
-
+<style lang="less">
+	page {
+		background: #FFFFFF;
+	}
+</style>
 <style scoped lang="less">
 	@import "~@/assets/css/utils.less";
 
@@ -98,7 +13,7 @@
 	}
 
 	.comment-box {
-		padding: 40rpx 30rpx 56rpx;
+		padding: 30rpx 30rpx 20rpx;
 
 		.avator {
 			width: 92rpx;
@@ -116,8 +31,9 @@
 	.index-coupon-wrap {
 		width: auto;
 		margin: 0 20rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-coupon.png)no-repeat center;
 		background-size: 100% 100%;
-		padding: 63rpx 22rpx 36rpx;
+		padding: 24rpx 22rpx 36rpx;
 		position: relative;
 	}
 
@@ -154,25 +70,162 @@
 		-webkit-text-fill-color: transparent;
 	}
 
+	.radius-btn {
+		width: 61rpx;
+		background: #FFFFFF;
+		border-radius: 15rpx;
+		padding: 9rpx 11rpx;
+		box-sizing: border-box;
+	}
+
 	.goodsCoupon {
-		// position: relative;
-		margin-top: 200rpx;
+		border-top: 2rpx solid #ffffff;
+		position: relative;
+		// margin-top: 200rpx;
+		background-color: #16AC57;
+		margin-top: 100rpx;
+		min-height: 500rpx;
 
 		.couponIndex {
-			// position: absolute;
+			position: absolute;
+			top: -100rpx;
 		}
 	}
 
-	.goodsList .nav {
-		height: 86rpx;
-		color: #4545454;
-		width: 100%;
-		font-size: 28rpx;
-		background-color: #fff;
-		display: flex;
-		.item {
-			width: 25%;
-			text-align: center;
+	.goodsList {
+		margin-top: 150rpx;
+		background-color: #1CD1DC;
+
+		.nav {
+			height: 86rpx;
+			color: #4545454;
+			width: 100%;
+			font-size: 28rpx;
+			background-color: #fff;
+			display: flex;
+
+			.item {
+				width: 25%;
+				text-align: center;
+
+				image {
+					width: 15rpx;
+					height: 19rpx;
+					margin-left: 10rpx;
+				}
+			}
 		}
 	}
 </style>
+
+<template>
+	<view class="shopManage">
+		<view class="">
+			<image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1603365312,3218205429&fm=26&gp=0.jpg" style="width: 100%;"
+			 mode="widthFix"></image>
+		</view>
+		<!-- 店铺介绍 -->
+		<view class="bg-white comment-box line-down">
+			<view class="flex-main-between">
+				<view class="flex-main-start">
+					<image class="avator flex-none" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"></image>
+					<text class="left-15 fs-34">鹅把式店铺</text>
+				</view>
+				<view>
+					<text class="fs-28 style-receive color-white">联系客服</text>
+				</view>
+			</view>
+			<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
+				第一时间账务最新核心技术，让我们的产品高效便捷，贴合前 沿产品风向，让我们的解决方案永不落后,第一时间账务最新核 心技术，让我
+			</view>
+		</view>
+		<view class="goodsCoupon">
+			<!-- 优惠券领取 -->
+			<coupon-list class="couponIndex" :list="[1,2,3]"></coupon-list>
+			<!-- 商品 -->
+			<view class="goodsList">
+				<view class="nav acea-row row-middle">
+					<view class="item" :class="title ? 'font-color-red' : ''" @click="set_where(0)">{{ title ? title : "综合" }}</view>
+					<view class="item" @click="set_where(1)">
+						价格
+						<image src="../../static/images/horn.png" v-if="price === 0" />
+						<image src="../../static/images/up.png" v-if="price === 1" />
+						<image src="../../static/images/down.png" v-if="price === 2" />
+					</view>
+					<view class="item" @click="set_where(2)">
+						销量
+						<image src="../../static/images/horn.png" v-if="stock === 0" />
+						<image src="../../static/images/up.png" v-if="stock === 1" />
+						<image src="../../static/images/down.png" v-if="stock === 2" />
+					</view>
+					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
+				</view>
+				<view class="choice-goods x-line gray flex-1" style="order:1">
+					<goodsList :list="pickList" :from="goodsType"></goodsList>
+				</view>
+			</view>
+		</view>
+	</view>
+
+</template>
+
+<script>
+	export default {
+		name: "Shop",
+		components: {
+
+		},
+		data: function() {
+			return {
+				price: 0,
+				stock: 0,
+				nows: false,
+				// 商品类型
+				goodsType: "goods",
+				where: {
+					page: 1,
+					limit: 8,
+					// keyword: s,
+					// sid: id, //二级分类id
+					news: 0,
+					priceOrder: "",
+					salesOrder: "",
+					type: 0
+				},
+			}
+		},
+		methods: {
+			//点击筛选事件处理
+			set_where: function(index) {
+				let that = this;
+				switch (index) {
+					case 0:
+						return that.$yrouter.push({
+							path: "/subpackage/shop/shop"
+						});
+					case 1:
+						if (that.price === 0) that.price = 1;
+						else if (that.price === 1) that.price = 2;
+						else if (that.price === 2) that.price = 0;
+						that.stock = 0;
+						break;
+					case 2:
+						if (that.stock === 0) that.stock = 1;
+						else if (that.stock === 1) that.stock = 2;
+						else if (that.stock === 2) that.stock = 0;
+						that.price = 0;
+						break;
+					case 3:
+						that.nows = !that.nows;
+						break;
+					default:
+						break;
+				}
+				that.$set(that, "Shop", []);
+				that.where.page = 1;
+				that.loadend = false;
+				// that.get_product_list();
+			},
+		}
+	}
+</script>
