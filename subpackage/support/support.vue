@@ -32,10 +32,12 @@
 	}
 
 	robby-image-upload::v-deep {
-		.imageItem , .imageUpload {
-		    width: 150rpx !important;
-		    height: 150rpx !important;
-		    margin: 10rpx !important;
+
+		.imageItem,
+		.imageUpload {
+			width: 150rpx !important;
+			height: 150rpx !important;
+			margin: 10rpx !important;
 		}
 	}
 
@@ -46,6 +48,45 @@
 		background-color: #FFFFFF;
 		border-radius: 20rpx;
 		// min-height: 200rpx;
+	}
+
+	.desrc {
+		margin-top: 30rpx;
+		margin-right: 20rpx;
+		justify-content: flex-start;
+		display: flex;
+		// align-items: center;
+		// align-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		.title {
+			margin-top: 10rpx;
+			margin-left: 20rpx;
+			margin-right: 10rpx;
+			width: 20rpx;
+			height: 20rpx;
+			line-height: 20rpx;
+			background: #999999;
+			border-radius: 50%;
+			align-items: center;
+			text-align: center;
+			font-size: 18rpx;
+			color: #FFFFFF;
+		}
+	}
+	
+	.continue{
+		margin-top: 80rpx;
+		margin-right: 40rpx;
+		margin-left: 40rpx;
+		height: 100rpx;
+		background-color:#5FCB55;
+		font-size: 36rpx;
+		color: #FFFFFF;
+		line-height: 100rpx;
+		border-radius: 8rpx;
+		align-items: center;
+		text-align: center;
 	}
 </style>
 
@@ -64,6 +105,22 @@
 		<view class="photos">
 			<robby-image-upload v-model="imageData" @delete="deleteImage" @add="addImage" :limit=4>
 			</robby-image-upload>
+		</view>
+
+		<view class="desrc">
+			<view class="title flex-none">!
+			</view>
+			<view>
+				温馨提示：
+				<view>1.商品寄回地址将在审核通过后以短信形式告知，或在申请记
+				</view>
+				<view>录中查询.</view>
+				<view>2.退货处理成功后退款金额将原路返回到您的支持账户中</view>
+			</view>
+		</view>
+		
+		<view class="continue">
+			提交
 		</view>
 	</view>
 </template>

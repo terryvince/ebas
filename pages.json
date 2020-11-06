@@ -179,6 +179,12 @@
 						"navigationBarTitleText": "申请售后",
 						"enablePullDownRefresh": false
 					}
+				}, {
+					"path": "support/sucess",
+					"style": {
+						"navigationBarTitleText": "申请售后",
+						"enablePullDownRefresh": false
+					}
 				}
 			]
 		}
