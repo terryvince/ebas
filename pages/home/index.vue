@@ -286,7 +286,7 @@
 						<view class="iconfont icon-jiantou fs-20"></view>
 					</view>
 				</view>
-				<goods-list :list="pickList"></goods-list>
+				<goodsList :list="pickList"></goodsList>
 			</view>
 			
 			<!-- 团购 -->
@@ -301,7 +301,7 @@
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
 					</view>
 				</view>
-				<goods-list :list="pickList" from="group"></goods-list>
+				<goodsList :list="pickList" from="group"></goodsList>
 			</view>
 			
 			<!-- 秒杀, -->
@@ -309,9 +309,13 @@
 				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
 					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
-					<!-- <text></text> -->
+					<view class="count-down left-15">
+						<text>00</text>:
+						<text>28</text>:
+						<text>14</text>
+					</view>
 				</view>
-				<goods-list :list="pickList" from="seckill"></goods-list>
+				<goodsList :list="pickList" from="seckill"></goodsList>
 			</view>
 		</view>
 		
@@ -331,7 +335,7 @@
 		mapMutations,
 		mapActions
 	} from 'vuex';
-	import GoodsList from '@/components/goodsList/goodsList';
+	// import GoodsList from '@/components/goodsList/goodsList';
 	import { getSeckillConfig, getSeckillList,queryLotteryDialog } from "@/api/activity";
 	import { getProducts } from "@/api/store";
 	// import GoodList from '@/components/GoodList';
@@ -359,7 +363,7 @@
 			// GoodList,
 			// PromotionGood,
 			CouponWindow,
-			GoodsList
+			// GoodsList
 		},
 		props: {},
 		data: function() {

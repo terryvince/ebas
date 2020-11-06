@@ -1,4 +1,25 @@
+<style lang="less">
+	page{
+		background-color: #f5f5f5!important;
+	}
+</style>
 <style scoped lang="less">
+// 我的订单部分
+.user .wrapper .myOrder{
+	border-radius: 20rpx;
+}
+.user .wrapper .myOrder .orderState .item{
+	flex: 0 0 20%;
+	margin-bottom: 20rpx;
+	&:nth-last-child(-n + 5){
+		margin-bottom: 0;
+	}
+}
+.user .wrapper .myOrder .orderState{
+	height: auto;
+	padding: 25rpx 0;
+}
+
 .footer-line-height {
   height: 1 * 100rpx;
 }
@@ -68,6 +89,37 @@
 .my-point,.shopping-point{
 	height: 140rpx;
 }
+
+.fun-box{
+	border-radius: 20rpx;
+	background-color: #fff;
+	.fun-title{
+		height: 88rpx;
+		padding: 0 30rpx;
+		border-bottom: 1px dashed #eee;
+		font-size: 30rpx;
+		color: #282828;
+	}
+	.fun-list{
+		display: flex;
+		justify-content: flex-start;
+		padding: 25rpx 0;
+	}
+	.fun-item{
+		flex: 0 0 25%;
+		margin-bottom: 82rpx;
+		font-size: 26rpx;
+		color: #454545;
+		text-align: center;
+		&:nth-last-child(-n + 4){
+			margin-bottom: 0;
+		}
+	}
+	.fun-img{
+		width: 47rpx;
+		height: 47rpx;
+	}
+}
 </style>
 <template>
   <view class="user">
@@ -128,26 +180,28 @@
         </view> -->
 		<!-- 我的积分,积分商城 -->
 		<view class="flex-main-between fs-26 color-white txt-heavy lh-1">
-			<view class="my-point flex-main-center flex-column flex-1">
+			<view @click="goIntegral()" class="my-point flex-main-center flex-column flex-1">
 				<text>我的积分</text>
 				<text class="top-25 txt-medium">9999</text>
 			</view>
-			<view class="shopping-point flex-main-center left-10 flex-1">
+			<view @click="goShopping()" class="shopping-point flex-main-center left-10 flex-1">
 				<text>积分商城</text>
 			</view>
 		</view>
+		
         <view class="myOrder top-20">
           <view class="title acea-row row-between-wrapper">
-            <text>我的订单</text>
+            <text class="txt-medium">我的订单</text>
             <text @click="goMyOrder()" class="allOrder">
               <text>全部订单</text>
               <text class="iconfont icon-jiantou"></text>
             </text>
           </view>
           <view class="orderState acea-row row-middle">
+			  
             <view @click="goMyOrder(0)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dfk.png" />
+                <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-5.png" style="width: 54rpx;height: 51rpx;"/>
                 <text
                   class="order-status-num"
                   v-if="userInfo.orderStatusNum.unpaidCount > 0"
@@ -155,9 +209,10 @@
               </view>
               <view>待付款</view>
             </view>
+			
             <view @click="goMyOrder(1)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dfh.png" />
+                <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-6.png" style="width: 51rpx;height: 48rpx;"/>
                 <text
                   class="order-status-num"
                   v-if="userInfo.orderStatusNum.unshippedCount > 0"
@@ -165,9 +220,10 @@
               </view>
               <view>待发货</view>
             </view>
+			
             <view @click="goMyOrder(2)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dsh.png" />
+                <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-7.png" style="width: 55rpx;height: 49rpx;"/>
                 <text
                   class="order-status-num"
                   v-if="userInfo.orderStatusNum.receivedCount > 0"
@@ -175,9 +231,10 @@
               </view>
               <text>待收货</text>
             </view>
+			
             <view @click="goMyOrder(3)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dpj.png" />
+                <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-8.png" style="width: 54rpx;height: 50rpx;"/>
                 <text
                   class="order-status-num"
                   v-if="userInfo.orderStatusNum.evaluatedCount > 0"
@@ -185,9 +242,10 @@
               </view>
               <text>待评价</text>
             </view>
+			
             <view @click="goReturnList()" class="item">
               <view class="pictrue">
-                <image src="@/static/images/sh.png" />
+                <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-9.png" style="width: 48rpx;height: 53rpx;"/>
                 <text
                   class="order-status-num"
                   v-if="userInfo.orderStatusNum.refundCount > 0"
@@ -195,14 +253,30 @@
               </view>
               <text>售后/退款</text>
             </view>
+			
           </view>
         </view>
-        <view class="myService">
+		
+		<view class="fun-box top-20">
+		  <view class="fun-title acea-row row-between-wrapper">
+		    <text class="txt-medium">常用功能</text>
+		  </view>
+		  <view class="fun-list lh-1 flex-wrap">
+			  <view v-for="(item, MyMenusIndex) in MyMenus" :key="MyMenusIndex" @click="goPages(MyMenusIndex)" class="fun-item relative">
+				  <!-- 客服特殊处理 -->
+				  <button v-if="item.uniapp_url == 'contact'" type="default" open-type="contact" class="hide-full"></button>
+				  <image :src="item.pic" class="fun-img"></image>
+				  <view class="top-20">{{ item.name }}</view>
+			  </view>
+		  </view>
+		</view>
+		
+        <!-- <view class="myService">
           <view class="serviceList acea-row row-middle">
             <template v-for="(item, MyMenusIndex) in MyMenus">
-              <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)">
+              <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)"> -->
 				  <!-- 客服特殊处理 -->
-				<button v-if="item.uniapp_url == 'contact'" type="default" open-type="contact" class="hide-full"></button>
+				<!-- <button v-if="item.uniapp_url == 'contact'" type="default" open-type="contact" class="hide-full"></button>
                 <view class="pictrue">
                   <image :src="item.pic" />
                 </view>
@@ -210,13 +284,9 @@
                 <text class="iconfont icon-jiantou"></text>
               </view>
             </template>
-            <!-- <view class="item" @click="goPages2()">
-              <view class="pictrue"></view>
-              <view class="cell">hexiao</view>
-              <text class="iconfont icon-jiantou"></text>
-            </view>-->
           </view>
-        </view>
+        </view> -->
+		
       </view>
       <view class="by"></view>
       <!-- <SwitchWindow
@@ -267,6 +337,10 @@ export default {
         }
       });
     },
+	// 积分商城
+	goShopping(){
+	  this.$yrouter.push("/subpackage/pointShopping/index");
+	},
     goUserCoupon() {
       this.$yrouter.push("/pages/user/coupon/UserCoupon/index");
     },
