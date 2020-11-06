@@ -195,9 +195,12 @@
 		bottom: 0;
 		margin: auto;
 	}
+	[v-cloak]{
+		display: none;
+	}
 </style>
 <template>
-	<view class="index">
+	<view class="index" v-cloak>
 		<view class="header fixed-header acea-row row-center-wrapper">
 			<view @click="goGoodSearch()" class="search flex-main-start relative">
 				<!-- <text class="iconfont icon-xiazai5"></text> -->
@@ -226,25 +229,9 @@
 				</block>
 			</swiper>
 		</view>
+		
 		<!-- 间隙文字 -->
-		<view class="features-box flex-main-between">
-			<view class="feature flex-main-start">
-				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-1.png" style="width: 19rpx;height: 19rpx;" mode=""></image>
-				<text>优选严检</text>
-			</view>
-			<view class="feature flex-main-start">
-				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-2.png" style="width: 23rpx;height: 19rpx;" mode=""></image>
-				<text>品质溯源</text>
-			</view>
-			<view class="feature flex-main-start">
-				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-3.png" style="width: 16rpx;height: 20rpx;" mode=""></image>
-				<text>全程安全</text>
-			</view>
-			<view class="feature flex-main-start">
-				<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-safe-4.png" style="width: 20rpx;height: 19rpx;" mode=""></image>
-				<text>专享客服</text>
-			</view>
-		</view>
+		<features-text></features-text>
 		
 		<!-- 导航 -->
 		<view class="nav acea-row">
@@ -256,8 +243,9 @@
 			</view>
 		</view>
 		
-		<!-- 优惠券栏 -->
-		<coupon-list :list="[1,2,3]"></coupon-list>
+		<!-- 优惠券栏 目前接口没返couponList字段，取不到数据-->
+		<coupon-list v-if="couponList.length>0" :list="couponList.slice(0,3)"></coupon-list>
+		<!-- <Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window> -->
 		
 		<!-- <view class="notice flex-main-between top-20">
 			<view class="fs-34 txt-bold txt-italic flex-none">
@@ -289,14 +277,14 @@
 				<goodsList :list="pickList"></goodsList>
 			</view>
 			
-			<!-- 团购 -->
-			<view class="group-list top-30 flex-1" style="order:2">
+			<!-- 团购 无字段-->
+			<view v-if="pickList.length" class="group-list top-30 flex-1" style="order:2">
 				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
 					<view class="flex-main-start fs-34 txt-heavy">
 						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-mark.png" class="group-title-img"></image>
 						<text class="left-10 lh-1">商品团购</text>
 					</view>
-					<view class="flex-main-start fs-20">
+					<view class="flex-main-start fs-20" @click="goGroupList()">
 						<text class="txt-bold">更多</text>
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
 					</view>
@@ -304,8 +292,8 @@
 				<goodsList :list="pickList" from="group"></goodsList>
 			</view>
 			
-			<!-- 秒杀, -->
-			<view class="seckill-list top-30 flex-1" style="order:3">
+			<!-- 秒杀 -->
+			<view v-if="discountList.length>0" class="seckill-list top-30 flex-1" style="order:3">
 				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
 					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
@@ -315,11 +303,10 @@
 						<text>14</text>
 					</view>
 				</view>
-				<goodsList :list="pickList" from="seckill"></goodsList>
+				<goodsList :list="discountList" from="seckill"></goodsList>
 			</view>
 		</view>
 		
-		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window>
 		<view :class="['modal-shadow modal-content-center',isShowLottery ? 'visible' : '']">
 			<view class="relative" @click.stop="()=>false">
 				<image @click="goLotteryType()" :src="$img_lottery" class="lottery-img" mode="widthFix"></image>
@@ -371,7 +358,7 @@
 				$img_lottery:'home-lottery-dialog1.png',
 				// $img_url : '哈哈',
 				discountList:[],
-				showCoupon: false,
+				showCoupon: true,
 				logoUrl: '',
 				banner: [],
 				menus: [],
@@ -482,7 +469,7 @@
 				that.$set(that, 'likeInfo', res.data.likeInfo);
 				that.$set(that, 'lovely', res.data.lovely);
 				that.$set(that, 'benefit', res.data.benefit);
-				that.$set(that, 'couponList', res.data.couponList);
+				that.$set(that, 'couponList', res.data.couponList || []);
 				that.setOpenShare();
 			}).finally(()=>{
 				if(++count == 3){
@@ -520,6 +507,12 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+			goGroupList(){
+				
+				this.$yrouter.push({
+					path: '/pages/activity/GoodsGroup/index'
+				});
+			},
 			goLotteryType(){
 				this.$yrouter.push("/subpackage/lotteryDraw/lotteryType/lotteryType");
 			},

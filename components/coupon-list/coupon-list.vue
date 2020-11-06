@@ -77,6 +77,7 @@
 			<view v-for="(item,i) of list" :key="i" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
 				<view class="flex-main-center" style="position: relative; top: -10rpx;">
 					<text class="color-white lh-1" style="font-size: 19rpx;align-self:flex-end;position: relative;right: -6rpx;top: -6rpx;">￥</text>
+					<!-- {{item.coupon_price}} -->
 					<text class="color-linear-yellow txt-bold lh-1" style="font-size: 65rpx;">10</text>
 					<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
 						<text>优</text>

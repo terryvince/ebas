@@ -607,7 +607,7 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "中恒跨境商城",

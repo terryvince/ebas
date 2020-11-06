@@ -1,6 +1,27 @@
+<style lang="less">
+	page{
+		background-color: #F6F6F6;
+	}
+</style>
+<style lang="less" scoped>
+	.group-banner{
+		width: 100%;
+		height: 220rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/group-list-banner.png)no-repeat center;
+		background-size: 100% 100%;
+	}
+	.group-wrap{
+		background-color: white;
+		margin: -115rpx 20rpx 23rpx;
+		padding: 20rpx;
+		border-radius: 20rpx;
+		position: relative;
+		z-index: 2;
+	}
+</style>
 <template>
   <view class="group-list" ref="container">
-    <view class="list" v-if="combinationList.length>0">
+    <!-- <view class="list" v-if="combinationList.length>0">
       <view
         class="item acea-row row-between-wrapper"
         v-for="(item, combinationListIndex) in combinationList"
@@ -32,8 +53,17 @@
         </view>
       </view>
       <Loading :loaded="status" :loading="loadingList"></Loading>
-    </view>
-    <view class="noCommodity" style="background-color: #fff;" v-if="combinationList.length === 0">
+    </view> -->
+	<view class="group-banner over-hide">
+		<view class="flex-main-between color-white txt-medium padding-beside-20" style="margin-top: 36rpx;">
+			<text class="fs-32">爆款拼团</text>
+			<text class="fs-26">省钱省心限时拼</text>
+		</view>
+	</view>
+	<view class="group-wrap">
+		<goodsList :list="combinationList" from="group"></goodsList>
+	</view>
+    <view class="noCommodity bg-white" style="padding-bottom: 20rpx;" v-if="combinationList.length === 0">
       <view class="noPictrue">
         <image src="@/static/images/noGood.png" class="image" />
       </view>
@@ -41,6 +71,7 @@
   </view>
 </template>
 <script>
+	// http://qj5wtf3w8.hn-bkt.clouddn.com/group-list-banner.png
 import { getCombinationList } from "@/api/activity";
 import Loading from "@/components/Loading";
 
