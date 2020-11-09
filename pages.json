@@ -179,17 +179,17 @@
 						"navigationBarTitleText": "申请售后",
 						"enablePullDownRefresh": false
 					}
-<<<<<<< HEAD
-				},{
+
+				}, {
 					"path": "storesettlement/storesettlement",
 					"style": {
 						"navigationBarTitleText": "商户入驻",
-=======
+					}
+
 				}, {
 					"path": "support/sucess",
 					"style": {
 						"navigationBarTitleText": "申请售后",
->>>>>>> 02b5e0c29c4e9d595b9ed81e1201b28cb5ba65ef
 						"enablePullDownRefresh": false
 					}
 				}
@@ -620,7 +620,7 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "中恒跨境商城",
