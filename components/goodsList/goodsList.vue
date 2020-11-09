@@ -144,20 +144,20 @@
 		</view>
 		<!-- 团购商品 -->
 		<view v-else-if="from=='group'" class="group-list color-text lh-1">
-			<view class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
-				<view class="group-img-wrap flex-none">
-					<image :src="item.image" class="full"></image>
+			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="item.id">
+				<view class="group-img-wrap flex-none flex-main-center">
+					<image :src="item.image" class="width-full" mode="aspectFit"></image>
 				</view>
 				<view class="group-content left-20 flex-1">
 					<view class="group-title fs-28 relative">
 						<text class="group-badge badge badge-mini-extra badge-primary badge-radius">渝北区可拼</text>
 						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;text-indent: 150rpx;">
-							{{item.storeName}}
+							{{item.title}}
 						</text>
 					</view>
 					<view class="color-gray fs-20 txt-baseline" style="margin-top: 26rpx;">
 						<text class="txt-bold">鹅把式商户</text>
-						<text class="left-10 fs-26 txt-bold">2</text>
+						<text class="left-10 fs-26 txt-bold">{{item.people}}</text>
 						<text class="txt-medium">人成团</text>
 					</view>
 					<view class="group-extra flex-main-between top-30">
@@ -165,7 +165,7 @@
 							<view class="fs-22 txt-heavy color-danger txt-baseline">
 								<text>￥</text>
 								<text class="fs-32">{{item.price|toFixed}}</text>
-								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{item.otPrice|toFixed}}</text>
+								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{item.productPrice|toFixed}}</text>
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">9999</text> 件</view>
 						</view>
@@ -212,7 +212,7 @@
 	export default {
 		name:'GoodsList',
 		props:{
-			list:{  // 列表数据，元素项暂定符合格式{storeName:"商品名",price:'商品现价',otPrice:'商品原价',sales:'已售数量',image:'商品图片'}
+			list:{  // 列表数据，普通商品和积分商品字段名称要求一致，秒杀和团购商品字段名称可以不一致
 				type:[Array],
 				default:[]
 			},
@@ -221,6 +221,10 @@
 				type:[String],
 				default:'goods'  // seckill 秒杀商品 goods 普通商品 point 积分商品 group 团购商品
 			},
+			keyMap:{
+				type:[String],
+				default:null
+			}
 		},
 		filters:{
 			toFixed(value, option=2){
@@ -232,9 +236,6 @@
 			}
 		},
 		created(){
-			// setTimeout(()=>{
-			// 	console.log(self,'this')
-			// },5000)
 		},
 		data() {
 			return {
@@ -257,6 +258,13 @@
 					    id:item.id,
 					    time:item.stop
 					  }
+					});
+					return
+				}
+				if(this.from == 'group') { // 团购商品
+					this.$yrouter.push({
+					  path: "/pages/activity/GroupDetails/index",
+					  query: { id:item.id }
 					});
 					return
 				}

@@ -1,48 +1,16 @@
 <style scoped lang="less">
- .list{
-	 background: white;
-	 display: flex;
-	 justify-content: space-between;
-	 flex-wrap: wrap;
-	 padding:30rpx 25rpx 0;
-	 .list-item{
-		 width:336rpx;
-		 margin-bottom: 30rpx;
-		 flex: none;
-	 }
-	 .img-wrap{
-		 width: 100%;
-		 height: 260rpx;
-		 border-radius:8rpx 4rpx 4rpx 4rpx;
-	 }
- }
- .top-23{
-	 margin-top: 23rpx;
- }
- .top-19{
-	 margin-top:19rpx;
- }
- .top-10{
-	 margin-top:10rpx;
- }
- .left-6{
-	 margin-left: 6rpx;
+ .list-wrap{
+	 padding: 0 20rpx;
  }
 </style>
 <template>
 	<view class="point-shopping">
-		<view v-if="list.length>0">
-			<view class="list">
-				<view @click="goDetail(item)" class="list-item lh-1" v-for="item in list" :key="item.id">
-					<view class="img-wrap over-hide">
-						<image :src="item.image" class="full"></image>
-					</view>
-					<view class="fs-28 color-text top-19 txt-bold width-full txt-ellipsis">{{item.storeName}}</view>
-					<view class="flex-main-start fs-28 top-23">
-						<text class="color-danger">{{item.price}}积分 </text>
-					</view>
-				</view>
-			</view>
+		<view class="padding-beside-20">
+			<image class="width-full block" src="http://qj5wtf3w8.hn-bkt.clouddn.com/point-shopping-baner-v1.png" mode="widthFix"></image>
+		</view>
+		<features-text></features-text>
+		<view v-if="list.length>0" class="list-wrap">
+			<goodsList :list="list" from="point"></goodsList>
 		</view>
 		<view v-else class="flex-main-center top-20 color-text-secondary fs-24">暂时没有数据哦</view>
 	</view>
