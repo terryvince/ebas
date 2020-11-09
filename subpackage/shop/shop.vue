@@ -2,6 +2,9 @@
 	page {
 		background: #FFFFFF;
 	}
+	.good-list-card {
+		flex-wrap: wrap!important;
+	}
 </style>
 <style scoped lang="less">
 	@import "~@/assets/css/utils.less";
@@ -80,9 +83,9 @@
 
 	.goodsCoupon {
 		border-top: 2rpx solid #ffffff;
+		background-color: #F5F5F5;
 		position: relative;
 		// margin-top: 200rpx;
-		background-color: #16AC57;
 		margin-top: 100rpx;
 		min-height: 500rpx;
 
@@ -94,7 +97,6 @@
 
 	.goodsList {
 		margin-top: 150rpx;
-		background-color: #1CD1DC;
 
 		.nav {
 			height: 86rpx;
@@ -115,6 +117,10 @@
 				}
 			}
 		}
+
+		.goodsListItem {
+			padding: 30rpx 20rpx 60rpx;
+		}
 	}
 </style>
 
@@ -132,6 +138,7 @@
 					<text class="left-15 fs-34">鹅把式店铺</text>
 				</view>
 				<view>
+					<button type="default" class="hide-full" open-type="contact"></button>
 					<text class="fs-28 style-receive color-white">联系客服</text>
 				</view>
 			</view>
@@ -160,7 +167,7 @@
 					</view>
 					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
 				</view>
-				<view class="choice-goods x-line gray flex-1" style="order:1">
+				<view class="goodsListItem choice-goods x-line gray">
 					<goodsList :list="pickList" :from="goodsType"></goodsList>
 				</view>
 			</view>
@@ -170,6 +177,9 @@
 </template>
 
 <script>
+	import {
+		getProducts
+	} from "@/api/store";
 	export default {
 		name: "Shop",
 		components: {
@@ -182,6 +192,8 @@
 				nows: false,
 				// 商品类型
 				goodsType: "goods",
+				// 商品数据
+				pickList: [],
 				where: {
 					page: 1,
 					limit: 8,
@@ -192,7 +204,24 @@
 					salesOrder: "",
 					type: 0
 				},
+				params: {
+					page: 1,
+					limit: 4,
+					type: 0 // 0 普通商品 1积分商品 2精选商品
+				},
 			}
+		},
+		onShow: function() {
+			// 商品数据
+			getProducts(this.params).then(res => {
+				this.pickList = res.data
+			}).catch(err => {
+				console.error("获取精选商品列表发生错误！", err)
+			}).finally(() => {
+				if (++count == 3) {
+					uni.hideLoading();
+				}
+			})
 		},
 		methods: {
 			//点击筛选事件处理

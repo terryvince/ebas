@@ -179,6 +179,14 @@
 						"navigationBarTitleText": "申请售后",
 						"enablePullDownRefresh": false
 					}
+
+				}, {
+					"path": "storesettlement/storesettlement",
+					"style": {
+						"navigationBarTitleText": "商户入驻",
+						"enablePullDownRefresh": false
+					}
+
 				}, {
 					"path": "support/sucess",
 					"style": {
@@ -613,7 +621,7 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "中恒跨境商城",
