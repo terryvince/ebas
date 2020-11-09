@@ -184,6 +184,7 @@
 					"path": "storesettlement/storesettlement",
 					"style": {
 						"navigationBarTitleText": "商户入驻",
+						"enablePullDownRefresh": false
 					}
 
 				}, {
