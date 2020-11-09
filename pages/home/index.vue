@@ -90,32 +90,6 @@
 		margin: auto;
 		margin-bottom: -62rpx;
 	}
-	.header.fixed-header{
-		background-color: white;
-		padding: 0 20rpx;
-		.search{
-			background-color: #EEEEEE;
-			border: 1px solid #EEEEEE;
-			border-radius: 50rpx;
-			overflow: hidden;
-		}
-		.icon-search{
-			width: 22rpx;
-		}
-		.search-button{
-			box-sizing: border-box;
-			border: none;
-			background: linear-gradient(80deg, #71D676, #5FCB55);
-			height: 100%;
-			border-radius:50rpx 0 0 50rpx;
-			line-height: 1;
-			padding: 0 40rpx;
-			color: white;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-	}
 	// banner
 	.index .banner swiper,.index .banner image {
 		border-radius: 20rpx;
@@ -198,22 +172,34 @@
 	[v-cloak]{
 		display: none;
 	}
+	.countdown-item{
+		width: 31rpx;
+		height: 27rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #FFFFFF;
+		border-radius: 4rpx;
+	}
 </style>
 <template>
 	<view class="index" v-cloak>
-		<view class="header fixed-header acea-row row-center-wrapper">
-			<view @click="goGoodSearch()" class="search flex-main-start relative">
+		<!-- <view class="fixed-header"> -->
+			<!-- <view @click="goGoodSearch()" class="search flex-main-start relative"> -->
 				<!-- <text class="iconfont icon-xiazai5"></text> -->
-				<view class="acea-row row-middle">
+				<!-- <view class="acea-row row-middle">
 					<image class="icon-search" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
 					<span class="y-line left-10"></span>
 					<text class="left-10 color-placeholder">搜索请输入关键词</text>
 				</view>
 				<view class="search-button flex-main-center">搜索</view>
-			</view>
+			</view> -->
 			<!-- <view class="qr" @click="startQr()">
 				<image src="@/static/images/qr.png" />
 			</view> -->
+		<!-- </view> -->
+		<view class="fixed-header" style="height: 86rpx;" @click="goGoodSearch()">
+			<search-bar></search-bar>
 		</view>
 		<!-- 搜索栏占位 -->
 		<view class="fixed-header-box"></view>
@@ -269,7 +255,7 @@
 			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
 				<view class="flex-main-center relative">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
-					<view class="pick-more fs-20 color-text-secondary flex-main-start">
+					<view @click="goHotNewGoods(1)" class="pick-more fs-20 color-text-secondary flex-main-start">
 						<text>更多</text>
 						<view class="iconfont icon-jiantou fs-20"></view>
 					</view>
@@ -278,18 +264,18 @@
 			</view>
 			
 			<!-- 团购 无字段-->
-			<view v-if="pickList.length" class="group-list top-30 flex-1" style="order:2">
+			<view v-if="combinationList.length" class="group-list top-30 flex-1" style="order:2">
 				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
 					<view class="flex-main-start fs-34 txt-heavy">
 						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-mark.png" class="group-title-img"></image>
 						<text class="left-10 lh-1">商品团购</text>
 					</view>
-					<view class="flex-main-start fs-20" @click="goGroupList()">
+					<!-- <view class="flex-main-start fs-20" @click="goGroupList()">
 						<text class="txt-bold">更多</text>
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
-					</view>
+					</view> -->
 				</view>
-				<goodsList :list="pickList" from="group"></goodsList>
+				<goodsList :list="combinationList" from="group"></goodsList>
 			</view>
 			
 			<!-- 秒杀 -->
@@ -297,10 +283,12 @@
 				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
 					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
-					<view class="count-down left-15">
-						<text>00</text>:
-						<text>28</text>:
-						<text>14</text>
+					<view class="count-down left-15 color-black flex-main-start txt-heavy fs-20">
+						<text class="countdown-item">{{countdown.hour}}</text>
+						<text style="margin: 0 5rpx;">:</text>
+						<text class="countdown-item">{{countdown.minute}}</text>
+						<text style="margin: 0 5rpx;">:</text>
+						<text class="countdown-item">{{countdown.second}}</text>
 					</view>
 				</view>
 				<goodsList :list="discountList" from="seckill"></goodsList>
@@ -323,8 +311,9 @@
 		mapActions
 	} from 'vuex';
 	// import GoodsList from '@/components/goodsList/goodsList';
-	import { getSeckillConfig, getSeckillList,queryLotteryDialog } from "@/api/activity";
+	import { getSeckillConfig, getSeckillList,queryLotteryDialog,getCombinationList } from "@/api/activity";
 	import { getProducts } from "@/api/store";
+	import {countDown} from "../../utils/utils.js";
 	// import GoodList from '@/components/GoodList';
 	// import PromotionGood from '@/components/PromotionGood';
 	import CouponWindow from '@/components/CouponWindow';
@@ -437,6 +426,8 @@
 					type: 3 // 0 普通商品 1积分商品 2会员卡
 				},
 				isShowLottery:false,
+				countdown: {},
+				combinationList:[]
 			};
 		},
 		  computed:{
@@ -451,7 +442,6 @@
 			}).catch(console.error)
 		},
 		onShow: function() {
-			
 			this.getLocation()
 			let that = this;
 			uni.showLoading({
@@ -482,6 +472,11 @@
 			getSeckillConfig().then(({data})=>{
 				let item = data.seckillTime.find(v=>v.status===1)
 				limitTime = item.stop
+				clearInterval(this.timer);
+				this.timer = setInterval(()=>{
+					this.countdown = countDown(new Date(item.stop*1000))
+				},1000);
+				this.$once('hook:beforeDestroy',clearInterval.bind(window,this.timer));
 				return getSeckillList(item.id,{page:1,limit:4})
 			}).then(({data})=>{
 				data.forEach(v=>v.stop=limitTime) // 给商品加上结束时间，方便goodsList组件跳详情用
@@ -504,6 +499,11 @@
 					uni.hideLoading();
 				}
 			})
+			
+			// 团购
+			getCombinationList({ page: 1, limit: 3 }).then(res => {
+				this.combinationList = res.data
+			});
 		},
 		methods: {
 			...mapActions(["getLocation"]),

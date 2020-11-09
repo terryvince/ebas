@@ -1,23 +1,35 @@
-<style lang="less">
-	.productList .nav .item{
-		width: 33.333%;
-	}
+<style scoped lang="less">
+.noCommodity {
+  border-top: 3px solid #f5f5f5;
+  padding-bottom: 1px;
+}
+.nav {
+  padding-top: 0rpx !important; 
+  top:0rpx;
+  margin-top: 86rpx;
+}
+.productList .list{
+	margin-top: 172rpx;
+}
+.productList .nav .item{
+	width: 33.333%;
+}
 </style>
 <template>
   <view class="productList" ref="container">
-<!--    <form @submit.prevent="submitForm">
-      <view class="search bg-gray acea-row row-between-wrapper"> -->
-<!--        <view class="input acea-row row-between-wrapper flex-1">
+   <form @submit.prevent="submitForm">
+      <view class="search bg-gray acea-row row-between-wrapper">
+       <view class="input acea-row row-between-wrapper flex-1">
           <text class="iconfont icon-sousuo"></text>
           <input placeholder="搜索请输入关键词" v-model="where.keyword" />
-        </view> -->
-        <!-- <view
+        </view>
+        <view
           class="iconfont"
           :class="Switch === true ? 'icon-pailie' : 'icon-tupianpailie'"
           @click="switchTap"
-        ></view> -->
-<!--      </view>
-    </form> -->
+        ></view>
+     </view>
+    </form>
     <view class="nav acea-row row-middle">
       <view
         class="item"
@@ -272,16 +284,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="less">
-.noCommodity {
-  border-top: 3px solid #f5f5f5;
-  padding-bottom: 1px;
-}
-.nav {
-  padding-top: 0rpx !important; 
-  top:0rpx;
-}
-.productList .list{
-	margin-top: 80rpx;
-}
-</style>
