@@ -189,7 +189,7 @@
 				<view class="name">
 					{{ orderInfo.realName }}
 					<text class="phone">{{ orderInfo.userPhone }}</text>
-					<text class="iconfont icon-tonghua font-color-red"></text>
+					<!-- <text class="iconfont icon-tonghua font-color-red"></text> -->
 				</view>
 				<view>{{ orderInfo.userAddress }}</view>
 			</view>

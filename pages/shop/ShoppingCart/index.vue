@@ -232,7 +232,6 @@
 				}],
 				cartList: {
 					invalid: [],
-					valid: []
 				},
 				validList: [],
 				isAllSelect: false,
@@ -316,7 +315,7 @@
 					this.cartList.valid.forEach(cart => {
 						if (checkedIds.indexOf(cart.id) !== -1) cart.checked = true;
 					});
-					// this.cartList.invalid = this.cartList.valid;
+					this.cartList.invalid = this.cartList.valid;
 					if (checkedIds.length) {
 						that.checkedIds = checkedIds;
 						that.isAllSelect = checkedIds.length === this.cartList.valid.length;
