@@ -202,7 +202,7 @@
 		{
 			"path": "pages/Loading/index",
 			"style": {
-				"navigationBarTitleText": "中恒跨境商城"
+				"navigationBarTitleText": "鹅把式商城"
 			}
 		},
 		{
@@ -624,7 +624,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "中恒跨境商城",
+		"navigationBarTitleText": "鹅把式商城",
 		// 原色 #F8F8F8，先改成白色看
 		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#F8F8F8"
