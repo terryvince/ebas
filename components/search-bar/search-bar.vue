@@ -1,55 +1,96 @@
 <style scoped lang="less">
-	.header{
+	.s-header{
 		background-color: white;
 		padding: 0 20rpx;
-		.search{
+		height: 98rpx;
+		.s-search{
 			background-color: #EEEEEE;
-			border: 1px solid #EEEEEE;
+			border: 2rpx solid #EEEEEE;
 			border-radius: 50rpx;
-			overflow: hidden;
+			overflow: visible;
+			flex: 1;
+			box-sizing: border-box;
+			height: 64rpx;
+			padding-left: 28rpx;
+			font-size: 28rpx;
+			color: #bbb;
 		}
-		.icon-search{
+		.s-icon-search{
 			width: 22rpx;
 		}
-		.search-button{
+		.s-search-button{
 			box-sizing: border-box;
 			border: none;
 			background: linear-gradient(80deg, #71D676, #5FCB55);
 			height: 100%;
-			border-radius:50rpx 0 0 50rpx;
+			border-radius:50rpx;
 			line-height: 1;
 			padding: 0 40rpx;
 			color: white;
-			position: absolute;
-			right: 0;
-			top: 0;
 		}
+	}
+	.s-right-btn{
+		margin-left: 32rpx;
+		width: 44rpx;
+		height: 44rpx;
+	}
+	.s-y-line{
+		height: 26rpx;
+	}
+	.s-y-line::after{
+		background-color: #909090;
 	}
 </style>
 <template>
-	<view class="header flex-main-center">
-		<view @click="goGoodSearch()" class="search flex-main-start relative">
-			<!-- <text class="iconfont icon-xiazai5"></text> -->
-			<view class="acea-row row-middle">
-				<image class="icon-search" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
-				<span class="y-line left-10"></span>
-				<text class="left-10 color-placeholder">搜索请输入关键词</text>
+	<view class="s-header flex-main-center">
+		<view class="s-search flex-main-start relative">
+			<view @click="search()" class="acea-row row-middle flex-1 height-full">
+				<image class="s-icon-search flex-none" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
+				<span class="s-y-line gray left-10 flex-none"></span>
+				<input type="text" :readonly="readonly" class="left-10 flex-1 height-full" placeholder="搜索请输入关键词" placeholder-class="color-placeholder" v-bind:value="value" @input="$emit('input',$event.target.value)"/>
 			</view>
-			<view class="search-button flex-main-center">搜索</view>
+			<view @click.stop="$emit('search')" class="s-search-button flex-main-center flex-none">搜索</view>
 		</view>
-		<view class="qr" @click="startQr()">
-			<image src="@/static/images/qr.png" />
+		<view class="s-right-btn" v-if="$slots.right">
+			<slot name="right"></slot>
 		</view>
 	</view>
 </template>
 
 <script>
+	/**
+	 * #rightBtn 右边按钮的插槽，有则显示，
+	 * @search 触发搜索事件
+	 * v-model 可以绑定v-model，如果不是只读
+	 */
 	export default {
 		name:'search-bar',
+		props:{
+			value:{
+				type:[String],			// 如果不是只读，输入框可以进行值的输入
+				default:''
+			},
+			readonly: {
+				type: [Boolean],
+				default: true
+			}
+		},
+		model:{
+			prop:'value',
+			event:'input'
+		},
 		data() {
 			return {
 				
 			};
+		},
+		methods:{
+			search(){
+				if(!this.readonly){ // 不是只读则不托管事件
+					return
+				}
+				this.$yrouter.push('/pages/shop/GoodSearch/index');
+			}
 		}
 	}
 </script>

@@ -50,9 +50,6 @@
 	.fixed-header{
 		background-color: #EFEDEB;
 		box-shadow: none;
-		.search{
-			background-color:#fff;
-		}
 	}
 	// .title{
 	// 	position: relative;
@@ -131,14 +128,6 @@
 		height: 24rpx;
 		background-color: #909090;
 	}
-	.features-box{
-		margin: 18rpx 18rpx;
-		text{
-			margin-left: 9rpx;
-			font-size: 22rpx;
-			color: #949494;
-		}
-	}
 	
 	.group-list{
 		min-height: 400rpx;
@@ -184,23 +173,11 @@
 </style>
 <template>
 	<view class="index" v-cloak>
-		<!-- <view class="fixed-header"> -->
-			<!-- <view @click="goGoodSearch()" class="search flex-main-start relative"> -->
-				<!-- <text class="iconfont icon-xiazai5"></text> -->
-				<!-- <view class="acea-row row-middle">
-					<image class="icon-search" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
-					<span class="y-line left-10"></span>
-					<text class="left-10 color-placeholder">搜索请输入关键词</text>
-				</view>
-				<view class="search-button flex-main-center">搜索</view>
-			</view> -->
-			<!-- <view class="qr" @click="startQr()">
-				<image src="@/static/images/qr.png" />
-			</view> -->
-		<!-- </view> -->
-		<view class="fixed-header" style="height: 86rpx;" @click="goGoodSearch()">
+		<!-- 搜索栏 -->
+		<view class="fixed-header" style="height: 86rpx;">
 			<search-bar></search-bar>
 		</view>
+		
 		<!-- 搜索栏占位 -->
 		<view class="fixed-header-box"></view>
 		<!-- banner -->
@@ -233,6 +210,7 @@
 		<coupon-list v-if="couponList.length>0" :list="couponList.slice(0,3)"></coupon-list>
 		<!-- <Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window> -->
 		
+		<!-- 通知 -->
 		<!-- <view class="notice flex-main-between top-20">
 			<view class="fs-34 txt-bold txt-italic flex-none">
 				<image src="https://res.chunghengtrade.com/title-avtivity.png" mode="widthFix" class="image-activity"></image>
@@ -242,7 +220,7 @@
 			<uni-notice-bar class="flex-1" scrollable="true" @click="goRoll(singNew)" color="#212121" single="true" speed="10" :showIcon="false" :text="singNew.info" background-color="#fff"></uni-notice-bar>
 		</view> -->
 		
-		<!-- 加一个flex容器，方便模块间排序 -->
+		<!-- 分类 加一个flex容器，方便模块间排序 -->
 		<view class="flex flex-wrap padding-beside-20">
 		<!-- 限时折扣 -->
 			<!-- <view v-if="discountList.length>0" class="discount-goods flex-1" style="order:0">
@@ -295,6 +273,7 @@
 			</view>
 		</view>
 		
+		<!-- 抽奖弹框 -->
 		<view :class="['modal-shadow modal-content-center',isShowLottery ? 'visible' : '']">
 			<view class="relative" @click.stop="()=>false">
 				<image @click="goLotteryType()" :src="$img_lottery" class="lottery-img" mode="widthFix"></image>
@@ -524,10 +503,6 @@
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)
 				}
-			},
-			goGoodSearch() {
-				// this.$yrouter.push('/pages/shop/GoodsEvaluate/index');
-				this.$yrouter.push('/pages/shop/GoodSearch/index');
 			},
 			goWxappUrl(item) {
 				this.$yrouter.push(item.uniapp_url);

@@ -79,7 +79,8 @@
 				this.$yrouter.push({
 					path: "/pages/shop/GoodsList/index",
 					query: {
-						s
+						s,
+						title:'综合'
 					}
 				});
 			},
