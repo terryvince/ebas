@@ -60,7 +60,7 @@
 			<text class="fs-26">省钱省心限时拼</text>
 		</view>
 	</view>
-	<view class="group-wrap">
+	<view class="group-wrap" v-if="combinationList.length>0">
 		<goodsList :list="combinationList" from="group"></goodsList>
 	</view>
     <view class="noCommodity bg-white" style="padding-bottom: 20rpx;" v-if="combinationList.length === 0">

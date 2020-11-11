@@ -106,6 +106,12 @@
  		height: 64rpx;
  	}
  }
+ .progress-label{
+	 position: absolute;
+	 left: 110rpx;
+	 top: 50%;
+	 transform: translate(0,-50%);
+ }
 </style>
 <template>
 	<view class="wi">
@@ -187,7 +193,8 @@
 							{{item.title}}
 						</text>
 					</view>
-					<view class="progress-box top-30">
+					<view class="progress-box top-30 relative">
+						<text class="progress-label color-white fs-12 txt-bold">仅剩{{item.stock}}件</text>
 						<progress percent="40" active :stroke-width="toPx(18)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
 					</view>
 					<view class="seckill-extra flex-main-between" style="margin-top: 23rpx;">
@@ -199,7 +206,7 @@
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">鹅把式商户</view>
 						</view>
-						<button class="btn btn-linear-orange btn-fix-width">马上抢</button>
+						<button class="btn btn-linear-orange btn-fix-width">{{item.status | formatStatus}}</button>
 					</view>
 					
 				</view>
@@ -233,6 +240,14 @@
 				}
 				value = +value
 				return value.toFixed(option)
+			},
+			// 秒杀按钮文字
+			formatStatus(value){
+				return {
+					1:'马上抢',
+					2:'即将开始',
+					0:'已结束'
+				}[value] || '马上抢'
 			}
 		},
 		created(){
@@ -247,6 +262,13 @@
 					uni.showToast({
 						icon:'none',
 						title:'商品已下架'
+					})
+					return
+				}
+				if(item.stock && item.stock<1){
+					uni.showToast({
+						icon:'none',
+						title:'商品已售磬'
 					})
 					return
 				}

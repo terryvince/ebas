@@ -107,7 +107,7 @@ export default {
             wx.authorize({
               scope: "scope.writePhotosAlbum",
               success() {
-                that.downloadImage(downloadUrl);
+                that.downloadIamge(downloadUrl);
               },
               fail() {
                 // 用户拒绝了授权
@@ -119,7 +119,24 @@ export default {
               }
             });
           } else {
-            that.downloadImage(downloadUrl);
+			uni.getImageInfo(
+				{
+					src:downloadUrl,
+					success(res){
+						console.log(res);
+						uni.saveImageToPhotosAlbum({
+						  filePath: res.path,
+						  success(res) { 
+							  uni.showToast({
+							  	title:'保存成功！',
+								icon:'none'
+							  })
+						  }
+						})
+					}
+				}
+			);
+            
           }
         },
         fail(res) {
