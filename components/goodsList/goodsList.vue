@@ -177,14 +177,14 @@
 		</view>
 		<!-- 秒杀商品 -->
 		<view v-else-if="from=='seckill'" class="seckill-list color-text lh-1">
-			<view class="seckill-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
+			<view @click="goDetail(item)" class="seckill-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
 				<view class="seckill-img-wrap flex-none">
 					<image :src="item.image" class="full"></image>
 				</view>
 				<view class="seckill-content flex-1 left-20">
 					<view class="seckill-title fs-28">
 						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;">
-							{{item.storeName}}
+							{{item.title}}
 						</text>
 					</view>
 					<view class="progress-box top-30">

@@ -5,14 +5,6 @@
 
 	.productSort {
 		height: 100%;
-
-		.header {
-			background-color: #EFEDEB;
-		}
-
-		.index .header .search {
-			background-color: white;
-		}
 	}
 
 	.productSort .conter .list .item .picture image {
@@ -23,51 +15,13 @@
 		color: #00C65D;
 		border-left: 4rpx solid #00C65D;
 	}
-
-	.productSort .index .header {
-		background-color: white;
-
-		.search {
-			background-color: #EEEEEE;
-			border: 0px solid #fe565f;
-			border-radius: 50rpx;
-			overflow: hidden;
-		}
-
-		.icon-search {
-			width: 34rpx;
-		}
-
-		.search-button {
-			box-sizing: border-box;
-			border: none;
-			background-color: #00C65D;
-			height: 100%;
-			border-radius: 50rpx 0 0 50rpx;
-			line-height: 1;
-			padding: 0 40rpx;
-			border-radius: 50rpx;
-			color: white;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-	}
 </style>
 <template>
 	<view class="productSort">
-		<div class="index">
-			<view class="header acea-row row-center-wrapper">
-				<view @click="goGoodSearch()" class="search flex-main-start relative">
-					<view class="acea-row row-middle">
-						<image class="icon-search" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search.png" mode="widthFix"></image>
-						<text class="left-10">搜索商品</text>
-					</view>
-					<view class="search-button flex-main-center">搜索</view>
-				</view>
-			</view>
-		</div>
-		<view class="aside">
+		<view class="fixed-search-bar">
+			<search-bar></search-bar>
+		</view>
+		<view class="aside">	
 			<view class="item acea-row row-center-wrapper" :class="categoryDivindex === navActive ? 'on' : ''" v-for="(item, categoryDivindex) in category"
 			 :key="categoryDivindex" @click="asideTap(categoryDivindex)">
 				<text>{{ item.cateName }}</text>

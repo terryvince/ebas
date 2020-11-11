@@ -38,6 +38,17 @@
 	//     font-weight: bold;
 	//     border-bottom: 5rpx solid #71D676 !important;
 	// }
+
+	.classIcon {
+		width: 24rpx;
+		height: 25rpx;
+		margin-right: 8rpx;
+	}
+
+	.text {
+		font-size: 28rpx;
+		font-weight: bold;
+	}
 </style>
 
 <template>
@@ -81,7 +92,17 @@
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</span>
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</span>
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span>
-						{{ order.createTime }}
+
+						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ji.png" class="classIcon">
+							<view class="text">积分</view>
+						</image>
+						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ping.png" class="classIcon">
+							<view class="text">拼团</view>
+						</image>
+						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon">
+							<view class="text">秒杀</view>
+						</image>
+						<!-- {{ order.createTime }} -->
 					</view>
 					<view class="font-color-red">{{ getStatus(order) }}</view>
 				</view>

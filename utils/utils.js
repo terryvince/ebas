@@ -35,12 +35,21 @@ export function formatNumber(n) {
 }
 
 /**
+ * 类型检测
+ * @param {any} value -检测值
+ * @return {string} -返回小写的类型字符串
+ */
+export function type(value) {
+  return Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
+}
+
+/**
  * 倒计时计算
  * @param {Date} endDate 截止时间
  * @param {String} options 模板字符串，类似“距离结束还有dd天hh小时mm分钟ss秒”
  */
 export function countDown(endDate, options) {
-  if (type(endDate) !== 'Date') {
+  if (type(endDate) !== 'date') {
     console.error('utils.countDown:参数类型错误，endDate不是一个日期类型!')
     return
   }

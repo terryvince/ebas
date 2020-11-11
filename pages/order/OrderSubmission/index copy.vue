@@ -1,111 +1,3 @@
-<style scoped lang="less">
-// cover-view.footer cover-view{
-// 	overflow: visible;
-// }
-.order-submission .wrapper .shipping select {
-  color: #999;
-  padding-right: 0.15 * 100rpx;
-}
-
-.order-submission .wrapper .shipping .iconfont {
-  font-size: 0.3 * 100rpx;
-  color: #515151;
-}
-
-.order-submission .allAddress {
-  width: 100%;
-  background-image: linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
-  background-image: -webkit-linear-gradient(
-    to bottom,
-    #eb3729 0%,
-    #eb3729 100%
-  );
-  background-image: -moz-linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
-  padding-top: 1 * 100rpx;
-}
-
-.order-submission .allAddress .nav {
-  margin: 0 auto;
-  padding: 0 30rpx;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.order-submission .allAddress .nav .item {
-  flex: 1;
-  position: relative;
-}
-
-.order-submission .allAddress .nav .item.on {
-  position: relative;
-}
-
-.order-submission .allAddress .nav .item.on:before {
-  position: absolute;
-  bottom: 0;
-  content: "快递配送";
-  font-size: 0.28 * 100rpx;
-  display: block;
-  height: 0;
-  left: 0;
-  right: 0;
-  border-width: 0.4 * 100rpx;
-  border-style: solid;
-  border-color: #fff;
-  z-index: 9;
-  text-align: center;
-  line-height: 0.14 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item:nth-of-type(2).on:before {
-  content: "到店自提";
-  border-width: 0.4 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item.on2 {
-  position: relative;
-}
-
-.order-submission .allAddress .nav .item.on2:before {
-  position: absolute;
-  bottom: 0;
-  content: "到店自提";
-  font-size: 0.28 * 100rpx;
-  display: block;
-  height: 0;
-  left: 0;
-  right: 0;
-  border-width: 0.4 * 100rpx;
-  border-style: solid;
-  border-color: #d5e6e6;
-  text-align: center;
-  line-height: 0.14 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item:nth-of-type(1).on2:before {
-  content: "快递配送";
-  border-width: 0.4 * 100rpx;
-}
-
-.order-submission .allAddress .address {
-  width: 6.91 * 100rpx;
-  height: 1.5 * 100rpx;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.order-submission .allAddress .line {
-  width: 7.1 * 100rpx;
-  margin: 0 auto;
-}
-
-.order-submission .wrapper .item .discount input::placeholder {
-  color: #fff;
-}
-.settlement{
-	background-color: #71D676 !important;
-}
-</style>
 <template>
   <view class="order-submission">
     <view class="allAddress" :style="systemStore ? '' : 'padding-top: 0.2*100rpx'">
@@ -236,6 +128,47 @@
       </view>
     </view>
 	
+	<view class="wrapper">
+	  <view class="item acea-row row-between-wrapper">
+		<view>证件姓名</view>
+		<view class="discount">
+		  <input v-if="isShowInput" type="text" maxlength="16" v-model="cardName" placeholder="请输入姓名"/>
+		</view>
+	  </view>
+	  <view class="item acea-row row-between-wrapper">
+	  		<view>证件类型</view>
+	  		<view class="discount">
+	  		  <radio-group @change="changeCardType">
+	  		  	<label>
+	  		  		<radio value="1" :checked="cardType==1"/><text>身份证</text>
+	  		  	</label>
+	  		  	<label class="left-10">
+	  		  		<radio value="2" :checked="cardType==2"/><text>护照</text>
+	  		  	</label>
+				<label class="left-10">
+					<radio value="3" :checked="cardType==3"/><text>港澳通行证</text>
+				</label>
+	  		  </radio-group>
+	  		</view>
+	  </view>
+	  <view v-if="cardType" class="item acea-row row-between-wrapper">
+		<view>证件号码</view>
+		<view class="discount">
+		  <input v-if="isShowInput3" type="text" maxlength="18" v-model="cardNumber" placeholder-style="color:#999;" placeholder="请输入号码"/>
+		</view>
+	  </view>
+	</view>
+	<view class="color-gray top-10 fs-24" style="padding: 0 30rpx;margin-bottom: 20rpx;">
+		<view class="flex-main-start">
+			<text class="flex-none flex-item-align-start">海关规定：</text>
+			<text class="flex-1">跨境上门商品入境时需申报检验，证件信息仅供海关清关时使用。</text>
+		</view>
+		<view class="flex-main-start" style="color: #e93323;">
+			<text class="flex-item-align-start">温馨提示：</text>
+			<text>因信息填写有误所导致无法清关的风险将由买家承担。</text>
+		</view>
+	</view>
+	
     <view v-if="mode!='point'" class="wrapper">
       <view class="item">
         <view>支付方式</view>
@@ -319,7 +252,114 @@
     ></AddressWindow>
   </view>
 </template>
+<style scoped lang="less">
+// cover-view.footer cover-view{
+// 	overflow: visible;
+// }
+.order-submission .wrapper .shipping select {
+  color: #999;
+  padding-right: 0.15 * 100rpx;
+}
 
+.order-submission .wrapper .shipping .iconfont {
+  font-size: 0.3 * 100rpx;
+  color: #515151;
+}
+
+.order-submission .allAddress {
+  width: 100%;
+  background-image: linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
+  background-image: -webkit-linear-gradient(
+    to bottom,
+    #eb3729 0%,
+    #eb3729 100%
+  );
+  background-image: -moz-linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
+  padding-top: 1 * 100rpx;
+}
+
+.order-submission .allAddress .nav {
+  margin: 0 auto;
+  padding: 0 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.order-submission .allAddress .nav .item {
+  flex: 1;
+  position: relative;
+}
+
+.order-submission .allAddress .nav .item.on {
+  position: relative;
+}
+
+.order-submission .allAddress .nav .item.on:before {
+  position: absolute;
+  bottom: 0;
+  content: "快递配送";
+  font-size: 0.28 * 100rpx;
+  display: block;
+  height: 0;
+  left: 0;
+  right: 0;
+  border-width: 0.4 * 100rpx;
+  border-style: solid;
+  border-color: #fff;
+  z-index: 9;
+  text-align: center;
+  line-height: 0.14 * 100rpx;
+}
+
+.order-submission .allAddress .nav .item:nth-of-type(2).on:before {
+  content: "到店自提";
+  border-width: 0.4 * 100rpx;
+}
+
+.order-submission .allAddress .nav .item.on2 {
+  position: relative;
+}
+
+.order-submission .allAddress .nav .item.on2:before {
+  position: absolute;
+  bottom: 0;
+  content: "到店自提";
+  font-size: 0.28 * 100rpx;
+  display: block;
+  height: 0;
+  left: 0;
+  right: 0;
+  border-width: 0.4 * 100rpx;
+  border-style: solid;
+  border-color: #d5e6e6;
+  text-align: center;
+  line-height: 0.14 * 100rpx;
+}
+
+.order-submission .allAddress .nav .item:nth-of-type(1).on2:before {
+  content: "快递配送";
+  border-width: 0.4 * 100rpx;
+}
+
+.order-submission .allAddress .address {
+  width: 6.91 * 100rpx;
+  height: 1.5 * 100rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.order-submission .allAddress .line {
+  width: 7.1 * 100rpx;
+  margin: 0 auto;
+}
+
+.order-submission .wrapper .item .discount input::placeholder {
+  color: #71D676;
+}
+.settlement{
+	background-color: ;
+}
+</style>
 
 <script>
 import OrderGoods from "@/components/OrderGoods";

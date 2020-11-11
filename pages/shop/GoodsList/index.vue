@@ -1,43 +1,102 @@
-<style lang="less">
-	.productList .nav .item{
-		width: 33.333%;
+<style scoped lang="less">
+.noCommodity {
+  border-top: 3px solid #f5f5f5;
+  padding-bottom: 1px;
+}
+.nav {
+  padding-top: 0rpx !important; 
+  top:0rpx;
+  margin-top: 86rpx;
+}
+.productList .list{
+	margin-top: 172rpx;
+}
+.productList .nav .item{
+	width: 25%;
+}
+.gl-icon-triangle{
+	position: relative;
+	width: 15rpx;
+	height: 19rpx;
+	margin-left: 10rpx;
+	&::before,&::after{
+		content: '';
+		width: 0;
+		height: 0;
+		border-width: 8rpx;
+		border-color: transparent;
+		border-style: solid;
+		position: absolute;
 	}
+	&::before{
+		top: 0;
+		left: 0;
+		border-color: transparent transparent #A9A9A9 transparent;
+		transform: translate(0,-55%);
+	}
+	&::after{
+		bottom: 0;
+		left: 0;
+		border-color: #A9A9A9 transparent transparent transparent;
+		transform: translate(0, 55%);
+	}
+	&.up::before{
+		border-color: transparent transparent #6DD36F transparent;
+	}
+	&.down::after{
+		border-color: #6DD36F transparent transparent transparent;
+	}
+}
+.font-color-red {color: #6DD36F;}
 </style>
+
 <template>
   <view class="productList" ref="container">
-<!--    <form @submit.prevent="submitForm">
-      <view class="search bg-gray acea-row row-between-wrapper"> -->
-<!--        <view class="input acea-row row-between-wrapper flex-1">
+   <!-- <form @submit.prevent="submitForm">
+      <view class="search bg-gray acea-row row-between-wrapper">
+       <view class="input acea-row row-between-wrapper flex-1">
           <text class="iconfont icon-sousuo"></text>
-          <input placeholder="搜索请输入关键词" v-model="where.keyword" />
-        </view> -->
-        <!-- <view
+          <input placeholder="搜索请输入关键词" v-model="" />
+        </view>
+        <view
           class="iconfont"
           :class="Switch === true ? 'icon-pailie' : 'icon-tupianpailie'"
           @click="switchTap"
-        ></view> -->
-<!--      </view>
+        ></view>
+     </view>
     </form> -->
+	<view class="fixed-search-bar">
+		<search-bar v-model="where.keyword" :readonly="false" @search="submitForm()">
+			<template #right>
+				<view
+				  class="iconfont"
+				  :class="Switch === true ? 'icon-pailie' : 'icon-tupianpailie'"
+				  @click="switchTap"
+				></view>
+			</template>
+		</search-bar>
+	</view>
     <view class="nav acea-row row-middle">
       <view
-        class="item"
-        :class="title ? 'font-color-red' : ''"
+        :class="['item',title ? 'font-color-red' : '']"
         @click="set_where(0)"
-      >{{ title ? title : "默认" }}</view>
+      >{{ title ? title : "综合" }}</view>
       <view class="item" @click="set_where(1)">
         价格
-        <image src="@/static/images/horn.png" v-if="price === 0" />
+        <!-- <image src="@/static/images/horn.png" v-if="price === 0" />
         <image src="@/static/images/up.png" v-if="price === 1" />
-        <image src="@/static/images/down.png" v-if="price === 2" />
+        <image src="@/static/images/down.png" v-if="price === 2" /> -->
+		<view :class="['inline gl-icon-triangle',price === 1 ? 'up':'',price === 2 ? 'down':'']"></view>
       </view>
       <view class="item" @click="set_where(2)">
         销量
-        <image src="@/static/images/horn.png" v-if="stock === 0" />
+        <!-- <image src="@/static/images/horn.png" v-if="stock === 0" />
         <image src="@/static/images/up.png" v-if="stock === 1" />
-        <image src="@/static/images/down.png" v-if="stock === 2" />
+        <image src="@/static/images/down.png" v-if="stock === 2" /> -->
+		<view :class="['inline gl-icon-triangle',stock === 1 ? 'up':'',stock === 2 ? 'down':'']"></view>
       </view>
       <!-- down -->
-      <!-- <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view> -->
+      <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
     </view>
     <view
       class="list acea-row row-between-wrapper"
@@ -72,15 +131,16 @@
     <view
       class="noCommodity"
       style="background-color: #fff;"
-      v-if="productList.length === 0 && where.page > 1"
+      v-if="productList && productList.length === 0 && where.page > 1"
     >
       <view class="noPictrue">
         <image src="@/static/images/noGood.png" class="image" />
       </view>
     </view>
-    <Recommend v-if="productList.length === 0 && where.page > 1"></Recommend>
+    <Recommend v-if="productList && productList.length === 0 && where.page > 1"></Recommend>
   </view>
 </template>
+
 <script>
 import Recommend from "@/components/Recommend";
 import { getProducts } from "@/api/store";
@@ -125,27 +185,27 @@ export default {
   watch: {
     title() {
       this.updateTitle();
-    }
+    },
     // $yroute(to) {
-      // if (to.name !== "GoodsList") return;
-      // const { s = "", id = 0, title = "" } = to.query;
-      // if (s !== this.where.keyword || id !== this.where.sid) {
-      //   this.where.keyword = s;
-      //   this.loadend = false;
-      //   this.loading = false;
-      //   this.where.page = 1;
-      //   this.where.sid = id;
-      //   this.title = title && id ? title : "";
-      //   this.nows = false;
-      //   this.$set(this, "productList", []);
-      //   this.price = 0;
-      //   this.stock = 0;
-      //   this.get_product_list();
-      // }
+    //   if (to.name !== "GoodsList") return;
+    //   const { s = "", id = 0, title = "" } = to.query;
+    //   if (s !== this.where.keyword || id !== this.where.sid) {
+    //     this.where.keyword = s;
+    //     this.loadend = false;
+    //     this.loading = false;
+    //     this.where.page = 1;
+    //     this.where.sid = id;
+    //     this.title = title && id ? title : "";
+    //     this.nows = false;
+    //     this.$set(this, "productList", []);
+    //     this.price = 0;
+    //     this.stock = 0;
+    //     this.get_product_list();
+    //   }
     // }
   },
   mounted: function() {
-    const { s = "", id = 0, title = "" } = this.$yroute.query;
+	this.where.keyword = this.$yroute.query.s || '';
     this.updateTitle();
     this.get_product_list();
   },
@@ -188,12 +248,12 @@ export default {
       // if (to.name !== "GoodsList") return;
       const { s = "", id = 0, title = "" } = this.$yroute.query;
       if (s !== this.where.keyword || id !== this.where.sid) {
-        this.where.keyword = s;
+        // this.where.keyword = s;
         this.loadend = false;
         this.loading = false;
         this.where.page = 1;
         this.where.sid = id;
-        this.title = title && id ? title : "";
+        this.title = title ? title : "";
         this.nows = false;
         this.$set(this, "productList", []);
         this.price = 0;
@@ -222,7 +282,10 @@ export default {
       let that = this;
       switch (index) {
         case 0:
-          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/index" });
+		  this.title = this.$yroute.query.title
+		  this.nows = false
+		  that.$yrouter.push({ path: "/pages/shop/GoodsClass/index"})
+          return;
         case 1:
           if (that.price === 0) that.price = 1;
           else if (that.price === 1) that.price = 2;
@@ -236,6 +299,7 @@ export default {
           that.price = 0;
           break;
         case 3:
+		  this.title = ''
           that.nows = !that.nows;
           break;
         default:
@@ -272,16 +336,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="less">
-.noCommodity {
-  border-top: 3px solid #f5f5f5;
-  padding-bottom: 1px;
-}
-.nav {
-  padding-top: 0rpx !important; 
-  top:0rpx;
-}
-.productList .list{
-	margin-top: 80rpx;
-}
-</style>
