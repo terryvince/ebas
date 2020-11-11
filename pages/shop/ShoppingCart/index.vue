@@ -75,30 +75,30 @@
 				 @click="manage">{{ footerswitch ? '取消' : '管理' }}</view>
 			</view>
 			<view style="top: 0rpx; height: 2rpx; width: 100%; background-color: #F0F0F0; z-index: 3; position: fixed;"></view>
-			<view class="shopListClass" v-if="shopList.length > 0">
-				<view class="list" v-for="(item, shopIndex) in shopList" :key="shopIndex">
+			<view class="shopListClass" v-if="cartList.valid.length > 0">
+				<view class="list" v-for="(shopItem, shopIndex) in cartList.valid" :key="shopIndex">
 					<view class="shopClass">
 						<view class="item acea-row row-between-wrapper" style="height: 30rpx;">
 							<view class="select-btn flex-main-start" style="border-radius: 15rpx;">
 								<view class="checkbox-wrapper">
-									<checkbox-group @change="shopAllChecked(item)">
-										<!-- <checkbox color="#0572B7" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox> -->
+									<checkbox-group @change="shopAllChecked(shopItem)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value="allSelect"  :checked="isAllSelect"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="shopItem.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
-								<text style="font-size: 28rpx;">{{item.name}}</text>
+								<text style="font-size: 28rpx;">{{shopItem.shopName}}</text>
 							</view>
-							<text style="font-size: 28rpx;">共2件商品</text>
+							<text style="font-size: 28rpx;">共{{shopItem.storeCartQueryVoList.length}}件商品</text>
 						</view>
 						<view class="line-top"></view>
-						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in validList" :key="cartListValidIndex">
+						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in shopItem.storeCartQueryVoList"
+						 :key="cartListValidIndex">
 							<view class="select-btn">
 								<view class="checkbox-wrapper">
-									<checkbox-group @change="switchSelect(cartListValidIndex)">
+									<checkbox-group @change="switchSelect(item)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="item.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -117,12 +117,11 @@
 									<view class="money color-danger">￥{{ item.truePrice }}</view>
 								</view>
 								<view class="carnum acea-row row-center-wrapper">
-									<view class="reduce" :class="validList[cartListValidIndex].cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(cartListValidIndex)">-</view>
+									<view class="reduce" :class="item.cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(item)">-</view>
 									<view class="num">{{ item.cartNum }}</view>
-									<view class="plus" v-if="validList[cartListValidIndex].attrInfo" :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].attrInfo.stock ? 'on' : ''"
-									 @click.prevent="plus(cartListValidIndex)">+</view>
-									<view class="plus" v-else :class="validList[cartListValidIndex].cartNum >= validList[cartListValidIndex].stock ? 'on' : ''"
-									 @click.prevent="plus(cartListValidIndex)">+</view>
+									<view class="plus" v-if="item.attrInfo" :class="item.cartNum >= item.attrInfo.stock ? 'on' : ''"
+									 @click.prevent="plus(item)">+</view>
+									<view class="plus" v-else :class="item.cartNum >= item.stock ? 'on' : ''" @click.prevent="plus(item)">+</view>
 								</view>
 							</view>
 						</view>
@@ -172,7 +171,7 @@
 						<view class="checkbox-wrapper">
 							<checkbox-group @change="allChecked">
 								<label class="well-check">
-									<checkbox color="#0572B7" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
+									<checkbox color="#71D676" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
 									<text class="checkAll">全选 ({{ cartCount }})</text>
 								</label>
 							</checkbox-group>
@@ -225,27 +224,30 @@
 		props: {},
 		data: function() {
 			return {
-				shopList: [{
-					name: "店铺1",
-				}, {
-					name: "店铺2",
-				}],
 				cartList: {
+					valid: [
+					// 	{
+					// 	shopId: 0,
+					// 	shopName: "店铺",
+					// 	storeCartQueryVoList: [],
+					// },
+					],
 					invalid: [],
 				},
 				validList: [],
-				isAllSelect: false,
-				cartCount: 0,
+				isAllSelect: false, //全选购物车
+				isAllSelectByShop: false, //全选商户
+				cartCount: 0, //unused
+				count: 0, //购物车数量
+				invalidCount: 0, //可下单的数量
 				countmoney: 0,
 				invalidGoodsHidden: false,
 				footerswitch: false,
-				count: 0,
 				checkedIds: [],
 				loaded: false
 			};
 		},
 		computed: mapGetters(["userInfo", "token"]),
-
 		//   watch: {
 		//     $yroute(n) {
 		//       if (n.name === "ShoppingCart") {
@@ -291,8 +293,14 @@
 			}
 		},
 		methods: {
-			shopAllChecked(item){
-				console.log(item);
+			shopAllChecked(shop) {
+				console.log(shop)
+				let that = this;
+				shop.checked = !shop.checked;
+				shop.storeCartQueryVoList.forEach(function(item) {
+					item.checked = !shop.checked;
+					that.sigleSelect(item);
+				})
 			},
 			goGoodsCon(item) {
 				// 已下架的商品不允许跳详情
@@ -306,35 +314,64 @@
 					}
 				});
 			},
+			//获取购物车列表
 			getCartList: function() {
 				let that = this;
 				getCartList().then(res => {
 					that.cartList = res.data;
 					let checkedIds = cookie.get(CHECKED_IDS) || [];
 					if (!Array.isArray(checkedIds)) checkedIds = [];
+					that.invalidCount = 0;
 					this.cartList.valid.forEach(cart => {
-						if (checkedIds.indexOf(cart.id) !== -1) cart.checked = true;
+						cart.storeCartQueryVoList.forEach(item => {
+							that.invalidCount++;
+							if (checkedIds.indexOf(item.id) !== -1) item.checked = true;
+						});
 					});
-					this.cartList.invalid = this.cartList.valid;
+					//test
+					this.cartList.invalid = this.cartList.valid[0].storeCartQueryVoList;
 					if (checkedIds.length) {
 						that.checkedIds = checkedIds;
-						that.isAllSelect = checkedIds.length === this.cartList.valid.length;
+						that.isAllSelect = checkedIds.length === that.invalidCount; //this.cartList.valid.length;
+						that.isAllSelectByShop = that.isAllSelect;
 						that.carnum();
 						that.countMoney();
 					}
-					this.loaded = true;
+
+					that.calculateShopSleect();
+
+					that.loaded = true;
 				});
 			},
-			//删除商品；
+
+			//计算出商户的购物车数量
+			calculateShopSleect: function() {
+				this.cartList.valid.forEach(shop => {
+					let num = 0;
+					shop.storeCartQueryVoList.forEach(item => {
+						if (item.checked === true) {
+							num++;
+						}
+					});
+					if (num === shop.storeCartQueryVoList.length) {
+						shop.checked = true;
+					} else {
+						shop.checked = false;
+					}
+				});
+			},
+			//删除选中商品；
 			delgoods: function() {
 				let that = this,
 					id = [],
 					valid = [],
 					list = that.cartList.valid;
 				list.forEach(function(val) {
-					if (val.checked === true) {
-						id.push(val.id);
-					}
+					val.storeCartQueryVoList.forEach(function(item) {
+						if (item.checked === true) {
+							id.push(item.id);
+						}
+					})
 				});
 				if (id.length === 0) {
 					uni.showToast({
@@ -345,18 +382,20 @@
 					return;
 				}
 				postCartDel(id).then(function() {
-					list.forEach(function(val, i) {
-						if (val.checked === false || val.checked === undefined)
-							valid.push(list[i]);
-					});
-					that.$set(that.cartList, "valid", valid);
+					// list.forEach(function(val, i) {
+					// 	val.storeCartQueryVoList.forEach(function(item) {
+					// 		if (item.checked === false || item.checked === undefined)
+					// 			valid.push(item);
+					// 	})
+					// });
+					// that.$set(that.cartList, "valid", valid);
 					that.carnum();
 					that.countMoney();
 					that.gainCount();
 					that.getCartList();
 				});
 			},
-			// //获取数量
+			//获取数量
 			gainCount: function() {
 				let that = this;
 				getCartCount().then(res => {
@@ -383,12 +422,15 @@
 				let data = [];
 				let list = that.cartList.valid;
 				list.forEach(function(val) {
-					if (val.checked === true) {
-						data.push({
-							id: val.productId,
-							category: val.type
-						})
-					}
+					val.storeCartQueryVoList.forEach(function(item) {
+						if (item.checked === true) {
+							data.push({
+								id: item.productId,
+								category: item.type
+							})
+						}
+					})
+
 				});
 				if (data.length === 0) {
 					uni.showToast({
@@ -425,9 +467,11 @@
 					list = that.cartList.valid,
 					id = [];
 				list.forEach(function(val) {
-					if (val.checked === true) {
-						id.push(val.id);
-					}
+					val.storeCartQueryVoList.forEach(function(item) {
+						if (item.checked === true) {
+							id.push(item.id);
+						}
+					})
 				});
 				if (id.length === 0) {
 					uni.showToast({
@@ -453,9 +497,9 @@
 				that.invalidGoodsHidden = !that.invalidGoodsHidden;
 			},
 			//加
-			plus: function(index) {
+			plus: function(item) {
 				let that = this;
-				let list = that.cartList.valid[index];
+				let list = item;
 				list.cartNum++;
 				if (list.attrInfo) {
 					if (list.cartNum >= list.attrInfo.stock) {
@@ -471,9 +515,9 @@
 				that.syncCartNum(list);
 			},
 			//减
-			reduce: function(index) {
+			reduce: function(item) {
 				let that = this;
-				let list = that.cartList.valid[index];
+				let list = item;
 				if (list.cartNum <= 1) {
 					uni.showToast({
 						title: "已经是底线啦!",
@@ -508,12 +552,17 @@
 				}
 			},
 			//单选
-			switchSelect: function(index) {
+			switchSelect: function(item) {
+				this.sigleSelect(item);
+				this.calculateShopSleect();
+			},
+			//单选
+			sigleSelect: function(item) {
 				let that = this,
-					cart = that.cartList.valid[index],
+					cart = item,
 					i = this.checkedIds.indexOf(cart.id);
 				cart.checked = !cart.checked;
-
+			
 				if (i !== -1) this.checkedIds.splice(i, 1);
 				if (cart.checked) {
 					this.checkedIds.push(cart.id);
@@ -521,11 +570,14 @@
 				let len = that.cartList.valid.length;
 				let selectnum = [];
 				for (let i = 0; i < len; i++) {
-					if (that.cartList.valid[i].checked === true) {
-						selectnum.push(true);
+					for (let j = 0; j < that.cartList.valid[i].storeCartQueryVoList.length; j++) {
+						let obj = that.cartList.valid[i].storeCartQueryVoList[j];
+						if (obj.checked === true) {
+							selectnum.push(true);
+						}
 					}
 				}
-				that.isAllSelect = selectnum.length === len;
+				that.isAllSelect = selectnum.length === that.invalidCount;
 				that.$set(that, "cartList", that.cartList);
 				that.$set(that, "isAllSelect", that.isAllSelect);
 				cookie.set(CHECKED_IDS, that.checkedIds);
@@ -547,9 +599,12 @@
 				// }
 				that.cartList.valid.forEach(cart => {
 					cart.checked = selectAllStatus;
-					if (selectAllStatus) {
-						checkedIds.push(cart.id);
-					}
+					cart.storeCartQueryVoList.forEach(function(item) {
+						item.checked = selectAllStatus;
+						if (selectAllStatus) {
+							checkedIds.push(item.id);
+						}
+					})
 				});
 				let cartList = {
 					...that.cartList
@@ -571,8 +626,11 @@
 				var carnum = 0;
 				var array = that.cartList.valid;
 				for (let i = 0; i < array.length; i++) {
-					if (array[i].checked === true) {
-						carnum += parseInt(array[i].cartNum);
+					for (let j = 0; j < array[i].storeCartQueryVoList.length; j++) {
+						let item = array[i].storeCartQueryVoList[j];
+						if (item.checked === true) {
+							carnum += parseInt(item.cartNum);
+						}
 					}
 				}
 				that.$set(that, "cartCount", carnum);
@@ -583,11 +641,14 @@
 				let carmoney = 0;
 				let array = that.cartList.valid;
 				for (let i = 0; i < array.length; i++) {
-					if (array[i].checked === true) {
-						carmoney = add(carmoney, mul(array[i].cartNum, array[i].truePrice));
+					for (let j = 0; j < array[i].storeCartQueryVoList.length; j++) {
+						let item = array[i].storeCartQueryVoList[j];
+						if (item.checked === true) {
+							carmoney = add(carmoney, mul(item.cartNum, item.truePrice));
+						}
 					}
+					that.countmoney = carmoney;
 				}
-				that.countmoney = carmoney;
 			}
 		}
 	};
