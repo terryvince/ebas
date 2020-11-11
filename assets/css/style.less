@@ -2692,6 +2692,7 @@ page {
   font-size: 0.18*100rpx;
   color: #666;
   margin-top: 0.07*100rpx;
+  text-align: center;
 }
 
 .product-con .footer .item .iconfont {
@@ -3039,8 +3040,11 @@ page {
 .addAddress .list .item {
   padding: 0 0.3*100rpx;
   min-height: 0.9*100rpx;
-  border-top: 0.01*100rpx solid #eee;
   font-size: 0.3*100rpx;
+  border-top: 0.01*100rpx solid #eee;
+}
+.addAddress .list .item:not(:first-child){
+	
 }
 
 .addAddress .list .item .name {
@@ -3104,6 +3108,84 @@ page {
   font-size: 0.32*100rpx;
   color: #eb3729;
   border: 1px solid #eb3729;
+}
+/*商户入驻信息*/
+.storesettlement .storeInfo .list {
+  background-color: #fff;
+  border-radius: 30rpx;
+}
+
+.storesettlement .storeInfo .storeId {
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+.storesettlement .storeInfo .license {
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+.storesettlement .storeInfo .orderCertificates {
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+.storesettlement .storeInfo .storeLogo {
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+.storesettlement .storeInfo .textIntroduce {
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+
+.storesettlement .storeInfo .list .item {
+  padding: 0 0.3*100rpx;
+  min-height: 0.9*100rpx;
+  font-size: 0.3*100rpx;
+}
+.storesettlement .list .item:not(:first-child){
+	border-top: 0.01*100rpx solid #F5F5F5;
+}
+
+.storesettlement .storeInfo .list .item .name {
+  width: 1.75*100rpx;
+  color: #333;
+}
+
+.storesettlement .storeInfo .list .item input {
+  width: 4.75*100rpx;
+  font-size: 0.3*100rpx;
+}
+
+.storesettlement .storeInfo .list .item input::placeholder {
+  color: #ccc;
+}
+
+.storesettlement .storeInfo .list .item .picker {
+  width: 4.75*100rpx;
+}
+
+.storesettlement .storeInfo .list .item .address {
+  width: 4.1*100rpx;
+}
+
+.storesettlement .storeInfo .list .item .picker .iconfont {
+  font-size: 0.43*100rpx;
+}
+
+.storesettlement .storeInfo .default {
+  padding: 0 0.3*100rpx;
+  height: 0.9*100rpx;
+  background-color: #fff;
+  margin-top: 0.23*100rpx;
 }
 
 /*我的订单*/
