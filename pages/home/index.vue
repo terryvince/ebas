@@ -416,9 +416,9 @@
   },
 		onLoad(){
 			// 查询弹框
-			queryLotteryDialog().then(({data})=>{
-				this.isShowLottery = data
-			}).catch(console.error)
+			// queryLotteryDialog().then(({data})=>{
+			// 	this.isShowLottery = data
+			// }).catch(console.error)
 		},
 		onShow: function() {
 			this.getLocation()

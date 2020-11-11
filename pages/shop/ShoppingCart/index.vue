@@ -83,7 +83,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="shopAllChecked(shopItem)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="shopItem.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="shopItem.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -98,7 +98,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="switchSelect(item)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#0572B7" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="item.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -171,7 +171,7 @@
 						<view class="checkbox-wrapper">
 							<checkbox-group @change="allChecked">
 								<label class="well-check">
-									<checkbox color="#0572B7" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
+									<checkbox color="#71D676" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
 									<text class="checkAll">全选 ({{ cartCount }})</text>
 								</label>
 							</checkbox-group>
