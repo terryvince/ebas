@@ -2,7 +2,7 @@
 	<view class="imageUploadContainer">
 		<view class="imageUploadList">
 			<view class="imageItem" v-bind:key="index" v-for="(path,index) in imageListData">
-				<image :src="path" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index" @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
+				<image :src="path" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index"  @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
 				<view v-if="isShowDel" class="imageDel" @tap="deleteImage" :data-index="index">x</view>
 			</view>
 			<view v-if="isShowAdd" class="imageUpload" @tap="selectImage">+</view>

@@ -16,7 +16,7 @@
 			left: 0;
 			top: 0;
 		}
-	}
+	} 
 
 	.shoppingCart .list .item .picTxt {
 		width: 590rpx;

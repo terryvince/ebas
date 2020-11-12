@@ -288,7 +288,7 @@
 	background:linear-gradient(90deg,#6A77FF,#A779FF);
 }
 .bg-v0{
-	background:linear-gradient(90deg,#248eb5,#3a4a9b);
+	background:linear-gradient(90deg,#71D676,#60CB56);
 }
 .bg-v1{
 	background:linear-gradient(90deg,#7C7C7C,#3A3734);
@@ -377,74 +377,11 @@
 						<view class="iconfont icon-jiantou arrow-atr"></view>
 					</view>
 				</view>
-				<!-- <view class="label acea-row row-between-wrapper">
-          <text>原价:￥{{ storeInfo.otPrice }}</text>
-          <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
-          <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
-        </view> -->
-				<!-- <view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
-					<text class="hide line1 acea-row">
-						<text>优惠券：</text>
-						<text class="activity" v-for="(item, couponListEq) in couponList" :key="couponListEq">满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
-					</text>
-					<view class="iconfont icon-jiantou arrow-atr"></view>
-				</view> -->
 			</view>
 			<view class="attribute flex-main-between">
 				<text class="fs-28 color-text">优惠券</text>
-				<text class="fs-28 style-receive color-white">领取</text>
+				<text @click="toCoupon" class="fs-28 style-receive color-white">领取</text>
 			</view>
-
-			<!-- <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
-				<view>
-					<text>{{ attrTxt }}：</text>
-					<text class="atterTxt">{{ attrValue }}</text>
-				</view>
-				<view class="iconfont icon-jiantou arrow-atr"></view>
-			</view> -->
-			<!-- <view class="store-info">
-        <view class="title acea-row row-between-wrapper no-border line-down">
-          <view>门店信息</view>
-          <view @click="goStoreList()" class="praise flex-main-start">
-            <text>更多</text>
-            <text class="iconfont icon-jiantou arrow-atr"></text>
-          </view>
-        </view>
-        <view class="info acea-row row-between-wrapper">
-          <view class="picTxt acea-row row-between-wrapper">
-            <view class="pictrue">
-              <image :src="systemStore.image" />
-            </view>
-            <view class="text">
-              <view class="name line1">{{ systemStore.name }}</view>
-              <view class="address acea-row row-middle" @click="showChang(systemStore)">
-                <text class="addressTxt">{{systemStore.address}}</text>
-                <text class="iconfont icon-youjian"></text>
-              </view>
-            </view>
-            <view class="addressBox">
-              <a
-				@click="callPhone(systemStore.phone)"
-                :href="'tel:'+systemStore.phone"
-                class="iconfont icon-dadianhua01 font-color-red phone"
-              ></a>
-              <view class="addressTxt corlor-yshop">距离{{systemStore.distance||0}}千米</view>
-            </view>
-          </view>
-        </view>
-      </view> -->
-			<!-- 旧版评价 v-if="replyCount"-->
-			<!-- <view class="userEvaluation" >
-        <view class="title acea-row row-between-wrapper">
-          <view>用户评价({{ replyCount }})</view>
-          <view @click="goEvaluateList(id)" class="praise flex-main-start">
-            <text class="font-color-red">{{ replyChance }}%</text>好评率
-            <text class="iconfont icon-jiantou arrow-atr"></text>
-          </view>
-        </view> -->
-			<!-- 查看伪造数据 testReply -->
-			<!-- <user-evaluation :reply="testReply"></user-evaluation>
-      </view> -->
 
 			<!-- 新版评价 -->
 			<view v-if="replyCount" class="user-comment bg-white top-5">
@@ -495,38 +432,6 @@
 				</view>
 			</view>
 
-
-			<!-- 优品推荐 -->
-			<!-- <view class="superior">
-        <view class="title acea-row row-center-wrapper">
-          <image src="@/static/images/ling.png" />
-          <text class="titleTxt">优品推荐</text>
-          <image src="@/static/images/ling.png" />
-        </view>
-        <template>
-          <view class="slider-banner banner">
-            <swiper :options="swiperRecommend" v-if="goodList.length > 0">
-              <swiper-slide v-for="(item, eq2) in goodList" :key="eq2">
-                <view class="list acea-row row-middle">
-                  <view class="item" v-for="val in item.list" :key="val.image">
-                    <view class="pictrue">
-                      <image :src="val.image" />
-                    </view>
-                    <view class="name line1">{{ val.store_name }}}</view>
-                    <view class="money font-color-red">¥{{ val.price }}</view>
-                  </view>
-                </view>
-              </swiper-slide>
-              <view class="swiper-pagination" slot="pagination"></view>
-            </swiper>
-          </view>
-        </template>
-      </view> -->
-			<!-- 旧版产品介绍 -->
-			<!-- <view class="product-intro">
-        <text class="title">产品介绍</text>
-        <view class="conter" v-html="storeInfo.description"></view>
-      </view> -->
 			<!-- 新版产品介绍 -->
 			<view class="bg-white">
 				<view class="flex-main-center">
@@ -728,6 +633,7 @@
 		},
 		computed: mapGetters(["isLogin", "location"]),
 		onLoad(options) {
+			// console.log(options)
 			if (options.scene) { // 处理扫码场景
 				const scene = decodeURIComponent(options.scene)
 				const params = scene.split("&")
@@ -739,12 +645,12 @@
 				})
 				this._route.query = ob
 			}
-			console.log('onload:', options, this._route.query)
+			// console.log('onload:', options, this._route.query)
 		},
 		mounted: function() {
 			let url = handleQrCode();
 			console.log('mounted:url', url)
-			console.log('this._route.query:', this._route.query)
+			// console.log('this._route.query:', this._route.query)
 			if (url && (url.productId || url.id)) {
 				this.id = url.productId || url.id
 				this._route.query = url
@@ -773,7 +679,7 @@
 		},
 		watch: {
 			posterImageStatus(status) {
-				console.log(status);
+				// console.log(status);
 				if (status) {
 					this.productConClass = "noscroll product-con";
 				} else {
@@ -781,35 +687,37 @@
 				}
 			}
 		},
-		onShareAppMessage() {
-			return {
-				title: this.storeInfo.storeName,
-				path: `/pages/shop/GoodsCon/index?id=${this.id}&mode=${this.mode}&from=share&uid=${this.uid}`
-			}
-		},
 		methods: {
-			callPhone(number) {
-				if (!number) {
-					return;
-				}
-				uni.makePhoneCall({
-					phoneNumber: number
-				});
-			},
+			// callPhone(number) {
+			// 	if (!number) {
+			// 		return;
+			// 	}
+			// 	uni.makePhoneCall({
+			// 		phoneNumber: number
+			// 	});
+			// },
 			// 进入店铺
 			goShopManage() {
 				this.$yrouter.push("/subpackage/shop/shop");
 			},
-			goCustomerList() {
+			// goCustomerList() {
+			// 	this.$yrouter.push({
+			// 		path: "/pages/user/CustomerList/index"
+			// 	});
+			// },
+			// goStoreList() {
+			// 	this.$yrouter.push({
+			// 		path: "/pages/shop/StoreList/index"
+			// 	});
+			// },
+			// 领取优惠券
+			toCoupon(){
 				this.$yrouter.push({
-					path: "/pages/user/CustomerList/index"
-				});
+					psth:"/pages/user/coupon/UserCoupon/index",
+					query:{id:this.id}
+				})
 			},
-			goStoreList() {
-				this.$yrouter.push({
-					path: "/pages/shop/StoreList/index"
-				});
-			},
+			// 用户评价
 			goEvaluateList(id) {
 				this.$yrouter.push({
 					path: "/pages/shop/EvaluateList/index",
@@ -818,26 +726,28 @@
 					}
 				});
 			},
-			showChang: function(data) {
-				this.$yrouter.push({
-					path: "/pages/map/index",
-					query: data
-				});
-			},
+			// showChang: function(data) {
+			// 	this.$yrouter.push({
+			// 		path: "/pages/map/index",
+			// 		query: data
+			// 	});
+			// },
 			updateTitle() {
 				// document.title = this.storeInfo.storeName || this.$yroute.meta.title;
 			},
+			// 分享
 			setShareInfoStatus: function() {
 				this.shareInfoStatus = !this.shareInfoStatus;
 				this.posters = false;
 			},
-			shareCode: function() {
-				var that = this;
-				getProductCode(that.id).then(res => {
-					that.posterData.code = res.data.code;
-					that.listenerActionSheet();
-				});
-			},
+			// shareCode: function() {
+			// 	var that = this;
+			// 	getProductCode(that.id).then(res => {
+			// 		that.posterData.code = res.data.code;
+			// 		that.listenerActionSheet();
+			// 	});
+			// },
+			// 生成海报
 			setPosterImageStatus: function() {
 				this.posterImageStatus = !this.posterImageStatus;
 				this.posters = false;
@@ -891,7 +801,7 @@
 						}
 						that.mapKay = res.data.mapKay;
 						that.$set(that, "goodList", goodArray);
-						that.updateTitle();
+						// that.updateTitle();
 						that.DefaultSelect();
 						that.getCartCount();
 					})
@@ -1036,14 +946,14 @@
 			},
 			changeattr: function(msg) {
 				// 修改了规格
-				console.log(msg);
+				// console.log(msg);
 				this.attr.cartAttr = msg;
 				this.isOpen = false;
 			},
 			//选择属性；
 			ChangeAttr: function(res) {
 				// 修改了规格
-				console.log(res);
+				// console.log(res);
 				let productSelect = this.productValue[res.value];
 				if (productSelect) {
 					this.attr.productAttr[res.indexw].index = res.indexn;
