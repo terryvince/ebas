@@ -48,6 +48,9 @@
 	}
 }
 .font-color-red {color: #6DD36F;}
+.productList .list .item{
+	border-radius: 20rpx;
+}
 </style>
 
 <template>
@@ -98,6 +101,8 @@
       <!-- down -->
       <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
     </view>
+	
+	
     <view
       class="list acea-row row-between-wrapper"
       :class="Switch === true ? '' : 'on'"
@@ -105,7 +110,7 @@
     >
       <view
         @click="goGoodsCon(item)"
-        class="item"
+        class="item"	
         :class="Switch === true ? '' : 'on'"
         v-for="(item, productListIndex) in productList"
         :key="productListIndex"
@@ -117,16 +122,19 @@
         <view class="text" :class="Switch === true ? '' : 'on'">
           <view class="name line1">{{ item.storeName }}</view>
           <view class="money font-color-red" :class="Switch === true ? '' : 'on'">
-            ￥
+            <text>￥</text>
             <text class="num">{{ item.price }}</text>
+			<text class="color-text-secondary del-line txt-bold fs-22" style="margin-left: 10rpx;">¥{{item.otPrice}}</text>
           </view>
           <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
-            <view class="vip-money">￥{{ item.otPrice }}</view>
+            <view class="fs-20 color-text-secondary txt-bold">鹅把式商户</view>
             <view>已售{{ item.sales }}件</view>
           </view>
         </view>
       </view>
     </view>
+	
+	
     <Loading :loaded="loadend" :loading="loading"></Loading>
     <view
       class="noCommodity"
@@ -246,7 +254,8 @@ export default {
       var that = this;
       this.setWhere();
       // if (to.name !== "GoodsList") return;
-      const { s = "", id = 0, title = "" } = this.$yroute.query;
+      const { s = "", id = 0, title = "", type = 0 } = this.$yroute.query;
+	  console.log(this.$yroute.query)
       if (s !== this.where.keyword || id !== this.where.sid) {
         // this.where.keyword = s;
         this.loadend = false;
@@ -262,7 +271,7 @@ export default {
       }
       let q = that.where;
 	  // type 0 普通商品 1积分商品 2会员卡
-	  q.type = 0
+	  q.type = type || 0
       getProducts(q).then(res => {
         that.loading = false;
         that.productList.push.apply(that.productList, res.data);
@@ -282,8 +291,8 @@ export default {
       let that = this;
       switch (index) {
         case 0:
-		  this.title = this.$yroute.query.title
-		  this.nows = false
+		  // this.title = this.$yroute.query.title
+		  // this.nows = false
 		  that.$yrouter.push({ path: "/pages/shop/GoodsClass/index"})
           return;
         case 1:

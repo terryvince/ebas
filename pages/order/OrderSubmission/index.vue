@@ -1,7 +1,8 @@
 <style scoped lang="less">
-// cover-view.footer cover-view{
-// 	overflow: visible;
-// }
+.order-submission{
+	padding-left: 30rpx !important;
+	padding-right: 30rpx !important;
+}
 .order-submission .wrapper .shipping select {
   color: #999;
   padding-right: 0.15 * 100rpx;
@@ -14,14 +15,7 @@
 
 .order-submission .allAddress {
   width: 100%;
-  background-image: linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
-  background-image: -webkit-linear-gradient(
-    to bottom,
-    #eb3729 0%,
-    #eb3729 100%
-  );
-  background-image: -moz-linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
-  padding-top: 1 * 100rpx;
+  padding-top: 40rpx;
 }
 
 .order-submission .allAddress .nav {
@@ -40,55 +34,7 @@
   position: relative;
 }
 
-.order-submission .allAddress .nav .item.on:before {
-  position: absolute;
-  bottom: 0;
-  content: "快递配送";
-  font-size: 0.28 * 100rpx;
-  display: block;
-  height: 0;
-  left: 0;
-  right: 0;
-  border-width: 0.4 * 100rpx;
-  border-style: solid;
-  border-color: #fff;
-  z-index: 9;
-  text-align: center;
-  line-height: 0.14 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item:nth-of-type(2).on:before {
-  content: "到店自提";
-  border-width: 0.4 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item.on2 {
-  position: relative;
-}
-
-.order-submission .allAddress .nav .item.on2:before {
-  position: absolute;
-  bottom: 0;
-  content: "到店自提";
-  font-size: 0.28 * 100rpx;
-  display: block;
-  height: 0;
-  left: 0;
-  right: 0;
-  border-width: 0.4 * 100rpx;
-  border-style: solid;
-  border-color: #d5e6e6;
-  text-align: center;
-  line-height: 0.14 * 100rpx;
-}
-
-.order-submission .allAddress .nav .item:nth-of-type(1).on2:before {
-  content: "快递配送";
-  border-width: 0.4 * 100rpx;
-}
-
 .order-submission .allAddress .address {
-  width: 6.91 * 100rpx;
   height: 1.5 * 100rpx;
   margin: 0 auto;
   box-sizing: border-box;
@@ -109,20 +55,6 @@
 <template>
   <view class="order-submission">
     <view class="allAddress" :style="systemStore ? '' : 'padding-top: 0.2*100rpx'">
-      <view class="nav acea-row">
-        <view
-          class="item font-color-red"
-          :class="shipping_type === 0 ? 'on' : 'on2'"
-          @click="addressType(0)"
-          v-if="systemStore"
-        ></view>
-        <!-- <view
-          class="item font-color-red"
-          :class="shipping_type === 1 ? 'on' : 'on2'"
-          @click="addressType(1)"
-          v-if="systemStore"
-        ></view> -->
-      </view>
       <view
         class="address acea-row row-between-wrapper"
         v-if="shipping_type === 0"
@@ -194,13 +126,6 @@
 	<view v-if="shipping_type === 0">
 		<view class="item acea-row row-between-wrapper">
 		  <view>快递费用</view>
-		  <!-- <view class="discount">
-			{{
-			orderGroupInfo.priceGroup.storePostage > 0
-			? orderGroupInfo.priceGroup.storePostage
-			: "免运费"
-			}}
-		  </view> -->
 				<view class="discount">
 				  {{
 				  orderPrice.payPostage > 0
@@ -300,7 +225,7 @@
         <view>合计:</view>
         <view class="font-color-red">￥{{ orderPrice.payPrice }}</view>
       </view>
-      <view class="settlement flex-none" @click="createOrder">立即结算</view>
+      <view class="settlement flex-none" @click="createOrder">立即支付</view>
     </view>
     <CouponListWindow
       v-on:couponchange="changecoupon($event)"

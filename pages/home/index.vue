@@ -233,7 +233,7 @@
 			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
 				<view class="flex-main-center relative">
 					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
-					<view @click="goHotNewGoods(1)" class="pick-more fs-20 color-text-secondary flex-main-start">
+					<view @click="goPickGoods()" class="pick-more fs-20 color-text-secondary flex-main-start">
 						<text>更多</text>
 						<view class="iconfont icon-jiantou fs-20"></view>
 					</view>
@@ -248,10 +248,10 @@
 						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-mark.png" class="group-title-img"></image>
 						<text class="left-10 lh-1">商品团购</text>
 					</view>
-					<!-- <view class="flex-main-start fs-20" @click="goGroupList()">
+					<view class="flex-main-start fs-20" @click="goGroupList()">
 						<text class="txt-bold">更多</text>
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
-					</view> -->
+					</view>
 				</view>
 				<goodsList :list="combinationList" from="group"></goodsList>
 			</view>
@@ -416,9 +416,9 @@
   },
 		onLoad(){
 			// 查询弹框
-			queryLotteryDialog().then(({data})=>{
-				this.isShowLottery = data
-			}).catch(console.error)
+			// queryLotteryDialog().then(({data})=>{
+			// 	this.isShowLottery = data
+			// }).catch(console.error)
 		},
 		onShow: function() {
 			this.getLocation()
@@ -486,8 +486,16 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+			goPickGoods(){
+				this.$yrouter.push({
+					path: '/pages/shop/GoodsList/index',
+					query:{
+						title:'综合',
+						type:3
+					}
+				});
+			},
 			goGroupList(){
-				
 				this.$yrouter.push({
 					path: '/pages/activity/GoodsGroup/index'
 				});

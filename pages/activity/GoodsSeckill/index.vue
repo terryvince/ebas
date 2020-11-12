@@ -1,3 +1,62 @@
+<style scoped lang="less">
+.timeScroll {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.timeItem {
+  font-size: 0.22 * 100rpx;
+  color: #282828;
+  width: 150rpx;
+  text-align: center;
+  padding: 0.11 * 100rpx 0;
+  background-color: none;
+
+  &.active {
+    .time {
+      color: #eb3729;
+    }
+
+    .state {
+      background-color: #eb3729;
+      color: #fff;
+      opacity: 1;
+      border-radius: 30rpx;
+      padding: 0 0.2 * 100rpx;
+      font-weight: 800;
+      height: 0.37 * 100rpx;
+      line-height: 0.37 * 100rpx;
+    }
+  }
+}
+
+.timeItem .time {
+  font-size: 0.32 * 100rpx;
+  font-weight: bold;
+  height: 0.37 * 100rpx;
+  line-height: 0.37 * 100rpx;
+}
+
+.timeItem .state {
+  height: 0.37 * 100rpx;
+  line-height: 0.37 * 100rpx;
+}
+
+.activity {
+  color: #333;
+}
+
+.flash-sale .list .item .grab {
+  background-color: #999;
+}
+.sec-list{
+	background: #FFFFFF;
+	border-radius: 20px;
+	margin: 20rpx;
+	padding: 20rpx;
+}
+</style>
 <template>
   <view class="flash-sale" ref="container">
     <view class="header" v-if="headerImg">
@@ -5,6 +64,10 @@
     </view>
     <scroll-view scroll-y="false" scroll-x="true">
       <view class="timeScroll">
+		  <view class="color-text fs-32 txt-medium flex-main-start flex-column left-20" style="width: 66rpx;">
+			  <text>今日</text>
+			  <text>爆款</text>
+		  </view>
         <view v-for="(item, index) in timeList" :key="index">
           <view v-if="active==index" class="timeItem active" @click="setTime(index)">
             <view class="time">{{ item.time }}</view>
@@ -19,6 +82,7 @@
     </scroll-view>
     <view v-for="(item, index) in timeList" :key="index">
       <view v-if="active == index">
+		  <!-- 倒计时 -->
         <view class="countDown font-color-red acea-row row-center-wrapper">
           <view v-if="item.status === 0" class="activity">活动已结束</view>
           <count-down
@@ -33,7 +97,13 @@
           ></count-down>
           <view v-if="item.status === 2" class="activity">活动即将开始</view>
         </view>
-        <view class="list bg-white">
+		
+		<!-- 商品列表 -->
+		<view v-if="seckillList.length>0" class="sec-list bg-white">
+			<goodsList :list="seckillList" from="seckill"></goodsList>
+		</view>
+		
+        <!-- <view class="list bg-white">
           <view
             class="item acea-row row-between-wrapper"
             v-for="(itemSeckill, indexSeckill) in seckillList"
@@ -62,7 +132,9 @@
             <view class="grab bg-color-red" v-if="item.status === 2">即将开始</view>
             <view class="grab bg-color-red" v-if="item.status === 0">已结束</view>
           </view>
-        </view>
+        </view> -->
+		
+		
         <view
           class="noCommodity"
           style="background-color: #fff;"
@@ -206,56 +278,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="less">
-.timeScroll {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
-.timeItem {
-  font-size: 0.22 * 100rpx;
-  color: #282828;
-  width: 150rpx;
-  text-align: center;
-  padding: 0.11 * 100rpx 0;
-  background-color: none;
-
-  &.active {
-    .time {
-      color: #eb3729;
-    }
-
-    .state {
-      background-color: #eb3729;
-      color: #fff;
-      opacity: 1;
-      border-radius: 30rpx;
-      padding: 0 0.2 * 100rpx;
-      font-weight: 800;
-      height: 0.37 * 100rpx;
-      line-height: 0.37 * 100rpx;
-    }
-  }
-}
-
-.timeItem .time {
-  font-size: 0.32 * 100rpx;
-  font-weight: bold;
-  height: 0.37 * 100rpx;
-  line-height: 0.37 * 100rpx;
-}
-
-.timeItem .state {
-  height: 0.37 * 100rpx;
-  line-height: 0.37 * 100rpx;
-}
-
-.activity {
-  color: #333;
-}
-
-.flash-sale .list .item .grab {
-  background-color: #999;
-}
-</style>

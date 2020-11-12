@@ -30,7 +30,7 @@
       <view class="pictrue" v-if="addressList.length < 1">
         <image src="@/static/images/noAddress.png" class="image" />
       </view>
-      <view class="addressBnt bg-color-red" @click="goAddressPages">新加地址</view>
+      <view class="addressBnt bg-color-green" @click="goAddressPages">新加地址</view>
     </view>
     <view class="mask" @touchmove.prevent :hidden="value === false" @click="closeAddress"></view>
   </view>
