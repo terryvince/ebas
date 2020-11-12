@@ -95,32 +95,52 @@
 		</view>
 		<OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
 
-
-		<view v-if="mode!='point'" class="wrapper">
-			<view class="item">
-				<view>支付方式</view>
-				<view class="list">
-					<view class="payItem acea-row row-middle" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
-					 v-show="isWeixin">
-						<view class="name acea-row row-center-wrapper">
-							<view class="iconfont icon-weixin2" :class="active === 'weixin' ? 'bounceIn' : ''"></view>微信支付
-						</view>
-						<view class="tip">微信快捷支付</view>
+		<view class="wrapper">
+			<view v-if="shipping_type === 0">
+				<view class="item acea-row row-between-wrapper">
+					<view>运费</view>
+					<view class="discount">
+						{{
+							  orderPrice.payPostage > 0
+							  ? orderPrice.payPostage
+							  : "免运费"
+							  }}
 					</view>
-					<view class="payItem acea-row row-middle" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
-					 v-show="!isWeixin">
-						<view class="name acea-row row-center-wrapper">
-							<view class="iconfont icon-weixin2" :class="active === 'weixin' ? 'bounceIn' : ''"></view>微信支付
-						</view>
-						<view class="tip">微信快捷支付</view>
-					</view>
-	<!-- 				<view class="payItem acea-row row-middle" :class="active === 'yue' ? 'on' : ''" @click="payItem('yue')">
-						<view class="name acea-row row-center-wrapper">
-							<view class="iconfont icon-icon-test" :class="active === 'yue' ? 'bounceIn' : ''"></view>余额支付
-						</view>
-						<view class="tip">可用余额：{{ userInfo.nowMoney || 0 }}</view>
-					</view> -->
 				</view>
+			</view>
+
+			<view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false && mode!='vip' && mode!='point'">
+				<view>优惠券</view>
+				<view class="discount">
+					{{ usableCoupon.couponTitle || "请选择" }}
+					<text class="iconfont icon-jiantou"></text>
+				</view>
+			</view>
+
+
+			<view v-else>
+				<view class="item acea-row row-between-wrapper">
+					<view>联系人</view>
+					<view class="discount">
+						<input type="text" placeholder="请填写您的联系姓名" v-model="contacts" />
+					</view>
+				</view>
+				<view class="item acea-row row-between-wrapper">
+					<view>联系电话</view>
+					<view class="discount">
+						<input type="text" placeholder="请填写您的联系电话" v-model="contactsTel" />
+					</view>
+				</view>
+			</view>
+
+			<view class="item acea-row row-between-wrapper">
+				<view>支付方式</view>
+				<view class="discount">微信
+				</view>
+			</view>
+			<view class="item">
+				<view>备注信息（150字以内）</view>
+				<textarea v-model="mark"></textarea>
 			</view>
 		</view>
 
@@ -434,24 +454,6 @@
 						});
 						return;
 					}
-				}
-
-				if (!/^[\u4e00-\u9fa5\w]{2,16}$/.test(this.cardName)) {
-					uni.showToast({
-						title: "请填写正确的证件姓名",
-						icon: "none",
-						duration: 2000
-					});
-					return;
-				}
-
-				if (!this.cardNumber) {
-					uni.showToast({
-						title: "请填写证件号码",
-						icon: "none",
-						duration: 2000
-					});
-					return;
 				}
 
 				uni.showLoading({

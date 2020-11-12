@@ -1,6 +1,6 @@
 <template>
 	<view class="sign">
-		<view class="header bg-color-red">
+		<view class="header bg-color-green">
 			<view class="headerCon acea-row row-between-wrapper">
 				<view class="left acea-row row-between-wrapper">
 					<view class="pictrue">
@@ -28,7 +28,7 @@
 				</view>
 			</view>
 			<!--加在 but 上 on 为已签到-->
-			<view class="but bg-color-red" :class="userInfo.is_day_sgin ? 'on' : ''" @click="goSign">{{ userInfo.isDaySign ? "已签到" : "立即签到" }}</view>
+			<view class="but bg-color-green" :class="userInfo.is_day_sgin ? 'on' : ''" @click="goSign">{{ userInfo.isDaySign ? "已签到" : "立即签到" }}</view>
 			<view class="lock"></view>
 		</view>
 		<view class="wrapper wrapper2">
@@ -69,6 +69,9 @@
 	.Loads .iconfont {
 		font-size: 0.25*100rpx;
 		margin: 0.02*100rpx 0 0 0.1*100rpx;
+	}
+	.bg-danger {
+	    background: #64CE5E !important;
 	}
 </style>
 <script>
