@@ -85,12 +85,12 @@
 		border-top: 2rpx solid #ffffff;
 		background-color: #F5F5F5;
 		position: relative;
-		// margin-top: 200rpx;
 		margin-top: 100rpx;
 		min-height: 500rpx;
 
 		.couponIndex {
 			position: absolute;
+			width: 100%;
 			top: -100rpx;
 		}
 	}
@@ -180,10 +180,11 @@
 	import {
 		getProducts
 	} from "@/api/store";
+	import goodsList from '@/components/goodsList/goodsList';
 	export default {
 		name: "Shop",
 		components: {
-
+			goodsList
 		},
 		data: function() {
 			return {
