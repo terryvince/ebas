@@ -150,7 +150,7 @@
 		</view>
 		<!-- 团购商品 -->
 		<view v-else-if="from=='group'" class="group-list color-text lh-1">
-			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="item.id">
+			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
 				<view class="group-img-wrap flex-none flex-main-center">
 					<image :src="item.image" class="width-full" mode="aspectFit"></image>
 				</view>

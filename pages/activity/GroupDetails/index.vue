@@ -99,7 +99,8 @@
           <text class="iconfont icon-jiantou"></text>
         </view>
       </view>
-      <UserEvaluation :reply="reply"></UserEvaluation>
+	  <!-- 接口字段reply 可能是null -->
+      <UserEvaluation v-if="reply" :reply="reply"></UserEvaluation>
     </view>
     <view class="product-intro">
       <view class="title">产品介绍</view>
@@ -250,7 +251,7 @@ export default {
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
         that.$set(that, "groupList", res.data.pink);
-        that.$set(that, "reply", [res.data.reply]);
+        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[]);
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
         that.setProductSelect();
