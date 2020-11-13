@@ -59,6 +59,9 @@
 			margin-left: 0rpx !important;
 		}
 	}
+	.font-color-light{
+		color: #A6A6A6;
+	}
 </style>
 <template>
 	<view class="order-submission">
@@ -133,6 +136,11 @@
 				</view>
 			</view>
 
+			<view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
+				<view>商品总价：</view>
+				<view class="money">￥{{ orderPrice.totalPrice }}</view>
+			</view>
+
 			<view class="item acea-row row-between-wrapper">
 				<view>支付方式</view>
 				<view class="discount">微信
@@ -144,7 +152,7 @@
 			</view>
 		</view>
 
-		<view class="moneyList">
+		<!-- 		<view class="moneyList">
 			<view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
 				<view>商品总价：</view>
 				<view class="money">￥{{ orderPrice.totalPrice }}</view>
@@ -161,12 +169,17 @@
 				<view>积分支付：</view>
 				<view class="money">-￥{{ orderPrice.deductionPrice }}</view>
 			</view>
-		</view>
+		</view> -->
 		<view style="height:120rpx"></view>
 		<view class="footer acea-row row-between-wrapper">
-			<view class="flex-main-start flex-1">
-				<view>合计:</view>
-				<view class="font-color-red">￥{{ orderPrice.payPrice }}</view>
+			<view class="flex-1 flex-column flex-cross-start">
+				<view class="flex-none flex-main-start " style="
+font-size: 32rpx;
+font-weight: bold;
+color: #333333;">合计:
+					<view class="font-color-red">￥{{ orderPrice.payPrice }}</view>
+				</view>
+				<view class="font-color-light">已优惠:{{ orderPrice.payPrice }}</view>
 			</view>
 			<view class="settlement flex-none" @click="createOrder">立即支付</view>
 		</view>

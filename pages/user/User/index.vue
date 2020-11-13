@@ -25,14 +25,14 @@
 }
 
 .order-status-num {
-  min-width: 0.33 * 100rpx;
+  min-width: 16rpx;
   background-color: #fff;
   color: #eb3729;
-  border-radius: 15px;
+  border-radius: 50%;
   position: absolute;
   right: -0.14 * 100rpx;
   top: -0.15 * 100rpx;
-  font-size: 0.2 * 100rpx;
+  font-size: 20rpx;
   padding: 0 0.08 * 100rpx;
   border: 1px solid #eb3729;
 }
