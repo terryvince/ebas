@@ -326,24 +326,18 @@
 <template>
 	<view :class="productConClass">
 		<view v-if="storeInfo.id || storeInfo.id===0">
-			<!-- 头部 -->
-			<!-- <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper> -->
-			<swiper class="gd-swiper bg-white" :indicator-dots="true" :autoplay="false" :duration="1000" indicator-color="#FEF2F2"
-			 indicator-active-color="#00A0E9">
-				<swiper-item v-for="(url,i) in storeInfo.sliderImageArr" :key="i">
-					<view class="swiper-item full">
-						<image :src="url" class="full"></image>
-					</view>
-				</swiper-item>
-			</swiper>
+			<!-- swiper -->
+			<product-con-swiper :img-urls="storeInfo.sliderImageArr" :themeColor="mode=='point'? '#00A0E9':'#64CE5E'"></product-con-swiper>
+			
+			<!-- 价格分享栏 -->
 			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+level]">
 				<view class="meta-wrap flex-1">
 					<!-- <view class="v-grade flex-main-start fs-32">
 						<text>L{{level}}</text>
 						<text class="left-10">会员价</text>
 					</view> -->
-					<view class="flex-main-between flex-baseline">
-						<view class="flex-main-start">
+					<view class="flex-main-between">
+						<view class="flex-main-start flex-baseline">
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===1">积分</text>
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===3">精选</text>
 							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48 left-20">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
@@ -360,6 +354,7 @@
 				</view>
 			</view>
 
+			<!-- 商品规格 -->
 			<view class="wrapper over-hide">
 				<view class="introduce txt-ellipsis row-2">{{ storeInfo.storeName }}</view>
 				<view class="share flex-main-between line-top">

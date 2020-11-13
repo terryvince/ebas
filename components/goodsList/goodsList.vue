@@ -206,7 +206,7 @@
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">鹅把式商户</view>
 						</view>
-						<button class="btn btn-linear-orange btn-fix-width">{{item.status | formatStatus}}</button>
+						<button :class="['btn btn-fix-width',item.status == 1 ? 'btn-linear-orange':'btn-gray']">{{item.status | formatStatus}}</button>
 					</view>
 					
 				</view>

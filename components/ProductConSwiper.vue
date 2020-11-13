@@ -1,57 +1,50 @@
+<style lang="less" scoped>
+	.gd-swiper{
+		height: 500rpx;
+		width: 100%;
+	}
+</style>
 <template>
-  <view class="slider-banner product-bg">
-    <swiper class="swiper-wrapper" @change="handleChange" v-if="imgUrls.length > 0">
-      <block v-for="(item, imgUrlsIndex) in imgUrls" :key="imgUrlsIndex">
-        <swiper-item>
-          <image :src="item" class="slide-image" />
-        </swiper-item>
-      </block>
-    </swiper>
-    <!-- <swiper class="swiper-wrapper" :options="ProductConSwiper" v-if="imgUrls.length > 0">
-      <swiperSlide class="swiper-slide" v-for="item in imgUrls" :key="item" ref="goodSwiper">
-        <image :src="item" class="slide-image" />
-      </swiperSlide>
-    </swiper>-->
-    <view class="pages">{{ currents || 1 }}/{{ imgUrls.length || 1 }}</view>
-  </view>
+	<swiper class="gd-swiper bg-white" @change="handleChange" :indicator-dots="true" :autoplay="autoplay" :duration="duration" :indicator-color="indicatorColor"
+	 :indicator-active-color="themeColor">
+		<swiper-item v-for="(url,i) in imgUrls" :key="i">
+			<view class="swiper-item full">
+				<image :src="url" class="full"></image>
+			</view>
+		</swiper-item>
+	</swiper>
 </template>
 <script>
-// import { swiper, swiperSlide } from "vue-awesome-swiper";
-
 export default {
   name: "ProductConSwiper",
-  components: {
-    // swiper,
-    // swiperSlide
-  },
   props: {
     imgUrls: {
       type: Array,
       default: () => []
-    }
+    },
+	themeColor: {  // 主题色，小圆点的激活色
+		type: String,
+		default: '#64CE5E'
+	},
+	autoplay: {
+		type: Boolean,
+		default: false
+	},
+	duration:{
+		type: Number,
+		default: 1000
+	},
+	indicatorColor:{
+		type: String,
+		default: '#FEF2F2'
+	}
   },
-  data: function() {
-    let that = this;
+  data() {
     return {
-      currents: 1,
-      ProductConSwiper: {
-        autoplay: {
-          disableOnInteraction: false,
-          delay: 2000
-        },
-        loop: true,
-        speed: 1000,
-        observer: true,
-        observeParents: true,
-        on: {
-          slideChangeTransitionStart: function() {
-            that.currents = this.realIndex + 1;
-          }
-        }
+		currents: 1
       }
-    };
   },
-  mounted: function() {},
+  mounted() {},
   methods: {
     handleChange(event) {
       this.currents = event.mp.detail.current + 1;
