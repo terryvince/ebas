@@ -91,7 +91,7 @@ export default {
       userAddress: { isDefault: 0 },
       address: {},
       isWechat: isWeixin(),
-      addressText: "111"
+      addressText: ""
     };
   },
   mounted: function() {

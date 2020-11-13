@@ -402,7 +402,7 @@
 				params:{
 					page: 1,
 					limit: 4,
-					type: 3 // 0 普通商品 1积分商品 2会员卡
+					type: 2 // 0 普通商品 1积分商品 2精选商品
 				},
 				isShowLottery:false,
 				countdown: {},

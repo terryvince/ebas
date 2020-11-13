@@ -102,7 +102,7 @@
 					<view class="name">商品类别</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
 						<view class="address">
-							<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect>
+							<input type="text" v-model="storeInfo.category" required />
 						</view>
 						<view class="iconfont icon-jiantou"></view>
 					</view>
@@ -124,7 +124,7 @@
 				</view>
 				<view class="photos">
 					<robby-image-upload v-model="imageStoreId" @delete="deleteImage" @add="addImage" :limit=2>
-						
+
 					</robby-image-upload>
 				</view>
 			</view>
@@ -135,7 +135,7 @@
 				</view>
 				<view class="photos">
 					<robby-image-upload v-model="imageLicense" @delete="deleteImage" @add="addImage" :limit=3>
-						
+
 					</robby-image-upload>
 				</view>
 			</view>
@@ -146,7 +146,7 @@
 				</view>
 				<view class="photos">
 					<robby-image-upload v-model="imageOrder" @delete="deleteImage" @add="addImage" :limit=4>
-						
+
 					</robby-image-upload>
 				</view>
 			</view>
@@ -157,7 +157,7 @@
 				</view>
 				<view class="photos">
 					<robby-image-upload v-model="imageLogo" @delete="deleteImage" @add="addImage" :limit=1>
-						
+
 					</robby-image-upload>
 				</view>
 			</view>
@@ -167,13 +167,13 @@
 					文字介绍
 				</view>
 				<view class="textContent">
-					<textarea v-model="textContent" placeholder-style="color:#D5D5D5" placeholder="请输入文字介绍"/>
-				</view>
+					<textarea v-model="textContent" placeholder-style="color:#D5D5D5" placeholder="请输入文字介绍" />
+					</view>
 			</view>
 			<!-- 协议 -->
 			<view class="agreement">
 				<view class="agreementItem">
-					<checkbox value="cb" checked="true" />平台协议
+					<checkbox style="size: 30rpx;" value="cb" checked="true" />平台协议
 				</view>
 				<view class="agreementItem">
 					<checkbox value="cb" checked="true" />行业协议
@@ -190,15 +190,20 @@
 </template>
 
 <script>
+	import CitySelect from "@/components/CitySelect";
+	import { getCity} from "@/api/user";
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload';
 	export default {
 		components: {
+			CitySelect,
 			robbyImageUpload
 		},
 		data:function(){
 			return{
 				// 地址
-				addressText:"",
+				addressText:"111",
+				district:[],
+				address:{},
 				// 身份证
 				imageStoreId:"",
 				// 营业执照
@@ -211,10 +216,14 @@
 				textContent:""
 			}
 		},
+		mounted: function() {
+		  this.getCityList();
+		},
 		methods:{
+			// 获取子组件传递的地址数据
 			result(values) {
-			  console.log(this);
-			  console.log(values);
+			  // console.log(this);
+			  console.log('1',values);
 			  this.address = {
 			    province: values.province.name || "",
 			    city: values.city.name || "",
@@ -224,7 +233,18 @@
 			  this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
 			  // this.addressText =
 			  //   this.address.province + this.address.city + this.address.district;
-			}
+			},
+			getCityList: function() {
+			  let that = this;
+			  getCity()
+			    .then(res => {
+			      that.district = res.data;
+			      that.ready = true;
+			    })
+			    .catch(err => {
+			      that.$dialog.error(err.msg);
+			    });
+			},
 		}
 	}
 </script>

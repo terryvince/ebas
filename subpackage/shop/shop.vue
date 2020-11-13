@@ -8,6 +8,13 @@
 </style>
 <style scoped lang="less">
 	@import "~@/assets/css/utils.less";
+	.shopBanner{
+		image{
+			height: 366rpx;
+		    width: 100%;
+		}
+		
+	}
 
 	.style-receive {
 		padding: 6rpx 16rpx;
@@ -120,22 +127,56 @@
 
 		.goodsListItem {
 			padding: 30rpx 20rpx 60rpx;
+			min-height: 1000rpx;
 		}
 	}
+	.gl-icon-triangle{
+		position: relative;
+		width: 15rpx;
+		height: 19rpx;
+		margin-left: 10rpx;
+		&::before,&::after{
+			content: '';
+			width: 0;
+			height: 0;
+			border-width: 8rpx;
+			border-color: transparent;
+			border-style: solid;
+			position: absolute;
+		}
+		&::before{
+			top: 0;
+			left: 0;
+			border-color: transparent transparent #A9A9A9 transparent;
+			transform: translate(0,-55%);
+		}
+		&::after{
+			bottom: 0;
+			left: 0;
+			border-color: #A9A9A9 transparent transparent transparent;
+			transform: translate(0, 55%);
+		}
+		&.up::before{
+			border-color: transparent transparent #6DD36F transparent;
+		}
+		&.down::after{
+			border-color: #6DD36F transparent transparent transparent;
+		}
+	}
+	.font-color-red {color: #6DD36F;}
 </style>
 
 <template>
 	<view class="shopManage">
-		<view class="">
-			<image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1603365312,3218205429&fm=26&gp=0.jpg" style="width: 100%;"
-			 mode="widthFix"></image>
+		<view class="shopBanner">
+			<image :src="shopInfo.coverImage"></image>
 		</view>
 		<!-- 店铺介绍 -->
 		<view class="bg-white comment-box line-down">
 			<view class="flex-main-between">
 				<view class="flex-main-start">
-					<image class="avator flex-none" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"></image>
-					<text class="left-15 fs-34">鹅把式店铺</text>
+					<image class="avator flex-none" :src="shopInfo.headImage"></image>
+					<text class="left-15 fs-34">{{shopInfo.name}}</text>
 				</view>
 				<view>
 					<button type="default" class="hide-full" open-type="contact"></button>
@@ -143,7 +184,7 @@
 				</view>
 			</view>
 			<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-				第一时间账务最新核心技术，让我们的产品高效便捷，贴合前 沿产品风向，让我们的解决方案永不落后,第一时间账务最新核 心技术，让我
+				{{shopInfo.introduce}}
 			</view>
 		</view>
 		<view class="goodsCoupon">
@@ -152,18 +193,20 @@
 			<!-- 商品 -->
 			<view class="goodsList">
 				<view class="nav acea-row row-middle">
-					<view class="item" :class="title ? 'font-color-red' : ''" @click="set_where(0)">{{ title ? title : "综合" }}</view>
+					<view class="item" :class="['item',title ? 'font-color-red' : '']" @click="set_where(0)">{{ title ? title : "综合" }}</view>
 					<view class="item" @click="set_where(1)">
 						价格
-						<image src="../../static/images/horn.png" v-if="price === 0" />
+						<!-- <image src="../../static/images/horn.png" v-if="price === 0" />
 						<image src="../../static/images/up.png" v-if="price === 1" />
-						<image src="../../static/images/down.png" v-if="price === 2" />
+						<image src="../../static/images/down.png" v-if="price === 2" /> -->
+						<view :class="['inline gl-icon-triangle',price === 1 ? 'up':'',price === 2 ? 'down':'']"></view>
 					</view>
 					<view class="item" @click="set_where(2)">
 						销量
-						<image src="../../static/images/horn.png" v-if="stock === 0" />
+						<!-- <image src="../../static/images/horn.png" v-if="stock === 0" />
 						<image src="../../static/images/up.png" v-if="stock === 1" />
-						<image src="../../static/images/down.png" v-if="stock === 2" />
+						<image src="../../static/images/down.png" v-if="stock === 2" /> -->
+						<view :class="['inline gl-icon-triangle',stock === 1 ? 'up':'',stock === 2 ? 'down':'']"></view>
 					</view>
 					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
 				</view>
@@ -172,6 +215,7 @@
 				</view>
 			</view>
 		</view>
+		<Loading :loaded="loaded" :loading="loading"></Loading>
 	</view>
 
 </template>
@@ -181,13 +225,20 @@
 		getProducts
 	} from "@/api/store";
 	import goodsList from '@/components/goodsList/goodsList';
+	import Loading from "@/components/Loading";
 	export default {
 		name: "Shop",
 		components: {
-			goodsList
+			goodsList,
+			Loading
 		},
 		data: function() {
 			return {
+				loading: false,
+				loaded: false,
+				// 店铺信息
+				shopInfo: {},
+				// 商品筛选
 				price: 0,
 				stock: 0,
 				nows: false,
@@ -197,42 +248,80 @@
 				pickList: [],
 				where: {
 					page: 1,
-					limit: 8,
+					limit: 10,
 					// keyword: s,
 					// sid: id, //二级分类id
 					news: 0,
 					priceOrder: "",
 					salesOrder: "",
-					type: 0
+					type: 0, // 0 普通商品 1积分商品 2精选商品
+					merId: 0,
 				},
-				params: {
-					page: 1,
-					limit: 4,
-					type: 0 // 0 普通商品 1积分商品 2精选商品
-				},
+				// 记录上次点击的筛选项
+				clickChange: 0,
 			}
 		},
 		onShow: function() {
-			// 商品数据
-			getProducts(this.params).then(res => {
-				this.pickList = res.data
-			}).catch(err => {
-				console.error("获取精选商品列表发生错误！", err)
-			}).finally(() => {
-				if (++count == 3) {
-					uni.hideLoading();
-				}
-			})
+			this.shopInfo = JSON.parse(this.$yroute.query.shopInfo);
+			this.where.merId = this.shopInfo.id;
+			
+			this.get_product_list();
+		},
+		mounted: function() {
+			// console.log(JSON.parse(this.$yroute.query.shopInfo))
 		},
 		methods: {
+			// 获取商品数据
+			get_product_list() {
+				var that = this;
+				if (this.loading || this.loaded) return;
+				this.loading = true;
+				this.setWhere();
+				getProducts(this.where).then(res => {
+					this.pickList = this.pickList.concat(res.data);
+					
+					this.loading = false;
+					this.where.page++;
+					this.loaded = res.data.length < this.where.limit;
+				}).catch(err => {
+					console.error("获取商品列表发生错误！", err)
+				})
+			},
+			//设置where条件
+			setWhere: function() {
+				let that = this;
+				if (that.price === 0) {
+					that.where.priceOrder = "";
+				} else if (that.price === 1) {
+					that.where.priceOrder = "asc";
+				} else if (that.price === 2) {
+					that.where.priceOrder = "desc";
+				}
+				if (that.stock === 0) {
+					that.where.salesOrder = "";
+				} else if (that.stock === 1) {
+					that.where.salesOrder = "asc";
+				} else if (that.stock === 2) {
+					that.where.salesOrder = "desc";
+				}
+				that.where.news = that.nows ? "1" : "0";
+			},
 			//点击筛选事件处理
 			set_where: function(index) {
 				let that = this;
+				that.loaded = false;
+				that.where.page = 1;
+				that.clickChange = index;
+				console.log(index)
 				switch (index) {
 					case 0:
-						return that.$yrouter.push({
-							path: "/subpackage/shop/shop"
-						});
+						that.price = 0;
+						that.stock = 0;
+						that.nows = false;
+						// return that.$yrouter.push({
+						// 	path: "/subpackage/shop/shop"
+						// });
+						break;
 					case 1:
 						if (that.price === 0) that.price = 1;
 						else if (that.price === 1) that.price = 2;
@@ -251,10 +340,18 @@
 					default:
 						break;
 				}
-				that.$set(that, "Shop", []);
-				that.where.page = 1;
-				that.loadend = false;
-				// that.get_product_list();
+				console.log(this.pickList)
+				if (that.clickChange !== 0) {
+					console.log('11', that.clickChange)
+					that.where.page = 1;
+					that.loadend = false;
+					that.pickList = [];
+					that.get_product_list();
+				}
+			},
+			// 下滑加载
+			onReachBottom() {
+				!this.loading && this.get_product_list();
 			},
 		}
 	}

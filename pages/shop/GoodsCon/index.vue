@@ -1,327 +1,362 @@
 <style scoped lang="less">
 	.geoPage {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  z-index: 10000;
-}
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		z-index: 10000;
+	}
 
-.product-con .store-info {
-  margin-top: 0.2 * 100rpx;
-  background-color: #fff;
-}
+	.product-con .store-info {
+		margin-top: 0.2 * 100rpx;
+		background-color: #fff;
+	}
 
-.product-con .store-info .title {
-  padding: 0 0.3 * 100rpx;
-  font-size: 0.28 * 100rpx;
-  color: #282828;
-  height: 0.8 * 100rpx;
-  line-height: 0.8 * 100rpx;
-  border-bottom: 0.01 * 100rpx solid #f5f5f5;
-}
+	.product-con .store-info .title {
+		padding: 0 0.3 * 100rpx;
+		font-size: 0.28 * 100rpx;
+		color: #282828;
+		height: 0.8 * 100rpx;
+		line-height: 0.8 * 100rpx;
+		border-bottom: 0.01 * 100rpx solid #f5f5f5;
+	}
 
-.product-con .store-info .info {
-  padding: 0 0.3 * 100rpx;
-  height: 1.26 * 100rpx;
-}
+	.product-con .store-info .info {
+		padding: 0 0.3 * 100rpx;
+		height: 1.26 * 100rpx;
+	}
 
-.product-con .store-info .info .picTxt {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.product-con .store-info .info .picTxt .pictrue {
-  width: 0.76 * 100rpx;
-  height: 0.76 * 100rpx;
-  margin-right: 0.2 * 100rpx;
-}
-
-.product-con .store-info .info .picTxt .pictrue image {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.06 * 100rpx;
-}
-
-.product-con .store-info .info .picTxt .text {
-  flex: 1;
-}
-
-.product-con .store-info .info .picTxt .text .name {
-  font-size: 0.3 * 100rpx;
-  color: #282828;
-}
-
-.product-con .store-info .info .picTxt .text .address {
-  font-size: 0.24 * 100rpx;
-  color: #666;
-  margin-top: 0.03 * 100rpx;
-}
-
-.product-con .store-info .info .picTxt .text .address .iconfont {
-  color: #707070;
-  font-size: 0.18 * 100rpx;
-  margin-left: 0.1 * 100rpx;
-}
-
-.product-con .store-info .info .picTxt .addressBox {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.product-con .store-info .info .picTxt .addressBox .iconfont {
-  font-size: 0.4 * 100rpx;
-}
-.product-con .store-info .info .picTxt .addressBox .addressTxt {
-  font-size: 0.24 * 100rpx;
-  color: #eb3729;
-}
-
-.product-con .store-info .praise {
-  font-size: 0.28 * 100rpx;
-  color: #808080;
-}
-.product-con .store-info .praise .iconfont {
-  font-size: 0.28 * 100rpx;
-}
-
-.product-con .superior {
-  background-color: #fff;
-  margin-top: 0.2 * 100rpx;
-}
-
-.product-con .superior .title {
-  height: 0.98 * 100rpx;
-}
-
-.product-con .superior .title image {
-  width: 0.3 * 100rpx;
-  height: 0.3 * 100rpx;
-}
-
-.product-con .superior .title .titleTxt {
-  margin: 0 0.2 * 100rpx;
-  font-size: 0.3 * 100rpx;
-  background-image: linear-gradient(to right, #f57a37 0%, #f21b07 100%);
-  background-image: -webkit-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
-  background-image: -moz-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.product-con .superior .slider-banner {
-  width: 6.9 * 100rpx;
-  margin: 0 auto;
-  padding-bottom: 0.2 * 100rpx;
-}
-
-.product-con .superior .slider-banner .list {
-  width: 100%;
-  padding-bottom: 0.2 * 100rpx;
-}
-
-.product-con .superior .slider-banner .list .item {
-  width: 2.15 * 100rpx;
-  margin: 0 0.22 * 100rpx 0.3 * 100rpx 0;
-  font-size: 0.26 * 100rpx;
-}
-
-.product-con .superior .slider-banner .list .item:nth-of-type(3n) {
-  margin-right: 0;
-}
-
-.product-con .superior .slider-banner .list .item .pictrue {
-  width: 100%;
-  height: 2.15 * 100rpx;
-}
-
-.product-con .superior .slider-banner .list .item .pictrue image {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.06 * 100rpx;
-}
-
-.product-con .superior .slider-banner .list .item .name {
-  color: #282828;
-  margin-top: 0.12 * 100rpx;
-}
-
-.product-con .superior .slider-banner .swiper-pagination-bullet {
-  background-color: #999;
-}
-
-.product-con .superior .slider-banner .swiper-pagination-bullet-active {
-  background-color: #e93323;
-}
-
-.mask {
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px);
-}
-
-.footer .icon-shoucang1 {
-  color: #eb3729;
-}
-
-.product-con .product-intro .conter view {
-  width: 100% !important;
-}
-
-.generate-posters {
-  width: 100%;
-  height: 1.7 * 100rpx;
-  background-color: #fff;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-  transform: translate3d(0, 100%, 0);
-  -webkit-transform: translate3d(0, 100%, 0);
-  -ms-transform: translate3d(0, 100%, 0);
-  -moz-transform: translate3d(0, 100%, 0);
-  -o-transform: translate3d(0, 100%, 0);
-  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
-  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
-  -moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
-  -o-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
-}
-
-.generate-posters.on {
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-}
-
-.generate-posters .item {
-  flex: 50%;
-  -webkit-flex: 50%;
-  -ms-flex: 50%;
-  text-align: center;
-}
-
-.generate-posters .item .iconfont {
-  font-size: 0.8 * 100rpx;
-  color: #5eae72;
-}
-
-.generate-posters .item .iconfont.icon-haibao {
-  color: #5391f1;
-}
-
-.noscroll {
-  height: 100%;
-  overflow: hidden;
-}
-.gd-swiper{
-	height: 500rpx;
-	width: 100%;
-}
-.florid-blue{
-	font-size: 24rpx;
-	color: white;
-	height: 130rpx;
-	// background-color: linear-gradient(90deg,#6A77FF,#A779FF);
-	
-}
-.list{
-	padding:0 30rpx;
-	.list-item{
-		position: relative;
-		padding: 27rpx 0;
+	.product-con .store-info .info .picTxt {
+		width: 100%;
 		display: flex;
-		&.list-between{
-			justify-content: space-between;
-		}
-		&::before{
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			height: 1px;
-			background-color: #F5F5F5;
-			transform: scaleY(.5);
-		}
+		align-items: center;
 	}
-}
-.arrow-atr{
-	font-size: 22rpx!important;
-	color: #B5B5B5!important;
-	display: flex;
-	align-items: center;
-}
-.comment-box{
-	padding: 40rpx 30rpx 56rpx;
-	.avator{
-		width: 92rpx;
-		height: 92rpx;
-		border-radius: 50%;
+
+	.product-con .store-info .info .picTxt .pictrue {
+		width: 0.76 * 100rpx;
+		height: 0.76 * 100rpx;
+		margin-right: 0.2 * 100rpx;
 	}
-	.comment-reply{
+
+	.product-con .store-info .info .picTxt .pictrue image {
+		width: 100%;
+		height: 100%;
+		border-radius: 0.06 * 100rpx;
+	}
+
+	.product-con .store-info .info .picTxt .text {
 		flex: 1;
-		padding: 33rpx 18rpx 57rpx;
-		background-color: #F5F5F5;
 	}
-}
-.gd-intro{
-	padding: 64rpx 0 38rpx;
-}
-.gd-title{
-	font-weight: bold;
-	text-align: center;
-	width: 217rpx;
-	background: url(../../../static/images/gd-detail-bg.png)no-repeat center;
-	background-size: 217rpx 4rpx;
-}
-.btn-left{
-	border-radius: 50rpx 0 0 50rpx;
-}
-.btn-right{
-	border-radius: 0 50rpx 50rpx 0;
-}
-.bg-v5{
-	background:linear-gradient(90deg,#6A77FF,#A779FF);
-}
-.bg-v0{
-	background:linear-gradient(90deg,#71D676,#60CB56);
-}
-.bg-v1{
-	background:linear-gradient(90deg,#7C7C7C,#3A3734);
-}
-.bg-v2{
-	background:linear-gradient(90deg,#FE8563,#DD9358);
-}
-.bg-v3{
-	background:linear-gradient(90deg,#34487A,#335593);
-}
-.bg-v4{
-	background:linear-gradient(90deg,#2C8AA0,#2C849D);
-}
-.bg-v6{
-	background:linear-gradient(90deg,#DBC59C,#C9A66E);
-}
-.pictrue{
-	.image{
-		width: 49%;
-		margin-right:auto;
-		margin-bottom: 10rpx;
+
+	.product-con .store-info .info .picTxt .text .name {
+		font-size: 0.3 * 100rpx;
+		color: #282828;
 	}
-}
-.style-type{
-	padding:0 8rpx;
-	background-color: #fff;
-	border-radius: 6rpx;
-}
-.style-receive{
-	padding:6rpx 16rpx;
-	background-color: #64CE5E;
-	border-radius: 10rpx;
-}
+
+	.product-con .store-info .info .picTxt .text .address {
+		font-size: 0.24 * 100rpx;
+		color: #666;
+		margin-top: 0.03 * 100rpx;
+	}
+
+	.product-con .store-info .info .picTxt .text .address .iconfont {
+		color: #707070;
+		font-size: 0.18 * 100rpx;
+		margin-left: 0.1 * 100rpx;
+	}
+
+	.product-con .store-info .info .picTxt .addressBox {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.product-con .store-info .info .picTxt .addressBox .iconfont {
+		font-size: 0.4 * 100rpx;
+	}
+
+	.product-con .store-info .info .picTxt .addressBox .addressTxt {
+		font-size: 0.24 * 100rpx;
+		color: #eb3729;
+	}
+
+	.product-con .store-info .praise {
+		font-size: 0.28 * 100rpx;
+		color: #808080;
+	}
+
+	.product-con .store-info .praise .iconfont {
+		font-size: 0.28 * 100rpx;
+	}
+
+	.product-con .superior {
+		background-color: #fff;
+		margin-top: 0.2 * 100rpx;
+	}
+
+	.product-con .superior .title {
+		height: 0.98 * 100rpx;
+	}
+
+	.product-con .superior .title image {
+		width: 0.3 * 100rpx;
+		height: 0.3 * 100rpx;
+	}
+
+	.product-con .superior .title .titleTxt {
+		margin: 0 0.2 * 100rpx;
+		font-size: 0.3 * 100rpx;
+		background-image: linear-gradient(to right, #f57a37 0%, #f21b07 100%);
+		background-image: -webkit-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
+		background-image: -moz-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.product-con .superior .slider-banner {
+		width: 6.9 * 100rpx;
+		margin: 0 auto;
+		padding-bottom: 0.2 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .list {
+		width: 100%;
+		padding-bottom: 0.2 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .list .item {
+		width: 2.15 * 100rpx;
+		margin: 0 0.22 * 100rpx 0.3 * 100rpx 0;
+		font-size: 0.26 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .list .item:nth-of-type(3n) {
+		margin-right: 0;
+	}
+
+	.product-con .superior .slider-banner .list .item .pictrue {
+		width: 100%;
+		height: 2.15 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .list .item .pictrue image {
+		width: 100%;
+		height: 100%;
+		border-radius: 0.06 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .list .item .name {
+		color: #282828;
+		margin-top: 0.12 * 100rpx;
+	}
+
+	.product-con .superior .slider-banner .swiper-pagination-bullet {
+		background-color: #999;
+	}
+
+	.product-con .superior .slider-banner .swiper-pagination-bullet-active {
+		background-color: #e93323;
+	}
+
+	.mask {
+		-webkit-filter: blur(2px);
+		-moz-filter: blur(2px);
+		-ms-filter: blur(2px);
+		filter: blur(2px);
+	}
+
+	.footer .icon-shoucang1 {
+		color: #eb3729;
+	}
+
+	.product-con .product-intro .conter view {
+		width: 100% !important;
+	}
+
+	.generate-posters {
+		width: 100%;
+		height: 1.7 * 100rpx;
+		background-color: #fff;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 99;
+		transform: translate3d(0, 100%, 0);
+		-webkit-transform: translate3d(0, 100%, 0);
+		-ms-transform: translate3d(0, 100%, 0);
+		-moz-transform: translate3d(0, 100%, 0);
+		-o-transform: translate3d(0, 100%, 0);
+		transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+		-webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+		-moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+		-o-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+	}
+
+	.generate-posters.on {
+		transform: translate3d(0, 0, 0);
+		-webkit-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		-moz-transform: translate3d(0, 0, 0);
+		-o-transform: translate3d(0, 0, 0);
+	}
+
+	.generate-posters .item {
+		flex: 50%;
+		-webkit-flex: 50%;
+		-ms-flex: 50%;
+		text-align: center;
+	}
+
+	.generate-posters .item .iconfont {
+		font-size: 0.8 * 100rpx;
+		color: #5eae72;
+	}
+
+	.generate-posters .item .iconfont.icon-haibao {
+		color: #5391f1;
+	}
+
+	.noscroll {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.gd-swiper {
+		height: 500rpx;
+		width: 100%;
+	}
+
+	.florid-blue {
+		font-size: 24rpx;
+		color: white;
+		height: 130rpx;
+		// background-color: linear-gradient(90deg,#6A77FF,#A779FF);
+
+	}
+
+	.list {
+		padding: 0 30rpx;
+
+		.list-item {
+			position: relative;
+			padding: 27rpx 0;
+			display: flex;
+
+			&.list-between {
+				justify-content: space-between;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background-color: #F5F5F5;
+				transform: scaleY(.5);
+			}
+		}
+	}
+
+	.arrow-atr {
+		font-size: 22rpx !important;
+		color: #B5B5B5 !important;
+		display: flex;
+		align-items: center;
+	}
+
+	.comment-box {
+		padding: 40rpx 30rpx 56rpx;
+
+		.avator {
+			width: 92rpx;
+			height: 92rpx;
+			border-radius: 50%;
+		}
+
+		.comment-reply {
+			flex: 1;
+			padding: 33rpx 18rpx 57rpx;
+			background-color: #F5F5F5;
+		}
+	}
+
+	.gd-intro {
+		padding: 64rpx 0 38rpx;
+	}
+
+	.gd-title {
+		font-weight: bold;
+		text-align: center;
+		width: 217rpx;
+		background: url(../../../static/images/gd-detail-bg.png)no-repeat center;
+		background-size: 217rpx 4rpx;
+	}
+
+	.toBtn {
+		justify-content: flex-end;
+	}
+
+	.btn-left {
+		border-radius: 50rpx 0 0 50rpx;
+	}
+
+	.btn-right {
+		border-radius: 0 50rpx 50rpx 0;
+	}
+
+	.btn-exchange {
+		border-radius: 50rpx;
+	}
+
+	.bg-v5 {
+		background: linear-gradient(90deg, #6A77FF, #A779FF);
+	}
+
+	.bg-v0 {
+		background: linear-gradient(90deg, #71D676, #60CB56);
+	}
+
+	.bg-v1 {
+		background: linear-gradient(90deg, #0072FF, #45B2FF);
+	}
+
+	.bg-v2 {
+		background: linear-gradient(90deg, #71D676, #60CB56);
+	}
+
+	.bg-v3 {
+		background: linear-gradient(90deg, #34487A, #335593);
+	}
+
+	.bg-v4 {
+		background: linear-gradient(90deg, #2C8AA0, #2C849D);
+	}
+
+	.bg-v6 {
+		background: linear-gradient(90deg, #DBC59C, #C9A66E);
+	}
+
+	.pictrue {
+		.image {
+			width: 49%;
+			margin-right: auto;
+			margin-bottom: 10rpx;
+		}
+	}
+
+	.style-type {
+		padding: 0 8rpx;
+		background-color: #fff;
+		border-radius: 6rpx;
+	}
+
+	.style-receive {
+		padding: 6rpx 16rpx;
+		background-color: #64CE5E;
+		border-radius: 10rpx;
+	}
 </style>
 <template>
 	<view :class="productConClass">
@@ -336,7 +371,7 @@
 					</view>
 				</swiper-item>
 			</swiper>
-			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+level]">
+			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+goodsType]">
 				<view class="meta-wrap flex-1">
 					<!-- <view class="v-grade flex-main-start fs-32">
 						<text>L{{level}}</text>
@@ -345,7 +380,7 @@
 					<view class="flex-main-between flex-baseline">
 						<view class="flex-main-start">
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===1">积分</text>
-							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===3">精选</text>
+							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===2">精选</text>
 							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48 left-20">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
 							<text class="fs-30 left-20 del-price-line">原价{{ mode=='point' ? `${storeInfo.otPrice}积分` : `&yen;${storeInfo.otPrice}` }}</text>
 						</view>
@@ -380,7 +415,7 @@
 			</view>
 			<view class="attribute flex-main-between">
 				<text class="fs-28 color-text">优惠券</text>
-				<text @click="toCoupon" class="fs-28 style-receive color-white">领取</text>
+				<text @click="toCoupon()" class="fs-28 style-receive color-white">领取</text>
 			</view>
 
 			<!-- 新版评价 -->
@@ -420,15 +455,15 @@
 			<view class="bg-white top-20 comment-box">
 				<view class="flex-main-between">
 					<view class="flex-main-start">
-						<image class="avator flex-none" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"></image>
-						<text class="left-15 fs-34">鹅把式店铺</text>
+						<image class="avator flex-none" :src="shopInfo.headImage"></image>
+						<text class="left-15 fs-34">{{shopInfo.name}}</text>
 					</view>
 					<view>
 						<text @click="goShopManage()" class="fs-28 style-receive color-white">进入店铺</text>
 					</view>
 				</view>
 				<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-					第一时间账务最新核心技术，让我们的产品高效便捷，贴合前 沿产品风向，让我们的解决方案永不落后,第一时间账务最新核 心技术，让我
+					{{shopInfo.introduce}}
 				</view>
 			</view>
 
@@ -476,17 +511,25 @@
 					<image src="../../../static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>收藏</text>
 				</view>
-				<view class="bnt acea-row">
-					<view v-if="mode=='point'" style="background-color:#0972B9" class="btn-left" @click="joinCart">
-						<text>加入购物车</text>
+				<view>
+					<view v-if="goodsType===1" class="bnt acea-row toBtn">
+						<view class="btn-exchange" style="background-color: #64CE5E;" @click="tapExchange()">
+							<text>立即兑换</text>
+						</view>
 					</view>
-					<view v-else class="btn-left" style="background-color: #72B0F6;" @click="joinCart">
-						<text>加入购物车</text>
-					</view>
-					<view class="btn-right" style="background-color: #64CE5E;" @click="tapBuy()">
-						<text>立即购买</text>
+					<view v-else class="bnt acea-row">
+						<view v-if="mode=='point'" style="background-color:#0972B9" class="btn-left" @click="joinCart">
+							<text>加入购物车</text>
+						</view>
+						<view v-else class="btn-left" style="background-color: #72B0F6;" @click="joinCart">
+							<text>加入购物车</text>
+						</view>
+						<view class="btn-right" style="background-color: #64CE5E;" @click="tapBuy()">
+							<text>立即购买</text>
+						</view>
 					</view>
 				</view>
+
 			</view>
 			<CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
 			<ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
@@ -526,7 +569,8 @@
 		getProductDetail,
 		postCartAdd,
 		getCartCount,
-		getProductCode
+		getProductCode,
+		getStoreInfo
 	} from "@/api/store";
 	import {
 		getCoupon,
@@ -599,7 +643,12 @@
 				productValue: [],
 				id: 0,
 				uid: 0,
+				// 商品信息
 				storeInfo: {},
+				// 商品类型
+				goodsType: 0,
+				// 店铺信息
+				shopInfo: {},
 				couponList: [],
 				attrTxt: "请选择",
 				attrValue: "",
@@ -628,7 +677,6 @@
 				productConClass: "product-con",
 				tempName: "全国包邮",
 				mode: '',
-				level: 0
 			};
 		},
 		computed: mapGetters(["isLogin", "location"]),
@@ -666,16 +714,16 @@
 				}).catch(console.error)
 			}
 			// 获取vip等级
-			var userinfo = uni.getStorageSync('userInfo')
-			this.level = userinfo ? userinfo.level : 0
-			this.uid = userinfo ? userinfo.uid : 0
-			if (this._route.query.uid && this._route.query.uid != this.uid) { // 存在上级id,并且不是自己，发起上级绑定
-				bindSuperior({
-					spread: this._route.query.uid
-				}).then(() => console.log('绑定上级成功！')).catch(err => {
-					console.log('绑定上级失败：', err)
-				})
-			}
+			// var userinfo = uni.getStorageSync('userInfo')
+			// this.level = userinfo ? userinfo.level : 0
+			// this.uid = userinfo ? userinfo.uid : 0
+			// if (this._route.query.uid && this._route.query.uid != this.uid) { // 存在上级id,并且不是自己，发起上级绑定
+			// 	bindSuperior({
+			// 		spread: this._route.query.uid
+			// 	}).then(() => console.log('绑定上级成功！')).catch(err => {
+			// 		console.log('绑定上级失败：', err)
+			// 	})
+			// }
 		},
 		watch: {
 			posterImageStatus(status) {
@@ -698,7 +746,14 @@
 			// },
 			// 进入店铺
 			goShopManage() {
-				this.$yrouter.push("/subpackage/shop/shop");
+				console.log('111:', this.shopInfo)
+				// let tmp = 
+				this.$yrouter.push({
+					path: "/subpackage/shop/shop",
+					query: {
+						shopInfo: JSON.stringify(this.shopInfo)
+					}
+				});
 			},
 			// goCustomerList() {
 			// 	this.$yrouter.push({
@@ -711,10 +766,12 @@
 			// 	});
 			// },
 			// 领取优惠券
-			toCoupon(){
+			toCoupon() {
 				this.$yrouter.push({
-					psth:"/pages/user/coupon/UserCoupon/index",
-					query:{id:this.id}
+					path: "/pages/user/coupon/UserCoupon/index",
+					query: {
+						'id': this.id
+					}
 				})
 			},
 			// 用户评价
@@ -770,6 +827,8 @@
 							'<img style="max-width:100%;height:auto;"'
 						);
 						that.$set(that, "storeInfo", res.data.storeInfo);
+						// 商品类型
+						that.$set(that, "goodsType", res.data.storeInfo.type);
 						// 给 attr 赋值，将请求回来的规格赋值给 attr
 						that.$set(that.attr, "productAttr", res.data.productAttr);
 						that.$set(that, "productValue", res.data.productValue);
@@ -804,6 +863,7 @@
 						// that.updateTitle();
 						that.DefaultSelect();
 						that.getCartCount();
+						that.getStoreInfo();
 					})
 					.catch(err => {
 						console.error(err)
@@ -816,6 +876,13 @@
 					.finally(() => {
 						uni.hideLoading();
 					});
+
+			},
+			// 获取店铺信息
+			getStoreInfo: function() {
+				getStoreInfo(this.storeInfo.merId).then(res => {
+					this.shopInfo = res.data;
+				})
 			},
 			//默认选中属性；
 			DefaultSelect: function() {
@@ -1091,6 +1158,10 @@
 			tapBuy: function() {
 				//  1=直接购买
 				this.goCat(1);
+			},
+			//立即兑换
+			tapExchange: function() {
+				// this.goCat(1);
 			},
 			listenerActionSheet: function() {
 				if (isWeixin() === true) {
