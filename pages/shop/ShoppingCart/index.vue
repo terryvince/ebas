@@ -16,7 +16,7 @@
 			left: 0;
 			top: 0;
 		}
-	} 
+	}
 
 	.shoppingCart .list .item .picTxt {
 		width: 590rpx;
@@ -45,6 +45,7 @@
 
 		.item {
 			background-color: transparent !important;
+			border-top: 1px solid #f5f5f5;
 		}
 	}
 
@@ -61,6 +62,16 @@
 	.placeOrder {
 		width: 206rpx;
 		height: 60rpx;
+	}
+
+	.select-btn {
+		// width: 50rpx;
+		height: 50rpx;
+	}
+
+	.invalidGoods {
+		margin-left: 20rpx !important;
+		margin-right: 20rpx !important;
 	}
 </style>
 <template>
@@ -83,7 +94,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="shopAllChecked(shopItem)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="shopItem.checked"></checkbox>
+											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="shopItem.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -94,15 +105,15 @@
 						<view class="line-top"></view>
 						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in shopItem.storeCartQueryVoList"
 						 :key="cartListValidIndex">
-							<view class="select-btn">
+							<label class="select-btn">
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="switchSelect(item)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="item.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
-							</view>
+							</label>
 							<view class="picTxt acea-row row-between-wrapper">
 								<view class="pictrue relative" @click="goGoodsCon(item)">
 									<view class="overlay full" v-show="item.productInfo.isShow == 0">
@@ -226,11 +237,11 @@
 			return {
 				cartList: {
 					valid: [
-					// 	{
-					// 	shopId: 0,
-					// 	shopName: "店铺",
-					// 	storeCartQueryVoList: [],
-					// },
+						// 	{
+						// 	shopId: 0,
+						// 	shopName: "店铺",
+						// 	storeCartQueryVoList: [],
+						// },
 					],
 					invalid: [],
 				},
@@ -562,7 +573,7 @@
 					cart = item,
 					i = this.checkedIds.indexOf(cart.id);
 				cart.checked = !cart.checked;
-			
+
 				if (i !== -1) this.checkedIds.splice(i, 1);
 				if (cart.checked) {
 					this.checkedIds.push(cart.id);
