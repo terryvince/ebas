@@ -1,12 +1,11 @@
 <style scoped lang="less">
 	.access-history{
-		background-color: white;
 		padding: 30rpx 25rpx 30rpx;
 	}
 </style>
 <template>
 	<view class="access-history">
-		<goods-list :list="list" mode="price" :hasPadding="false"></goods-list>
+		<goods-list :list="list"></goods-list>
 	</view>
 </template>
 

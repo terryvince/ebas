@@ -56,6 +56,11 @@
 	margin: 20rpx;
 	padding: 20rpx;
 }
+.empty-wrap{
+	margin: 20rpx;
+	border-radius: 20rpx;
+	height: 800rpx;
+}
 </style>
 <template>
   <view class="flash-sale" ref="container">
@@ -134,16 +139,11 @@
           </view>
         </view> -->
 		
+		<view v-if="seckillList.length === 0 && page > 1" class="empty-wrap bg-white flex-main-center flex-column">
+			<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/sekill-empty.png" mode="widthFix" style="width: 262rpx;"></image>
+			<text class="txt-medium fs-28 color-text-secondary top-10">暂无秒杀</text>
+		</view>
 		
-        <view
-          class="noCommodity"
-          style="background-color: #fff;"
-          v-if="seckillList.length === 0 && page > 1"
-        >
-          <view class="noPictrue">
-            <image src="@/static/images/noGood.png" class="image" />
-          </view>
-        </view>
       </view>
     </view>
   </view>

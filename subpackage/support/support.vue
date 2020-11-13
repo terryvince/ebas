@@ -59,6 +59,7 @@
 		// align-content: center;
 		font-size: 24rpx;
 		color: #999999;
+
 		.title {
 			margin-top: 10rpx;
 			margin-left: 20rpx;
@@ -74,13 +75,13 @@
 			color: #FFFFFF;
 		}
 	}
-	
-	.continue{
+
+	.continue {
 		margin-top: 80rpx;
 		margin-right: 40rpx;
 		margin-left: 40rpx;
 		height: 100rpx;
-		background-color:#5FCB55;
+		background-color: #5FCB55;
 		font-size: 36rpx;
 		color: #FFFFFF;
 		line-height: 100rpx;
@@ -118,7 +119,7 @@
 				<view>2.退货处理成功后退款金额将原路返回到您的支持账户中</view>
 			</view>
 		</view>
-		
+
 		<view class="continue">
 			提交
 		</view>

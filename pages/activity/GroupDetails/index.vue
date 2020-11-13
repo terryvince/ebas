@@ -1,14 +1,66 @@
+<style scoped lang="less">
+.product-con .wrapper {
+  padding-bottom: 0.26 * 100rpx;
+}
+.noscroll {
+  height: 100%;
+  overflow: hidden;
+}
+.product-con .footer-group .bnt {
+  // flex:1;
+  width: 43%;
+}
+.product-con .footer-group .bnt.bg-color-violet {
+  background-color: #fa8013;
+}
+
+.style-type{
+	padding:0 8rpx;
+	background-color: #fff;
+	border-radius: 6rpx;
+}
+.bg-v0{
+	background:linear-gradient(90deg,#71D676,#60CB56);
+}
+.florid-box{
+	font-size: 24rpx;
+	color: white;
+	height: 130rpx;
+	
+}
+
+
+</style>
 <template>
   <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
-    <product-con-swiper :imgUrls="imgUrls"></product-con-swiper>
+	  <!-- swiper -->
+    <product-con-swiper :imgUrls="imgUrls" themeColor="#64CE5E"></product-con-swiper>
+	
+	<!-- 价格分享栏 -->
+	<view class='florid-box flex-main-center padding-beside-30 bg-v0'>
+		<view class="meta-wrap flex-1">
+			<!-- <view class="v-grade flex-main-start fs-32">
+				<text>L{{level}}</text>
+				<text class="left-10">会员价</text>
+			</view> -->
+			<view class="flex-main-between">
+				<view class="flex-main-start flex-baseline">
+					<text class="left-20 fs-28 color-type style-type">拼团</text>
+					<text class="fs-48 left-20">￥{{ storeInfo.price }}</text>
+					<text class="fs-30 left-20 del-price-line">原价{{ `&yen;${storeInfo.productPrice||'0'}` }}</text>
+				</view>
+				<!-- <view class="flex-main-start">
+					<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
+					<text class="left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+				</view> -->
+				<view class="share flex-main-end">
+					<image @click="listenerActionSheet" src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+	
     <view class="wrapper">
-      <view class="share acea-row row-between row-bottom">
-        <view class="money font-color-red">
-          ￥
-          <text class="num" v-text="storeInfo.price"></text>
-          <text class="y-money" v-text="'￥' + storeInfo.productPrice"></text>
-        </view>
-      </view>
       <view class="introduce" v-text="storeInfo.title"></view>
       <view class="label acea-row row-between-wrapper">
         <view v-text="'类型:' + storeInfo.people + '人团'"></view>
@@ -99,7 +151,8 @@
           <text class="iconfont icon-jiantou"></text>
         </view>
       </view>
-      <UserEvaluation :reply="reply"></UserEvaluation>
+	  <!-- 接口字段reply 可能是null -->
+      <UserEvaluation v-if="reply" :reply="reply"></UserEvaluation>
     </view>
     <view class="product-intro">
       <view class="title">产品介绍</view>
@@ -250,7 +303,7 @@ export default {
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
         that.$set(that, "groupList", res.data.pink);
-        that.$set(that, "reply", [res.data.reply]);
+        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[]);
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
         that.setProductSelect();
@@ -357,19 +410,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="less">
-.product-con .wrapper {
-  padding-bottom: 0.26 * 100rpx;
-}
-.noscroll {
-  height: 100%;
-  overflow: hidden;
-}
-.product-con .footer-group .bnt {
-  // flex:1;
-  width: 43%;
-}
-.product-con .footer-group .bnt.bg-color-violet {
-  background-color: #fa8013;
-}
-</style>

@@ -401,10 +401,18 @@ each(range(5,30,5),{
 		width: 116rpx;
 		padding: 14rpx 0;
 	}
+	&.btn-mini{
+		padding: 10rpx 20rpx;
+		font-size: 20rpx;
+	}
 	&.btn-default{
 		color: #333;
 		background-color: #fff;
 		border:2rpx solid #ccc;
+	}
+	&.btn-gray{
+		background-color: #C2C2C2;
+		color: #fff;
 	}
 	&.btn-linear-green{
 		color: white;
@@ -413,6 +421,24 @@ each(range(5,30,5),{
 	&.btn-linear-orange{
 		color: white;
 		background: linear-gradient(169deg, #FF9322, #FFC13D);
+	}
+}
+.list{
+	background-color: white;
+	margin-top: 20rpx;
+	padding:0 20rpx;
+	.list-item{
+		display: flex;
+		flex-wrap: wrap;
+		padding: 20rpx 0;
+		&.list-item-between{
+			justify-content: space-between;
+		}
+	}
+	&.list-middle{
+		.list-item{
+			padding: 40rpx 0;
+		}
 	}
 }
 // .row col-1 col-2 ... col-24 , 栅格布局，等分24份

@@ -59,7 +59,7 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	return false
+	return true
 }
 
 export function parseQuery() {

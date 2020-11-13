@@ -150,7 +150,7 @@
 		</view>
 		<!-- 团购商品 -->
 		<view v-else-if="from=='group'" class="group-list color-text lh-1">
-			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="item.id">
+			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
 				<view class="group-img-wrap flex-none flex-main-center">
 					<image :src="item.image" class="width-full" mode="aspectFit"></image>
 				</view>
@@ -206,7 +206,7 @@
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">鹅把式商户</view>
 						</view>
-						<button class="btn btn-linear-orange btn-fix-width">{{item.status | formatStatus}}</button>
+						<button :class="['btn btn-fix-width',item.status == 1 ? 'btn-linear-orange':'btn-gray']">{{item.status | formatStatus}}</button>
 					</view>
 					
 				</view>

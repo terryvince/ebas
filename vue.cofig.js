@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 let stylePath = path.resolve(__dirname, 'assets/css/utils.less')
 module.exports = {
+	lintOnSave: process.env.NODE_ENV !== 'production',
 	// css: {
 	// 		loaderOptions: {
 	// 			less: {
