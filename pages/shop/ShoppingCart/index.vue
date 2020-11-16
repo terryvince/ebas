@@ -1,4 +1,4 @@
-<style lang="less">
+<style scoped lang="less">
 	page {
 		background-color: #F0F0F0 !important;
 	}
@@ -10,6 +10,7 @@
 		top: 0;
 		right: 0;
 		bottom: 0;
+
 		.abs-left-top {
 			position: absolute;
 			left: 0;
@@ -30,13 +31,16 @@
 		margin-right: 20rpx;
 		margin-top: 10rpx;
 		background-color: none !important;
+
 		.item {
-		    padding: 25rpx 0rpx;
+			padding: 25rpx 0rpx;
 		}
 	}
 
 	.shopListClass {
-		margin-top: 100rpx;
+		margin-top: 84rpx;
+		padding-top: 15rpx;
+		padding-bottom: 15rpx;
 		background-color: #F0F0F0;
 	}
 
@@ -179,7 +183,7 @@
 				</view>
 				<Recommend></Recommend>
 			</view>
-			<view style="height:100rpx"></view>
+			<view style="height:90rpx"></view>
 			<view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
 				<view>
 					<view class="select-btn">
