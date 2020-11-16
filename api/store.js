@@ -190,3 +190,10 @@ export function storeListApi(data) {
 		login: false
 	});
 }
+
+// 店铺信息
+export function getStoreInfo(data) {
+	return request.get("/store/find/"+data, {},{
+		login: true
+	});
+}

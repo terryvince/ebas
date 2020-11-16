@@ -323,8 +323,10 @@ export function parseUrl(location) {
 		path,
 		query
 	} = location
-
+	// console.log('轉換前：',query)
+	// ？a=b&b=c
 	const queryStr = stringify(query)
+	// console.log('轉換後：',queryStr)
 
 	if (!queryStr) {
 		return path

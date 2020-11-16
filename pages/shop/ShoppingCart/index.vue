@@ -1,4 +1,4 @@
-<style lang="less">
+<style scoped lang="less">
 	page {
 		background-color: #F0F0F0 !important;
 	}
@@ -27,18 +27,26 @@
 	}
 
 	.shoppingCart .list {
+		margin-left: 20rpx;
+		margin-right: 20rpx;
 		margin-top: 10rpx;
 		background-color: none !important;
+
+		.item {
+			padding: 25rpx 0rpx;
+		}
 	}
 
 	.shopListClass {
-		margin-top: 100rpx;
+		margin-top: 84rpx;
+		padding-top: 15rpx;
+		padding-bottom: 15rpx;
 		background-color: #F0F0F0;
 	}
 
 	.shopClass {
-		margin-left: 20rpx;
-		margin-right: 20rpx;
+		// margin-left: 20rpx;
+		// margin-right: 20rpx;
 		border-radius: 15rpx;
 		margin-top: 6rpx;
 		background-color: #FFFFFF;
@@ -114,7 +122,7 @@
 									</checkbox-group>
 								</view>
 							</label>
-							<view class="picTxt acea-row row-between-wrapper">
+							<view class="picTxt acea-row row-between-wrapper" style="margin-top: 10rpx;">
 								<view class="pictrue relative" @click="goGoodsCon(item)">
 									<view class="overlay full" v-show="item.productInfo.isShow == 0">
 										<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
@@ -175,7 +183,7 @@
 				</view>
 				<Recommend></Recommend>
 			</view>
-			<view style="height:100rpx"></view>
+			<view style="height:90rpx"></view>
 			<view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
 				<view>
 					<view class="select-btn">

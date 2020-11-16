@@ -22,12 +22,12 @@
 	}
 }
  .good-list-card{
+	 flex-wrap: wrap;
 	 .grid(2,48);
 	 .list-item{
 		 background-color: white;
 		 border-radius: 20rpx;
 		 overflow: hidden;
-		 flex-wrap: wrap;
 	 }
 	 .img-wrap{
 		 width: 100%;
