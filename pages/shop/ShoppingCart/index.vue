@@ -98,7 +98,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="shopAllChecked(shopItem)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="shopItem.checked"></checkbox>
+											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="shopItem.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -113,7 +113,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="switchSelect(item)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="item.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
