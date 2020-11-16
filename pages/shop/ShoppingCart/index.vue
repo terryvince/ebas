@@ -26,8 +26,13 @@
 	}
 
 	.shoppingCart .list {
+		margin-left: 20rpx;
+		margin-right: 20rpx;
 		margin-top: 10rpx;
 		background-color: none !important;
+		.item {
+		    padding: 25rpx 0rpx;
+		}
 	}
 
 	.shopListClass {
@@ -36,8 +41,8 @@
 	}
 
 	.shopClass {
-		margin-left: 20rpx;
-		margin-right: 20rpx;
+		// margin-left: 20rpx;
+		// margin-right: 20rpx;
 		border-radius: 15rpx;
 		margin-top: 6rpx;
 		background-color: #FFFFFF;
@@ -93,7 +98,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="shopAllChecked(shopItem)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="shopItem.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="shopItem.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
@@ -108,7 +113,7 @@
 								<view class="checkbox-wrapper">
 									<checkbox-group @change="switchSelect(item)">
 										<label class="well-check">
-											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="item.checked"></checkbox>
+											<checkbox style="transform:scale(0.6)" color="#71D676" value :checked="item.checked"></checkbox>
 										</label>
 									</checkbox-group>
 								</view>
