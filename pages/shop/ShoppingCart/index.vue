@@ -10,7 +10,6 @@
 		top: 0;
 		right: 0;
 		bottom: 0;
-
 		.abs-left-top {
 			position: absolute;
 			left: 0;
@@ -114,7 +113,7 @@
 									</checkbox-group>
 								</view>
 							</label>
-							<view class="picTxt acea-row row-between-wrapper">
+							<view class="picTxt acea-row row-between-wrapper" style="margin-top: 10rpx;">
 								<view class="pictrue relative" @click="goGoodsCon(item)">
 									<view class="overlay full" v-show="item.productInfo.isShow == 0">
 										<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
