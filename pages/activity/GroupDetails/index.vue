@@ -29,12 +29,15 @@
 	
 }
 
-
+.avatar-wrap{
+	width: 118rpx;
+	height: 118rpx;
+}
 </style>
 <template>
   <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
 	  <!-- swiper -->
-    <product-con-swiper :imgUrls="imgUrls" themeColor="#64CE5E"></product-con-swiper>
+    <product-con-swiper :imgUrls="imgUrls" themeColor="#00C9AE"></product-con-swiper>
 	
 	<!-- 价格分享栏 -->
 	<view class='florid-box flex-main-center padding-beside-30 bg-v0'>
@@ -47,27 +50,44 @@
 				<view class="flex-main-start flex-baseline">
 					<text class="left-20 fs-28 color-type style-type">拼团</text>
 					<text class="fs-48 left-20">￥{{ storeInfo.price }}</text>
-					<text class="fs-30 left-20 del-price-line">原价{{ `&yen;${storeInfo.productPrice||'0'}` }}</text>
+					<text class="fs-30 left-20 del-price-line">原价{{ `&yen;${storeInfo.productPrice||0}` }}</text>
 				</view>
 				<!-- <view class="flex-main-start">
 					<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
 					<text class="left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
 				</view> -->
 				<view class="share flex-main-end">
-					<image @click="listenerActionSheet" src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
+					<button type="default" class="hide-full" @click="share()" open-type="share"></button>
+					<image src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
 				</view>
 			</view>
 		</view>
 	</view>
 	
-    <view class="wrapper">
+	<!-- 商品属性 -->
+	<view class="list">
+		<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 0 32rpx;" v-text="storeInfo.title"></view>
+		<view class="list-item list-item-between fs-24 txt-medium color-number line-down">
+			<text>运费：{{tempName||'无字段'}}</text>
+			<view>
+				<text>库存{{storeInfo.stock}}{{storeInfo.unitName}}</text>
+				<text class="left-30">已售{{storeInfo.sales}}{{storeInfo.unitName}}</text>
+			</view>
+		</view>
+		<view @click="selecAttrTap" class="list-item list-item-between">
+			<text class="color-text txt-medium">数量选择</text>
+			<text class="iconfont icon-jiantou fs-24 color-gray"></text>
+		</view>
+	</view>
+	
+    <!-- <view class="wrapper">
       <view class="introduce" v-text="storeInfo.title"></view>
       <view class="label acea-row row-between-wrapper">
         <view v-text="'类型:' + storeInfo.people + '人团'"></view>
         <view v-text="'库存:' + storeInfo.stock + storeInfo.unitName"></view>
         <view v-text="'已拼:' + storeInfo.sales + storeInfo.unitName"></view>
       </view>
-    </view>
+    </view> -->
     <view class="notice acea-row row-middle">
       <view class="num font-color-red">
         <text class="iconfont icon-laba"></text>
@@ -85,8 +105,10 @@
         </swiper>
       </view>
     </view>
+	
+	<!-- 拼团列表 -->
     <view class="assemble">
-      <view v-for="(item, groupListindex) in groupList" :key="groupListindex">
+      <!-- <view v-for="(item, groupListindex) in groupList" :key="groupListindex">
         <view class="item acea-row row-between-wrapper" v-if="groupListindex < groupListCount">
           <view class="pictxt acea-row row-between-wrapper">
             <view class="pictrue">
@@ -117,13 +139,59 @@
             </view>
           </view>
         </view>
-      </view>
+      </view> -->
+	  <view class="list list-middle">
+	  	<view v-for="(item, groupListindex) in groupList" :key="groupListindex" v-if="groupListindex < groupListCount" class="list-item list-item-between line-down">
+	  		<view class="left-wrap flex-main-start">
+	  			<view class="avatar-wrap">
+	  				<image :src="item.avatar" class="width-full" mode="widthFix"></image>
+	  			</view>
+	  			<view class="avatar-text left-15">
+	  				<view class="badge badge-mini-extra badge-primary badge-radius">渝北区可拼</view>
+	  				<view class="fs-28 txt-medium color-text">{{item.nickname}}</view>
+	  				<view class="color-gray fs-24 txt-medium flex-main-start">
+	  					<text class="iconfont icon-shijian right-5"></text>
+	  					<count-down
+	  					  :isDay="false"
+	  					  :tipText="'剩余 '"
+	  					  :dayText="false"
+	  					  :hourText="':'"
+	  					  :minuteText="':'"
+	  					  :secondText="false"
+	  					  :datatime="item.stopTime/1000"
+	  					></count-down>
+	  				</view>
+	  			</view>
+	  		</view>
+	  		<view class="right-wrap flex-main-between flex-column flex-item-align-stretch">
+	  			<view class="color-gray fs-24 txt-medium">还差<text class="color-danger">{{item.count}}</text>人成团</view>
+	  			<button @click="groupRule(item.id)" class="btn btn-mini btn-linear-green">去拼团</button>
+	  		</view>
+	  	</view>
+	  </view>
       <view class="more" v-if="groupList.length > groupListCount" @click="setGroupListCount">
         查看更多
         <text class="iconfont icon-xiangxia"></text>
       </view>
     </view>
-    <view class="playWay">
+	
+	<!-- 拼团玩法 -->
+	<view class="play-way top-20">
+		<view class="list">
+			<view class="list-item line-down bg-white">拼团玩法</view>
+		</view>
+		<view class="list no-bg">
+			<view class="list-item flex-main-between">
+				<view class="badge badge-middle badge-orange badge-radius">1.开团/参团</view>
+				<view class="iconfont icon-arrow"></view>
+				<view class="badge badge-middle badge-red-light badge-radius">2.邀请好友</view>
+				<view class="iconfont icon-arrow"></view>
+				<view class="badge badge-middle badge-red badge-radius">3.满员发货</view>
+			</view>
+		</view>
+	</view>
+	
+   <!-- <view class="playWay">
       <view class="title acea-row row-between-wrapper">
         <view>拼团玩法</view>
       </view>
@@ -142,7 +210,8 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
+	
     <view class="userEvaluation">
       <view class="title acea-row row-between-wrapper">
         <view v-text="'用户评价(' + replyCount + ')'"></view>
@@ -230,6 +299,7 @@ export default {
       itemNew: {},
       groupListCount: 2,
       groupList: {},
+	  tempName:'',
       swiperTip: {
         direction: "vertical",
         autoplay: {
@@ -267,7 +337,21 @@ export default {
   onShow: function() {
     this.mountedStart();
   },
+  onShareAppMessage() {
+  	return {
+	  title: this.storeInfo.title,
+	  path: `/pages/activity/GroupDetails/index?id=${this.storeInfo.productId}`
+	};
+  },
   methods: {
+	share(){
+		// #ifdef MP
+		return;
+		// #endif
+		// #ifdef H5
+			// to do
+		// #endif
+	},
     openAlone: function() {
       this.$yrouter.push({
         path: "/pages/shop/GoodsCon/index",
@@ -302,10 +386,25 @@ export default {
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
-        that.$set(that, "groupList", res.data.pink);
+		// res.data.pink
+        that.$set(that, "groupList", [
+			{
+				avatar:require('@/static/logo.png'),
+				nickname:'hzz',
+				count:'3',
+				stopTime:+new Date()
+			},
+			{
+				avatar:require('@/static/logo.png'),
+				nickname:'terry',
+				count:'4',
+				stopTime:+new Date()
+			}
+		]);
         that.$set(that, "reply",res.data.reply ? [res.data.reply]:[]);
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
+		that.$set(that, "tempName", res.data.tempName);
         that.setProductSelect();
         that.posterData.image = that.storeInfo.image;
         if (that.storeInfo.title.length > 30) {
@@ -355,9 +454,15 @@ export default {
       let value = opt.value === undefined ? "" : opt.value;
       this[action] && this[action](value);
     },
+	//打开属性插件；
+	selecAttrTap: function() {
+		this.attr.cartAttr = true;
+		this.isOpen = true;
+	},
     changeattr: function(res) {
       var that = this;
       that.attr.cartAttr = res;
+	  this.isOpen = false;
     },
     ChangeCartNum: function(res) {
       var that = this;
