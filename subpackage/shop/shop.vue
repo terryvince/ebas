@@ -259,6 +259,7 @@
 				},
 				// 记录上次点击的筛选项
 				clickChange: 0,
+				clickChangePrev:0,
 			}
 		},
 		onShow: function() {
@@ -311,6 +312,7 @@
 				let that = this;
 				that.loaded = false;
 				that.where.page = 1;
+				that.clickChangePrev=that.clickChange;
 				that.clickChange = index;
 				console.log(index)
 				switch (index) {
@@ -340,8 +342,7 @@
 					default:
 						break;
 				}
-				console.log(this.pickList)
-				if (that.clickChange !== 0) {
+				if (!(that.clickChange == 0 && that.clickChangePrev ==0)) {
 					console.log('11', that.clickChange)
 					that.where.page = 1;
 					that.loadend = false;

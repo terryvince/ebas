@@ -378,7 +378,7 @@
 			<product-con-swiper :img-urls="storeInfo.sliderImageArr" :themeColor="mode=='point'? '#00A0E9':'#64CE5E'"></product-con-swiper>
 			
 			<!-- 价格分享栏 -->
-			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+level]">
+			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+goodsType]">
 				<view class="meta-wrap flex-1">
 					<!-- <view class="v-grade flex-main-start fs-32">
 						<text>L{{level}}</text>

@@ -197,3 +197,11 @@ export function getStoreInfo(data) {
 		login: true
 	});
 }
+
+
+// 商户入驻
+export function postSettlement(data) {
+	return request.post("storeApply/apply", data,{
+		login: true
+	});
+}

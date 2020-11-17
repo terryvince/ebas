@@ -21,6 +21,9 @@
 		.storeInfo{
 			margin: 0 20rpx;
 			margin-top: 490rpx;
+			.acea-row{
+				flex-wrap: nowrap;
+			}
 		}
 		.iconfont {
 		    font-size: 26rpx !important;
@@ -42,9 +45,11 @@
 			}
 		}
 		.agreement{
-			display: flex;
-			justify-content: space-between;
 			margin-top: 20rpx;
+			checkbox-group{
+				display: flex;
+				justify-content: space-between;
+			}
 			.agreementItem{
 				width: 340rpx;
 				height: 80rpx;
@@ -52,6 +57,10 @@
 				line-height: 80rpx;
 				text-align: center;
 				border-radius: 15rpx;
+				display: inline-block;
+				checkbox{
+					transform: scale(0.7);
+				}
 			}
 		}
 		.idTitle,.licenseTitle,.orderTitle,.logoTitle,.textTitle{
@@ -88,11 +97,11 @@
 			<view class="list">
 				<view class="item acea-row row-between-wrapper">
 					<view class="name">姓名：</view>
-					<input type="text" placeholder="请输入姓名" v-model="storeInfo.name" required />
+					<input type="text" placeholder="请输入姓名" v-model="storeInfo.realName" required />
 				</view>
 				<view class="item acea-row row-between-wrapper">
 					<view class="name">店铺名称：</view>
-					<input type="text" placeholder="请输入联系电话" v-model="storeInfo.storeName" required />
+					<input type="text" placeholder="请输入店铺名称" v-model="storeInfo.storeName" required />
 				</view>
 				<view class="item acea-row row-between-wrapper">
 					<view class="name">电话：</view>
@@ -102,7 +111,7 @@
 					<view class="name">商品类别</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
 						<view class="address">
-							<input type="text" v-model="storeInfo.category" required />
+							<goodsType v-model="storeInfo.category" :goodsValue="typeText" @typeSelect="typeSelect"></goodsType>
 						</view>
 						<view class="iconfont icon-jiantou"></view>
 					</view>
@@ -111,7 +120,8 @@
 					<view class="name">地区</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
 						<view class="address">
-							<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect>
+							<CitySelect ref="cityselect" :defaultValue="addressText" :value1="storeInfo.addressText" @callback="result"
+							 :items="district"></CitySelect>
 						</view>
 						<view class="iconfont icon-jiantou"></view>
 					</view>
@@ -123,8 +133,7 @@
 					身份证正反面
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="imageStoreId" @delete="deleteImage" @add="addImage" :limit=2>
-
+					<robby-image-upload v-model="storeInfo.certificates" @delete="deleteImage" @add="addImage" :limit=2>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -134,8 +143,7 @@
 					营业执照
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="imageLicense" @delete="deleteImage" @add="addImage" :limit=3>
-
+					<robby-image-upload v-model="storeInfo.imageLicense" @delete="deleteImage" @add="addImage" :limit=3>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -145,8 +153,7 @@
 					其他证件
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="imageOrder" @delete="deleteImage" @add="addImage" :limit=4>
-
+					<robby-image-upload v-model="storeInfo.imageOther" @delete="deleteImage" @add="addImage" :limit=4>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -156,8 +163,7 @@
 					店铺LOGO
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="imageLogo" @delete="deleteImage" @add="addImage" :limit=1>
-
+					<robby-image-upload v-model="storeInfo.imageLogo" @delete="deleteImage" @add="addImage" :limit=1>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -167,22 +173,25 @@
 					文字介绍
 				</view>
 				<view class="textContent">
-					<textarea v-model="textContent" placeholder-style="color:#D5D5D5" placeholder="请输入文字介绍" />
+					<textarea v-model="storeInfo.content" placeholder-style="color:#D5D5D5" placeholder="请输入文字介绍" />
 					</view>
 			</view>
 			<!-- 协议 -->
 			<view class="agreement">
-				<view class="agreementItem">
-					<checkbox style="size: 30rpx;" value="cb" checked="true" />平台协议
-				</view>
-				<view class="agreementItem">
-					<checkbox value="cb" checked="true" />行业协议
-				</view>
+					<!-- <checkbox style="size: 30rpx;" value="cb" checked="true" />平台协议 -->
+				<checkbox-group @change="agreementChange">
+					<label class="agreementItem">
+						<checkbox :checked="platform" value="pt"/><text>平台协议</text>
+					</label>
+					<label class="agreementItem">
+						<checkbox :checked="industry" value="hy" /><text>行业协议</text>
+					</label>
+				</checkbox-group>
 			</view>
 		</view>
 		<!-- 入驻 -->
 		<view class="footerBtm">
-			<view class="button">
+			<view class="button" @tap="clickSettlement()">
 				入驻
 			</view>
 		</view>
@@ -191,35 +200,65 @@
 
 <script>
 	import CitySelect from "@/components/CitySelect";
+	import goodsType from "@/components/goodsType/goodsType";
 	import { getCity} from "@/api/user";
+	import { postSettlement} from "@/api/store";
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload';
+	import attrs, { required, chs_phone } from "@/utils/validate";
+	import { validatorDefaultCatch } from "@/utils/dialog";
 	export default {
 		components: {
 			CitySelect,
+			goodsType,
 			robbyImageUpload
 		},
 		data:function(){
 			return{
+				// 商品类型
+				typeText:"",
 				// 地址
-				addressText:"111",
+				addressText:"",
+				// 基本信息
+				storeInfo:{
+					realName:"",
+					storeName:"",
+					phone:"",
+					category:"",
+					addressText:"",
+					certificates:[], // 身份证
+					imageLicense:[],  // 营业执照
+					imageOther:[],  // 其他证件
+					imageLogo:[],  // 店铺LOGO
+					content:"",  // 文字介绍
+				},
+				// 地址数据
 				district:[],
+				// 选择的地址
 				address:{},
-				// 身份证
-				imageStoreId:"",
-				// 营业执照
-				imageLicense:"",
-				// 其他证件
-				imageOrder:"",
-				// 店铺LOGO
-				imageLogo:"",
-				// 文字介绍
-				textContent:""
+				// 平台协议
+				platform:false,
+				// 行业协议
+				industry:false,
 			}
 		},
 		mounted: function() {
 		  this.getCityList();
 		},
 		methods:{
+			// 获取子组件传递的商品类型
+			typeSelect(type){
+				console.log('100',type);
+				let items = type.items;
+				let arr = [];
+						for(var i=0;i<items.length;i++){
+							if(items[i].checked==true){
+								arr.push(items[i].name)
+								this.storeInfo.category = arr.join("、");
+							}
+						}
+				this.typeText=this.storeInfo.category;
+				// console.log('2',this.storeInfo)
+			},
 			// 获取子组件传递的地址数据
 			result(values) {
 			  // console.log(this);
@@ -233,7 +272,9 @@
 			  this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
 			  // this.addressText =
 			  //   this.address.province + this.address.city + this.address.district;
+			  this.storeInfo.addressText = this.addressText;
 			},
+			// 获取地址
 			getCityList: function() {
 			  let that = this;
 			  getCity()
@@ -245,6 +286,122 @@
 			      that.$dialog.error(err.msg);
 			    });
 			},
+			// 图片
+			deleteImage: function(e) {
+				console.log(e)
+			},
+			addImage: function(e) {
+				console.log(e)
+			},
+			// 协议
+			agreementChange(e){
+				// console.log(e.detail.value)
+				var values = e.detail.value;
+				for (var i = 0;i< values.length;i++) {
+				    if(values.includes("pt")){
+				        this.platform = true;
+				    }else{
+				        this.platform = false;
+				    }
+				    if(values.includes("hy")){
+				        this.industry=true;
+				    }else{
+				        this.industry=false;
+				    }
+				}
+			},
+			// 入驻
+			async clickSettlement(){
+				console.log('10',this);
+				console.log(this.storeInfo);
+				let realName = this.storeInfo.realName,
+					storeName = this.storeInfo.storeName,
+					phone = this.storeInfo.phone,
+					category = this.storeInfo.category,
+					addressText = this.storeInfo.addressText,
+					certificates = this.storeInfo.certificates,
+					imageLicense = this.storeInfo.imageLicense,
+					// imageOther = this.storeInfo.imageOther,
+					imageLogo = this.storeInfo.imageLogo,
+					content = this.storeInfo.content,
+					platform=this.platform,
+					industry=this.industry;
+				// console.log(certificates)
+				try{
+					await this.$validator({
+						realName:[required(required.message("姓名！")),
+						attrs.range([2,16],attrs.range.message("姓名！"))],
+						storeName:[required(required.message("店铺名称！")),
+						attrs.range([2,16],attrs.range.message("店铺名称！"))],
+						phone:[required(required.message("联系电话！")),
+						chs_phone(chs_phone.message())],
+						category:[required("请选择商品类别")],
+						addressText:[required("请选择地址")],
+						certificates:[{
+							required: true,
+							message:'请上传身份证',
+							type:'array',
+							// validator(rule,value){
+							// 	return value.length>0
+							// }
+						}],
+						imageLicense:[{
+							required: true,
+							message:'请上传营业执照',
+							type:'array'}],
+						// imageOther:[{
+						// 	required: true,
+						// 	message:'请上传其他证件',
+						// 	type:'array'}],
+						imageLogo:[{
+							required: true,
+							message:'请上传店铺Logo',
+							type:'array'}],
+						content:[required(required.message("文字介绍！"))],
+						platform:[{
+							required: true,
+							message:'请阅读并勾选相关平台协议！',
+							type:'boolean',
+							validator(rule,value){
+								return value===true
+							}
+						}],
+						industry:[{
+							required: true,
+							message:'请阅读并勾选相关行业协议！',
+							type:'boolean',
+							validator(rule,value){
+								return value===true
+							}
+						}]
+					}).validate({realName,storeName,phone,category,addressText,certificates,imageLicense,imageLogo,content,platform,industry});
+				}catch(e){
+					// console.log(e.errors);
+					return validatorDefaultCatch(e);
+				}
+				try{
+					this.storeInfo.certificates = this.storeInfo.certificates.join(",");
+					this.storeInfo.imageLicense = this.storeInfo.imageLicense.join(",");
+					this.storeInfo.imageOther = this.storeInfo.imageOther.join(",");
+					this.storeInfo.imageLogo = this.storeInfo.imageLogo.join(",");
+					postSettlement(this.storeInfo).then(res=>{
+						if(res.data=="成功"){
+							uni.showToast({
+							  title: "入驻成功",
+							  icon: "none",
+							  duration: 2000
+							});
+						}
+						return this.$yrouter.back()
+					})
+				}catch(err){
+					uni.showToast({
+					  title: err.msg || err.response.data.msg || err.response.data.message,
+					  icon: "none",
+					  duration: 2000
+					});
+				}
+			}
 		}
 	}
 </script>
