@@ -417,7 +417,7 @@
 				},
 				status: {},
 				pay: false,
-				payType: ["yue", "weixin"],
+				payType: ["weixin"],
 				from: this.$deviceType,
 				system_store: {},
 				mapKay: "",

@@ -8,8 +8,8 @@
 	<swiper class="gd-swiper bg-white" @change="handleChange" :indicator-dots="true" :autoplay="autoplay" :duration="duration" :indicator-color="indicatorColor"
 	 :indicator-active-color="themeColor">
 		<swiper-item v-for="(url,i) in imgUrls" :key="i">
-			<view class="swiper-item full">
-				<image :src="url" class="full"></image>
+			<view class="swiper-item full over-hide">
+				<image :src="url" class="width-full" mode="widthFix"></image>
 			</view>
 		</swiper-item>
 	</swiper>

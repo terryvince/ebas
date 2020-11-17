@@ -88,20 +88,34 @@
 			<view class="item" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
 				<view class="title acea-row row-between-wrapper">
 					<view class="acea-row row-middle">
-						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.combinationId > 0">拼团</span>
+						<!-- 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.combinationId > 0">拼团</span>
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</span>
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</span>
-						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span>
+						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span> -->
 
-						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ji.png" class="classIcon">
-							<view class="text">积分</view>
-						</image>
-						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ping.png" class="classIcon">
-							<view class="text">拼团</view>
-						</image>
-						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon">
-							<view class="text">秒杀</view>
-						</image>
+						<block v-if="order.pinkName.indexOf('积分') != -1">
+							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ji.png" class="classIcon">
+								<view class="text">积分</view>
+							</image>
+						</block>
+
+						<block v-if="order.pinkName.indexOf('拼团') != -1">
+							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ping.png" class="classIcon">
+								<view class="text">拼团</view>
+							</image>
+						</block>
+
+						<block v-if="order.pinkName.indexOf('秒杀') != -1">
+							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon">
+								<view class="text">秒杀</view>
+							</image>
+						</block>
+
+						<block v-if="order.pinkName.indexOf('普通') != -1">
+							<!-- <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon"> -->
+							<view class="text">普通订单</view>
+							<!-- </image> -->
+						</block>
 						<!-- {{ order.createTime }} -->
 					</view>
 					<view class="font-color-red">{{ getStatus(order) }}</view>
@@ -132,8 +146,11 @@
                 "
 							 v-else-if="cart.seckillId > 0" />
 						</view>
-						<view class="text acea-row row-between">
-							<view class="name line2">{{ cart.productInfo.storeName }}</view>
+						<view class="text flex-main-between">
+							<view class="flex-none">
+								<view class="name line2">{{ cart.productInfo.storeName }}</view>
+								<view class="name line2" style="color: #909090; font-size: 20rpx;">{{ cart.shopName }}</view>
+							</view>
 							<view class="money">
 								<view>
 									￥{{
@@ -245,7 +262,7 @@
 				loading: false,
 				orderList: [],
 				pay: false,
-				payType: ["yue", "weixin"],
+				payType: ["weixin"],
 				from: this.$deviceType
 			};
 		},

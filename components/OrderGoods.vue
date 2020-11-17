@@ -1,3 +1,13 @@
+<style lang="less">
+	.goodWrapper .item .text {
+	  width: 500rpx !important;
+	}
+	.goodWrapper .item .pictrue {
+	    margin-left: 10rpx !important;
+	}
+	
+</style>
+
 <template>
 	<view class="orderGoods">
 		<view class="total">共{{ cartInfo.length }}件商品</view>

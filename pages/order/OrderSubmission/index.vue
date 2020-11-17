@@ -121,7 +121,7 @@
 			</view>
 
 
-			<view v-else>
+	<!-- 		<view v-else>
 				<view class="item acea-row row-between-wrapper">
 					<view>联系人</view>
 					<view class="discount">
@@ -134,7 +134,7 @@
 						<input type="text" placeholder="请填写您的联系电话" v-model="contactsTel" />
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 			<view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
 				<view>商品总价：</view>
@@ -363,7 +363,7 @@ color: #333333;">合计:
 						this.addressInfo = res.data.addressInfo || {};
 						this.systemStore = res.data.systemStore || {};
 						this.storeSelfMention = res.data.storeSelfMention;
-						this.cardName = this.addressInfo.realName || '' // 清关人信息
+						// this.cardName = this.addressInfo.realName || '' // 清关人信息
 						this.cardNumber = this.addressInfo.cardNumber || ''
 						this.cardType = this.addressInfo.cardType || ''
 						this.computedPrice();
@@ -436,37 +436,6 @@ color: #333333;">合计:
 						duration: 2000
 					});
 					return;
-				}
-
-				if (this.shipping_type) {
-					if (
-						(this.contacts === "" || this.contactsTel === "") &&
-						this.shipping_type
-					) {
-						uni.showToast({
-							title: "请填写联系人或联系人电话",
-							icon: "none",
-							duration: 2000
-						});
-						return;
-					}
-
-					if (!/^1(3|4|5|7|8|9|6)\d{9}$/.test(this.contactsTel)) {
-						uni.showToast({
-							title: "请填写正确的手机号",
-							icon: "none",
-							duration: 2000
-						});
-						return;
-					}
-					if (!/^[\u4e00-\u9fa5\w]{2,16}$/.test(this.contacts)) {
-						uni.showToast({
-							title: "请填写您的真实姓名",
-							icon: "none",
-							duration: 2000
-						});
-						return;
-					}
 				}
 
 				uni.showLoading({

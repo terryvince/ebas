@@ -16,6 +16,13 @@
 .color-cyan{
 	color: #09BD93;
 }
+.color-orange{
+	color: #FF9624;
+}
+// 右箭头灰
+.color-arrow{
+	color: #B5B5B5;
+}
 
 .color-placeholder{
 	color: #909090;
@@ -359,6 +366,10 @@ each(range(5,30,5),{
 		padding: 6rpx 20rpx;
 		font-size: 20rpx;
 	}
+	&.badge-middle{
+		padding: 14rpx 16rpx;
+		font-size: 24rpx;
+	}
 	&.badge-defalut{
 		color: #656565;
 		background: #F9F9F9;
@@ -368,6 +379,18 @@ each(range(5,30,5),{
 	}
 	&.badge-primary{
 		background: #66D751;
+		color: #fff;
+	}
+	&.badge-orange{
+		background: #FE8563;
+		color: #fff;
+	}
+	&.badge-red-light{
+		background: #FE565F;
+		color: #fff;
+	}
+	&.badge-red{
+		background: #FF2733;
 		color: #fff;
 	}
 }
@@ -424,20 +447,19 @@ each(range(5,30,5),{
 	}
 }
 .list{
-	background-color: white;
-	margin-top: 20rpx;
-	padding:0 20rpx;
+	background-color: transparent;
 	.list-item{
 		display: flex;
 		flex-wrap: wrap;
-		padding: 20rpx 0;
+		padding: 20rpx 20rpx;
+		align-items: center;
 		&.list-item-between{
 			justify-content: space-between;
 		}
 	}
 	&.list-middle{
 		.list-item{
-			padding: 40rpx 0;
+			padding: 40rpx 20rpx;
 		}
 	}
 }
