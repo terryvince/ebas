@@ -438,37 +438,6 @@ color: #333333;">合计:
 					return;
 				}
 
-				// if (this.shipping_type) {
-				// 	if (
-				// 		(this.contacts === "" || this.contactsTel === "") &&
-				// 		this.shipping_type
-				// 	) {
-				// 		uni.showToast({
-				// 			title: "请填写联系人或联系人电话",
-				// 			icon: "none",
-				// 			duration: 2000
-				// 		});
-				// 		return;
-				// 	}
-
-				// 	if (!/^1(3|4|5|7|8|9|6)\d{9}$/.test(this.contactsTel)) {
-				// 		uni.showToast({
-				// 			title: "请填写正确的手机号",
-				// 			icon: "none",
-				// 			duration: 2000
-				// 		});
-				// 		return;
-				// 	}
-				// 	if (!/^[\u4e00-\u9fa5\w]{2,16}$/.test(this.contacts)) {
-				// 		uni.showToast({
-				// 			title: "请填写您的真实姓名",
-				// 			icon: "none",
-				// 			duration: 2000
-				// 		});
-				// 		return;
-				// 	}
-				// }
-
 				uni.showLoading({
 					title: "生成订单中"
 				});

@@ -348,7 +348,7 @@
 						});
 					});
 					//test
-					this.cartList.invalid = this.cartList.valid[0].storeCartQueryVoList;
+					// this.cartList.invalid = this.cartList.valid[0].storeCartQueryVoList;
 					if (checkedIds.length) {
 						that.checkedIds = checkedIds;
 						that.isAllSelect = checkedIds.length === that.invalidCount; //this.cartList.valid.length;
