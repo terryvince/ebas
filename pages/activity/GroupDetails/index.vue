@@ -33,6 +33,27 @@
 	width: 118rpx;
 	height: 118rpx;
 }
+
+
+.gd-intro {
+	padding: 64rpx 0 38rpx;
+}
+
+.gd-title {
+	font-weight: bold;
+	text-align: center;
+	width: 217rpx;
+	background: url('@/static/images/gd-detail-bg.png')no-repeat center;
+	background-size: 217rpx 4rpx;
+}
+
+.btn-left {
+	border-radius: 50rpx 0 0 50rpx;
+}
+
+.btn-right {
+	border-radius: 0 50rpx 50rpx 0;
+}
 </style>
 <template>
   <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
@@ -56,7 +77,7 @@
 					<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
 					<text class="left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
 				</view> -->
-				<view class="share flex-main-end">
+				<view class="share flex-main-end relative">
 					<button type="default" class="hide-full" @click="share()" open-type="share"></button>
 					<image src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
 				</view>
@@ -65,8 +86,8 @@
 	</view>
 	
 	<!-- 商品属性 -->
-	<view class="list">
-		<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 0 32rpx;" v-text="storeInfo.title"></view>
+	<view class="list bg-white">
+		<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 20rpx 32rpx;" v-text="storeInfo.title"></view>
 		<view class="list-item list-item-between fs-24 txt-medium color-number line-down">
 			<text>运费：{{tempName||'无字段'}}</text>
 			<view>
@@ -140,7 +161,7 @@
           </view>
         </view>
       </view> -->
-	  <view class="list list-middle">
+	  <view class="list list-middle bg-white">
 	  	<view v-for="(item, groupListindex) in groupList" :key="groupListindex" v-if="groupListindex < groupListCount" class="list-item list-item-between line-down">
 	  		<view class="left-wrap flex-main-start">
 	  			<view class="avatar-wrap">
@@ -177,7 +198,7 @@
 	
 	<!-- 拼团玩法 -->
 	<view class="play-way top-20">
-		<view class="list">
+		<view class="list bg-white">
 			<view class="list-item line-down bg-white">拼团玩法</view>
 		</view>
 		<view class="list no-bg">
@@ -212,34 +233,50 @@
       </view>
     </view> -->
 	
-    <view class="userEvaluation">
-      <view class="title acea-row row-between-wrapper">
-        <view v-text="'用户评价(' + replyCount + ')'"></view>
-        <view class="praise" @click="goReply">
-          <text class="font-color-red" v-text="replyChance + '%'"></text>好评率
-          <text class="iconfont icon-jiantou"></text>
-        </view>
-      </view>
-	  <!-- 接口字段reply 可能是null -->
-      <UserEvaluation v-if="reply" :reply="reply"></UserEvaluation>
-    </view>
-    <view class="product-intro">
+    <!-- 新版评价 v-if="replyCount"-->
+    <user-comment :reply="reply" :reply-count="replyCount" :reply-chance="replyChance" :product-id="storeInfo.productId"></user-comment>
+	
+	<!-- 店铺介绍 -->
+	<shop-intro v-if="shopInfo" :shop-info="shopInfo"></shop-intro>
+	
+	<!-- 新版产品介绍 -->
+	<view class="bg-white">
+		<view class="flex-main-center">
+			<view class="gd-title fs-24 color-text">商品详情</view>
+		</view>
+		<view class="width-full">
+			<rich-text :nodes="storeInfo.description"></rich-text>
+		</view>
+		<!-- <view class="width-full" v-html=""></view> -->
+	</view>
+	
+    <!-- <view class="product-intro">
       <view class="title">产品介绍</view>
       <view class="conter" v-html="storeInfo.description"></view>
-      <!-- <view class="conter" v-html=""></view> -->
-    </view>
+      <view class="conter" v-html=""></view>
+    </view> -->
+	
     <view style="height:100rpx;"></view>
-    <view class="footer-group acea-row row-between-wrapper">
-      <!-- <view class="customerSer acea-row row-center-wrapper row-column">
-        <view class="iconfont icon-kefu"></view>
-        <view>客服</view>
-      </view>-->
-      <view class="customerSer acea-row row-center-wrapper row-column" @click="setCollect">
-        <view class="iconfont" :class="userCollect ? 'icon-shoucang1' : 'icon-shoucang'"></view>
-        <text>收藏</text>
-      </view>
-      <view class="bnt bg-color-violet" @click="openAlone">单独购买</view>
-      <view class="bnt bg-color-red" @click="openTeam">立即开团</view>
+    <view class="footer flex-main-between">
+	  <view class="flex-main-start flex-1">
+		  <view @click="goShopManage()" class="item relative">
+			<image src="@/static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+			<text>店铺</text>
+		  </view>
+		  <view class="item relative" style="margin-left: 43rpx;">
+			<button type="default" class="hide-full" open-type="contact"></button>
+			<image src="@/static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+			<text>客服</text>
+		  </view>
+	  </view>
+	  <view class="bnt acea-row flex-none">
+		  <view @click="openAlone" class="btn-left" style="background-color: #72B0F6;">
+		  	<text>单独购买</text>
+		  </view>
+		  <view @click="openTeam" class="btn-right" style="background-color: #64CE5E;">
+		  	<text>立即开团</text>
+		  </view>
+	  </view>
     </view>
     <ProductWindow v-if="cartNum" v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster
@@ -259,7 +296,7 @@ import UserEvaluation from "@/components/UserEvaluation";
 import ProductWindow from "@/components/ProductWindow";
 import StorePoster from "@/components/StorePoster";
 import { getCombinationDetail } from "@/api/activity";
-import { postCartAdd } from "@/api/store";
+import { postCartAdd,getStoreInfo } from "@/api/store";
 import { imageBase64 } from "@/api/public";
 import {
   getCoupon,
@@ -300,6 +337,7 @@ export default {
       groupListCount: 2,
       groupList: {},
 	  tempName:'',
+	  shopInfo:{},
       swiperTip: {
         direction: "vertical",
         autoplay: {
@@ -340,7 +378,7 @@ export default {
   onShareAppMessage() {
   	return {
 	  title: this.storeInfo.title,
-	  path: `/pages/activity/GroupDetails/index?id=${this.storeInfo.productId}`
+	  path: `/pages/activity/GroupDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share`
 	};
   },
   methods: {
@@ -351,6 +389,14 @@ export default {
 		// #ifdef H5
 			// to do
 		// #endif
+	},
+	goShopManage() {
+		this.$yrouter.push({
+			path: "/subpackage/shop/shop",
+			query: {
+				shopInfo: JSON.stringify(this.shopInfo)
+			}
+		});
 	},
     openAlone: function() {
       this.$yrouter.push({
@@ -401,7 +447,18 @@ export default {
 				stopTime:+new Date()
 			}
 		]);
-        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[]);
+        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[
+			{
+				avatar: require('@/static/images/logo.png'),
+				nickname: 'dsfsdf',
+				star: 3,
+				createTime: '2019-12-01 10:00:00',
+				sku: '商品',
+				comment: '真的不错哦！',
+				picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
+				merchantReplyContent: '店员回复'
+			}
+		]);
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
 		that.$set(that, "tempName", res.data.tempName);
@@ -415,8 +472,15 @@ export default {
         that.posterData.price = that.storeInfo.price;
         that.posterData.code = that.storeInfo.code_base;
         that.domStatus = true;
+		return Promise.resolve(res.data.storeInfo.merId)
         //that.getImageBase64();
-      });
+      }).then(getStoreInfo).then(res => { // 椅子的店铺id为0，取到的数据为null
+			this.shopInfo = res.data || {
+				headImage: require('@/static/logo.png'),
+				name:'淘宝',
+				introduce:'5年老店'
+			};
+		});
     },
     getImageBase64: function() {
       let that = this;

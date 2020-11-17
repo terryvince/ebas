@@ -290,7 +290,7 @@
 		font-weight: bold;
 		text-align: center;
 		width: 217rpx;
-		background: url(../../../static/images/gd-detail-bg.png)no-repeat center;
+		background: url('@/static/images/gd-detail-bg.png')no-repeat center;
 		background-size: 217rpx 4rpx;
 	}
 
@@ -375,10 +375,10 @@
 			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+goodsType]"> -->
 
 			<!-- swiper -->
-			<product-con-swiper :img-urls="storeInfo.sliderImageArr" :themeColor="mode=='point'? '#00A0E9':'#64CE5E'"></product-con-swiper>
+			<product-con-swiper :img-urls="storeInfo.sliderImageArr" :theme-color="mode=='point'? '#00A0E9':'#64CE5E'"></product-con-swiper>
 			
-			<!-- 价格分享栏 -->
-			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v'+level]">
+			<!-- 价格分享栏 +level||0 vip等级没得了，先隐藏-->
+			<view :class="['florid-blue flex-main-center padding-beside-30', 'bg-v0']">
 				<view class="meta-wrap flex-1">
 					<!-- <view class="v-grade flex-main-start fs-32">
 						<text>L{{level}}</text>
@@ -430,7 +430,7 @@
 			<view v-if="replyCount" class="user-comment bg-white top-5">
 				<view class="list">
 					<view class="list-item list-between" @click="goEvaluateList(id)">
-						<text class="fs-28 color-text">用户评价（{{replyCount}}）</text>
+						<text class="fs-28 color-text">商品评价（{{replyCount}}）</text>
 						<view class="flex-main-start color-text fs-28">
 							<text class="color-danger">{{replyChance}}%</text>
 							<text>好评率</text>
@@ -486,7 +486,10 @@
 				<!-- <view class="width-full" v-html=""></view> -->
 			</view>
 
+			<!-- 占位 -->
 			<view style="height:100rpx;"></view>
+			
+			<!-- 底部栏 -->
 			<view class="footer acea-row row-between-wrapper">
 				<!-- <block v-if="mode!='point'"> -->
 				<!-- <view @click="goShoppingCart()" class="item animated bounceIn">
@@ -495,7 +498,7 @@
 					</view> -->
 				<view @click="goShopManage()" class="item relative">
 					<!-- <view class="iconfont icon-shoucang1"></view> -->
-					<image src="../../../static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>店鋪</text>
 				</view>
 				<!-- 					<view @click="goShoppingCart()" class="item animated" v-if="!animated">
@@ -506,17 +509,17 @@
 					</view> -->
 				<!-- </block> -->
 				<view class="item relative">
-					<!-- <button type="default" class="hide-full" open-type="contact"></button> -->
+					<button type="default" class="hide-full" open-type="contact"></button>
 					<!-- <view class="iconfont icon-shoucang1"></view> -->
-					<image src="../../../static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>客服</text>
 				</view>
 				<view class="item" @click="setCollect" v-if="storeInfo.userCollect">
-					<image src="../../../static/icon-collection.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/icon-collection.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>收藏</text>
 				</view>
 				<view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
-					<image src="../../../static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>收藏</text>
 				</view>
 				<view>
@@ -539,6 +542,7 @@
 				</view>
 
 			</view>
+			
 			<CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
 			<ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
 			<StorePoster v-on:setPosterImageStatus="setPosterImageStatus" :posterImageStatus="posterImageStatus" :posterData="posterData"
@@ -616,16 +620,16 @@
 		data: function() {
 			return {
 				// 原来的评价数据
-				testReply: [{
-					avatar: require('../../../static/images/logo.png'),
-					nickname: 'dsfsdf',
-					star: 3,
-					createTime: '2019-12-01 10:00:00',
-					sku: '商品',
-					comment: '真的不错哦！',
-					picturesArr: [require('../../../static/images/logo.png'), require('../../../static/images/logo.png')],
-					merchantReplyContent: '店员回复'
-				}],
+				// testReply: [{
+				// 	avatar: require('../../../static/images/logo.png'),
+				// 	nickname: 'dsfsdf',
+				// 	star: 3,
+				// 	createTime: '2019-12-01 10:00:00',
+				// 	sku: '商品',
+				// 	comment: '真的不错哦！',
+				// 	picturesArr: [require('../../../static/images/logo.png'), require('../../../static/images/logo.png')],
+				// 	merchantReplyContent: '店员回复'
+				// }],
 				shareInfoStatus: false,
 				weixinStatus: false,
 				mapShow: false,
@@ -754,8 +758,6 @@
 			// },
 			// 进入店铺
 			goShopManage() {
-				console.log('111:', this.shopInfo)
-				// let tmp = 
 				this.$yrouter.push({
 					path: "/subpackage/shop/shop",
 					query: {
@@ -842,8 +844,18 @@
 						that.$set(that, "productValue", res.data.productValue);
 						that.$set(that, "replyCount", res.data.replyCount);
 						that.$set(that, "replyChance", res.data.replyChance);
-						that.reply = res.data.reply ? [res.data.reply] : [];
-						that.$set(that, "reply", that.reply);
+						that.$set(that, "reply", res.data.reply ? [res.data.reply] : [
+							// {
+							// 	avatar: require('@/static/images/logo.png'),
+							// 	nickname: 'dsfsdf',
+							// 	star: 3,
+							// 	createTime: '2019-12-01 10:00:00',
+							// 	sku: '商品',
+							// 	comment: '真的不错哦！',
+							// 	picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
+							// 	merchantReplyContent: '店员回复'
+							// }
+						]);
 						that.$set(that, "priceName", res.data.priceName);
 						that.$set(that, "tempName", res.data.tempName);
 						that.posterData.image = that.storeInfo.image;

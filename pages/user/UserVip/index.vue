@@ -145,7 +145,7 @@ export default {
   },
   mounted: function() {
     let that = this;
-    setDetection();
+    // setDetection();
     that.getInfo();
     // that.swiper.on("slideChange", function() {
     //   that.activeIndex = that.swiper.activeIndex;

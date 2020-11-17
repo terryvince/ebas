@@ -16,6 +16,13 @@
 .color-cyan{
 	color: #09BD93;
 }
+.color-orange{
+	color: #FF9624;
+}
+// 右箭头灰
+.color-arrow{
+	color: #B5B5B5;
+}
 
 .color-placeholder{
 	color: #909090;
@@ -440,15 +447,11 @@ each(range(5,30,5),{
 	}
 }
 .list{
-	background-color: white;
-	padding: 0 20rpx;
-	&.no-bg{
-		background-color: transparent;
-	}
+	background-color: transparent;
 	.list-item{
 		display: flex;
 		flex-wrap: wrap;
-		padding: 20rpx 0;
+		padding: 20rpx 20rpx;
 		align-items: center;
 		&.list-item-between{
 			justify-content: space-between;
@@ -456,7 +459,7 @@ each(range(5,30,5),{
 	}
 	&.list-middle{
 		.list-item{
-			padding: 40rpx 0;
+			padding: 40rpx 20rpx;
 		}
 	}
 }
