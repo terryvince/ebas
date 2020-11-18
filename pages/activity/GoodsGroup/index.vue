@@ -71,7 +71,6 @@
   </view>
 </template>
 <script>
-	// http://qj5wtf3w8.hn-bkt.clouddn.com/group-list-banner.png
 import { getCombinationList } from "@/api/activity";
 import Loading from "@/components/Loading";
 

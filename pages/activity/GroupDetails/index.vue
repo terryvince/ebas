@@ -432,33 +432,8 @@ export default {
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
-		// res.data.pink
-        that.$set(that, "groupList", [
-			{
-				avatar:require('@/static/logo.png'),
-				nickname:'hzz',
-				count:'3',
-				stopTime:+new Date()
-			},
-			{
-				avatar:require('@/static/logo.png'),
-				nickname:'terry',
-				count:'4',
-				stopTime:+new Date()
-			}
-		]);
-        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[
-			{
-				avatar: require('@/static/images/logo.png'),
-				nickname: 'dsfsdf',
-				star: 3,
-				createTime: '2019-12-01 10:00:00',
-				sku: '商品',
-				comment: '真的不错哦！',
-				picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
-				merchantReplyContent: '店员回复'
-			}
-		]);
+        that.$set(that, "groupList", res.data.pink);
+        that.$set(that, "reply",res.data.reply ? [res.data.reply]:[]);
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
 		that.$set(that, "tempName", res.data.tempName);
@@ -475,12 +450,42 @@ export default {
 		return Promise.resolve(res.data.storeInfo.merId)
         //that.getImageBase64();
       }).then(getStoreInfo).then(res => { // 椅子的店铺id为0，取到的数据为null
-			this.shopInfo = res.data || {
-				headImage: require('@/static/logo.png'),
-				name:'淘宝',
-				introduce:'5年老店'
-			};
-		});
+			this.shopInfo = res.data;
+		})
+		// 模拟数据
+		// .finally(()=>{
+		// 	this.shopInfo = {
+		// 		headImage: require('@/static/logo.png'),
+		// 		name:'淘宝',
+		// 		introduce:'5年老店'
+		// 	};
+		// 	that.$set(that, "groupList", [
+		// 		{
+		// 			avatar:require('@/static/logo.png'),
+		// 			nickname:'hzz',
+		// 			count:'3',
+		// 			stopTime:+new Date()
+		// 		},
+		// 		{
+		// 			avatar:require('@/static/logo.png'),
+		// 			nickname:'terry',
+		// 			count:'4',
+		// 			stopTime:+new Date()
+		// 		}
+		// 	]);
+		// 	that.$set(that, "reply",[
+		// 		{
+		// 			avatar: require('@/static/images/logo.png'),
+		// 			nickname: 'dsfsdf',
+		// 			star: 3,
+		// 			createTime: '2019-12-01 10:00:00',
+		// 			sku: '商品',
+		// 			comment: '真的不错哦！',
+		// 			picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
+		// 			merchantReplyContent: '店员回复'
+		// 		}
+		// 	]);
+		// })
     },
     getImageBase64: function() {
       let that = this;
