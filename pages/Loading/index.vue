@@ -87,7 +87,7 @@ export default {
 		}
 		let query = {}
 		let params = location.href.split('?')[1].split('&')
-		searchs.forEach(data=>{
+		params.forEach(data=>{
 			let key = decodeURIComponent(data.split('=')[0])
 			let value = decodeURIComponent(data.split('=')[1])
 			query[key] = value
