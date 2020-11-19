@@ -30,8 +30,8 @@
 		margin-left: 20rpx;
 		margin-right: 20rpx;
 		margin-top: 10rpx;
-		background-color: none !important;
-
+		background-color: white !important;
+		padding: 0 20rpx !important;
 		.item {
 			padding: 25rpx 0rpx;
 		}

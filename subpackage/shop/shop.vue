@@ -189,7 +189,8 @@
 		</view>
 		<view class="goodsCoupon">
 			<!-- 优惠券领取 -->
-			<coupon-list class="couponIndex" :list="[1,2,3]"></coupon-list>
+			<!-- v-if="couponList.length>0" -->
+			<coupon-list class="couponIndex" :ids = "where.merId"></coupon-list>
 			<!-- 商品 -->
 			<view class="goodsList">
 				<view class="nav acea-row row-middle">
@@ -260,6 +261,8 @@
 				// 记录上次点击的筛选项
 				clickChange: 0,
 				clickChangePrev:0,
+				// 优惠券
+				couponList:[]
 			}
 		},
 		onShow: function() {

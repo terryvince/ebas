@@ -177,4 +177,10 @@ store.commit('updateDevicetype','routine')
 // 		...mapState(['$deviceType'])
 // },
 
+// 服务器地址
+Vue.prototype.$path = function(path){
+	return VUE_APP_API_URL+path
+}
+// Vue.prototype.$path = path =>VUE_APP_API_URL+path
+
 app.$mount()

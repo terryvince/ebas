@@ -123,7 +123,7 @@
 							
 							var remoteIndexStart = _self.imageList.length - imagePathArr.length
 							var promiseWorkList = []
-							var keyname = (_self.fileKeyName ? _self.fileKeyName : 'upload-images')
+							var keyname = (_self.fileKeyName ? _self.fileKeyName : 'file')
 							var completeImages = 0
 							
 							for(let i=0; i<imagePathArr.length;i++){
@@ -137,7 +137,7 @@
 										filePath: imagePathArr[i], 
 										name: keyname,
 										success: function(res){
-											if(res.statusCode === 200){
+											if(res.statusCode >= 200 && res.statusCode <= 204){
 												if(_self.isDestroyed){
 													return
 												}
@@ -153,7 +153,7 @@
 													});
 												}
 												console.log('success to upload image: ' + res.data)
-												resolve(res.data)
+												resolve(JSON.parse(res.data).link)
 											}else{
 												console.log('fail to upload image:'+res.data)
 												reject('fail to upload image:' + remoteUrlIndex)

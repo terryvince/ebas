@@ -198,10 +198,17 @@ export function getStoreInfo(data) {
 	});
 }
 
-
 // 商户入驻
 export function postSettlement(data) {
 	return request.post("storeApply/apply", data,{
+		login: true
+	});
+}
+
+
+// 协议
+export function getProtocol(data) {
+	return request.get("storeApply/findAgreement?titles="+data, {},{
 		login: true
 	});
 }
