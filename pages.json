@@ -193,6 +193,19 @@
 						"navigationBarTitleText": "申请售后",
 						"enablePullDownRefresh": false
 					}
+				}, {
+					"path": "industryProtocol/industryProtocol",
+					"style": {
+						"navigationBarTitleText": "协议",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "platformProtocol/platformProtocol",
+					"style": {
+						"navigationBarTitleText": "协议",
+						"enablePullDownRefresh": false
+					}
 				}
 			]
 		}
@@ -621,7 +634,7 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "鹅把式商城",

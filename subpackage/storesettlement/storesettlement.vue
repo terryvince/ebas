@@ -133,7 +133,8 @@
 					身份证正反面
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="storeInfo.certificates" @delete="deleteImage" @add="addImage" :limit=2>
+					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.certificates" @delete="deleteImage" @add="addImage"
+					 :limit=2>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -143,7 +144,8 @@
 					营业执照
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="storeInfo.imageLicense" @delete="deleteImage" @add="addImage" :limit=3>
+					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageLicense" @delete="deleteImage" @add="addImage"
+					 :limit=3>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -153,7 +155,9 @@
 					其他证件
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="storeInfo.imageOther" @delete="deleteImage" @add="addImage" :limit=4>
+					<!-- :header="{'Request Method':'POST'}" -->
+					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageOther" @delete="deleteImage" @add="addImage"
+					 :limit=3>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -163,7 +167,8 @@
 					店铺LOGO
 				</view>
 				<view class="photos">
-					<robby-image-upload v-model="storeInfo.imageLogo" @delete="deleteImage" @add="addImage" :limit=1>
+					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageLogo" @delete="deleteImage" @add="addImage"
+					 :limit=1>
 					</robby-image-upload>
 				</view>
 			</view>
@@ -180,12 +185,20 @@
 			<view class="agreement">
 					<!-- <checkbox style="size: 30rpx;" value="cb" checked="true" />平台协议 -->
 				<checkbox-group @change="agreementChange">
-					<label class="agreementItem">
-						<checkbox :checked="platform" value="pt"/><text>平台协议</text>
+					<view class="agreementItem">
+						<label>
+						<checkbox :checked="platform" value="pt"/>
 					</label>
-					<label class="agreementItem">
-						<checkbox :checked="industry" value="hy" /><text>行业协议</text>
+					<text @tap="toPlatform()">平台协议</text>
+					</view>
+					
+					<view class="agreementItem">
+						<label>
+						<checkbox :checked="industry" value="hy" />
 					</label>
+					<text @tap="toIndustry()">行业协议</text>
+					</view>
+					
 				</checkbox-group>
 			</view>
 		</view>
@@ -202,10 +215,11 @@
 	import CitySelect from "@/components/CitySelect";
 	import goodsType from "@/components/goodsType/goodsType";
 	import { getCity} from "@/api/user";
-	import { postSettlement} from "@/api/store";
+	import { postSettlement,getProtocol} from "@/api/store";
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload';
 	import attrs, { required, chs_phone } from "@/utils/validate";
 	import { validatorDefaultCatch } from "@/utils/dialog";
+	import { chooseImage } from "@/utils";
 	export default {
 		components: {
 			CitySelect,
@@ -242,6 +256,9 @@
 			}
 		},
 		mounted: function() {
+			// chooseImage((res)=>{
+			// 	console.log(res)
+			// })
 		  this.getCityList();
 		},
 		methods:{
@@ -291,9 +308,9 @@
 				console.log(e)
 			},
 			addImage: function(e) {
-				console.log(e)
+				console.log('2',e)
 			},
-			// 协议
+			// 协议选择改变
 			agreementChange(e){
 				// console.log(e.detail.value)
 				var values = e.detail.value;
@@ -308,6 +325,32 @@
 				    }else{
 				        this.industry=false;
 				    }
+				}
+			},
+			// 平台协议
+			toPlatform(){
+				this.$yrouter.push({
+					path:"/subpackage/platformProtocol/platformProtocol"
+				})
+			},
+			// 行业协议
+			toIndustry(){
+				if(this.storeInfo.category){
+					// console.log(this.storeInfo.category)
+					let data = this.storeInfo.category.replace(/、/g,",");
+					// console.log(data)
+					getProtocol(data).then(res=>{
+						this.$yrouter.push({
+							path:"/subpackage/industryProtocol/industryProtocol",
+							query:{data:JSON.stringify(res.data)}
+						})
+					})
+				}else{
+					uni.showToast({
+					  title: "请先选择您要入驻的商品类型！",
+					  icon: "none",
+					  duration: 2000
+					});
 				}
 			},
 			// 入驻
