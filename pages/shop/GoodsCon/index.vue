@@ -519,11 +519,11 @@
 					<text>客服</text>
 				</view>
 				<view class="item" @click="setCollect" v-if="storeInfo.userCollect">
-					<image src="@/static/icon-collection.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>收藏</text>
 				</view>
 				<view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
-					<image src="@/static/icon-collection-hot.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
+					<image src="@/static/icon-collection.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>收藏</text>
 				</view>
 				<view>
