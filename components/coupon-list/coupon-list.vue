@@ -73,7 +73,7 @@
 </style>
 
 <template>
-	<view class="index-coupon-wrap">
+	<view v-if="list.length>0" class="index-coupon-wrap">
 		<view class="more flex-main-end fs-20 color-white">
 			<text @tap="moreOther()">更多</text>
 			<text class="iconfont icon-jiantou fs-20"></text>

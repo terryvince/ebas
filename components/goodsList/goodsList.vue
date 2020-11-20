@@ -137,8 +137,8 @@
 						</view>
 						<!-- 商户已售 -->
 						<view class="fs-20 color-text-secondary top-19 flex-main-between">
-							<text class="txt-bold">鹅把式商户</text>
-							<text class="txt-light">已售{{item.sales}}</text>
+							<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
+							<text class="txt-light">已售{{item.sales||0}}</text>
 						</view>
 					</view>
 					<!-- 积分商品 -->
@@ -162,7 +162,7 @@
 						</text>
 					</view>
 					<view class="color-gray fs-20 txt-baseline" style="margin-top: 26rpx;">
-						<text class="txt-bold">鹅把式商户</text>
+						<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
 						<text class="left-10 fs-26 txt-bold">{{item.people}}</text>
 						<text class="txt-medium">人成团</text>
 					</view>
@@ -173,7 +173,7 @@
 								<text class="fs-32">{{item.price|toFixed}}</text>
 								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{item.productPrice|toFixed}}</text>
 							</view>
-							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">9999</text> 件</view>
+							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">{{item.sales||0}}</text> 件</view>
 						</view>
 						<button class="btn btn-linear-green btn-fix-width">拼团</button>
 					</view>
@@ -195,7 +195,7 @@
 					</view>
 					<view class="progress-box top-30 relative">
 						<text class="progress-label color-white fs-12 txt-bold">仅剩{{item.stock}}件</text>
-						<progress percent="40" active :stroke-width="toPx(18)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
+						<progress :percent="item.stock/(item.sales+item.stock)*100" active :stroke-width="toPx(18)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
 					</view>
 					<view class="seckill-extra flex-main-between" style="margin-top: 23rpx;">
 						<view>
@@ -204,7 +204,7 @@
 								<text class="left-5">￥</text>
 								<text class="fs-32">{{item.price|toFixed}}</text>
 							</view>
-							<view class="color-gray fs-20 txt-medium top-15">鹅把式商户</view>
+							<view class="color-gray fs-20 txt-medium top-15">{{item.merName||'未设置店名'}}</view>
 						</view>
 						<button :class="['btn btn-fix-width',item.status == 1 ? 'btn-linear-orange':'btn-gray']">{{item.status | formatStatus}}</button>
 					</view>
@@ -251,6 +251,7 @@
 			}
 		},
 		created(){
+			
 		},
 		data() {
 			return {
