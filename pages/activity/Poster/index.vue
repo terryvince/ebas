@@ -1,3 +1,20 @@
+<style lang="less">
+	page{
+		background: #F6F6F6;
+	}
+</style>
+<style scoped lang="less">
+.poster-poster {
+  height: unset !important;
+}
+.poster-poster .poster {
+	width: unset;
+    margin:0 20rpx;
+	background-color: white;
+	padding: 70rpx 75rpx 50rpx;
+	box-sizing: border-box;
+}
+</style>
 <template>
   <view class="poster-poster" v-if="status === false">
     <view class="tip">
@@ -47,7 +64,8 @@ export default {
             icon: "none",
             duration: 2000
           });
-        });
+        })
+		
     },
     // 拼团海报
     getCombinationPoster: function() {
@@ -63,17 +81,13 @@ export default {
             icon: "none",
             duration: 2000
           });
-        });
+        })
+		// 模拟数据
+		// .finally(()=>{
+		// 	that.status = false;
+		// 	this.image = require('@/static/logo.png')
+		// })
     }
   }
 };
 </script>
-
-<style scoped lang="less">
-page {
-  background-color: #eb3729;
-}
-.poster-poster {
-  height: unset !important;
-}
-</style>

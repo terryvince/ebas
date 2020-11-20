@@ -27,6 +27,7 @@
 		background-size: 100% 100%;
 		padding: 24rpx 22rpx 36rpx;
 		position: relative;
+		box-sizing: border-box;
 	}
 	.index-coupon-list{
 		width:auto;

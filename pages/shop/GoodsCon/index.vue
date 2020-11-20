@@ -464,7 +464,7 @@
 				</view>
 			</view>
 			<!-- 店铺介绍 -->
-			<view class="bg-white top-20 comment-box">
+			<!-- <view class="bg-white top-20 comment-box">
 				<view class="flex-main-between">
 					<view class="flex-main-start">
 						<image class="avator flex-none" :src="shopInfo.headImage"></image>
@@ -475,9 +475,10 @@
 					</view>
 				</view>
 				<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-					{{shopInfo.introduce}}
+					{{shopInfo.content}}
 				</view>
-			</view>
+			</view> -->
+			<shop-intro v-if="shopInfo" :shop-info="shopInfo"></shop-intro>
 
 			<!-- 新版产品介绍 -->
 			<view class="bg-white">

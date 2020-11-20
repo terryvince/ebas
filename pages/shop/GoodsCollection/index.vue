@@ -75,7 +75,7 @@
 		 		<!-- 商品下架蒙尘 -->
 		 		<view class="img-wrap over-hide relative">
 		 			<view class="overlay full" v-show="item.isShow == 0">
-		 				<image src="../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
+		 				<image src="@/static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
 		 			</view>
 		 			<image :src="item.image" class="full"></image>
 		 		</view>

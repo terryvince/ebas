@@ -636,6 +636,9 @@
 		}
     ],
 	"globalStyle": {
+		// #ifdef H5
+		"navigationStyle":"custom",
+		// #endif
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "鹅把式商城",
 		// 原色 #F8F8F8，先改成白色看

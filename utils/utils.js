@@ -78,8 +78,20 @@ export function countDown(endDate, options) {
   } // 如果没传模板字符串，直接返回对象值
 }
 
+export function parseUrl(url){
+	let query = {}
+	let params = url.split('?')[1].split('&')
+	params.forEach(data=>{
+		let key = decodeURIComponent(data.split('=')[0])
+		let value = decodeURIComponent(data.split('=')[1])
+		query[key] = value
+	})
+	return query
+}
+
 export default{
 	querySelector,
 	objectMap,
-	countDown
+	countDown,
+	parseUrl
 }

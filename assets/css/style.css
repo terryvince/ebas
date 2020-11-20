@@ -2141,7 +2141,7 @@ page {
 	position: fixed;
 	left: 0;
 	z-index: 5;
-	top: 76rpx;
+	top: 0px;
 	border-bottom: 1px solid #f5f5f5
 }
 

@@ -160,6 +160,12 @@
                 "enable" : true
             }
         },
-        "title" : "鹅把式商城"
+        "title" : "鹅把式商城",
+        "devServer" : {
+            "https" : false
+        },
+        "router" : {
+            "mode" : "hash"
+        }
     }
 }

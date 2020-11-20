@@ -287,11 +287,7 @@ count-down::v-deep .styleAll{
 					that.domStatus = true;
 					return Promise.resolve(res.data.storeInfo.merId)
 				}).then(getStoreInfo).then(res => { // 椅子的店铺id为0，取到的数据为null
-					this.shopInfo = res.data || {
-						headImage: require('@/static/logo.png'),
-						name: '淘宝',
-						introduce: '5年老店'
-					};
+					this.shopInfo = res.data
 				});
 			},
 			updateTitle() {

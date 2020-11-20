@@ -321,7 +321,7 @@ each(range(5,30,5),{
 	text-align: center;
 }
 
-// 不可见铺满占位
+// 不可见铺满占位，用于需要按钮唤起的功能让button隐形
 .hide-full{
 	position: absolute;
 	left: 0;
@@ -349,7 +349,7 @@ each(range(5,30,5),{
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	z-index: 3;
+	z-index: 9;
 	background: #F5F5F5;
 	height: 122rpx;
 }
@@ -446,8 +446,8 @@ each(range(5,30,5),{
 		background: linear-gradient(169deg, #FF9322, #FFC13D);
 	}
 }
+// 列表
 .list{
-	background-color: transparent;
 	.list-item{
 		display: flex;
 		flex-wrap: wrap;

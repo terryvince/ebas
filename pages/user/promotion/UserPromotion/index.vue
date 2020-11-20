@@ -59,7 +59,7 @@
 				<view class="account acea-row row-top row-between">
 					<view class="assets">
 						<view>账户积分</view>
-						<view class="money">{{ info.commissionCount||0 }}</view>
+						<view class="money">{{ Info.commissionCount||0 }}</view>
 					</view>
 					<navigator url="/subpackage/userIntegral/transferRule" class="recharge font-color-whitle">
 						积分说明

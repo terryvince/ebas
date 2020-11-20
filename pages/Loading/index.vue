@@ -44,6 +44,7 @@ import { wxappAuth, getUser } from "@/api/user";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
 import { parseQuery, login, handleQrCode } from "@/utils";
+import { parseUrl} from "@/utils/utils.js";
 
 export default {
   name: "Loading",
@@ -85,14 +86,7 @@ export default {
 			this.getCodeApi()
 			return
 		}
-		let query = {}
-		let params = location.href.split('?')[1].split('&')
-		searchs.forEach(data=>{
-			let key = decodeURIComponent(data.split('=')[0])
-			let value = decodeURIComponent(data.split('=')[1])
-			query[key] = value
-		})
-		uni.setStorageSync('wxcode',query.code) // 有code就设置code
+		uni.setStorageSync('wxcode',parseUrl(location.href).code) // 有code就设置code
 	}
 	
     login().finally(() => {

@@ -1,104 +1,168 @@
+<style lang="less">
+	page{
+		background-color: #F6F6F6;
+	}
+</style>
+<style lang="less" scoped>
+	.group-banner{
+		width: 100%;
+		height: 220rpx;
+		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/group-list-banner.png)no-repeat center;
+		background-size: 100% 100%;
+	}
+	.group-wrap{
+		background-color: white;
+		margin: -115rpx 20rpx 23rpx;
+		padding: 20rpx 0;
+		border-radius: 20rpx;
+		position: relative;
+		z-index: 2;
+	}
+	.tips-warp {
+	  text-align: center;
+	  margin-top: 20rpx;
+	}
+	.gray-bar{
+		width: 100%;
+		height: 5rpx;
+		background: #F5F5F5;
+		border-radius: 1rpx;
+	}
+	.count-down{
+		font-size: 28rpx;
+		font-weight: 400;
+		color: #282828;
+	}
+	.font-color-red{
+		color: #FF3E3A;
+	}
+	.gray-block{
+		margin:45rpx 20rpx 0;
+		background-color: #F6F6F6;
+		padding:30rpx 0 30rpx;
+	}
+	.group-con .wrapper .list .pictrue {
+		margin: 0 0 29rpx 25rpx;
+	}
+	.group-con .wrapper .teamBnt {
+	    margin-top: 99rpx;
+		border-radius: 20rpx;
+	}
+	.group-con .wrapper .list .pictrue image {
+	    border: 2rpx solid transparent;
+	}
+	.bg-color-green{
+		background: linear-gradient(180deg, #71D676, #5FCB55);
+	}
+</style>
 <template>
-  <view class="group-con">
-    <view class="header acea-row row-between-wrapper">
-      <view class="pictrue">
-        <image :src="storeCombination.image" />
-      </view>
-      <view class="text">
-        <view class="line1" v-text="storeCombination.title"></view>
-        <view class="money">
-          <text>￥</text>
-          <text class="num" v-text="storeCombination.price"></text>
-          <text class="team cart-color" v-text="storeCombination.people + '人拼'"></text>
-        </view>
-      </view>
-      <view v-if="pinkBool === -1" class="iconfont icon-pintuanshibai"></view>
-      <view v-else-if="pinkBool === 1" class="iconfont icon-pintuanchenggong font-color-red"></view>
-    </view>
-    <view class="wrapper">
-      <view class="title acea-row row-center-wrapper">
-        <view class="line"></view>
-        <view class="name acea-row row-center-wrapper">
-          <text>剩余</text>
-          <count-down
-            :isDay="false"
-            :tipText="false"
-            :dayText="false"
-            :hourText="' : '"
-            :minuteText="' : '"
-            :secondText="false"
-            :datatime="pinkT.stopTime/1000"
-          ></count-down>
-          <text>结束</text>
-        </view>
-        <view class="line"></view>
-      </view>
-      <view class="tips-warp">
-        <text class="tips font-color-red" v-if="pinkBool === 1">恭喜您拼团成功</text>
-        <text class="tips" v-else-if="pinkBool === -1">还差{{ count }}人，拼团失败</text>
-        <text class="tips font-color-red" v-else-if="pinkBool === 0">拼团中，还差{{ count }}人拼团成功</text>
-      </view>
-      <view
-        class="list acea-row row-middle"
-        :class="[pinkBool === 1 || pinkBool === -1 ? 'result' : '',iShidden ? 'on' : '']"
-      >
-        <view class="pictrue">
-          <image :src="pinkT.avatar" />
-        </view>
-        <view class="acea-row row-middle" v-if="pinkAll.length > 0">
-          <view class="pictrue" v-for="(item, pinkAllIndex) in pinkAll" :key="pinkAllIndex">
-            <image :src="item.avatar" />
-          </view>
-        </view>
-        <view class="pictrue" v-for="countIndex in count" :key="countIndex">
-          <image class="img-none" src="@/static/images/vacancy.png" />
-        </view>
-      </view>
-      <view
-        v-if="(pinkBool === 1 || pinkBool === -1) && count > 9"
-        class="lookAll acea-row row-center-wrapper"
-        @click="lookAll"
-      >
-        {{ iShidden ? "收起" : "查看全部" }}
-        <text class="iconfont" :class="iShidden ? 'icon-xiangshang' : 'icon-xiangxia'"></text>
-      </view>
-      <view
-        class="teamBnt bg-color-red"
-        v-if="userBool === 1 && isOk == 0 && pinkBool === 0"
-        @click="goPoster"
-      >邀请好友参团</view>
-      <view
-        class="teamBnt bg-color-red"
-        v-else-if="userBool === 0 && pinkBool === 0 && count > 0"
-        @click="pay"
-      >我要参团</view>
-      <view
-        class="teamBnt bg-color-red"
-        v-if="pinkBool === 1 || pinkBool === -1"
-        @click="goDetail(storeCombination.id)"
-      >再次开团</view>
-      <view class="cancel" @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">
-        <text class="iconfont icon-guanbi3"></text>
-        <text>取消开团</text>
-      </view>
-      <view class="lookOrder" v-if="pinkBool === 1" @click="goOrder">
-        <text>查看订单信息</text>
-        <text class="iconfont icon-xiangyou"></text>
-      </view>
-    </view>
-  </view>
+	<view class="group-list group-con" ref="container">
+		<view class="group-banner over-hide">
+			<view class="flex-main-between color-white txt-medium padding-beside-20" style="margin-top: 36rpx;">
+				<text class="fs-32">爆款拼团</text>
+				<text class="fs-26">省钱省心限时拼</text>
+			</view>
+		</view>
+		<view class="group-wrap" v-if="storeCombination">
+			<!-- 改成列表，借用组件样式 -->
+			<view class="padding-beside-20">
+				<goodsList :list="[storeCombination]" from="group"></goodsList>
+				<!-- 拼团成功的标记，不需要了 -->
+				<!-- <view v-if="pinkBool === -1" class="iconfont icon-pintuanshibai"></view>
+				<view v-else-if="pinkBool === 1" class="iconfont icon-pintuanchenggong font-color-red"></view> -->
+			</view>
+			<view class="gray-bar top-20"></view>
+			<view class="wrapper">
+			  <view class="title acea-row row-center-wrapper">
+			    <view class="line"></view>
+			    <view class="name acea-row row-center-wrapper">
+			      <text class="count-down">{{countdown}}</text>
+				  <!-- <count-down
+			        :isDay="false"
+			        :tipText="false"
+			        :dayText="false"
+			        :hourText="' : '"
+			        :minuteText="' : '"
+			        :secondText="false"
+			        :datatime="pinkT.stopTime/1000"
+			      ></count-down> -->
+			    </view>
+			    <view class="line"></view>
+			  </view>
+			  <view class="tips-warp">
+			    <text class="tips font-color-red" v-if="pinkBool === 1">恭喜您拼团成功</text>
+			    <text class="tips" v-else-if="pinkBool === -1">还差{{ count }}人，拼团失败</text>
+			    <text class="tips font-color-red" v-else-if="pinkBool === 0">拼团中，还差{{ count }}人拼团成功</text>
+			  </view>
+			  
+			  <!-- 灰块 -->
+			  <view class="gray-block">
+				  <view
+				    class="list acea-row row-middle no-margin"
+				    :class="[pinkBool === 1 || pinkBool === -1 ? 'result' : '',iShidden ? 'on' : '']"
+				  >
+				    <view class="pictrue">
+				      <image :src="pinkT.avatar" />
+				    </view>
+				    <view class="acea-row row-middle" v-if="pinkAll.length > 0">
+				      <view class="pictrue" v-for="(item, pinkAllIndex) in pinkAll" :key="pinkAllIndex">
+				        <image :src="item.avatar" />
+				      </view>
+				    </view>
+				    <view class="pictrue" v-for="countIndex in count" :key="countIndex">
+				      <image class="img-none" src="@/static/images/vacancy.png" />
+				    </view>
+				  </view>
+				  <view
+				    v-if="(pinkBool === 1 || pinkBool === -1) && count > 9"
+				    class="lookAll acea-row row-center-wrapper"
+				    @click="lookAll"
+				  >
+				    {{ iShidden ? "收起" : "查看全部" }}
+				    <text class="iconfont" :class="iShidden ? 'icon-xiangshang' : 'icon-xiangxia'"></text>
+				  </view>
+			  </view>
+			  
+			  
+			  <view
+			    class="teamBnt bg-color-green"
+			    v-if="userBool === 1 && isOk == 0 && pinkBool === 0"
+			    @click="goPoster"
+			  >邀请好友参团</view>
+			  <view
+			    class="teamBnt bg-color-green"
+			    v-else-if="userBool === 0 && pinkBool === 0 && count > 0"
+			    @click="pay"
+			  >我要参团</view>
+			  <view
+			    class="teamBnt bg-color-green"
+			    v-if="pinkBool === 1 || pinkBool === -1"
+			    @click="goDetail(storeCombination.id)"
+			  >再次开团</view>
+			  <view class="cancel" @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">
+			    <text class="iconfont icon-guanbi3"></text>
+			    <text>取消开团</text>
+			  </view>
+			  <view class="lookOrder" v-if="pinkBool === 1" @click="goOrder">
+			    <text>查看订单信息</text>
+			    <text class="iconfont icon-xiangyou"></text>
+			  </view>
+			</view>
+		</view>
+	</view>
 </template>
 <script>
-import CountDown from "@/components/CountDown";
+// import CountDown from "@/components/CountDown";
 import { getCombinationPink, getCombinationRemove } from "@/api/activity";
 import { postCartAdd } from "@/api/store";
 import { isWeixin, parseQuery, handleQrCode } from "@/utils/index";
+import {countDown} from "@/utils/utils.js";
 
 const NAME = "GroupRule";
 export default {
   name: NAME,
   components: {
-    CountDown
+    // CountDown
   },
   props: {},
   data: function() {
@@ -112,7 +176,8 @@ export default {
       storeCombination: [], //拼团产品
       pinkId: 0,
       count: 0, //拼团剩余人数
-      iShidden: false
+      iShidden: false,
+	  countdown:'剩余00:00:00 结束',
     };
   },
   watch: {
@@ -208,7 +273,34 @@ export default {
         that.$set(that, "pinkBool", res.data.pinkBool);
         that.$set(that, "isOk", res.data.isOk);
         that.$set(that, "currentPinkOrder", res.data.currentPinkOrder);
-      });
+      })
+	  // 模拟数据
+	  // .finally(()=>{
+		 //  that.$set(that, "storeCombination", {
+		 //  	image:require('@/static/logo.png'),
+		 //  	title:'可是大家看法罗迪克十六分',
+		 //  	price:100,
+		 //  	people:2
+		 //  });
+		 //  that.$set(that, 'count',  10);
+		 //  // that.$set(that, 'pinkBool',  1);
+		 //  that.$set(that, "pinkAll", [
+		 //  		  {avatar:require('@/static/logo.png')},
+		 //  		  {avatar:require('@/static/logo.png')}
+		 //  ]);
+		 //  that.$set(that,'pinkT',{
+		 //  		  avatar:require('@/static/logo.png'),
+		 //  		  stopTime: +new Date() + (1000 * 60)
+		 //  })
+		 //  that.$set(that, "userBool", 1);
+		 //  // 设置倒计时
+		 //  clearInterval(this.timer);
+		 //  this.timer = setInterval(()=>{
+			//   this.countdown = countDown(new Date(this.pinkT.stopTime), '剩余hh:mm:ss 结束')
+		 //  },1000)
+		 //  this.$once('hook:beforeDestroy',()=> clearInterval(this.timer))
+	  // })
+	  
     },
     //拼团取消
     getCombinationRemove: function() {
@@ -238,10 +330,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-.tips-warp {
-  text-align: center;
-  margin-top: 20rpx;
-}
-</style>
