@@ -9,8 +9,8 @@ import dialog from "./utils/dialog";
 import dayjs from 'dayjs'
 
 // #ifdef H5
-	import VConsole from 'vconsole';
-	var vConsole = new VConsole();
+	import eruda from 'eruda';
+	eruda.init()
 // #endif
 
 // // import "@/assets/iconfont/iconfont";

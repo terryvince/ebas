@@ -161,7 +161,6 @@ export const login = () => {
 			// 调用登录接口
 			console.log('调用登录接口, 环境:',Vue.prototype.$deviceType)
 			if(Vue.prototype.$deviceType == 'h5'){
-				// console.log('h5登录，暂未实现。。。',uni.getStorageSync('wxcode'))
 				wxappAuth({
 					code: uni.getStorageSync('wxcode'),
 					spread: cookie.get("spread")
@@ -450,7 +449,7 @@ export function routerPermissions(url, type) {
 	if (!path) {
 		path = '/' + getCurrentPageUrlWithArgs()
 	}
-	if (Vue.prototype.$deviceType == 'routine') {
+	if (Vue.prototype.$deviceType == 'routine') { // 小程序
 		console.log('————————')
 		console.log('当前是微信小程序，开始处理小程序登录方法')
 		console.log('————————')
@@ -524,9 +523,9 @@ export function routerPermissions(url, type) {
 		})
 	} else {
 		// 如果不是小程序跳转到登录页
-		console.log('当前是app，开始处理app登录方法')
+		console.log('当前是h5，重新授权！')
 		push({
-			path: '/pages/user/Login/index',
+			path: '/pages/Loading/index',
 		})
 		cookie.set('redirect', path)
 	}

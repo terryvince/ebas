@@ -18,15 +18,15 @@
 	<view v-if="shopInfo" class="bg-white top-20 comment-box">
 		<view class="flex-main-between">
 			<view class="flex-main-start">
-				<image class="avator flex-none" :src="shopInfo.headImage"></image>
-				<text class="left-15 fs-34">{{shopInfo.name}}</text>
+				<image class="avator flex-none" :src="shopInfo.imageLogo"></image>
+				<text class="left-15 fs-34">{{shopInfo.storeName}}</text>
 			</view>
 			<view>
 				<text @click="goShopManage()" class="fs-28 style-receive color-white">进入店铺</text>
 			</view>
 		</view>
 		<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-			{{shopInfo.introduce}}
+			{{shopInfo.content}}
 		</view>
 	</view>
 </template>
