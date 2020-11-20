@@ -133,7 +133,7 @@
 					身份证正反面
 				</view>
 				<view class="photos">
-					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.certificates" @delete="deleteImage" @add="addImage"
+					<robby-image-upload :serverUrl='$path("/api/upload")' v-model="storeInfo.certificates" @delete="deleteImage" @add="addImage"
 					 :limit=2>
 					</robby-image-upload>
 				</view>
@@ -144,7 +144,7 @@
 					营业执照
 				</view>
 				<view class="photos">
-					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageLicense" @delete="deleteImage" @add="addImage"
+					<robby-image-upload :serverUrl='$path("/api/upload")' v-model="storeInfo.imageLicense" @delete="deleteImage" @add="addImage"
 					 :limit=3>
 					</robby-image-upload>
 				</view>
@@ -156,7 +156,7 @@
 				</view>
 				<view class="photos">
 					<!-- :header="{'Request Method':'POST'}" -->
-					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageOther" @delete="deleteImage" @add="addImage"
+					<robby-image-upload :serverUrl='$path("/api/upload")' v-model="storeInfo.imageOther" @delete="deleteImage" @add="addImage"
 					 :limit=3>
 					</robby-image-upload>
 				</view>
@@ -167,7 +167,7 @@
 					店铺LOGO
 				</view>
 				<view class="photos">
-					<robby-image-upload :serverUrl='$path("api/upload")' v-model="storeInfo.imageLogo" @delete="deleteImage" @add="addImage"
+					<robby-image-upload :serverUrl='$path("/api/upload")' v-model="storeInfo.imageLogo" @delete="deleteImage" @add="addImage"
 					 :limit=1>
 					</robby-image-upload>
 				</view>
@@ -242,7 +242,7 @@
 					certificates:[], // 身份证
 					imageLicense:[],  // 营业执照
 					imageOther:[],  // 其他证件
-					imageLogo:[],  // 店铺LOGO
+					imageLogo:"",  // 店铺LOGO
 					content:"",  // 文字介绍
 				},
 				// 地址数据
