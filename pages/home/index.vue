@@ -207,7 +207,7 @@
 		</view>
 		
 		<!-- 优惠券栏 目前接口没返couponList字段，取不到数据-->
-		<coupon-list v-if="couponList.length>0" :list="couponList.slice(0,3)"></coupon-list>
+		<coupon-list></coupon-list>
 		<!-- <Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window> -->
 		
 		<!-- 通知 -->
