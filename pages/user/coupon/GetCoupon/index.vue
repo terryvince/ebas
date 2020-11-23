@@ -93,7 +93,7 @@ export default {
       if (that.loading) return; //阻止下次请求（false可以进行请求）；
       if (that.loadend) return; //阻止结束当前请求（false可以进行请求）；
       that.loading = true;
-      let q = { page: that.page, limit: that.limit,merId:that.$yroute.query.merId};
+      let q = { page: that.page, limit: that.limit,merId:that.$yroute.query.merId||''};
       getCoupon(q).then(res => {
         that.loading = false;
         //apply();js将一个数组插入另一个数组;

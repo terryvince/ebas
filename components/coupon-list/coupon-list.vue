@@ -73,30 +73,33 @@
 </style>
 
 <template>
-	<view v-if="list.length>0" class="index-coupon-wrap">
-		<view class="more flex-main-end fs-20 color-white">
-			<text @tap="moreOther()">更多</text>
-			<text class="iconfont icon-jiantou fs-20"></text>
-		</view>
-		<view class="index-coupon-list top-10">
-			<view v-for="(item,i) of list" :key="i" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
-				<view style="position: relative; top: -10rpx;">
-					<view class="flex-main-start">
-						<text class="color-white lh-1 price-sign">￥</text>
-						<!-- {{item.coupon_price}} -->
-						<text class="color-linear-yellow txt-bold lh-1" style="font-size: 45rpx;">{{item.couponPrice}}</text>
-						<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
-							<text>优</text>
-							<text>惠</text>
-							<text>券</text>
-						</view>
-					</view>
-					<view class="color-white fs-16 flex-main-start txt-ellipsis" style="margin: 6rpx 0 0 10rpx;">满{{item.useMinPrice}}元可使用</view>
-				</view>
-				<view class="color-red fs-20 radius-btn" @tap="couponReceive(item)">{{item.isUse?"已领取":"点击领取"}}</view>
+	<!-- 加容器，让组件渲染出来先，不然v-if偶尔会导致组件不渲染，生命周期不触发问题 -->
+	<view>
+		<view v-if="list.length>0" class="index-coupon-wrap">
+			<view class="more flex-main-end fs-20 color-white">
+				<text @tap="moreOther()">更多</text>
+				<text class="iconfont icon-jiantou fs-20"></text>
 			</view>
+			<view class="index-coupon-list top-10">
+				<view v-for="(item,i) of list" :key="i" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
+					<view style="position: relative; top: -10rpx;">
+						<view class="flex-main-start">
+							<text class="color-white lh-1 price-sign">￥</text>
+							<!-- {{item.coupon_price}} -->
+							<text class="color-linear-yellow txt-bold lh-1" style="font-size: 45rpx;">{{item.couponPrice}}</text>
+							<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
+								<text>优</text>
+								<text>惠</text>
+								<text>券</text>
+							</view>
+						</view>
+						<view class="color-white fs-16 flex-main-start txt-ellipsis" style="margin: 6rpx 0 0 10rpx;">满{{item.useMinPrice}}元可使用</view>
+					</view>
+					<view class="color-red fs-20 radius-btn" @tap="couponReceive(item)">{{item.isUse?"已领取":"点击领取"}}</view>
+				</view>
+			</view>
+			<image class="money-img" src="http://qj5wtf3w8.hn-bkt.clouddn.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
 		</view>
-		<image class="money-img" src="http://qj5wtf3w8.hn-bkt.clouddn.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
 	</view>
 </template>
 

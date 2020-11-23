@@ -91,7 +91,7 @@
 		 				</view>
 		 				<!-- 商户已售 -->
 		 				<view class="fs-20 color-text-secondary top-19 flex-main-between">
-		 					<text class="txt-bold">鹅把式商户</text>
+		 					<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
 							<button class="btn btn-linear-green btn-mini" @tap.stop="delCollection(i)">删除</button>
 		 				</view>
 		 			</view>
