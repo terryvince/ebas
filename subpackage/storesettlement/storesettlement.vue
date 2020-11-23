@@ -430,7 +430,7 @@
 					postSettlement(this.storeInfo).then(res=>{
 						if(res.data=="成功"){
 							uni.showToast({
-							  title: "入驻成功",
+							  title: "申请成功",
 							  icon: "none",
 							  duration: 2000
 							});
