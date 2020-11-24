@@ -25,7 +25,7 @@
 .florid-box{
 	font-size: 24rpx;
 	color: white;
-	height: 130rpx;
+	height: 100rpx;
 	
 }
 
