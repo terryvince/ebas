@@ -91,19 +91,20 @@
 	.goodsCoupon {
 		border-top: 2rpx solid #ffffff;
 		background-color: #F5F5F5;
-		position: relative;
-		margin-top: 100rpx;
 		min-height: 500rpx;
 
 		.couponIndex {
-			position: absolute;
 			width: 100%;
-			top: -100rpx;
+			margin-top: -100rpx;
 		}
 	}
-
-	.goodsList {
+	.goodsCouponTop{
+		margin-top: 100rpx;
+	}
+	.goodsListTop{
 		margin-top: 150rpx;
+	}
+	.goodsList {
 
 		.nav {
 			height: 86rpx;
@@ -164,6 +165,16 @@
 		}
 	}
 	.font-color-red {color: #6DD36F;}
+	.noPictrue{
+		width: 414rpx;
+		height: 336rpx;
+		margin: 0 auto 30rpx;
+
+		image{
+			width: 100%;
+			height: 100%;
+		}
+	}
 </style>
 
 <template>
@@ -172,7 +183,7 @@
 			<image :src="shopInfo.coverImage"></image>
 		</view>
 		<!-- 店铺介绍 -->
-		<view class="bg-white comment-box line-down">
+		<!-- <view class="bg-white comment-box line-down">
 			<view class="flex-main-between">
 				<view class="flex-main-start">
 					<image class="avator flex-none" :src="shopInfo.headImage"></image>
@@ -186,13 +197,14 @@
 			<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
 				{{shopInfo.content}}
 			</view>
-		</view>
-		<view class="goodsCoupon">
+		</view> -->
+		<shop-intro v-if="shopInfo" :shop-info="shopInfo"></shop-intro>
+		<view class="goodsCoupon" :class="couponList.length>0?'goodsCouponTop':''">
 			<!-- 优惠券领取 -->
 			<!-- v-if="couponList.length>0" -->
-			<coupon-list v-if="couponList.length>0" class="couponIndex" :ids = "where.merId"></coupon-list>
+			<coupon-list v-if="couponList.length>0" :class="couponList.length>0?'couponIndex':''" :ids = "where.merId"></coupon-list>
 			<!-- 商品 -->
-			<view class="goodsList">
+			<view class="goodsList" :class="couponList.length>0?'goodsListTop':''">
 				<view class="nav acea-row row-middle">
 					<view class="item" :class="['item',title ? 'font-color-red' : '']" @click="set_where(0)">{{ title ? title : "综合" }}</view>
 					<view class="item" @click="set_where(1)">
@@ -212,7 +224,10 @@
 					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
 				</view>
 				<view class="goodsListItem choice-goods x-line gray">
-					<goodsList :list="pickList" :from="goodsType"></goodsList>
+					<goodsList v-if="pickList.lenth>0" :list="pickList" :from="goodsType"></goodsList>
+					<view v-else class="noPictrue">
+						<image mode="widthFix" src="@/static/images/noGood.png" class="image" />
+					</view>
 				</view>
 			</view>
 		</view>
@@ -227,6 +242,7 @@
 	} from "@/api/store";
 	import goodsList from '@/components/goodsList/goodsList';
 	import Loading from "@/components/Loading";
+	import { getStoreInfo } from "@/api/store";
 	export default {
 		name: "Shop",
 		components: {
@@ -266,15 +282,20 @@
 			}
 		},
 		onShow: function() {
-			this.shopInfo = JSON.parse(this.$yroute.query.shopInfo);
-			this.where.merId = this.shopInfo.id;
-			
+			this.where.merId = this.$yroute.query.merId;
+			this.getStoreInfo();
 			this.get_product_list();
 		},
 		mounted: function() {
 			// console.log(JSON.parse(this.$yroute.query.shopInfo))
 		},
 		methods: {
+			// 获取店铺数据
+			getStoreInfo: function() {
+				 getStoreInfo(this.where.merId).then(res => {
+					this.shopInfo = res.data;
+				})
+			},
 			// 获取商品数据
 			get_product_list() {
 				var that = this;
