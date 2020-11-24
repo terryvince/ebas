@@ -41,7 +41,7 @@
 	.index-coupon-wrap {
 		width: auto;
 		margin: 0 20rpx;
-		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-coupon.png)no-repeat center;
+		background: url(https://res.sdebs.com/index-coupon.png)no-repeat center;
 		background-size: 100% 100%;
 		padding: 24rpx 22rpx 36rpx;
 		position: relative;

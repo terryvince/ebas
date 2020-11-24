@@ -6,7 +6,7 @@
 <template>
 	<view class="point-shopping">
 		<view class="padding-beside-20">
-			<image class="width-full block" src="http://qj5wtf3w8.hn-bkt.clouddn.com/point-shopping-baner-v1.png" mode="widthFix"></image>
+			<image class="width-full block" src="https://res.sdebs.com/point-shopping-baner-v1.png" mode="widthFix"></image>
 		</view>
 		<features-text></features-text>
 		<view v-if="list.length>0" class="list-wrap">

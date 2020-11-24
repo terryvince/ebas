@@ -23,7 +23,7 @@
 .index-coupon-wrap{
 		width: auto;
 		margin:0 20rpx;
-		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-coupon.png)no-repeat center;
+		background: url(https://res.sdebs.com/index-coupon.png)no-repeat center;
 		background-size: 100% 100%;
 		padding: 24rpx 22rpx 36rpx;
 		position: relative;
@@ -98,7 +98,7 @@
 					<view class="color-red fs-20 radius-btn flex-none" @tap="couponReceive(item)">{{item.isUse?"已领取":"点击领取"}}</view>
 				</view>
 			</view>
-			<image class="money-img" src="http://qj5wtf3w8.hn-bkt.clouddn.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
+			<image class="money-img" src="https://res.sdebs.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
 		</view>
 	</view>
 </template>

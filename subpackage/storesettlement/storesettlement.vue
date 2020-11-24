@@ -90,7 +90,7 @@
 
 <template>
 	<view class="storesettlement">
-		<image class="imageBg" src="http://qj5wtf3w8.hn-bkt.clouddn.com/index-settlement.png" mode="widthFix"></image>
+		<image class="imageBg" src="https://res.sdebs.com/index-settlement.png" mode="widthFix"></image>
 		<!-- 信息 -->
 		<view class="storeInfo">
 			<!-- 基本信息 -->

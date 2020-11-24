@@ -4,7 +4,7 @@
 		.header {
 			.promoterHeader {
 				.headerCon {
-					background-image: url('http://qj5wtf3w8.hn-bkt.clouddn.com/img-tuiguan-bg.png') !important;
+					background-image: url('https://res.sdebs.com/img-tuiguan-bg.png') !important;
 					width: 100%+1;
 					margin-left: -4rpx;
 				}

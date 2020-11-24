@@ -36,7 +36,7 @@
 			left: -32rpx;
 			right: -30rpx;
 			bottom: -200rpx;
-			background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/protocol-2-v1.png)no-repeat center;
+			background: url(https://res.sdebs.com/protocol-2-v1.png)no-repeat center;
 			background-size: 100% 100%;
 		}
 	}

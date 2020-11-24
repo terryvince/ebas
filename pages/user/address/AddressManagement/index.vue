@@ -14,7 +14,7 @@
 				</view>
 
 				<view @click="editAddress(addressListIndex)">
-					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-address-edit.png" mode="" class="address-edit"></image>
+					<image src="https://res.sdebs.com/icon-address-edit.png" mode="" class="address-edit"></image>
 				</view>
 
 			</view>
