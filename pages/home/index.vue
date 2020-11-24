@@ -258,15 +258,21 @@
 			
 			<!-- 秒杀 -->
 			<view v-if="discountList.length>0" class="seckill-list top-30 flex-1" style="order:3">
-				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
-					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
-					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
-					<view class="count-down left-15 color-black flex-main-start txt-heavy fs-20">
-						<text class="countdown-item">{{countdown.hour}}</text>
-						<text style="margin: 0 5rpx;">:</text>
-						<text class="countdown-item">{{countdown.minute}}</text>
-						<text style="margin: 0 5rpx;">:</text>
-						<text class="countdown-item">{{countdown.second}}</text>
+				<view class="seckill-title flex-main-between color-white" style="margin-bottom: 42rpx;">
+					<view class="flex-main-start">
+						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
+						<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
+						<view class="count-down left-15 color-black flex-main-start txt-heavy fs-20">
+							<text class="countdown-item">{{countdown.hour}}</text>
+							<text style="margin: 0 5rpx;">:</text>
+							<text class="countdown-item">{{countdown.minute}}</text>
+							<text style="margin: 0 5rpx;">:</text>
+							<text class="countdown-item">{{countdown.second}}</text>
+						</view>
+					</view>
+					<view class="flex-main-start fs-20" @click="goSeckillList()">
+						<text class="txt-bold">更多</text>
+						<view class="iconfont icon-jiantou fs-20 left-5"></view>
 					</view>
 				</view>
 				<goodsList :list="discountList" from="seckill"></goodsList>
@@ -486,6 +492,11 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+			goSeckillList(){
+				this.$yrouter.push({
+					path: '/pages/activity/GoodsSeckill/index'
+				});
+			},
 			goPickGoods(){
 				this.$yrouter.push({
 					path: '/pages/shop/GoodsList/index',

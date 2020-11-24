@@ -532,7 +532,7 @@
 		},
 		onShow() {
 			if (this.$store.getters.token) {
-				setDetection()
+				// setDetection()
 				//
 				uni.showLoading({
 					title: "加载中"

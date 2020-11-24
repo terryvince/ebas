@@ -137,7 +137,7 @@
 						</view>
 						<!-- 商户已售 -->
 						<view class="fs-20 color-text-secondary top-19 flex-main-between">
-							<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
+							<text class="txt-bold">{{item.merName||item.shopName||'未设置店名'}}</text>
 							<text class="txt-light">已售{{item.sales||0}}</text>
 						</view>
 					</view>
