@@ -16,7 +16,7 @@
 .florid-box{
 	font-size: 24rpx;
 	color: white;
-	height: 130rpx;
+	height: 100rpx;
 }
 
 .avatar-wrap{
@@ -262,16 +262,18 @@ count-down::v-deep .styleAll{
 					);
 					that.$set(that, "storeInfo", res.data.storeInfo);
 					that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
-					that.$set(that, "reply", res.data.reply ? [res.data.reply] : [{
-						avatar: require('@/static/images/logo.png'),
-						nickname: 'dsfsdf',
-						star: 3,
-						createTime: '2019-12-01 10:00:00',
-						sku: '商品',
-						comment: '真的不错哦！',
-						picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
-						merchantReplyContent: '店员回复'
-					}]);
+					that.$set(that, "reply", res.data.reply ? [res.data.reply] : [
+					// 	{
+					// 	avatar: require('@/static/images/logo.png'),
+					// 	nickname: 'dsfsdf',
+					// 	star: 3,
+					// 	createTime: '2019-12-01 10:00:00',
+					// 	sku: '商品',
+					// 	comment: '真的不错哦！',
+					// 	picturesArr: [require('@/static/images/logo.png'), require('@/static/images/logo.png')],
+					// 	merchantReplyContent: '店员回复'
+					// },
+					]);
 					that.$set(that, "replyCount", res.data.replyCount);
 					that.$set(that, "replyChance", res.data.replyChance);
 					that.posterData.image = that.storeInfo.image_base;

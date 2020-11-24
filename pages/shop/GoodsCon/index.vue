@@ -229,7 +229,7 @@
 	.florid-blue {
 		font-size: 24rpx;
 		color: white;
-		height: 130rpx;
+		height: 100rpx;
 		// background-color: linear-gradient(90deg,#6A77FF,#A779FF);
 
 	}

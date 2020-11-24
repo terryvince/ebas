@@ -193,19 +193,6 @@
 						"navigationBarTitleText": "申请售后",
 						"enablePullDownRefresh": false
 					}
-				}, {
-					"path": "industryProtocol/industryProtocol",
-					"style": {
-						"navigationBarTitleText": "协议",
-						"enablePullDownRefresh": false
-					}
-				},
-				{
-					"path": "platformProtocol/platformProtocol",
-					"style": {
-						"navigationBarTitleText": "协议",
-						"enablePullDownRefresh": false
-					}
 				}
 			]
 		}
@@ -303,7 +290,7 @@
 		{
 			"path": "pages/shop/GoodsCollection/index",
 			"style": {
-				"navigationBarTitleText": "商品收藏"
+				"navigationBarTitleText": "收藏"
 			}
 		},
 		{
@@ -634,7 +621,7 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-    ],
+	],
 	"globalStyle": {
 		// #ifdef H5
 		"navigationStyle":"custom",

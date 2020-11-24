@@ -451,7 +451,7 @@ page {
 }
 
 .coupon-list .item .money.moneyGray {
-	background-image: url('https://h5.yixiang.co/static/images/coupon2.png')
+	background-color: #ccc;
 }
 
 .coupon-list .item .money .num {

@@ -140,7 +140,7 @@
         </view> -->
 		
 		<view v-if="seckillList.length === 0 && page > 1" class="empty-wrap bg-white flex-main-center flex-column">
-			<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/sekill-empty.png" mode="widthFix" style="width: 262rpx;"></image>
+			<image src="https://res.sdebs.com/sekill-empty.png" mode="widthFix" style="width: 262rpx;"></image>
 			<text class="txt-medium fs-28 color-text-secondary top-10">暂无秒杀</text>
 		</view>
 		

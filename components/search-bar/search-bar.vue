@@ -45,7 +45,7 @@
 	<view class="s-header flex-main-center">
 		<view class="s-search flex-main-start relative">
 			<view @click="search()" class="acea-row row-middle flex-1 height-full">
-				<image class="s-icon-search flex-none" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-search-gray.png" mode="widthFix"></image>
+				<image class="s-icon-search flex-none" src="https://res.sdebs.com/icon-search-gray.png" mode="widthFix"></image>
 				<span class="s-y-line gray left-10 flex-none"></span>
 				<input type="text" :readonly="readonly" class="left-10 flex-1 height-full" placeholder="搜索请输入关键词" placeholder-class="color-placeholder" v-bind:value="value" @input="$emit('input',$event.target.value)"/>
 			</view>

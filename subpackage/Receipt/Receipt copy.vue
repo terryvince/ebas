@@ -42,15 +42,16 @@
 				status: 'more',
 				isListNull: true,
 				title: '您的发票空空如也~',
-				list: [{
+				list: [
+					{
 						id: 1,
-						img: '../static/logo.png',
+						img: '../static/logo.jpg',
 						title: '牧师 ( RU CC ) 简约，爱慕床布牧师',
 						price: '23.00'
 					},
 					{
 						id: 2,
-						img: '../static/logo.png',
+						img: '../static/logo.jpg',
 						title: '牧师 ( RU CC ) 简约，爱慕床布牧师',
 						price: '23.00'
 					}
