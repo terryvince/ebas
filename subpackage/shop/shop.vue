@@ -190,7 +190,7 @@
 		<view class="goodsCoupon">
 			<!-- 优惠券领取 -->
 			<!-- v-if="couponList.length>0" -->
-			<coupon-list class="couponIndex" :ids = "where.merId"></coupon-list>
+			<coupon-list v-if="couponList.length>0" class="couponIndex" :ids = "where.merId"></coupon-list>
 			<!-- 商品 -->
 			<view class="goodsList">
 				<view class="nav acea-row row-middle">
