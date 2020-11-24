@@ -7,7 +7,7 @@
 	.group-banner{
 		width: 100%;
 		height: 220rpx;
-		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/group-list-banner.png)no-repeat center;
+		background: url(https://res.sdebs.com/group-list-banner.png)no-repeat center;
 		background-size: 100% 100%;
 	}
 	.group-wrap{

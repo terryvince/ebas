@@ -57,7 +57,7 @@
 	<view>
 
 		<view class="flex-cross-center header flex-column">
-			<image class="icon" src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-sucess.png" mode=""></image>
+			<image class="icon" src="https://res.sdebs.com/icon-sucess.png" mode=""></image>
 			<view class="title">售后申请提交成功</view>
 			<view class="backBtn">返回</view>
 		</view>

@@ -131,7 +131,7 @@
 	
 	.group-list{
 		min-height: 400rpx;
-		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-bg-green.png) no-repeat left top,#fff;
+		background: url(https://res.sdebs.com/index-bg-green.png) no-repeat left top,#fff;
 		background-size: 100% 280rpx;
 		padding: 48rpx 20rpx 28rpx;
 		border-radius: 20rpx;
@@ -146,7 +146,7 @@
 	}
 	.seckill-list{
 		min-height: 400rpx;
-		background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/index-bg-red.png)no-repeat left top,#fff;
+		background: url(https://res.sdebs.com/index-bg-red.png)no-repeat left top,#fff;
 		background-size: 100% 250rpx;
 		padding: 54rpx 20rpx 28rpx;
 		border-radius: 20rpx;
@@ -232,7 +232,7 @@
 			<!-- 精选商品新版 -->
 			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
 				<view class="flex-main-center relative">
-					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
+					<image src="https://res.sdebs.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
 					<view @click="goPickGoods()" class="pick-more fs-20 color-text-secondary flex-main-start">
 						<text>更多</text>
 						<view class="iconfont icon-jiantou fs-20"></view>
@@ -245,7 +245,7 @@
 			<view v-if="combinationList.length" class="group-list top-30 flex-1" style="order:2">
 				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
 					<view class="flex-main-start fs-34 txt-heavy">
-						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-mark.png" class="group-title-img"></image>
+						<image src="https://res.sdebs.com/icon-mark.png" class="group-title-img"></image>
 						<text class="left-10 lh-1">商品团购</text>
 					</view>
 					<view class="flex-main-start fs-20" @click="goGroupList()">
@@ -259,7 +259,7 @@
 			<!-- 秒杀 -->
 			<view v-if="discountList.length>0" class="seckill-list top-30 flex-1" style="order:3">
 				<view class="seckill-title flex-main-start color-white" style="margin-bottom: 42rpx;">
-					<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
+					<image src="https://res.sdebs.com/icon-clock.png" class="seckill-title-img"></image>
 					<text class="fs-34 txt-heavy left-10 lh-1">商品秒杀</text>
 					<view class="count-down left-15 color-black flex-main-start txt-heavy fs-20">
 						<text class="countdown-item">{{countdown.hour}}</text>

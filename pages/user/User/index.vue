@@ -74,7 +74,7 @@
 }
 .identity{
 	height: 33rpx;
-	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-2.png)no-repeat left top,#fff;
+	background: url(https://res.sdebs.com/personal-2.png)no-repeat left top,#fff;
 	background-size: 98rpx 100%;
 	padding-left:40rpx;
 	padding-right: 16rpx;
@@ -82,11 +82,11 @@
 	border-radius: 10rpx;
 }
 .my-point{
-	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-3.png)no-repeat center;
+	background: url(https://res.sdebs.com/personal-3.png)no-repeat center;
 	background-size: 100% 100%;
 }
 .shopping-point{
-	background: url(http://qj5wtf3w8.hn-bkt.clouddn.com/personal-4.png)no-repeat center;
+	background: url(https://res.sdebs.com/personal-4.png)no-repeat center;
 	background-size: 100% 100%;
 }
 .my-point,.shopping-point{
@@ -199,7 +199,7 @@
 
 						<view @click="goMyOrder(0)" class="item">
 							<view class="pictrue">
-								<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-5.png" style="width: 54rpx;height: 51rpx;" />
+								<image src="https://res.sdebs.com/personal-5.png" style="width: 54rpx;height: 51rpx;" />
 								<text class="order-status-num" v-if="userInfo.orderStatusNum.unpaidCount > 0">{{ userInfo.orderStatusNum.unpaidCount }}</text>
 							</view>
 							<view>待付款</view>
@@ -207,7 +207,7 @@
 
 						<view @click="goMyOrder(1)" class="item">
 							<view class="pictrue">
-								<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-6.png" style="width: 51rpx;height: 48rpx;" />
+								<image src="https://res.sdebs.com/personal-6.png" style="width: 51rpx;height: 48rpx;" />
 								<text class="order-status-num" v-if="userInfo.orderStatusNum.unshippedCount > 0">{{ userInfo.orderStatusNum.unshippedCount }}</text>
 							</view>
 							<view>待发货</view>
@@ -215,7 +215,7 @@
 
 						<view @click="goMyOrder(2)" class="item">
 							<view class="pictrue">
-								<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-7.png" style="width: 55rpx;height: 49rpx;" />
+								<image src="https://res.sdebs.com/personal-7.png" style="width: 55rpx;height: 49rpx;" />
 								<text class="order-status-num" v-if="userInfo.orderStatusNum.receivedCount > 0">{{ userInfo.orderStatusNum.receivedCount }}</text>
 							</view>
 							<text>待收货</text>
@@ -223,7 +223,7 @@
 
 						<view @click="goMyOrder(3)" class="item">
 							<view class="pictrue">
-								<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-8.png" style="width: 54rpx;height: 50rpx;" />
+								<image src="https://res.sdebs.com/personal-8.png" style="width: 54rpx;height: 50rpx;" />
 								<text class="order-status-num" v-if="userInfo.orderStatusNum.evaluatedCount > 0">{{ userInfo.orderStatusNum.evaluatedCount }}</text>
 							</view>
 							<text>待评价</text>
@@ -231,7 +231,7 @@
 
 						<view @click="goReturnList()" class="item">
 							<view class="pictrue">
-								<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/personal-9.png" style="width: 48rpx;height: 53rpx;" />
+								<image src="https://res.sdebs.com/personal-9.png" style="width: 48rpx;height: 53rpx;" />
 								<text class="order-status-num" v-if="userInfo.orderStatusNum.refundCount > 0">{{ userInfo.orderStatusNum.refundCount }}</text>
 							</view>
 							<text>售后/退款</text>

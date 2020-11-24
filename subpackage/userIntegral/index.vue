@@ -20,7 +20,7 @@
 	}
 
 	.user-account .wrapper .header .headerCon {
-		background-image: url('http://qj5wtf3w8.hn-bkt.clouddn.com/img-usercredit-bg.png');
+		background-image: url('https://res.sdebs.com/img-usercredit-bg.png');
 		background-repeat: no-repeat;
 		background-size: 100%;
 		height: 100%;

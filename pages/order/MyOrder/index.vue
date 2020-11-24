@@ -94,25 +94,25 @@
 						<span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span> -->
 
 						<block v-if="order.pinkName.indexOf('积分') != -1">
-							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ji.png" class="classIcon">
+							<image src="https://res.sdebs.com/icon-order-ji.png" class="classIcon">
 								<view class="text">积分</view>
 							</image>
 						</block>
 
 						<block v-if="order.pinkName.indexOf('拼团') != -1">
-							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-ping.png" class="classIcon">
+							<image src="https://res.sdebs.com/icon-order-ping.png" class="classIcon">
 								<view class="text">拼团</view>
 							</image>
 						</block>
 
 						<block v-if="order.pinkName.indexOf('秒杀') != -1">
-							<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon">
+							<image src="https://res.sdebs.com/icon-order-miao.png" class="classIcon">
 								<view class="text">秒杀</view>
 							</image>
 						</block>
 
 						<block v-if="order.pinkName.indexOf('普通') != -1">
-							<!-- <image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-order-miao.png" class="classIcon"> -->
+							<!-- <image src="https://res.sdebs.com/icon-order-miao.png" class="classIcon"> -->
 							<view class="text">普通订单</view>
 							<!-- </image> -->
 						</block>
