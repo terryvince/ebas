@@ -3,7 +3,7 @@
 	  <view v-if="!token">
 	    <!-- 小程序 -->
 	    <view class='au-header'>
-	        <image src='../../static/images/au-logo.png' />
+	        <image src='@/static/logo.jpg' />
 	      </view>
 	      <view class='au-content'>
 	        <view>申请获取以下权限</view>

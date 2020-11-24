@@ -127,7 +127,7 @@
 				</view>
 				<view class="content">
 					<!-- 商品名 -->
-					<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 56rpx;">{{item.storeName}}</view>
+					<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 64rpx;line-height: 32rpx;">{{item.storeName}}</view>
 					<view v-if="from == 'goods'">
 						<!-- 商品价格 -->
 						<view class="flex-main-start top-31 fs-22">
@@ -190,7 +190,7 @@
 				<view class="seckill-content flex-1 left-20">
 					<view class="seckill-title fs-28">
 						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;">
-							{{item.title}}
+							{{item.title}} 
 						</text>
 					</view>
 					<view class="progress-box top-30 relative">

@@ -51,6 +51,21 @@
 .productList .list .item{
 	border-radius: 20rpx;
 }
+.divider{
+	height: 100%;
+	position: relative;
+	&::after{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 2rpx;
+		height: 100%;
+		background: #F5F5F5;
+		transform: scaleX(1);
+	}
+	
+}
 </style>
 
 <template>
@@ -80,10 +95,12 @@
 		</search-bar>
 	</view>
     <view class="nav acea-row row-middle">
+		<!-- ,title ? 'font-color-red' : '' -->
       <view
-        :class="['item',title ? 'font-color-red' : '']"
+        :class="['item','relative']"
         @click="set_where(0)"
       >{{ title ? title : "综合" }}</view>
+	  <view class="divider"></view>
       <view class="item" @click="set_where(1)">
         价格
         <!-- <image src="@/static/images/horn.png" v-if="price === 0" />
@@ -127,7 +144,7 @@
 			<text class="color-text-secondary del-line txt-bold fs-22" style="margin-left: 10rpx;">¥{{item.otPrice}}</text>
           </view>
           <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
-            <view class="fs-20 color-text-secondary txt-bold">鹅把式商户</view>
+            <view class="fs-20 color-text-secondary txt-bold">{{item.shopName||'未设置店名'}}</view>
             <view>已售{{ item.sales }}件</view>
           </view>
         </view>
@@ -213,7 +230,7 @@ export default {
     // }
   },
   mounted: function() {
-	this.where.keyword = this.$yroute.query.s || '';
+	const { s = "", id = 0, title = "" } = this.$yroute.query;
     this.updateTitle();
     this.get_product_list();
   },
@@ -254,15 +271,14 @@ export default {
       var that = this;
       this.setWhere();
       // if (to.name !== "GoodsList") return;
-      const { s = "", id = 0, title = "", type = 0 } = this.$yroute.query;
-	  console.log(this.$yroute.query)
+      const { s = "", id = 0, title = "" } = this.$yroute.query;
       if (s !== this.where.keyword || id !== this.where.sid) {
-        // this.where.keyword = s;
+        this.where.keyword = this.where.keyword || s;
         this.loadend = false;
         this.loading = false;
         this.where.page = 1;
         this.where.sid = id;
-        this.title = title ? title : "";
+        this.title = title && id ? title : "";
         this.nows = false;
         this.$set(this, "productList", []);
         this.price = 0;
@@ -270,8 +286,8 @@ export default {
         // this.get_product_list();
       }
       let q = that.where;
-	  // type 0 普通商品 1积分商品 2会员卡
-	  q.type = type || 0
+      // type 0 普通商品 1积分商品 2会员卡
+      q.type = 0
       getProducts(q).then(res => {
         that.loading = false;
         that.productList.push.apply(that.productList, res.data);
@@ -291,10 +307,7 @@ export default {
       let that = this;
       switch (index) {
         case 0:
-		  // this.title = this.$yroute.query.title
-		  // this.nows = false
-		  that.$yrouter.push({ path: "/pages/shop/GoodsClass/index"})
-          return;
+          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/index" });
         case 1:
           if (that.price === 0) that.price = 1;
           else if (that.price === 1) that.price = 2;
@@ -308,7 +321,6 @@ export default {
           that.price = 0;
           break;
         case 3:
-		  this.title = ''
           that.nows = !that.nows;
           break;
         default:

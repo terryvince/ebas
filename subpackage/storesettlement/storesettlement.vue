@@ -107,19 +107,21 @@
 					<view class="name">电话：</view>
 					<input type="text" placeholder="请输入联系电话" v-model="storeInfo.phone" required />
 				</view>
-				<view class="item acea-row row-between-wrapper">
+				<!-- 扩大可点击区域 -->
+				<view @click="$refs.goodstype.open()" class="item acea-row row-between-wrapper">
 					<view class="name">商品类别</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
-						<view class="address">
-							<goodsType v-model="storeInfo.category" :goodsValue="typeText" @typeSelect="typeSelect"></goodsType>
-						</view>
+						<!-- 防止内部点击冒泡 -->
+						<view class="address" @click.stop="">
+							<goodsType ref="goodstype" v-model="storeInfo.category" :goodsValue="typeText" @typeSelect="typeSelect"></goodsType>
+						</view>	
 						<view class="iconfont icon-jiantou"></view>
 					</view>
 				</view>
-				<view class="item acea-row row-between-wrapper">
+				<view @click="$refs.cityselect.open()" class="item acea-row row-between-wrapper">
 					<view class="name">地区</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
-						<view class="address">
+						<view class="address" @click.stop="">
 							<CitySelect ref="cityselect" :defaultValue="addressText" :value1="storeInfo.addressText" @callback="result"
 							 :items="district"></CitySelect>
 						</view>
