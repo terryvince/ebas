@@ -56,7 +56,7 @@ count-down::v-deep .styleAll{
 			<view class="meta-wrap flex-1">
 				<view class="flex-main-between">
 					<view class="flex-main-start flex-baseline">
-						<text class="left-20 fs-28 color-orange style-type">拼团</text>
+						<text class="left-20 fs-28 color-orange style-type">秒杀</text>
 						<text class="fs-36 left-20">￥</text>
 						<text class="fs-48">{{ storeInfo.price }}</text>
 						<text class="fs-30 left-20 del-price-line">原价{{ `&yen;${storeInfo.otPrice}` }}</text>
@@ -241,7 +241,7 @@ count-down::v-deep .styleAll{
 				this.$yrouter.push({
 					path: "/subpackage/shop/shop",
 					query: {
-						shopInfo: JSON.stringify(this.shopInfo)
+						merId: this.storeInfo.merId
 					}
 				});
 			},

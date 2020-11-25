@@ -226,18 +226,18 @@
 					{{ orderInfo.estimateTime | timeFormat('date') }}
 				</view>
 			</view>
-			<view v-if="orderInfo.cardNumber" class="item acea-row row-between">
+			<!-- <view v-if="orderInfo.cardNumber" class="item acea-row row-between">
 				<view>证件号码：</view>
 				<view class="conter">
 					{{ orderInfo.cardNumber }}
 				</view>
-			</view>
-			<view class="item acea-row row-between">
+			</view> -->
+			<!-- <view class="item acea-row row-between">
 				<view>自动收货时间：</view>
 				<view class="conter" style="width: auto;">
 					{{ orderInfo.confirmTime||'' }}
 				</view>
-			</view>
+			</view> -->
 			<view class="item acea-row row-between">
 				<view>订单类型：</view>
 				<view class="conter">{{ orderTypeName }}</view>

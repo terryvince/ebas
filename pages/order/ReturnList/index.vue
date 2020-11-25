@@ -34,7 +34,7 @@
       </view>
     </view>
     <view class="noCart" v-if="orderList.length === 0 && page > 1">
-      <view class="pictrue">
+      <view class="pictrue flex-main-center">
         <image src="@/static/images/noOrder.png" />
       </view>
     </view>

@@ -506,7 +506,7 @@
 		{
 			"path": "pages/order/ReturnList/index",
 			"style": {
-				"navigationBarTitleText": "退货列表"
+				"navigationBarTitleText": "退款售后"
 			}
 		},
 		{

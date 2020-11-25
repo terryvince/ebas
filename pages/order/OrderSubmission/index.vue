@@ -448,9 +448,9 @@ color: #333333;">合计:
 				console.log(this.storeItems, this.systemStore);
 				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.id // 积分商城不传优惠券
 				createOrder(this.orderGroupInfo.orderKey, {
-						cardNumber: this.cardNumber, // 清关人姓名和身份证
-						cardName: this.cardName,
-						cardType: this.cardType,
+						// cardNumber: this.cardNumber, // 清关人姓名和身份证
+						// cardName: this.cardName,
+						// cardType: this.cardType,
 						type: this.mode == 'point' ? 1 : 0, // 积分商品要多传个type
 						realName: this.contacts,
 						phone: this.contactsTel,

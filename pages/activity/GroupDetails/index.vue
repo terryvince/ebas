@@ -394,7 +394,7 @@ export default {
 		this.$yrouter.push({
 			path: "/subpackage/shop/shop",
 			query: {
-				shopInfo: JSON.stringify(this.shopInfo)
+				merId: this.storeInfo.merId
 			}
 		});
 	},

@@ -22,6 +22,7 @@
 		}
 	}
 	 .good-list-card{
+		 flex-wrap:wrap;
 		 .grid(2,48);
 		 .list-item{
 			 background-color: white;

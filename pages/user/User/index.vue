@@ -140,7 +140,7 @@
                 <text>{{ userInfo.vipName }}</text>
               </view> -->
 							<!-- vip -->
-							<view class="identity color-cyan fs-24 txt-normal left-10">养殖户</view>
+							<view class="identity color-cyan fs-24 txt-normal left-10">无字段</view>
 						</view>
 						<view @click="goPersonalData()" class="id" v-if="userInfo.phone">
 							<text>ID：{{ userInfo.uid || 0}}</text>
@@ -180,7 +180,7 @@
 				<view class="flex-main-between fs-26 color-white txt-heavy lh-1">
 					<view @click="goIntegral()" class="my-point flex-main-center flex-column flex-1">
 						<text>我的积分</text>
-						<text class="top-25 txt-medium">9999</text>
+						<text class="top-25 txt-medium">{{userInfo.integral || 0}}</text>
 					</view>
 					<view @click="goShopping()" class="shopping-point flex-main-center left-10 flex-1">
 						<text>积分商城</text>

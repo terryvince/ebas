@@ -26,7 +26,7 @@
 			<view @click="goEvaluateList()" class="list-item list-item-between">
 				<text class="fs-28 color-text">商品评价（{{replyCount}}）</text>
 				<view class="flex-main-start color-text fs-28">
-					<text class="color-danger">{{replyChance}}%</text>
+					<text class="color-danger">{{replyChance||0}}%</text>
 					<text>好评率</text>
 					<view class="iconfont icon-jiantou fs-22 color-arrow left-10"></view>
 				</view>

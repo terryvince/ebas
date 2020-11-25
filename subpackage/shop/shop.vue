@@ -175,6 +175,11 @@
 			height: 100%;
 		}
 	}
+	.style-receive {
+		padding: 6rpx 16rpx;
+		background-color: #64CE5E;
+		border-radius: 10rpx;
+	}
 </style>
 
 <template>
@@ -198,7 +203,9 @@
 				{{shopInfo.content}}
 			</view>
 		</view> -->
-		<shop-intro v-if="shopInfo" :shop-info="shopInfo"></shop-intro>
+		<shop-intro v-if="shopInfo" :shop-info="shopInfo">
+			<text @click="contactCustomer()" class="fs-28 style-receive color-white">联系客服</text>
+		</shop-intro>
 		<view class="goodsCoupon" :class="couponList.length>0?'goodsCouponTop':''">
 			<!-- 优惠券领取 -->
 			<!-- v-if="couponList.length>0" -->
@@ -290,6 +297,13 @@
 			// console.log(JSON.parse(this.$yroute.query.shopInfo))
 		},
 		methods: {
+			// 联系客服
+			contactCustomer(){
+				uni.showToast({
+					title:'待开发!',
+					icon:'none'
+				})
+			},
 			// 获取店铺数据
 			getStoreInfo: function() {
 				 getStoreInfo(this.where.merId).then(res => {

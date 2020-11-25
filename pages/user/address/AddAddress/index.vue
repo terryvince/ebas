@@ -9,10 +9,10 @@
 				<view class="name">电话：</view>
 				<input type="text" placeholder="请输入联系电话" v-model="userAddress.phone" required />
 			</view>
-			<view class="item acea-row row-between-wrapper">
+			<view @click="$refs.cityselect.open()" class="item acea-row row-between-wrapper">
 				<view class="name">地区</view>
 				<view class="picker acea-row row-between-wrapper select-value form-control">
-					<view class="address">
+					<view @click.stop="" class="address">
 						<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect>
 					</view>
 					<view class="iconfont icon-jiantou"></view>

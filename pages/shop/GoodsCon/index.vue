@@ -425,16 +425,16 @@
 					</view>
 				</view>
 			</view>
-			<view class="attribute flex-main-between">
+			<view v-if="mode!='point'" class="attribute flex-main-between">
 				<text class="fs-28 color-text">优惠券</text>
 				<text @click="toCoupon()" class="fs-28 style-receive color-white">领取</text>
 			</view>
 
-			<!-- 新版评价 -->
-			<view v-if="replyCount" class="user-comment bg-white top-5">
+			<!-- 新版评价 v-if="replyCount"-->
+			<view class="user-comment bg-white top-20">
 				<view class="list">
 					<view class="list-item list-between" @click="goEvaluateList(id)">
-						<text class="fs-28 color-text">商品评价（{{replyCount}}）</text>
+						<text class="fs-28 color-text">商品评价（{{replyCount||0}}）</text>
 						<view class="flex-main-start color-text fs-28">
 							<text class="color-danger">{{replyChance}}%</text>
 							<text>好评率</text>
@@ -529,7 +529,7 @@
 				</view>
 				<view>
 					<view v-if="goodsType===1" class="bnt acea-row toBtn">
-						<view class="btn-exchange" style="background-color: #64CE5E;" @click="tapExchange()">
+						<view class="btn-exchange" style="background-color: #00A0E9;" @click="tapExchange()">
 							<text>立即兑换</text>
 						</view>
 					</view>
@@ -766,7 +766,7 @@
 				this.$yrouter.push({
 					path: "/subpackage/shop/shop",
 					query: {
-						merId: this.shopInfo.merId
+						merId: this.storeInfo.merId
 					}
 				});
 			},
@@ -1186,7 +1186,7 @@
 			},
 			//立即兑换
 			tapExchange: function() {
-				// this.goCat(1);
+				this.goCat(1);
 			},
 			listenerActionSheet: function() {
 				if (isWeixin() === true) {

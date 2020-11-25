@@ -443,10 +443,10 @@
 				list.forEach(function(val) {
 					val.storeCartQueryVoList.forEach(function(item) {
 						if (item.checked === true) {
-							data.push({
+							data.push(postCollectAll.bind(this,{
 								id: item.productId,
 								category: item.type
-							})
+							}))
 						}
 					})
 
@@ -459,12 +459,24 @@
 					});
 					return;
 				}
-				var cont = 0;
-				data.forEach(function(item) {
-					console.log(item)
-					postCollectAll(item).then(function() {
-						cont++;
-						if (cont === data.length) {
+				
+				async function control(arr,limit){   // 控制并发
+					if(arr.length==0){
+						return 'ok'
+					}
+					const requestPart = arr.splice(0,limit)
+					try{
+						const res = await Promise.all(requestPart.map(fn=>fn()))
+					} catch(err){
+						if(err.data.status != 5101){
+							throw new Error(err.msg)
+						}
+					}
+					return control(arr,limit)
+				}
+				
+				control(data,1).then(function(res) {
+						if(res=='ok'){
 							uni.showToast({
 								title: "收藏成功!",
 								icon: "none",
@@ -478,7 +490,6 @@
 							duration: 2000
 						});
 					});
-				});
 			},
 			//立即下单；
 			placeOrder: function() {

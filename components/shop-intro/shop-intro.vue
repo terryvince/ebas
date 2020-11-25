@@ -21,7 +21,10 @@
 				<image class="avator flex-none" :src="shopInfo.imageLogo"></image>
 				<text class="left-15 fs-34">{{shopInfo.storeName}}</text>
 			</view>
-			<view>
+			<div v-if="$slots.default">
+				<slot></slot>
+			</div>
+			<view v-else>
 				<text @click="goShopManage()" class="fs-28 style-receive color-white">进入店铺</text>
 			</view>
 		</view>

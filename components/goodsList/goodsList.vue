@@ -142,7 +142,7 @@
 						</view>
 					</view>
 					<!-- 积分商品 -->
-					<view v-else class="color-danger txt-heavy fs-28">
+					<view v-else class="color-danger txt-heavy fs-28 top-22">
 						{{item.price}}积分 
 					</view>
 				</view>
@@ -295,7 +295,8 @@
 				this.$yrouter.push({
 				  path: "/pages/shop/GoodsCon/index",
 				  query: {
-					  id: item.pid || item.id
+					  id: item.pid || item.id,
+					  mode: this.from
 				  }
 				});
 			}
