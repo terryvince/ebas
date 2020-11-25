@@ -342,10 +342,12 @@
 					let data = this.storeInfo.category.replace(/、/g,",");
 					// console.log(data)
 					getProtocol(data).then(res=>{
-						this.$yrouter.push({
-							path:"/subpackage/industryProtocol/industryProtocol",
-							query:{data:JSON.stringify(res.data)}
-						})
+						if(res.success){
+							this.$yrouter.push({
+								path:"/subpackage/industryProtocol/industryProtocol",
+								query:{data:JSON.stringify(res.data)}
+							})
+						}
 					})
 				}else{
 					uni.showToast({
