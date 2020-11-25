@@ -766,7 +766,7 @@
 				this.$yrouter.push({
 					path: "/subpackage/shop/shop",
 					query: {
-						shopInfo: JSON.stringify(this.shopInfo)
+						merId: this.shopInfo.merId
 					}
 				});
 			},
@@ -785,7 +785,7 @@
 				this.$yrouter.push({
 					path: "/pages/user/coupon/UserCoupon/index",
 					query: {
-						'id': this.id
+						'id': this.shopInfo.id
 					}
 				})
 			},
