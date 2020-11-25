@@ -462,7 +462,7 @@
 					this.countdown = countDown(new Date(item.stop*1000))
 				},1000);
 				this.$once('hook:beforeDestroy',clearInterval.bind(window,this.timer));
-				return getSeckillList(item.id,{page:1,limit:4})
+				return getSeckillList(item.id,{page:1,limit:4,isHome:1})
 			}).then(({data})=>{
 				data.forEach(v=>v.stop=limitTime) // 给商品加上结束时间，方便goodsList组件跳详情用
 				this.discountList = data
@@ -475,7 +475,7 @@
 			})
 			
 			// 精选商品
-			getProducts(this.params).then(res=>{
+			getProducts({...this.params,isHome:1}).then(res=>{
 				this.pickList = res.data
 			}).catch(err => {
 				console.error("获取精选商品列表发生错误！",err)
@@ -486,7 +486,7 @@
 			})
 			
 			// 团购
-			getCombinationList({ page: 1, limit: 3 }).then(res => {
+			getCombinationList({ page: 1, limit: 3,isHome:1 }).then(res => {
 				this.combinationList = res.data
 			});
 		},
@@ -502,7 +502,7 @@
 					path: '/pages/shop/GoodsList/index',
 					query:{
 						title:'综合',
-						type:3
+						type:2
 					}
 				});
 			},

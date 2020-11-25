@@ -271,7 +271,7 @@ export default {
       var that = this;
       this.setWhere();
       // if (to.name !== "GoodsList") return;
-      const { s = "", id = 0, title = "" } = this.$yroute.query;
+      const { s = "", id = 0, title = "",type=0 } = this.$yroute.query;
       if (s !== this.where.keyword || id !== this.where.sid) {
         this.where.keyword = this.where.keyword || s;
         this.loadend = false;
@@ -286,8 +286,8 @@ export default {
         // this.get_product_list();
       }
       let q = that.where;
-      // type 0 普通商品 1积分商品 2会员卡
-      q.type = 0
+      // type 0 普通商品 1积分商品 2 精选商品
+      q.type = type
       getProducts(q).then(res => {
         that.loading = false;
         that.productList.push.apply(that.productList, res.data);
