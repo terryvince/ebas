@@ -399,8 +399,12 @@
 							<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
 							<text class="left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
 						</view> -->
-						<view class="share flex-main-end">
+						<!-- <view class="share flex-main-end">
 							<image @click="listenerActionSheet" src="../../../static/share.png" mode="widthFix" style="width:40rpx;"></image>
+						</view> -->
+						<view class="share flex-main-end relative">
+							<button type="default" class="hide-full" @click="share()" open-type="share"></button>
+							<image src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
 						</view>
 					</view>
 				</view>
@@ -751,6 +755,12 @@
 					this.productConClass = "product-con";
 				}
 			}
+		},
+		onShareAppMessage() {
+			return {
+			  title: this.storeInfo.title,
+			  path: `/pages/activity/GroupDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share`
+			};
 		},
 		methods: {
 			// callPhone(number) {
@@ -1196,7 +1206,15 @@
 			},
 			listenerActionClose: function() {
 				this.posters = false;
-			}
+			},
+			share(){
+				// #ifdef MP
+				return;
+				// #endif
+				// #ifdef H5
+					// to do
+				// #endif
+			},
 		}
 	};
 </script>
