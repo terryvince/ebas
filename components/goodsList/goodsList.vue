@@ -273,7 +273,9 @@
 					})
 					return
 				}
-				
+				if(this.from == 'seckill' && item.status!=1){   // 只允许抢购中的秒杀跳转
+					return;
+				} 
 				if(this.from == 'seckill'){ //秒杀商品
 					this.$yrouter.push({
 					  path: "/pages/activity/SeckillDetails/index",
