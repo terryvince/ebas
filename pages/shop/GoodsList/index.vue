@@ -195,8 +195,7 @@ export default {
         sid: id, //二级分类id
         news: 0,
         priceOrder: "",
-        salesOrder: "",
-		type:0
+        salesOrder: ""
       },
       title: title && id ? title : "",
       loadTitle: "",
@@ -271,7 +270,7 @@ export default {
       var that = this;
       this.setWhere();
       // if (to.name !== "GoodsList") return;
-      const { s = "", id = 0, title = "",type=0 } = this.$yroute.query;
+      const { s = "", id = 0, title = "",type='' } = this.$yroute.query;
       if (s !== this.where.keyword || id !== this.where.sid) {
         this.where.keyword = this.where.keyword || s;
         this.loadend = false;
@@ -287,7 +286,9 @@ export default {
       }
       let q = that.where;
       // type 0 普通商品 1积分商品 2 精选商品
-      q.type = type
+	  if(type){
+		  q.type = type
+	  }
       getProducts(q).then(res => {
         that.loading = false;
         that.productList.push.apply(that.productList, res.data);

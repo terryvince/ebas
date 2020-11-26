@@ -323,15 +323,19 @@
 				<view>运费：</view>
 				<view class="conter">￥{{ orderInfo.payPostage }}</view>
 			</view>
+			<view class="item acea-row row-between">
+				<view>应付：</view>
+				<view class="conter font-color-red">￥{{ orderInfo.payPrice }}</view>
+			</view>
 		</view>
 
 		<view style="height:100rpx;" v-if="!refundOrder && offlineStatus"></view>
 
 		<view class="footer acea-row row-right row-middle" v-if="!refundOrder && offlineStatus">
-			<view class="actualPay acea-row row-right">
+			<!-- <view class="actualPay acea-row row-right">
 				应付：
 				<text class="money font-color-red">￥{{ orderInfo.payPrice }}</text>
-			</view>
+			</view> -->
 
 			<template v-if="status.type == 0">
 				<view class="bnt cancel" @click="cancelOrder">取消订单</view>

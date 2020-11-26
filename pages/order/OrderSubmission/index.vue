@@ -143,7 +143,7 @@
 
 			<view class="item acea-row row-between-wrapper">
 				<view>支付方式</view>
-				<view class="discount">微信
+				<view class="discount">{{mode=='point'?'积分/积分+微信':'微信'}}
 				</view>
 			</view>
 			<view class="item">
@@ -181,7 +181,7 @@ color: #333333;">合计:
 				</view>
 				<view class="font-color-light">已优惠:{{ orderPrice.payPrice }}</view>
 			</view>
-			<view class="settlement flex-none" @click="createOrder">立即支付</view>
+			<view class="settlement flex-none" @click="createOrder">{{mode=='point'?'立即兑换':'立即支付'}}</view>
 		</view>
 		<CouponListWindow v-on:couponchange="changecoupon($event)" v-model="showCoupon" :price="orderPrice.totalPrice"
 		 :checked="usableCoupon.id" @checked="changeCoupon" :cartid="cartid"></CouponListWindow>
