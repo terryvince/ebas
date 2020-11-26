@@ -393,7 +393,7 @@
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===1">积分</text>
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===2">精选</text>
 							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48 left-20">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
-							<text class="fs-30 left-20 del-price-line">原价{{ mode=='point' ? `${storeInfo.otPrice}积分` : `&yen;${storeInfo.otPrice}` }}</text>
+							<text class="fs-30 left-20 del-price-line" v-if="storeInfo.type===2">原价{{ `&yen;${storeInfo.otPrice}` }}</text>
 						</view>
 						<!-- <view class="flex-main-start">
 							<text>库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>

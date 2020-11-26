@@ -143,8 +143,8 @@
 							<view class="identity color-cyan fs-24 txt-normal left-10">无字段</view>
 						</view>
 						<view @click="goPersonalData()" class="id" v-if="userInfo.phone">
-							<text>ID：{{ userInfo.uid || 0}}</text>
-							<text class="iconfont icon-bianji1"></text>
+							<text>{{ userInfo.phone || 0}}</text>
+							<!-- <text class="iconfont icon-bianji1"></text> -->
 						</view>
 						<button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="binding" v-else>
 							<text>绑定手机号</text>

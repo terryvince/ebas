@@ -456,7 +456,7 @@
 			let limitTime = 0 // 限时折扣的停止时间，同秒杀的stop
 			getSeckillConfig().then(({data})=>{
 				let item = data.seckillTime.find(v=>v.status===1)
-				limitTime = item.stop
+				limitTime = item.stop   // 可能不存在，
 				clearInterval(this.timer);
 				this.timer = setInterval(()=>{
 					this.countdown = countDown(new Date(item.stop*1000))
