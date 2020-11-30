@@ -68,11 +68,11 @@ export function registerReset(data) {
 }
 
 /*
- * 领取优惠券列表
+ * 领取优惠券列表，首页需要该接口，不应该要求登录，
  * */
 export function getCoupon(q) {
 	return request.get("/coupons", q, {
-		login: true
+		login: false
 	});
 }
 

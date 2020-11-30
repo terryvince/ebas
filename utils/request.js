@@ -27,7 +27,7 @@ fly.interceptors.response.use(
       console.log('登录失效 401', error)
       console.log('————————')
       handleLoginFailure();
-      return Promise.reject({ msg: "未登录", toLogin: true });
+      return Promise.reject({ msg: "接口校验未登录", toLogin: true });
     }
     return Promise.reject(error);
   }

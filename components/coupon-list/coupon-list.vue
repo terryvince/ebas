@@ -117,13 +117,12 @@
 				list:[],
 				params:{
 					page: 1,
-					limit: 3,
-					merId:""
+					limit: 3
 				}
 			};
 		},
 		mounted(){
-			this.params.merId = this.ids?this.ids:0; 
+			if(this.ids) this.params.merId = this.ids;
 			this.getCouponList();
 		},
 		methods:{
