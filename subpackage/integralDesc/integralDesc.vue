@@ -15,7 +15,7 @@
 			top: 69rpx;
 			min-height: 936rpx;
 			border-radius: 20rpx 20rpx 0 0;
-			padding:0 26rpx 40rpx;
+			padding:0 0rpx 40rpx;
 			box-sizing: border-box;
 			background-color: white;
 		}
@@ -24,9 +24,10 @@
 			height: 178rpx;
 			color: #4F4F4F;
 			font-size: 38rpx;
+			border-radius: 20rpx 20rpx 0 0;
 		}
 		.content{
-			margin: 68rpx 0 0;
+			margin: 68rpx 26rpx 0;
 			color: #333333;
 			font-size: 26rpx;
 		}
@@ -49,7 +50,7 @@
 				<span class="txt-bold">积分说明</span>
 			</view>
 			<view class="content">
-				<rich-text :nodes="rule"></rich-text>
+				<rich-text :nodes="content"></rich-text>
 			</view>
 			<view class="letter-box">
 				
@@ -59,11 +60,24 @@
 </template>
 
 <script>
+	import {
+		getRuleWitTypeApi
+	} from "@/api/user";
 	export default {
 		data() {
 			return {
-				rule:'但是口感就开了个今江苏高考零分大家赶快来设计的分开两个就看到了发就是考虑给大家看了发动进'
-			};
-		}
+				content: ""
+			}
+		},
+		onShow() {
+			console.log("getRuleWitTypeApi");
+			getRuleWitTypeApi("2")
+				.then((result) => {
+					this.content = result.data.integralRule;
+				}).catch(() => {});
+		},
+		methods: {
+	
+		},
 	}
 </script>

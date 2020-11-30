@@ -41,6 +41,7 @@
 .timeItem .state {
   height: 0.37 * 100rpx;
   line-height: 0.37 * 100rpx;
+  display: inline-block;
 }
 
 .activity {
@@ -61,6 +62,12 @@
 	border-radius: 20rpx;
 	height: 800rpx;
 }
+.timeItem.active .state{
+	    background-color: #FF9D28;
+}
+.seckill-box::v-deep .seckill-list .seckill-item{
+	margin-bottom: 30rpx;
+}
 </style>
 <template>
   <view class="flash-sale" ref="container">
@@ -69,16 +76,16 @@
     </view>
     <scroll-view scroll-y="false" scroll-x="true">
       <view class="timeScroll">
-		  <view class="color-text fs-32 txt-medium flex-main-start flex-column left-20" style="width: 66rpx;">
+		  <view class="color-text fs-32 txt-medium flex-main-start flex-column left-20 flex-none" style="width: 66rpx;margin-right: 56rpx;">
 			  <text>今日</text>
 			  <text>爆款</text>
 		  </view>
         <view v-for="(item, index) in timeList" :key="index">
-          <view v-if="active==index" class="timeItem active" @click="setTime(index)">
+          <view v-if="active==index" class="timeItem active" style="margin-right: 56rpx;" @click="setTime(index)">
             <view class="time">{{ item.time }}</view>
             <view class="state">{{ item.state }}</view>
           </view>
-          <view v-if="active!=index" class="timeItem" @click="setTime(index)">
+          <view v-if="active!=index" class="timeItem" style="margin-right: 56rpx;" @click="setTime(index)">
             <view class="time">{{ item.time }}</view>
             <view class="state">{{ item.state }}</view>
           </view>
@@ -105,7 +112,7 @@
 		
 		<!-- 商品列表 -->
 		<view v-if="seckillList.length>0" class="sec-list bg-white">
-			<goodsList :list="seckillList" from="seckill"></goodsList>
+			<goodsList :list="seckillList" from="seckill" class="seckill-box"></goodsList>
 		</view>
 		
         <!-- <view class="list bg-white">

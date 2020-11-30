@@ -356,7 +356,8 @@ each(range(5,30,5),{
 
 // 角标
 .badge{
-	display: inline-block;
+	display: inline-flex;
+	justify-content: center;
 	&.badge-mini-extra{
 		padding: 5rpx 8rpx;
 		font-size: 24rpx;
@@ -470,4 +471,17 @@ each(range(5,30,5),{
 			width: @value/24*100%;
 		}
 	})
+}
+
+// 星号, 表示重要或必填项，在指定标签左边生成一个红色*号
+.key{
+	position: relative;
+	&::before{
+		content: '*';
+		color: #FF3934;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translate(-130%,-50%);
+	}
 }

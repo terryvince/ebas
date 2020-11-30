@@ -234,7 +234,7 @@
 				<view class="flex-main-center relative">
 					<image src="https://res.sdebs.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
 					<view @click="goPickGoods()" class="pick-more fs-20 color-text-secondary flex-main-start">
-						<text>更多</text>
+						<text class="fs-22">更多</text>
 						<view class="iconfont icon-jiantou fs-20"></view>
 					</view>
 				</view>
@@ -249,7 +249,7 @@
 						<text class="left-10 lh-1">商品团购</text>
 					</view>
 					<view class="flex-main-start fs-20" @click="goGroupList()">
-						<text class="txt-bold">更多</text>
+						<text class="txt-bold fs-22">更多</text>
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
 					</view>
 				</view>
@@ -271,7 +271,7 @@
 						</view>
 					</view>
 					<view class="flex-main-start fs-20" @click="goSeckillList()">
-						<text class="txt-bold">更多</text>
+						<text class="txt-bold fs-22">更多</text>
 						<view class="iconfont icon-jiantou fs-20 left-5"></view>
 					</view>
 				</view>

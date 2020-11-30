@@ -289,9 +289,9 @@
 	.gd-title {
 		font-weight: bold;
 		text-align: center;
-		width: 217rpx;
+		width: 280rpx;
 		background: url('@/static/images/gd-detail-bg.png')no-repeat center;
-		background-size: 217rpx 4rpx;
+		background-size: 280rpx 4rpx;
 	}
 
 	.toBtn {
@@ -319,7 +319,8 @@
 	}
 
 	.bg-v1 {
-		background: linear-gradient(90deg, #0072FF, #45B2FF);
+		background: linear-gradient(90deg, #6A77FF, #A779FF);
+		// background: linear-gradient(90deg, #0072FF, #45B2FF);
 	}
 
 	.bg-v2 {
@@ -390,9 +391,9 @@
 					</view> -->
 					<view class="flex-main-between">
 						<view class="flex-main-start flex-baseline">
-							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===1">积分</text>
+							<text class="left-20 fs-28 color-type style-type" style="color: #6E77FF;" v-if="storeInfo.type===1">积分</text>
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type===2">精选</text>
-							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="fs-48 left-20">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
+							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="left-20" style="font-size: 38rpx;">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
 							<text class="fs-30 left-20 del-price-line" v-if="storeInfo.type===2">原价{{ `&yen;${storeInfo.otPrice}` }}</text>
 						</view>
 						<!-- <view class="flex-main-start">
@@ -483,7 +484,7 @@
 			<!-- 新版产品介绍 -->
 			<view class="bg-white">
 				<view class="flex-main-center">
-					<view class="gd-title fs-24 color-text">商品详情</view>
+					<view class="gd-title fs-32 color-text">商品详情</view>
 				</view>
 				<view class="width-full">
 					<rich-text :nodes="storeInfo.description"></rich-text>
@@ -529,7 +530,7 @@
 				</view>
 				<view>
 					<view v-if="goodsType===1" class="bnt acea-row toBtn">
-						<view class="btn-exchange" style="background-color: #00A0E9;" @click="tapExchange()">
+						<view class="btn-exchange" style="background: linear-gradient(90deg, #6A77FF, #A779FF);" @click="tapExchange()">
 							<text>立即兑换</text>
 						</view>
 					</view>

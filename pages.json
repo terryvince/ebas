@@ -4,9 +4,16 @@
 // subpackage/couponProtocol/couponProtocol	优惠券协议
 
 {
+	"sitemapLocation": "sitemap.json",
 	"subPackages": [
 		// 子包1
 		{
+			"plugins": {
+			        "myPlugin": {
+			            "version": "1.1.0",
+			            "provider": "wx738958e0f4c894f9"
+			        }
+			    },
 			"root": "subpackage",
 			"pages": [
 				// 页面在子包下注册
@@ -147,7 +154,7 @@
 				}, {
 					"path": "integralDesc/integralDesc",
 					"style": {
-						"navigationBarTitleText": "协议",
+						"navigationBarTitleText": "积分说明",
 						"enablePullDownRefresh": false
 					}
 
@@ -208,7 +215,19 @@
 						"enablePullDownRefresh": false
 					}
 				}
-			]
+			    ,{
+                    "path" : "chat/chat",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "客服",
+                    "enablePullDownRefresh": false,
+					"usingComponents": {
+					  "chat": "plugin://myPlugin/chat"
+					}
+                }
+                
+                }
+            ]
 		}
 	],
 	"pages": [
@@ -635,7 +654,16 @@
 			"path": "components/game/roundTurntable",
 			"style": {}
 		}
-	],
+	    ,{
+            "path" : "pages/webview/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		// #ifdef H5
 		"navigationStyle":"custom",

@@ -139,7 +139,7 @@
 							<view>账户积分</view>
 							<view class="money">{{ info.integral }}</view>
 						</view>
-						<navigator url="/subpackage/userIntegral/transferRule" class="recharge font-color-whitle">
+						<navigator url="/subpackage/integralDesc/integralDesc" class="recharge font-color-whitle">
 							积分说明
 						</navigator>
 					</view>

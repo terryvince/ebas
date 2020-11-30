@@ -194,8 +194,8 @@
 						</text>
 					</view>
 					<view class="progress-box top-30 relative">
-						<text class="progress-label color-white fs-12 txt-bold">仅剩{{item.stock}}件</text>
-						<progress :percent="item.stock/(item.sales+item.stock)*100" active :stroke-width="toPx(18)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
+						<text class="progress-label color-white fs-16 txt-bold">仅剩{{item.stock}}件</text>
+						<progress :percent="item.stock/(item.sales+item.stock)*100" active :stroke-width="toPx(24)" :border-radius="toPx(9)" backgroundColor="#E5E5E5" activeColor="#FF9322"/>
 					</view>
 					<view class="seckill-extra flex-main-between" style="margin-top: 23rpx;">
 						<view>
