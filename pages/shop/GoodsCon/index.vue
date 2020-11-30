@@ -794,9 +794,9 @@
 			// 领取优惠券
 			toCoupon() {
 				this.$yrouter.push({
-					path: "/pages/user/coupon/UserCoupon/index",
+					path: "/pages/user/coupon/GetCoupon/index",
 					query: {
-						'id': this.shopInfo.id
+						'merId': this.shopInfo.id
 					}
 				})
 			},
