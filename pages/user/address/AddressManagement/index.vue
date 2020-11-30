@@ -1,24 +1,28 @@
 <template>
 	<view class="address-management" :class="addressList.length < 1 && page > 1 ? 'on' : ''" ref="container">
-		<view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
-			<view class="address">
-				<view style="margin-right: 100rpx;">
-					<view class="consignee">
-						{{ item.realName }}
-						<text class="phone">{{ item.phone }}</text>
-						<text v-if="item.isDefault==1" class="left-10 bg-color-green color-white padding-5 txt-center  fs-20">默认</text>
+		<view class="list-wrap">
+			<view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
+				<view class="address">
+					<view style="margin-right: 100rpx;">
+						<view class="consignee">
+							{{ item.realName }}
+							<text class="phone">{{ item.phone }}</text>
+							<!-- <text  class="left-10 bg-color-green color-white padding-5 txt-center  fs-20">默认</text> -->
+							<text v-if="item.isDefault==1" class="badge badge-mini-extra badge-primary badge-radius left-10">默认</text>
+						</view>
+						<view class="address-detail">
+							{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+						</view>
 					</view>
-					<view class="address-detail">
-						{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+			
+					<view @click="editAddress(addressListIndex)">
+						<image src="https://res.sdebs.com/icon-address-edit.png" mode="" class="address-edit"></image>
 					</view>
+			
 				</view>
-
-				<view @click="editAddress(addressListIndex)">
-					<image src="https://res.sdebs.com/icon-address-edit.png" mode="" class="address-edit"></image>
-				</view>
-
 			</view>
 		</view>
+		
 		<Loading :loaded="loadend" :loading="loading"></Loading>
 		<view class="noCommodity" v-if="addressList.length < 1 && page > 1">
 			<view class="noPictrue">
@@ -27,7 +31,7 @@
 		</view>
 		<view style="height:100rpx;"></view>
 		<view class="footer acea-row row-between-wrapper">
-			<view class="addressBnt on bg-color-green" @click="addAddress">
+			<view class="addressBnt on bg-primary color-white" @click="addAddress">
 				添加收货地址
 			</view>
 		</view>
@@ -39,10 +43,20 @@
   height: 100vh;
 }
 .address-management{
-	background-color: #f5f5f5;
+	// margin: 20rpx;
+}
+.list-wrap{
+	background-color: white;
+	overflow: hidden;
+	border-radius: 20rpx;
+	margin: 20rpx;
 }
 .item{
-	margin: 20rpx !important;
+	margin-bottom: 0;
+	background-color: transparent;
+	&:last-child .address{
+		border-bottom: none;
+	}
 }
 .phone{
 	margin-left: 88rpx !important;

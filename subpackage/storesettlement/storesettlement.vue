@@ -86,6 +86,9 @@
 			}
 		}
 	}
+	.storesettlement .storeInfo .storeId{
+		padding: 10rpx 30rpx;
+	}
 </style>
 
 <template>
@@ -96,7 +99,7 @@
 			<!-- 基本信息 -->
 			<view class="list">
 				<view class="item acea-row row-between-wrapper">
-					<view class="name">姓名：</view>
+					<view class="name key">姓名：</view>
 					<input type="text" placeholder="请输入姓名" v-model="storeInfo.realName" required />
 				</view>
 				<view class="item acea-row row-between-wrapper">
@@ -104,12 +107,12 @@
 					<input type="text" placeholder="请输入店铺名称" v-model="storeInfo.storeName" required />
 				</view>
 				<view class="item acea-row row-between-wrapper">
-					<view class="name">电话：</view>
+					<view class="name key">电话：</view>
 					<input type="text" placeholder="请输入联系电话" v-model="storeInfo.phone" required />
 				</view>
 				<!-- 扩大可点击区域 -->
 				<view @click="$refs.goodstype.open()" class="item acea-row row-between-wrapper">
-					<view class="name">商品类别</view>
+					<view class="name key">商品类别</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
 						<!-- 防止内部点击冒泡 -->
 						<view class="address" @click.stop="">
@@ -119,7 +122,7 @@
 					</view>
 				</view>
 				<view @click="$refs.cityselect.open()" class="item acea-row row-between-wrapper">
-					<view class="name">地区</view>
+					<view class="name key">地区</view>
 					<view class="picker acea-row row-between-wrapper select-value form-control">
 						<view class="address" @click.stop="">
 							<CitySelect ref="cityselect" :defaultValue="addressText" :value1="storeInfo.addressText" @callback="result"
@@ -131,7 +134,7 @@
 			</view>
 			<!-- 身份证 -->
 			<view class="storeId">
-				<view class="idTitle">
+				<view class="idTitle key">
 					身份证正反面
 				</view>
 				<view class="photos">
@@ -377,9 +380,9 @@
 				try{
 					await this.$validator({
 						realName:[required(required.message("姓名！")),
-						attrs.range([2,16],attrs.range.message("姓名！"))],
-						storeName:[required(required.message("店铺名称！")),
-						attrs.range([2,16],attrs.range.message("店铺名称！"))],
+						attrs.range([2,16],attrs.range.message("姓名:"))],
+						// storeName:[required(required.message("店铺名称！")),
+						// attrs.range([2,16],attrs.range.message("店铺名称！"))],
 						phone:[required(required.message("联系电话！")),
 						chs_phone(chs_phone.message())],
 						category:[required("请选择商品类别")],
@@ -392,19 +395,19 @@
 							// 	return value.length>0
 							// }
 						}],
-						imageLicense:[{
-							required: true,
-							message:'请上传营业执照',
-							type:'array'}],
-						// imageOther:[{
+						// imageLicense:[{
 						// 	required: true,
-						// 	message:'请上传其他证件',
+						// 	message:'请上传营业执照',
 						// 	type:'array'}],
-						imageLogo:[{
-							required: true,
-							message:'请上传店铺Logo',
-							type:'array'}],
-						content:[required(required.message("文字介绍！"))],
+						// // imageOther:[{
+						// // 	required: true,
+						// // 	message:'请上传其他证件',
+						// // 	type:'array'}],
+						// imageLogo:[{
+						// 	required: true,
+						// 	message:'请上传店铺Logo',
+						// 	type:'array'}],
+						// content:[required(required.message("文字介绍！"))],
 						platform:[{
 							required: true,
 							message:'请阅读并勾选相关平台协议！',
@@ -421,7 +424,8 @@
 								return value===true
 							}
 						}]
-					}).validate({realName,storeName,phone,category,addressText,certificates,imageLicense,imageLogo,content,platform,industry});
+					}).validate({realName,phone,category,addressText,certificates,platform,industry});
+					// storeName imageLicense imageLogo content
 				}catch(e){
 					// console.log(e.errors);
 					return validatorDefaultCatch(e);
@@ -430,7 +434,7 @@
 					this.storeInfo.certificates = this.storeInfo.certificates.join(",");
 					this.storeInfo.imageLicense = this.storeInfo.imageLicense.join(",");
 					this.storeInfo.imageOther = this.storeInfo.imageOther.join(",");
-					this.storeInfo.imageLogo = this.storeInfo.imageLogo.join(",");
+					this.storeInfo.imageLogo = this.storeInfo.imageLogo ? this.storeInfo.imageLogo.join(",") : ''; // 不是必填项
 					postSettlement(this.storeInfo).then(res=>{
 						if(res.data=="成功"){
 							uni.showToast({

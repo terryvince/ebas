@@ -308,7 +308,7 @@
 		</view>
 		<view class="wrapper">
 			<view class="item acea-row row-between">
-				<view>支付金额：</view>
+				<view>商品金额：</view>
 				<view class="conter">￥{{ orderInfo.totalPrice }}</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.couponPrice > 0">

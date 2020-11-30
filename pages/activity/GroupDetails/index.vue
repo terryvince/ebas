@@ -42,9 +42,9 @@
 .gd-title {
 	font-weight: bold;
 	text-align: center;
-	width: 217rpx;
+	width: 280rpx;
 	background: url('@/static/images/gd-detail-bg.png')no-repeat center;
-	background-size: 217rpx 4rpx;
+	background-size: 280rpx 4rpx;
 }
 
 .btn-left {
@@ -70,7 +70,7 @@
 			<view class="flex-main-between">
 				<view class="flex-main-start flex-baseline">
 					<text class="left-20 fs-28 color-type style-type">拼团</text>
-					<text class="fs-48 left-20">￥{{ storeInfo.price }}</text>
+					<text class="left-20" style="font-size: 38rpx;">￥{{ storeInfo.price }}</text>
 					<text class="fs-30 left-20 del-price-line">原价{{ `&yen;${storeInfo.productPrice||0}` }}</text>
 				</view>
 				<!-- <view class="flex-main-start">
@@ -242,7 +242,7 @@
 	<!-- 新版产品介绍 -->
 	<view class="bg-white">
 		<view class="flex-main-center">
-			<view class="gd-title fs-24 color-text">商品详情</view>
+			<view class="gd-title fs-32 color-text">商品详情</view>
 		</view>
 		<view class="width-full">
 			<rich-text :nodes="storeInfo.description"></rich-text>

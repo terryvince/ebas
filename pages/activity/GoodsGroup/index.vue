@@ -18,6 +18,9 @@
 		position: relative;
 		z-index: 2;
 	}
+	.group-box::v-deep .group-list .group-item{
+		margin-bottom: 30rpx;
+	}
 </style>
 <template>
   <view class="group-list" ref="container">
@@ -61,7 +64,7 @@
 		</view>
 	</view>
 	<view class="group-wrap" v-if="combinationList.length>0">
-		<goodsList :list="combinationList" from="group"></goodsList>
+		<goodsList :list="combinationList" from="group" class="group-box"></goodsList>
 	</view>
     <view class="noCommodity bg-white" style="padding-bottom: 20rpx;" v-if="combinationList.length === 0">
       <view class="noPictrue">

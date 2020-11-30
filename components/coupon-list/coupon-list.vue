@@ -25,7 +25,7 @@
 		margin:0 20rpx;
 		background: url(https://res.sdebs.com/index-coupon.png)no-repeat center;
 		background-size: 100% 100%;
-		padding: 24rpx 22rpx 36rpx;
+		padding: 28rpx 22rpx 36rpx;
 		position: relative;
 		box-sizing: border-box;
 	}
@@ -77,10 +77,10 @@
 	<view>
 		<view v-if="list.length>0" class="index-coupon-wrap">
 			<view class="more flex-main-end fs-20 color-white">
-				<text @tap="moreOther()">更多</text>
+				<text @tap="moreOther()" class="fs-22">更多</text>
 				<text class="iconfont icon-jiantou fs-20"></text>
 			</view>
-			<view class="index-coupon-list top-10">
+			<view class="index-coupon-list top-15">
 				<view v-for="(item,i) of list" :key="i" class="coupon-item flex-main-between" style="background-color: #FFF76B5B;">
 					<view style="position: relative; top: -10rpx;">
 						<view class="flex-main-start">
