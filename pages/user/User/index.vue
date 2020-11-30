@@ -140,7 +140,7 @@
                 <text>{{ userInfo.vipName }}</text>
               </view> -->
 							<!-- vip -->
-							<view class="identity color-cyan fs-24 txt-normal left-10">无字段</view>
+							<view class="identity color-cyan fs-24 txt-normal left-10">{{(userInfo.mark&&userInfo.mark=='平台农户')?'养殖户':'普通用户'}}</view>
 						</view>
 						<view @click="goPersonalData()" class="id" v-if="userInfo.phone">
 							<text>{{ userInfo.phone || 0}}</text>

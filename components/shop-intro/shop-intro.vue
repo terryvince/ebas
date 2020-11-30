@@ -29,7 +29,7 @@
 			</view>
 		</view>
 		<view class="padding30 bg-gray top-20 boder-radius fs-24 color-text">
-			{{shopInfo.content}}
+			{{shopInfo.content?shopInfo.content:'无'}}
 		</view>
 	</view>
 </template>

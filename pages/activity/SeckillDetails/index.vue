@@ -78,7 +78,7 @@ count-down::v-deep .styleAll{
 		<view class="list bg-white">
 			<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 20rpx 32rpx;" v-text="storeInfo.title"></view>
 			<view class="list-item list-item-between fs-24 txt-medium color-number line-down">
-				<text>运费：{{tempName||'无字段'}}</text>
+				<text>运费：{{storeInfo.isPostage==1?'包邮':storeInfo.postage+'元'}}</text>
 				<view>
 					<text>库存{{storeInfo.stock}}{{storeInfo.unitName}}</text>
 					<text class="left-30">已售{{storeInfo.sales}}{{storeInfo.unitName}}</text>
