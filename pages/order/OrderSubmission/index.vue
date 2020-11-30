@@ -58,9 +58,35 @@
 		.item {
 			margin-left: 0rpx !important;
 		}
+		.orderGoods{
+			overflow: hidden;
+			border-radius: 20rpx;
+		}
 	}
 	.font-color-light{
 		color: #A6A6A6;
+	}
+	.order-submission .allAddress{
+		margin-top: 40rpx;
+		border-radius: 20rpx;
+		overflow: hidden;
+		padding: 0;
+	}
+	.order-goods-list{
+		overflow: hidden;
+		border-radius: 20rpx;
+		margin: 20rpx;
+		.goods-item{
+			background-color: white;
+			border-radius: 20rpx;
+			overflow: hidden;
+			margin-bottom: 20rpx;
+			padding: 40rpx 20rpx;
+		}
+		.goods-img{
+			width: 140rpx;
+			height: 140rpx;
+		}
 	}
 </style>
 <template>
@@ -96,7 +122,28 @@
 				<image src="@/static/images/line.jpg" />
 			</view>
 		</view>
-		<OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
+		<!-- <OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo" class="order-goods-wrap"></OrderGoods> -->
+		
+		<view class="order-goods-list color-text">
+			<view class="goods-item flex-main-between" v-for="cart in orderGroupInfo.cartInfo" :key="cart.id">
+				<view class="goods-img flex-none">
+					<image :src="cart.productInfo.image" mode="widthFix" class="width-full"></image>
+				</view>
+				<view class="goods-right flex-1 left-20">
+					<view class="goods-title txt-ellipsis row-2">{{cart.storeName}}</view>
+					<view class="flex-main-start fs-20 txt-bold lh-1 color-gray" style="margin-top: 18rpx;" v-if="cart.productInfo.attrInfo">
+						<text>{{cart.shopName}}</text>
+						<text class="left-10">{{cart.productInfo.attrInfo.sku}}</text>
+					</view>
+					<view class="flex-main-end lh-1 fs-28 txt-bold">
+						<text>x</text>
+						<text class="left-15">{{cart.cartNum}}</text>
+					</view>
+					<view class="color-danger fs-28 txt-bold lh-1 ">{{cart.cartNum}}</view>
+					
+				</view>
+			</view>
+		</view>
 
 		<view class="wrapper">
 			<view v-if="shipping_type === 0">
