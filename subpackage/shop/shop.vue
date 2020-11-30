@@ -231,7 +231,7 @@
 					<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
 				</view>
 				<view class="goodsListItem choice-goods x-line gray">
-					<goodsList v-if="pickList.lenth>0" :list="pickList" :from="goodsType"></goodsList>
+					<goodsList v-if="pickList.length>0" :list="pickList" :from="goodsType"></goodsList>
 					<view v-else class="noPictrue">
 						<image mode="widthFix" src="@/static/images/noGood.png" class="image" />
 					</view>
@@ -318,7 +318,6 @@
 				this.setWhere();
 				getProducts(this.where).then(res => {
 					this.pickList = this.pickList.concat(res.data);
-					
 					this.loading = false;
 					this.where.page++;
 					this.loaded = res.data.length < this.where.limit;
