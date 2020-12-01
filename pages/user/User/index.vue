@@ -146,7 +146,7 @@
 							<text>{{ userInfo.phone || 0}}</text>
 							<!-- <text class="iconfont icon-bianji1"></text> -->
 						</view>
-						<button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="binding" v-else>
+						<button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="binding" @click="setPhone()" v-else>
 							<text>绑定手机号</text>
 						</button>
 					</view>
@@ -325,6 +325,12 @@
 		computed: mapGetters(["userInfo"]),
 		methods: {
 			...mapMutations(["updateAuthorizationPage"]),
+			setPhone(){
+				// #ifdef MP
+				return
+				// #endif
+				this.goPersonalData()
+			},
 			goChat(){
 				// #ifdef H5
 				location.href = 'https://yzf.qq.com/xv/web/static/chat/index.html?sign=37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2'
