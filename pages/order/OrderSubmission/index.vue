@@ -144,7 +144,7 @@
 		<!-- <OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo" class="order-goods-wrap"></OrderGoods> -->
 		
 		<view class="order-goods-list color-text">
-			<view class="goods-item flex-main-between" v-for="cart in orderGroupInfo.cartInfo" :key="cart.id" v-show="orderGroupInfo.cartInfo.length<3 || isShowMore">
+			<view class="goods-item flex-main-between" v-for="(cart,i) in orderGroupInfo.cartInfo" :key="cart.id" v-show="i<2 || isShowMore">
 				<view class="goods-img flex-none">
 					<image :src="cart.productInfo.image" mode="widthFix" class="width-full"></image>
 				</view>
