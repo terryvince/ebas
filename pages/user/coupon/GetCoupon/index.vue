@@ -23,6 +23,16 @@
 		margin: 10rpx 20rpx;
 		background-color: #FFFFFF;
 	}
+
+	.icon-jiantou {
+		&.down {
+			transform: rotateZ(90deg);
+		}
+
+		&.up {
+			transform: rotateZ(-90deg);
+		}
+	}
 </style>
 
 <template>
@@ -62,8 +72,12 @@
 					</div>
 				</view>
 				<view class="explian" :style="{height:item.isMore ? 'auto':'40rpx'}">
-					<view style=" font-size: 30rpx; color: #999999;">使用说明使用说明使用说明使用说明使用说明使用说明使用说明使用说明？</view>
-					<view @click="more(item)" class="flex-none left-10">v</view>
+					<view style=" font-size: 26rpx; color: #999999;">{{item.explain||"暂无说明"}}</view>
+					<view @click="" class="flex-none left-10">
+						<view @click="more(item)" class="white-block flex-main-center" style="color: #A6A6A6;">
+							<text :class="[item.isMore? 'up':'down','iconfont icon-jiantou fs-26 left-10']"></text>
+						</view>
+					</view>
 				</view>
 			</div>
 
@@ -109,7 +123,7 @@
 			!this.loading && this.getUseCoupons();
 		},
 		methods: {
-			more(item){
+			more(item) {
 				item.isMore = !item.isMore
 			},
 			couponAction: function() {
@@ -149,7 +163,7 @@
 				getCoupon(q).then(res => {
 					that.loading = false;
 					//apply();js将一个数组插入另一个数组;
-					res.data.forEach(v=>v.isMore=false)
+					res.data.forEach(v => v.isMore = false)
 					that.couponsList.push.apply(that.couponsList, res.data);
 					that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
 					that.page = that.page + 1;
