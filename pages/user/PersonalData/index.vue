@@ -40,7 +40,7 @@
         <view>手机号</view>
         <view class="input">
           <input type="text" :disabled="true" v-if="userInfo.phone" v-model="userInfo.phone" />
-          <input type="text" v-else value="未绑定" disabled class="id" />
+          <input type="text" v-model="phone" v-else placeholder="请输入手机号" maxlength="11" class="id" />
         </view>
       </view>
       <!-- <view class="item acea-row row-between-wrapper" @click="goChangePassword()">
@@ -51,7 +51,7 @@
         </view>
       </view>-->
     </view>
-    <!-- <view class="modifyBnt bg-color-red" @click="submit">保存修改</view> -->
+    <view v-if="!userInfo.phone" class="modifyBnt bg-primary" @click="submit">保存</view>
     <!-- <view
       class="logOut cart-color acea-row row-center-wrapper"
       @click="logout"
@@ -60,7 +60,7 @@
   </view>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters,mapMutations } from "vuex";
 import { trim, isWeixin, chooseImage } from "@/utils";
 import { VUE_APP_API_URL } from "@/config";
 import {
@@ -81,6 +81,7 @@ export default {
   data: function() {
     return {
       avatar: "",
+	  phone:'',
       isWeixin: false,
       currentAccounts: 0,
       switchUserInfo: [],
@@ -94,6 +95,7 @@ export default {
     this.getUserInfo();
   },
   methods: {
+	  ...mapMutations(['updateUserInfo']),
     goChangePassword() {
       this.$yrouter.push("/pages/user/ChangePassword/index");
     },
@@ -138,6 +140,7 @@ export default {
     getUserInfo: function() {
       let that = this;
       getUserInfo().then(res => {
+		  this.updateUserInfo(res.data)
         // let switchUserInfo = res.data.switchUserInfo;
         // for (let i = 0; i < switchUserInfo.length; i++) {
         //   if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
@@ -160,9 +163,17 @@ export default {
 
     submit: function() {
       let userInfo = this.userInfo;
+	  if(!/^\d{11,11}$/g.test(this.phone)){
+		  uni.showToast({
+		  	title:'请输入正确的手机号',
+			icon:'none'
+		  })
+		  return
+	  }
       postUserEdit({
         nickname: trim(this.userInfo.nickname),
-        avatar: this.avatar
+        avatar: this.avatar,
+		phone: this.phone
       }).then(
         res => {
           this.$store.dispatch("userInfo", true);

@@ -149,15 +149,15 @@
 				</view>
 			</view>
 		</view>
-
-
+		
+		<Recommend v-if="productList && productList.length === 0 && where.page > 1"></Recommend>
+		
 		<Loading :loaded="loadend" :loading="loading"></Loading>
 		<view class="noCommodity" style="background-color: #fff;" v-if="productList && productList.length === 0 && where.page > 1">
 			<view class="noPictrue">
 				<image src="@/static/images/noGood.png" class="image" />
 			</view>
 		</view>
-		<Recommend v-if="productList && productList.length === 0 && where.page > 1"></Recommend>
 	</view>
 </template>
 
