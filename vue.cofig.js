@@ -41,6 +41,7 @@ module.exports = {
 				to: path.join(__dirname + '/unpackage/', 'dist', process.env.NODE_ENV === 'production' ? 'build' : 'dev',
 					process.env.UNI_PLATFORM, '/')
 			}])
-		]
+		],
+		
 	}
 }

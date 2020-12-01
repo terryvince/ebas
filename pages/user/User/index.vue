@@ -247,7 +247,7 @@
 					<view class="fun-list lh-1 flex-wrap">
 						<view v-for="(item, MyMenusIndex) in MyMenus" :key="MyMenusIndex" @click="goPages(MyMenusIndex)" class="fun-item relative">
 							<!-- 客服特殊处理 -->
-							<button v-if="item.uniapp_url == 'contact'" type="default" open-type="contact" class="hide-full"></button>
+							<button v-if="item.uniapp_url == 'contact'" type="default" class="hide-full" @click="goChat()"></button>
 							<image :src="item.pic" class="fun-img"></image>
 							<view class="top-20">{{ item.name }}</view>
 						</view>
@@ -325,6 +325,14 @@
 		computed: mapGetters(["userInfo"]),
 		methods: {
 			...mapMutations(["updateAuthorizationPage"]),
+			goChat(){
+				// #ifdef MP
+				this.$yrouter.push("/subpackage/chat/chat");
+				// #endif
+				// #ifdef H5
+				
+				// #endif
+			},
 			goReturnList() {
 				this.$yrouter.push("/pages/order/ReturnList/index");
 			},
@@ -423,6 +431,7 @@
 					});
 				}
 			},
+			
 			changeswitch: function(data) {
 				this.switchActive = data;
 			},

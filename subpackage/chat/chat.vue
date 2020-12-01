@@ -36,7 +36,7 @@
 			        viewUrl(res){  //需要跳转的链接，则需要配置一个web-view
 			          if (res) {
 			            wx.navigateTo({
-			              url: '/pages/webview/index?href=' + res
+			              url: '/subpackage/webview/index?href=' + res
 			            })
 			          }
 			        },
