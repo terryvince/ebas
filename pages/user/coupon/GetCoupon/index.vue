@@ -5,6 +5,7 @@
 		// min-height: 2.2*100rpx;
 		margin-bottom: 0.16*100rpx;
 		background-color: #FFFFFF;
+		padding-bottom: 10rpx;
 	}
 
 	.coupon-list .item .text {
@@ -18,14 +19,9 @@
 	.explian {
 		display: flex;
 		justify-content: space-between;
-		height: 40rpx;
 		overflow: hidden;
-		padding: 20rpx 0rpx;
-		// padding-top: 20rpx;
-		// margin-bottom: 40rpx;
+		margin: 10rpx 20rpx;
 		background-color: #FFFFFF;
-		// margin-top: 20rpx;
-		// margin-bottom: 20rpx;
 	}
 </style>
 
@@ -65,9 +61,9 @@
 						</div>
 					</div>
 				</view>
-				<view class="explian">
+				<view class="explian" :style="{height:item.isMore ? 'auto':'40rpx'}">
 					<view style=" font-size: 30rpx; color: #999999;">使用说明使用说明使用说明使用说明使用说明使用说明使用说明使用说明？</view>
-					<view>v</view>
+					<view @click="more(item)" class="flex-none left-10">v</view>
 				</view>
 			</div>
 
@@ -113,6 +109,9 @@
 			!this.loading && this.getUseCoupons();
 		},
 		methods: {
+			more(item){
+				item.isMore = !item.isMore
+			},
 			couponAction: function() {
 				console.log("couponAction");
 				this.$yrouter.push("/subpackage/couponProtocol/couponProtocol");
@@ -150,6 +149,7 @@
 				getCoupon(q).then(res => {
 					that.loading = false;
 					//apply();js将一个数组插入另一个数组;
+					res.data.forEach(v=>v.isMore=false)
 					that.couponsList.push.apply(that.couponsList, res.data);
 					that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
 					that.page = that.page + 1;
