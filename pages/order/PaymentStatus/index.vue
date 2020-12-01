@@ -34,7 +34,7 @@
 			</view>
 			<view class="item acea-row row-between-wrapper">
 				<view>支付金额</view>
-				<view class="itemCom">{{payMoney}}</view>
+				<view class="itemCom">¥{{payMoney}}</view>
 			</view>
 			<!--失败时加上这个  -->
 			<!--<view class='item acea-row row-between-wrapper'>-->
@@ -43,19 +43,48 @@
 			<!--</view>-->
 		</view>
 		<!--失败时： 重新购买 -->
-		<view class="returnBnt bg-color-green">返回查看订单</view>
-		<view class="returnBnt cart-color">返回首页</view>
+		<view class="returnBnt bg-color-green" @click="orderAction">返回查看订单</view>
+		<view class="returnBnt cart-color" @click="homeAction">返回首页</view>
 	</view>
 </template>
 
 <script>
-export default{
-	data(){
-		return {
-			orderNo:"wx3265361456134568",
-			createTime:"2020-11-09 18:05",
-			payMoney:"1000.00"
+	export default {
+		data() {
+			return {
+				orderNo: "",
+				createTime: "",
+				payMoney: "0.00"
+			}
+		},
+		mounted: function() {
+			let that = this;
+
+			if (that.$yroute.query.orderNo !== undefined) {
+				that.orderNo = that.$yroute.query.orderNo;
+			}
+			if (that.$yroute.query.createTime !== undefined) {
+				that.createTime = that.$yroute.query.createTime;
+			}
+			if (that.$yroute.query.payMoney !== undefined) {
+				that.payMoney = that.$yroute.query.payMoney;
+			}
+		},
+		methods: {
+			orderAction: function() {
+				this.$yrouter.replace({
+					path: "/pages/order/MyOrder/index",
+					query: {
+						type: 0
+					}
+				});
+			},
+			homeAction: function() {
+				this.$yrouter.switchTab({
+					path: "/pages/home/index",
+					query: {}
+				});
+			}
 		}
 	}
-}
 </script>

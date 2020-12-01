@@ -58,50 +58,60 @@
 		.item {
 			margin-left: 0rpx !important;
 		}
-		.orderGoods{
+
+		.orderGoods {
 			overflow: hidden;
 			border-radius: 20rpx;
 		}
 	}
-	.font-color-light{
+
+	.font-color-light {
 		color: #A6A6A6;
 	}
-	.order-submission .allAddress{
+
+	.order-submission .allAddress {
 		margin-top: 40rpx;
 		border-radius: 20rpx;
 		overflow: hidden;
 		padding: 0;
 	}
-	.order-goods-list{
+
+	.order-goods-list {
 		overflow: hidden;
 		border-radius: 20rpx;
 		margin: 20rpx 0;
-		.goods-item{
+
+		.goods-item {
 			background-color: white;
 			border-radius: 20rpx;
 			overflow: hidden;
 			margin-bottom: 20rpx;
 			padding: 40rpx 20rpx;
 		}
-		.goods-img{
+
+		.goods-img {
 			width: 140rpx;
 			height: 140rpx;
 		}
 	}
-	.white-block{
+
+	.white-block {
 		width: 200rpx;
 		height: 46rpx;
 		background: #FFFFFF;
 		border-radius: 23rpx;
 	}
-	.icon-jiantou{
-		&.down{
+
+	.icon-jiantou {
+		&.down {
 			transform: rotateZ(90deg);
 		}
-		&.up{
+
+		&.up {
 			transform: rotateZ(-90deg);
 		}
 	}
+
 	.order-submission .wrapper {
 		margin-top: 20rpx;
 		border-radius: 20rpx;
@@ -142,7 +152,7 @@
 			</view>
 		</view>
 		<!-- <OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo" class="order-goods-wrap"></OrderGoods> -->
-		
+
 		<view class="order-goods-list color-text">
 			<view class="goods-item flex-main-between" v-for="(cart,i) in orderGroupInfo.cartInfo" :key="cart.id" v-show="i<2 || isShowMore">
 				<view class="goods-img flex-none">
@@ -161,14 +171,14 @@
 					<view class="color-danger fs-28 txt-bold lh-1 ">￥{{cart.truePrice}}</view>
 				</view>
 			</view>
-			
+
 			<view class="flex-main-center txt-medium fs-26">
 				<view @click="switchMore()" class="white-block flex-main-center" style="color: #A6A6A6;">
 					<text>共{{orderGroupInfo.cartInfo ? orderGroupInfo.cartInfo.length : 0}}件</text>
 					<text :class="[isShowMore? 'up':'down','iconfont icon-jiantou fs-16 left-10']"></text>
 				</view>
 			</view>
-			
+
 		</view>
 
 		<view class="wrapper">
@@ -194,7 +204,7 @@
 			</view>
 
 
-	<!-- 		<view v-else>
+			<!-- 		<view v-else>
 				<view class="item acea-row row-between-wrapper">
 					<view>联系人</view>
 					<view class="discount">
@@ -213,9 +223,9 @@
 				<view>商品总价：</view>
 				<view class="money txt-bold fs-28">￥{{ orderPrice.totalPrice }}</view>
 			</view>
-			
+
 		</view>
-		
+
 		<view class="wrapper">
 			<view class="item acea-row row-between-wrapper">
 				<view>支付方式</view>
@@ -338,7 +348,7 @@ color: #333333;">
 				isShowInput: false,
 				isShowInput2: false,
 				isShowInput3: false,
-				isShowMore:false,
+				isShowMore: false,
 			};
 		},
 		computed: mapGetters(["userInfo", "storeItems"]),
@@ -377,11 +387,11 @@ color: #333333;">
 			}
 		},
 		methods: {
-			switchMore(){
-				if(this.orderGroupInfo.cartInfo.length<3){
+			switchMore() {
+				if (this.orderGroupInfo.cartInfo.length < 3) {
 					uni.showToast({
-						title:'没有更多了',
-						icon:'none'
+						title: '没有更多了',
+						icon: 'none'
 					})
 					return;
 				}
@@ -620,26 +630,54 @@ color: #333333;">
 								break;
 							case "WECHAT_PAY":
 								// 小程序支付
-								weappPay(data.result.jsConfig).finally(() => {
-									this.$yrouter.replace({
-										path: "/pages/order/OrderDetails/index",
-										query: {
-											id: data.result.orderId
-										}
+								weappPay(data.result.jsConfig)
+									.catch(() => {
+										this.$yrouter.replace({
+											path: "/pages/order/PaymentStatus/index",
+											query: {
+												orderNo: data.result.orderId,
+												createTime: res.time,
+												payMoney: this.orderPrice.payPrice
+											}
+										});
+									})
+									// .catch(() => {
+									// 	this.$yrouter.replace({
+									// 		path: "/pages/order/OrderDetails/index",
+									// 		query: {
+									// 			id: data.result.orderId
+									// 		}
+									// 	});
+									// })
+									.finally(() => {
+
 									});
-								});
 								break;
 
 							case "WECHAT_APP_PAY":
 								// APP支付
-								weappPay(data.result.jsConfig).finally(() => {
-									this.$yrouter.replace({
-										path: "/pages/order/OrderDetails/index",
-										query: {
-											id: data.result.orderId
-										}
+								weappPay(data.result.jsConfig)
+									.then(() => {
+										this.$yrouter.replace({
+											path: "/pages/order/PaymentStatus/index",
+											query: {
+												orderNo: data.result.orderId,
+												createTime: res.time,
+												payMoney: this.orderPrice.payPrice
+											}
+										});
+									})
+									.catch(() => {
+										this.$yrouter.replace({
+											path: "/pages/order/OrderDetails/index",
+											query: {
+												id: data.result.orderId
+											}
+										});
+									})
+									.finally(() => {
+
 									});
-								});
 								break;
 								// 下面为原先微信支付方式，
 								// pay(data.result.jsConfig).finally(() => {
