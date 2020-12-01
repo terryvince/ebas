@@ -167,6 +167,7 @@
         },
         "router" : {
             "mode" : "hash"
-        }
+        },
+        "template" : "template.h5.html"
     }
 }

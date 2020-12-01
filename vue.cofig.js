@@ -42,6 +42,5 @@ module.exports = {
 					process.env.UNI_PLATFORM, '/')
 			}])
 		],
-		
 	}
 }

@@ -299,10 +299,12 @@
 		methods: {
 			// 联系客服
 			contactCustomer(){
-				uni.showToast({
-					title:'待开发!',
-					icon:'none'
-				})
+				// #ifdef H5
+				location.href = 'https://yzf.qq.com/xv/web/static/chat/index.html?sign=37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2'
+				// #endif
+				// #ifndef H5
+				this.$yrouter.push("/subpackage/chat/chat");
+				// #endif
 			},
 			// 获取店铺数据
 			getStoreInfo: function() {

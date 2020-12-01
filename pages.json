@@ -8,12 +8,14 @@
 	"subPackages": [
 		// 子包1
 		{
+			// #ifdef MP
 			"plugins": {
 			        "myPlugin": {
 			            "version": "1.1.0",
 			            "provider": "wx738958e0f4c894f9"
 			        }
 			    },
+			// #endif
 			"root": "subpackage",
 			"pages": [
 				// 页面在子包下注册
@@ -220,10 +222,12 @@
                     "style" :                                                                                    
                 {
                     "navigationBarTitleText": "客服",
-                    "enablePullDownRefresh": false,
-					"usingComponents": {
+                    "enablePullDownRefresh": false
+					// #ifdef MP
+					,"usingComponents": {
 					  "chat": "plugin://myPlugin/chat"
 					}
+					// #endif
                 }
                 
                 }
