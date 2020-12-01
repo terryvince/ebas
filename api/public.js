@@ -98,3 +98,10 @@ export function imageBase64(image, code) {
     { login: false }
   );
 }
+
+export function getCouponsAll({page=1,limit=3}) {
+  return request.get("/couponsAll", {
+	  page,
+	  limit
+  }, { login: false });
+}

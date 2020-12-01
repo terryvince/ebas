@@ -105,11 +105,16 @@
 
 <script>
 	import { getCoupon,getCouponReceive} from "@/api/user";
+	import {getCouponsAll} from '@/api/public.js'
 	export default {
 		props:{
 			ids:{
 				type:[String,Number],
 				default:0
+			},
+			isHome:{
+				type:[Boolean],
+				default:true
 			}
 		},
 		data() {
@@ -128,9 +133,15 @@
 		methods:{
 			// 获取优惠券
 			getCouponList(){
+				if(this.isHome){
+					getCouponsAll(this.params).then(res=>{
+						this.list = res.data;
+					})
+					return
+				}
 				getCoupon(this.params).then(res=>{
-				this.list = res.data;
-			})
+					this.list = res.data;
+				})
 			},
 			// 点击领取优惠券
 			couponReceive(item){
