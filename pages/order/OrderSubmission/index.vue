@@ -75,7 +75,7 @@
 	.order-goods-list{
 		overflow: hidden;
 		border-radius: 20rpx;
-		margin: 20rpx;
+		margin: 20rpx 0;
 		.goods-item{
 			background-color: white;
 			border-radius: 20rpx;
@@ -87,6 +87,25 @@
 			width: 140rpx;
 			height: 140rpx;
 		}
+	}
+	.white-block{
+		width: 200rpx;
+		height: 46rpx;
+		background: #FFFFFF;
+		border-radius: 23rpx;
+	}
+	.icon-jiantou{
+		&.down{
+			transform: rotateZ(90deg);
+		}
+		&.up{
+			transform: rotateZ(-90deg);
+		}
+	}
+	.order-submission .wrapper {
+		margin-top: 20rpx;
+		border-radius: 20rpx;
+		overflow: hidden;
 	}
 </style>
 <template>
@@ -125,31 +144,38 @@
 		<!-- <OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo" class="order-goods-wrap"></OrderGoods> -->
 		
 		<view class="order-goods-list color-text">
-			<view class="goods-item flex-main-between" v-for="cart in orderGroupInfo.cartInfo" :key="cart.id">
+			<view class="goods-item flex-main-between" v-for="cart in orderGroupInfo.cartInfo" :key="cart.id" v-show="orderGroupInfo.cartInfo.length<3 || isShowMore">
 				<view class="goods-img flex-none">
 					<image :src="cart.productInfo.image" mode="widthFix" class="width-full"></image>
 				</view>
 				<view class="goods-right flex-1 left-20">
-					<view class="goods-title txt-ellipsis row-2">{{cart.storeName}}</view>
-					<view class="flex-main-start fs-20 txt-bold lh-1 color-gray" style="margin-top: 18rpx;" v-if="cart.productInfo.attrInfo">
+					<view class="goods-title txt-ellipsis row-2 fs-26">{{cart.productInfo.storeName}}</view>
+					<view class="flex-main-start fs-20 txt-bold lh-1 color-gray" style="margin-top: 18rpx;">
 						<text>{{cart.shopName}}</text>
-						<text class="left-10">{{cart.productInfo.attrInfo.sku}}</text>
+						<text class="left-10" v-if="cart.productInfo.attrInfo">{{cart.productInfo.attrInfo.sku}}</text>
 					</view>
 					<view class="flex-main-end lh-1 fs-28 txt-bold">
 						<text>x</text>
 						<text class="left-15">{{cart.cartNum}}</text>
 					</view>
-					<view class="color-danger fs-28 txt-bold lh-1 ">{{cart.cartNum}}</view>
-					
+					<view class="color-danger fs-28 txt-bold lh-1 ">￥{{cart.truePrice}}</view>
 				</view>
 			</view>
+			
+			<view class="flex-main-center txt-medium fs-26">
+				<view @click="switchMore()" class="white-block flex-main-center" style="color: #A6A6A6;">
+					<text>共{{orderGroupInfo.cartInfo ? orderGroupInfo.cartInfo.length : 0}}件</text>
+					<text :class="[isShowMore? 'up':'down','iconfont icon-jiantou fs-16 left-10']"></text>
+				</view>
+			</view>
+			
 		</view>
 
 		<view class="wrapper">
 			<view v-if="shipping_type === 0">
 				<view class="item acea-row row-between-wrapper">
 					<view>运费</view>
-					<view class="discount">
+					<view :class="[orderPrice.payPostage > 0?'txt-bold':'', 'discount fs-28']">
 						{{
 							  orderPrice.payPostage > 0
 							  ? orderPrice.payPostage
@@ -185,9 +211,12 @@
 
 			<view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
 				<view>商品总价：</view>
-				<view class="money">￥{{ orderPrice.totalPrice }}</view>
+				<view class="money txt-bold fs-28">￥{{ orderPrice.totalPrice }}</view>
 			</view>
-
+			
+		</view>
+		
+		<view class="wrapper">
 			<view class="item acea-row row-between-wrapper">
 				<view>支付方式</view>
 				<view class="discount">{{mode=='point'?'积分/积分+微信':'微信'}}
@@ -223,10 +252,14 @@
 				<view class="flex-none flex-main-start " style="
 font-size: 32rpx;
 font-weight: bold;
-color: #333333;">合计:
-					<view class="font-color-red">￥{{ orderPrice.payPrice }}</view>
+color: #333333;">
+					<view class="color-text txt-bold fs-32">￥{{ orderPrice.payPrice }}</view>
 				</view>
-				<view class="font-color-light">已优惠:{{ orderPrice.payPrice }}</view>
+				<view class="font-color-light fs-24">
+					<text>已优惠</text>
+					<text>￥</text>
+					<text>{{ orderPrice.payPrice }}</text>
+				</view>
 			</view>
 			<view class="settlement flex-none" @click="createOrder">{{mode=='point'?'立即兑换':'立即支付'}}</view>
 		</view>
@@ -304,7 +337,8 @@ color: #333333;">合计:
 				mode: '',
 				isShowInput: false,
 				isShowInput2: false,
-				isShowInput3: false
+				isShowInput3: false,
+				isShowMore:false,
 			};
 		},
 		computed: mapGetters(["userInfo", "storeItems"]),
@@ -343,6 +377,16 @@ color: #333333;">合计:
 			}
 		},
 		methods: {
+			switchMore(){
+				if(this.orderGroupInfo.cartInfo.length<3){
+					uni.showToast({
+						title:'没有更多了',
+						icon:'none'
+					})
+					return;
+				}
+				this.isShowMore = !this.isShowMore
+			},
 			changeCardType(e) {
 				this.cardType = e.detail.value
 			},
