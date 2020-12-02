@@ -631,7 +631,7 @@ color: #333333;">
 							case "WECHAT_PAY":
 								// 小程序支付
 								weappPay(data.result.jsConfig)
-									.catch(() => {
+									.then(() => {
 										this.$yrouter.replace({
 											path: "/pages/order/PaymentStatus/index",
 											query: {
@@ -641,14 +641,14 @@ color: #333333;">
 											}
 										});
 									})
-									// .catch(() => {
-									// 	this.$yrouter.replace({
-									// 		path: "/pages/order/OrderDetails/index",
-									// 		query: {
-									// 			id: data.result.orderId
-									// 		}
-									// 	});
-									// })
+									.catch(() => {
+										this.$yrouter.replace({
+											path: "/pages/order/OrderDetails/index",
+											query: {
+												id: data.result.orderId
+											}
+										});
+									})
 									.finally(() => {
 
 									});
