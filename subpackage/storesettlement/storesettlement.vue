@@ -9,6 +9,10 @@
 	.storesettlement {
 		width: 100%;
 		height: 100%;
+		background-color: #fff;
+		border-radius: 30rpx;
+		margin-top: 20rpx;
+		padding: 10rpx;
 
 		.imageBg {
 			width: 100%;

@@ -2,18 +2,20 @@
 	page {
 		background: #FFFFFF;
 	}
+
 	.good-list-card {
-		flex-wrap: wrap!important;
+		flex-wrap: wrap !important;
 	}
 </style>
 <style scoped lang="less">
 	@import "~@/assets/css/utils.less";
-	.shopBanner{
-		image{
+
+	.shopBanner {
+		image {
 			height: 366rpx;
-		    width: 100%;
+			width: 100%;
 		}
-		
+
 	}
 
 	.style-receive {
@@ -98,12 +100,15 @@
 			margin-top: -100rpx;
 		}
 	}
-	.goodsCouponTop{
+
+	.goodsCouponTop {
 		margin-top: 100rpx;
 	}
-	.goodsListTop{
+
+	.goodsListTop {
 		margin-top: 150rpx;
 	}
+
 	.goodsList {
 
 		.nav {
@@ -131,12 +136,15 @@
 			min-height: 1000rpx;
 		}
 	}
-	.gl-icon-triangle{
+
+	.gl-icon-triangle {
 		position: relative;
 		width: 15rpx;
 		height: 19rpx;
 		margin-left: 10rpx;
-		&::before,&::after{
+
+		&::before,
+		&::after {
 			content: '';
 			width: 0;
 			height: 0;
@@ -145,36 +153,45 @@
 			border-style: solid;
 			position: absolute;
 		}
-		&::before{
+
+		&::before {
 			top: 0;
 			left: 0;
 			border-color: transparent transparent #A9A9A9 transparent;
-			transform: translate(0,-55%);
+			transform: translate(0, -55%);
 		}
-		&::after{
+
+		&::after {
 			bottom: 0;
 			left: 0;
 			border-color: #A9A9A9 transparent transparent transparent;
 			transform: translate(0, 55%);
 		}
-		&.up::before{
+
+		&.up::before {
 			border-color: transparent transparent #6DD36F transparent;
 		}
-		&.down::after{
+
+		&.down::after {
 			border-color: #6DD36F transparent transparent transparent;
 		}
 	}
-	.font-color-red {color: #6DD36F;}
-	.noPictrue{
+
+	.font-color-red {
+		color: #6DD36F;
+	}
+
+	.noPictrue {
 		width: 414rpx;
 		height: 336rpx;
 		margin: 0 auto 30rpx;
 
-		image{
+		image {
 			width: 100%;
 			height: 100%;
 		}
 	}
+
 	.style-receive {
 		padding: 6rpx 16rpx;
 		background-color: #64CE5E;
@@ -209,7 +226,7 @@
 		<view class="goodsCoupon" :class="couponList.length>0?'goodsCouponTop':''">
 			<!-- 优惠券领取 -->
 			<!-- v-if="couponList.length>0" -->
-			<coupon-list v-if="couponList.length>0" :class="couponList.length>0?'couponIndex':''" :ids = "where.merId"></coupon-list>
+			<coupon-list v-if="couponList.length>0" :class="couponList.length>0?'couponIndex':''" :ids="where.merId"></coupon-list>
 			<!-- 商品 -->
 			<view class="goodsList" :class="couponList.length>0?'goodsListTop':''">
 				<view class="nav acea-row row-middle">
@@ -249,7 +266,9 @@
 	} from "@/api/store";
 	import goodsList from '@/components/goodsList/goodsList';
 	import Loading from "@/components/Loading";
-	import { getStoreInfo } from "@/api/store";
+	import {
+		getStoreInfo
+	} from "@/api/store";
 	export default {
 		name: "Shop",
 		components: {
@@ -283,9 +302,9 @@
 				},
 				// 记录上次点击的筛选项
 				clickChange: 0,
-				clickChangePrev:0,
+				clickChangePrev: 0,
 				// 优惠券
-				couponList:[]
+				couponList: []
 			}
 		},
 		onShow: function() {
@@ -298,17 +317,37 @@
 		},
 		methods: {
 			// 联系客服
-			contactCustomer(){
+			contactCustomer() {
+				let H5Sign,wechatSign;
+				this.shopInfo.list.forEach(function (item) {
+				    if (item.channelName == "小程序插件") {
+						wechatSign = item.webSign;
+				    }
+					if (item.channelName == "网站-h5") {
+						H5Sign = item.webSign;
+					}
+				    console.log(item);
+				});
+				
 				// #ifdef H5
-				location.href = 'https://yzf.qq.com/xv/web/static/chat/index.html?sign=37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2'
+				if(H5Sign == undefined){
+					H5Sign = "37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2"
+				}
+				location.href =
+					'https://yzf.qq.com/xv/web/static/chat/index.html?sign=' + H5Sign
 				// #endif
 				// #ifndef H5
-				this.$yrouter.push("/subpackage/chat/chat");
+				this.$yrouter.push({
+					path: "/subpackage/chat/chat",
+					query: {
+						sign: wechatSign,
+					}
+				});
 				// #endif
 			},
 			// 获取店铺数据
 			getStoreInfo: function() {
-				 getStoreInfo(this.where.merId).then(res => {
+				getStoreInfo(this.where.merId).then(res => {
 					this.shopInfo = res.data;
 				})
 			},
@@ -351,7 +390,7 @@
 				let that = this;
 				that.loaded = false;
 				that.where.page = 1;
-				that.clickChangePrev=that.clickChange;
+				that.clickChangePrev = that.clickChange;
 				that.clickChange = index;
 				console.log(index)
 				switch (index) {
@@ -381,7 +420,7 @@
 					default:
 						break;
 				}
-				if (!(that.clickChange == 0 && that.clickChangePrev ==0)) {
+				if (!(that.clickChange == 0 && that.clickChangePrev == 0)) {
 					console.log('11', that.clickChange)
 					that.where.page = 1;
 					that.loadend = false;
