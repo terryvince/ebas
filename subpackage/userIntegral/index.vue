@@ -197,8 +197,7 @@
 		onShow: function() {
 			this.onRefresh()
 		},
-		onLoad() {
-		},
+		onLoad() {},
 		methods: {
 			onRefresh() {
 				this.where.page = 1;
@@ -208,8 +207,10 @@
 				this.getIntegralList();
 			},
 			onLoadMore() {
-				console.log("onLoadMore")
-				this.getIntegralList();
+				if (this.refresher == false) {
+					this.getIntegralList();
+					console.log("onLoadMore")
+				}
 			},
 			cellAction() {
 

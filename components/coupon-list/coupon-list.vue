@@ -86,7 +86,7 @@
 						<view class="flex-main-start">
 							<text class="color-white lh-1 price-sign">￥</text>
 							<!-- {{item.coupon_price}} -->
-							<text class="color-linear-yellow txt-bold lh-1" style="font-size: 45rpx;">{{item.couponPrice}}</text>
+							<text class="color-linear-yellow txt-bold lh-1" style="font-size: 40rpx;">{{item.couponPrice}}</text>
 							<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
 								<text>优</text>
 								<text>惠</text>
