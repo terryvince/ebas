@@ -23,13 +23,15 @@
 		// margin-top: 20rpx;
 		// padding: 10rpx;
 	}
+
 	.photos {
 		margin: 20rpx 10rpx 0 10rpx;
 		// background-color: #F5F5F5;
 		// background-color: #FFFFFF;
 		// border-radius: 20rpx;
 	}
-	.orderTitle{
+
+	.orderTitle {
 		background-color: #F5F5F5;
 		font-size: 30rpx;
 		color: #999999;
@@ -46,7 +48,7 @@
 			</view>
 			<view style="padding: 20rpx; background-color: #FFFFFF;">
 				<textarea maxlength="255" class="boder-radius" v-model="text" placeholder="请填写问题描述,以便我们为您提供更好的帮助" />
-			</view>
+				</view>
 		</view>
 		<!-- 其他证件 -->
 		<view class="images">
@@ -98,12 +100,18 @@
 				let images = this.images.join(",");
 				postAdvice({
 					content:this.text,
-					images:images,
+					image:images,
 				}).then(()=>{
 					uni.showToast({
-						icon:'success',
-						title:'提交成功!'
-					})
+					  title: "提交成功!",
+					  icon:"success",
+					  duration: 2000,
+					  complete: () => {
+						uni.navigateBack({
+							delta: 1
+						});
+					  }
+					});
 				}).catch(err=>{
 					console.log(err)
 					uni.showToast({
