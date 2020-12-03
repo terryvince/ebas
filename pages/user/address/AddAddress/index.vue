@@ -115,19 +115,21 @@ export default {
 		        title: '提示',
 		        content: '确认删除该地址?',
 		        success(res) {
-						    let id = that.id;
-						    getAddressRemove(id).then(function() {
-						      uni.showToast({
-						        title: "删除成功!",
-						        icon:"success",
-						        duration: 2000,
-						        complete: () => {
-											uni.navigateBack({
-													delta: 1
+							if (res.confirm) {
+										let id = that.id;
+										getAddressRemove(id).then(function() {
+											uni.showToast({
+												title: "删除成功!",
+												icon:"success",
+												duration: 2000,
+												complete: () => {
+													uni.navigateBack({
+															delta: 1
+													});
+												}
 											});
-						        }
-						      });
-						    });
+										});
+									}
 							}
 		   })
 	  },
