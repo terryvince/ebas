@@ -37,7 +37,7 @@
 							</view>
 							<view class="money">
 								<text>返积分：</text>
-								<text class="font-color-red">￥{{ val.number ? val.number : 0 }}</text>
+								<text class="font-color-red">{{ val.number ? val.number : 0 }}</text>
 							</view>
 						</view>
 						<view class="bottom">

@@ -157,6 +157,15 @@
 							})
 							this.getCouponList();
 						}
+					}).catch(err=>{
+						console.log(err)
+						if(err.data.status == 5101){
+							uni.showToast({
+								title:err.data.msg,
+								icon:"none",
+								duration:2000
+							})
+						}
 					})
 				}else{
 					uni.showToast({

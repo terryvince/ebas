@@ -1,6 +1,6 @@
 <script>
 	export default {
-		onLaunch: function() {
+		onLaunch: function(options) {
 			uni.loadFontFace({
 				family: 'HanSans',
 				  source: 'url("https://res.sdebs.com/HanSans.ttf")',

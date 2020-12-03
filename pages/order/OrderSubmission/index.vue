@@ -198,7 +198,7 @@
 			<view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false && mode!='vip' && mode!='point'">
 				<view>优惠券</view>
 				<view class="discount">
-					{{ usableCoupon.couponTitle || "请选择" }}
+					{{ usableCoupon.length ? couponTitle : "请选择" }}
 					<text class="iconfont icon-jiantou"></text>
 				</view>
 			</view>
@@ -227,6 +227,12 @@
 		</view>
 
 		<view class="wrapper">
+			<view v-if="mode=='point'" class="item acea-row row-between-wrapper">
+				<view>当前积分</view>
+				<view class="discount">
+					{{userInfo.integral}}
+				</view>
+			</view>
 			<view class="item acea-row row-between-wrapper">
 				<view>支付方式</view>
 				<view class="discount">{{mode=='point'?'积分/积分+微信':'微信'}}
@@ -268,13 +274,14 @@ color: #333333;">
 				<view class="font-color-light fs-24">
 					<text>已优惠</text>
 					<text>￥</text>
-					<text>{{ orderPrice.payPrice }}</text>
+					<text>{{ orderPrice.totalPrice - orderPrice.payPrice }}</text>
 				</view>
 			</view>
 			<view class="settlement flex-none" @click="createOrder">{{mode=='point'?'立即兑换':'立即支付'}}</view>
 		</view>
-		<CouponListWindow v-on:couponchange="changecoupon($event)" v-model="showCoupon" :price="orderPrice.totalPrice"
-		 :checked="usableCoupon.id" @checked="changeCoupon" :cartid="cartid"></CouponListWindow>
+		<!-- v-on:couponchange="changecoupon($event)" -->
+		<CouponListWindow v-model="showCoupon" :price="orderPrice.totalPrice"
+		 :checked="usableCoupon" @checked="changeCoupon" :cartid="cartid"></CouponListWindow>
 		<AddressWindow @checked="changeAddress($event)" @redirect="addressRedirect" v-model="showAddress" :checked="addressInfo.id"
 		 ref="mychild"></AddressWindow>
 	</view>
@@ -286,6 +293,7 @@ color: #333333;">
 	import OrderGoods from "@/components/OrderGoods";
 	import CouponListWindow from "@/components/CouponListWindow";
 	import AddressWindow from "@/components/AddressWindow";
+	import cookie from '@/utils/store/cookie';
 	import {
 		postOrderConfirm,
 		postOrderComputed,
@@ -331,7 +339,7 @@ color: #333333;">
 				orderGroupInfo: {
 					priceGroup: {}
 				},
-				usableCoupon: {},
+				usableCoupon: [],
 				addressLoaded: false,
 				useIntegral: false,
 				orderPrice: {
@@ -348,10 +356,22 @@ color: #333333;">
 				isShowInput: false,
 				isShowInput2: false,
 				isShowInput3: false,
-				isShowMore: false,
+				isShowMore: false
 			};
 		},
-		computed: mapGetters(["userInfo", "storeItems"]),
+		computed: {
+			...mapGetters(["userInfo", "storeItems"]),
+			couponTitle(){
+				const nullItem = this.usableCoupon.find(v=>v.id==0)  // id 0 空项
+				const length = this.usableCoupon.length;
+				if(nullItem){
+					return nullItem.couponTitle
+				}
+				return length>2 ? this.usableCoupon.map(v=>v.couponTitle).slice(0,2).join(',') + '...' :
+				 this.usableCoupon.map(v=>v.couponTitle).slice(0,2).join(',')  // 有多个数据
+			},
+			
+		},
 		watch: {
 			useIntegral() {
 				this.computedPrice();
@@ -423,7 +443,7 @@ color: #333333;">
 			},
 			computedPrice() {
 				let shipping_type = this.shipping_type;
-				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.id // 积分商城不传优惠券
+				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.map(v=>v.id).join(',') // 积分商城不传优惠券
 				postOrderComputed(this.orderGroupInfo.orderKey, {
 					addressId: this.addressInfo.id,
 					useIntegral: this.useIntegral ? 1 : 0,
@@ -460,7 +480,8 @@ color: #333333;">
 						this.offlinePayStatus = res.data.offline_pay_status;
 						this.orderGroupInfo = res.data;
 						this.deduction = res.data.deduction;
-						this.usableCoupon = res.data.usableCoupon || {};
+						this.usableCoupon = Array.isArray(res.data.usableCoupon) ?  res.data.usableCoupon : []
+						this.usableCoupon =  [];
 						this.addressInfo = res.data.addressInfo || {};
 						this.systemStore = res.data.systemStore || {};
 						this.storeSelfMention = res.data.storeSelfMention;
@@ -468,8 +489,9 @@ color: #333333;">
 						this.cardNumber = this.addressInfo.cardNumber || ''
 						this.cardType = this.addressInfo.cardType || ''
 						this.computedPrice();
-					})
-					.catch(() => {
+					})	
+					.catch((err) => {
+						console.error(err)
 						uni.showToast({
 							title: "加载订单数据失败",
 							icon: "none",
@@ -491,14 +513,14 @@ color: #333333;">
 			couponTap: function() {
 				this.showCoupon = true;
 			},
-			changeCoupon: function(coupon) {
-				if (!coupon) {
-					this.usableCoupon = {
+			changeCoupon: function(couponList) {
+				if (couponList.length == 0) { 
+					this.usableCoupon = [{
 						couponTitle: "不使用优惠券",
 						id: 0
-					};
+					}];
 				} else {
-					this.usableCoupon = coupon;
+					this.usableCoupon = couponList;
 				}
 				this.computedPrice();
 			},
@@ -547,7 +569,7 @@ color: #333333;">
 					from.from = "app";
 				}
 				console.log(this.storeItems, this.systemStore);
-				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.id // 积分商城不传优惠券
+				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.map(v=>v.id).join(',') // 积分商城不传优惠券
 				createOrder(this.orderGroupInfo.orderKey, {
 						// cardNumber: this.cardNumber, // 清关人姓名和身份证
 						// cardName: this.cardName,

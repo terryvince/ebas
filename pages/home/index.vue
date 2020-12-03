@@ -306,6 +306,9 @@
 		getHomeData,
 		getShare
 	} from '@/api/public';
+	import {
+		bindSuperior
+	} from "@/api/user";
 	import cookie from '@/utils/store/cookie';
 	import {
 		isWeixin,
@@ -419,7 +422,25 @@
       return this.roll.length > 0 ? this.roll[0] : "你还没添加通知哦！";
     }
   },
-		onLoad(){
+		onLoad(options){
+			if (options.scene) { // 处理扫码场景
+				const scene = decodeURIComponent(options.scene)
+				console.log('scene:',scene)
+				const params = scene.split("&")
+				let ob = {}
+				params.forEach(v => {
+					let key = v.split('=')[0]
+					let value = v.split('=')[1]
+					ob[key] = value
+				})
+				if(cookie.get('login_status')){ // 已登录的情况直接绑定分销的推广id
+					bindSuperior({
+						spread:ob.uid
+					}).catch(err=>console.error('推广id绑定失败：',err))
+					return;
+				}
+				cookie.set('spread',ob.uid) // 未登录情况由授权的时候绑定推广id
+			}
 			// 查询弹框
 			// queryLotteryDialog().then(({data})=>{
 			// 	this.isShowLottery = data

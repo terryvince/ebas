@@ -114,7 +114,7 @@
  }
 </style>
 <template>
-	<view class="wi">
+	<view class="wi" v-if="list">
 		<!-- 普通商品或者积分商品 -->
 		<view v-if="from == 'goods' || from == 'point'" class="good-list-card">
 			<view @click="goDetail(item)" :class="['list-item lh-1']" v-for="(item,i) in list" :key="i">

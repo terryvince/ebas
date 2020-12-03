@@ -26,7 +26,7 @@
                 <div v-else>截止:{{ coupon.endTime }}</div>
                 <div
                   class="iconfont icon-xuanzhong1 font-color-red"
-                  v-if="checked === coupon.id"
+                  v-if="coupon.isChecked"
                 ></div>
                 <div class="iconfont icon-weixuanzhong" v-else></div>
               </div>
@@ -71,7 +71,10 @@ export default {
   },
   props: {
     value: Boolean,
-    checked: Number,
+    checked:{
+		type:Array,
+		default:[]
+	},
     price: {
       type: [Number, String],
       default: undefined
@@ -105,17 +108,43 @@ export default {
     },
     getCoupon() {
       getOrderCoupon(this.cartid).then(res => {
+		res.data.forEach(v=>v.isChecked = false)
         this.couponList = res.data;
         this.loaded = true;
       });
     },
+	check(){
+		this.$nextTick(()=>{
+			// console.log('checked:',this.checked)
+			let ids = this.checked.map(v=>v.id) // 选中的id集合
+			this.couponList.forEach(v=>{
+				v.isChecked = ids.includes(v.id)
+			})
+		})
+	},
     click(coupon) {
-      this.$emit("checked", coupon);
-      this.$emit("input", false);
+	  let list = this.checked.filter(v=>v.id!=0) // 过滤空项
+	  console.log(list)
+	  if(list.some(v=>v.id == coupon.id)){  // 点击已存在的什么也不做
+	      // console.log('优惠券id已选:',coupon.id)
+		  return
+	  }
+	  
+	  if(list.every(v=>v.merId!=coupon.merId && v.id != coupon.id)){  // 店铺id不同，且该优惠券未选则追加
+		  // console.log('店铺id不同并且优惠券id未选:',coupon.id)
+		  this.$emit("checked", [...list,coupon]); // 追加
+		  this.check()
+		  return
+	  }
+	  // console.log('店铺id相同的情况:',coupon.id,coupon.merId)
+	  this.$emit("checked", [...list.filter(v=>v.merId!=coupon.merId),coupon]);
+	  this.check()
+      // this.$emit("input", false);
     },
     couponNo: function() {
-      this.$emit("checked", null);
+      this.$emit("checked", []);
       this.$emit("input", false);
+	  this.check()
     }
   }
 };
