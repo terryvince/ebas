@@ -227,13 +227,13 @@
 				getIntegralList(that.where).then(
 					res => {
 						this.refresher = false;
-						that.loaded = res.data.length < that.where.limit;
+						that.loaded = res.data.length < that.where.limit; // 等于10条的时候，设为false
 						if (+that.where.page === 1) {
 							that.list = res.data;
 						} else {
 							that.list.push.apply(that.list, res.data);
 						}
-						that.where.page = that.where.page + 1;
+						if (!that.loaded) that.where.page = that.where.page + 1; // 待改
 					},
 					err => {
 						this.refresher = false;

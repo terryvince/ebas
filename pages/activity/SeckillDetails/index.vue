@@ -225,7 +225,7 @@ count-down::v-deep .styleAll{
 		onShareAppMessage() {
 			return {
 				title: this.storeInfo.title,
-				path: `/pages/activity/SeckillDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share`
+				path: `/pages/activity/SeckillDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share&mode=${this.$yroute.query.mode}`
 			}
 		},
 		methods: {

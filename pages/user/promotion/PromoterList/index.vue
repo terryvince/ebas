@@ -29,8 +29,8 @@
 			<view class="search acea-row row-between-wrapper">
 				<form @submit.prevent="submitForm">
 					<view class="input">
-						<input placeholder="点击搜索会员名称" v-model="screen.keyword" />
-						<text class="iconfont icon-guanbi"></text>
+						<input placeholder="点击搜索会员名称" v-model="screen.keyword" style="width: 550rpx;"/>
+						<text class="iconfont icon-guanbi" @click="clearKeyword()"></text>
 					</view>
 				</form>
 				<view class="iconfont icon-sousuo2"></view>
@@ -129,6 +129,9 @@
 			}
 		},
 		methods: {
+			clearKeyword(){
+				this.screen.keyword = ''
+			},
 			handleScroll: function() {
 				// var scrollTop =
 				//   document.documentElement.scrollTop || document.body.scrollTop;

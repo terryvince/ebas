@@ -378,7 +378,7 @@ export default {
   onShareAppMessage() {
   	return {
 	  title: this.storeInfo.title,
-	  path: `/pages/activity/GroupDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share`
+	  path: `/pages/activity/GroupDetails/index?id=${this.$yroute.query.id}&time=${this.$yroute.query.time}&from=share&mode=${this.$yroute.query.mode}`
 	};
   },
   methods: {
