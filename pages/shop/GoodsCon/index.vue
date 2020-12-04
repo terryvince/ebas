@@ -554,7 +554,7 @@
 			</view>
 			
 			<CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
-			<ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
+			<ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num" :type="storeInfo.type"></ProductWindow>
 			<StorePoster v-on:setPosterImageStatus="setPosterImageStatus" :posterImageStatus="posterImageStatus" :posterData="posterData"
 			 :goodId="id"></StorePoster>
 			<ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>

@@ -205,7 +205,8 @@
 				<image src="@/static/images/line.jpg" />
 			</view>
 		</template>
-		<OrderGoods :evaluate="status.type || 0" :cartInfo="orderInfo.cartInfo || []"></OrderGoods>
+		<!-- orderInfo.useIntegral>0 用了积分即积分支付 -->
+		<OrderGoods :evaluate="status.type || 0" :cartInfo="orderInfo.cartInfo || []" :type="orderInfo.useIntegral>0 ? 1:0"></OrderGoods>
 		<view class="wrapper">
 			<view class="item acea-row row-between">
 				<view>订单编号：</view>
@@ -308,8 +309,11 @@
 		</view>
 		<view class="wrapper">
 			<view class="item acea-row row-between">
-				<view>商品金额：</view>
-				<view class="conter">￥{{ orderInfo.totalPrice }}</view>
+				<view>商品总价：</view>
+				<view class="conter">
+					<text v-if="!orderInfo.useIntegral">￥</text>
+					<text>{{ orderInfo.totalPrice }}{{orderInfo.useIntegral>0 ? '积分':''}}</text>
+				</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.couponPrice > 0">
 				<view>优惠券抵扣：</view>
@@ -317,7 +321,10 @@
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.useIntegral > 0">
 				<view>积分抵扣：</view>
-				<view class="conter">-￥{{ orderInfo.deductionPrice }}</view>
+				<view class="conter">
+					-<text v-if="!orderInfo.useIntegral">￥</text>
+					<text>{{ orderInfo.deductionPrice }}{{orderInfo.useIntegral>0 ? '积分':''}}</text>
+				</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.payPostage > 0">
 				<view>运费：</view>

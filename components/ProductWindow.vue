@@ -8,8 +8,8 @@
         <view class="text">
           <view class="line1">{{ attr.productSelect.store_name }}</view>
           <view class="money font-color-red">
-            ￥
-            <text class="num">{{ attr.productSelect.price }}</text>
+            <text v-if="type!=1">￥</text>
+            <text class="num">{{ attr.productSelect.price }} {{type==1?'积分':''}}</text>
             <text class="stock">库存: {{ attr.productSelect.stock }}</text>
           </view>
         </view>
@@ -60,7 +60,11 @@ export default {
     cartNum: {
       type: Number,
       default: () => 1
-    }
+    },
+	type: {
+	  type: [String,Number],
+	  default: () => 'goods'
+	}
   },
   data: function() {
     return {};

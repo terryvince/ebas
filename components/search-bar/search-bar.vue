@@ -17,6 +17,7 @@
 		}
 		.s-icon-search{
 			width: 22rpx;
+			height: 22rpx;
 		}
 		.s-search-button{
 			box-sizing: border-box;
@@ -59,7 +60,7 @@
 
 <script>
 	/**
-	 * #rightBtn 右边按钮的插槽，有则显示，
+	 * #right 右边按钮的插槽，有则显示，
 	 * @search 触发搜索事件
 	 * v-model 可以绑定v-model，如果不是只读
 	 */

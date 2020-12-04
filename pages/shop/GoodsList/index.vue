@@ -108,7 +108,7 @@
 		</view>
 		<view class="nav acea-row row-middle">
 			<!-- ,title ? 'font-color-red' : '' -->
-			<view :class="['item','relative']" @click="set_where(0)">{{ title ? title : "综合" }}</view>
+			<view :class="['item','relative']" @click="set_where(0)">{{ title ? title : "分类" }}</view>
 			<view class="divider"></view>
 			<view class="item" @click="set_where(1)">
 				价格
@@ -229,6 +229,8 @@
 			const {
 				s = "", id = 0, title = ""
 			} = this.$yroute.query;
+			this.where.keyword = s;
+			
 			this.updateTitle();
 			this.get_product_list();
 		},
@@ -276,7 +278,7 @@
 					s = "", id = 0, title = "", type = ''
 				} = this.$yroute.query;
 				if (s !== this.where.keyword || id !== this.where.sid) {
-					this.where.keyword = this.where.keyword || s;
+					// this.where.keyword = this.where.keyword || s;
 					this.loadend = false;
 					this.loading = false;
 					this.where.page = 1;
@@ -295,9 +297,14 @@
 				}
 				getProducts(q).then(res => {
 					that.loading = false;
-					that.productList.push.apply(that.productList, res.data);
+					if(that.where.page == 1){
+						that.productList = res.data;
+					}else{
+						that.productList.push.apply(that.productList, res.data);
+					}
+					
 					that.loadend = res.data.length < that.where.limit; //判断所有数据是否加载完成；
-					that.where.page = that.where.page + 1;
+					if(!that.loadend) that.where.page += 1;
 				});
 			},
 			submitForm: function() {

@@ -23,7 +23,10 @@
 					</view>
 					<!-- <view class="money font-color-red">{{ cart.shopName }}</view> -->
 					<view class="attr line1 acea-row" v-if="cart.productInfo.attrInfo"><view style="margin-right: 8rpx;">{{ cart.shopName }}</view>{{ cart.productInfo.attrInfo.sku }}</view>
-					<view class="money font-color-red">￥{{ cart.truePrice }}</view>
+					<view class="money font-color-red">
+						<text v-if="type!=1">￥</text>
+						<text>{{ cart.truePrice }}{{type==1 ? '积分':''}}</text>
+					</view>
 					<view class="evaluate" v-if="evaluate == 3" @click="routerGo(cart)">评价</view>
 				</view>
 			</view>
@@ -38,6 +41,10 @@
 			cartInfo: {
 				type: Array,
 				default: () => []
+			},
+			type:{
+				type:[String,Number],
+				default:0
 			}
 		},
 		data: function() {

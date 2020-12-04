@@ -67,12 +67,13 @@
 		methods: {
 			submit() {
 				const search = trim(this.search) || "";
-				if (!search) return;
+				// if (!search) return;
 				this.toSearch(search);
 			},
+			// 允许空字符串
 			toSearch(s) {
 				// console.log(s)
-				if (!s) return;
+				// if (!s) return;
 				//本地缓存
 				console.log('------',s)
 				this.setHistoryWord(s);
@@ -80,7 +81,7 @@
 					path: "/pages/shop/GoodsList/index",
 					query: {
 						s,
-						title:'综合'
+						title:'分类'
 					}
 				});
 			},
