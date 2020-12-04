@@ -276,15 +276,14 @@ font-size: 32rpx;
 font-weight: bold;
 color: #333333;">
 					<view class="color-text txt-bold fs-32">
-						<text v-if="mode!='point'">￥</text>
-						<text>{{ orderPrice.payPrice }} {{mode=='point'?'积分':''}}</text>
+						<text>￥</text>
+						<text>{{ orderPrice.payPrice }}</text>
 					</view>
 				</view>
 				<view class="font-color-light fs-24">
-					<text>已优惠</text>
+					<text>已抵扣</text>
 					<text v-if="mode!='point'">￥</text>
-					<!-- 解决精度问题，小数点后三位可精确计算 -->
-					<text>{{ (orderPrice.totalPrice*1000 - orderPrice.payPrice*1000)/1000 }} {{mode=='point'?'积分':''}}</text>
+					<text>{{ preferPrice||0 }} {{mode=='point'?'积分':''}}</text>
 				</view>
 			</view>
 			<view class="settlement flex-none" @click="createOrder">{{mode=='point'?'立即兑换':'立即支付'}}</view>
@@ -380,8 +379,13 @@ color: #333333;">
 				return length>2 ? this.usableCoupon.map(v=>v.couponTitle).slice(0,2).join(',') + '...' :
 				 this.usableCoupon.map(v=>v.couponTitle).slice(0,2).join(',')  // 有多个数据
 			},
+			// 优惠价格
 			preferPrice(){
-				return (this.orderPrice.totalPrice - this.orderPrice.payPrice).toFixed(2)
+				if(this.mode=='point'){
+					return this.orderPrice.deductionPrice
+				}
+				//<!-- 解决精度问题，小数点后三位可精确计算 -->
+				return (this.orderPrice.totalPrice*1000 - this.orderPrice.payPrice*1000)/1000
 			}
 			
 		},
