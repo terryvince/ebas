@@ -224,16 +224,17 @@
 			getIntegralList: function() {
 				let that = this;
 				if (that.loaded == true) return;
+				// that.loaded = true;
 				getIntegralList(that.where).then(
 					res => {
 						this.refresher = false;
-						that.loaded = res.data.length < that.where.limit; // 等于10条的时候，设为false
+						that.loaded = res.data.length < that.where.limit; // 存在下一页为false，不存在下一页为true，true则不会再加载
 						if (+that.where.page === 1) {
 							that.list = res.data;
 						} else {
 							that.list.push.apply(that.list, res.data);
 						}
-						if (!that.loaded) that.where.page = that.where.page + 1; // 待改
+						if(!that.loaded) that.where.page += 1;
 					},
 					err => {
 						this.refresher = false;
