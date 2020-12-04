@@ -58,7 +58,7 @@
 					</div>
 				</view>
 				<view class="explian" :style="{height:item.isMore ? 'auto':'40rpx'}">
-					<view style=" font-size: 26rpx; color: #999999;">{{item.explain||"暂无说明"}}</view>
+					<view style=" font-size: 26rpx; color: #999999;">{{item.explains||"暂无说明"}}</view>
 					<view @click="" class="flex-none left-10">
 						<view @click="more(item)" class="white-block flex-main-center" style="color: #A6A6A6;">
 							<text :class="[item.isMore? 'up':'down','iconfont icon-jiantou fs-26 left-10']"></text>
