@@ -9,11 +9,12 @@
 				<view class="name">电话：</view>
 				<input type="text" placeholder="请输入联系电话" v-model="userAddress.phone" required />
 			</view>
-			<view @click="$refs.cityselect.open()" class="item acea-row row-between-wrapper">
+			<view @click.stop="getLocation()" class="item acea-row row-between-wrapper">
 				<view class="name">地区</view>
 				<view class="picker acea-row row-between-wrapper select-value form-control">
-					<view @click.stop="" class="address">
-						<CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect>
+					<view class="address">
+						<text>{{addressText||'请选择地址'}}</text>
+						<!-- <CitySelect ref="cityselect" :defaultValue="addressText" :value1="addressText" @callback="result" :items="district"></CitySelect> -->
 					</view>
 					<view class="iconfont icon-jiantou"></view>
 				</view>
@@ -98,7 +99,7 @@ export default {
     let id = this.$yroute.query.id;
     this.id = id;
     this.getUserAddress();
-    this.getCityList();
+    // this.getCityList();
   },
   watch: {
     // addressText(nextModel2) {
@@ -142,7 +143,6 @@ export default {
 	      uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
 	    });
 	  },
-	  
     getCityList: function() {
       let that = this;
       getCity()
@@ -157,11 +157,18 @@ export default {
     getUserAddress: function() {
       if (!this.id) return false;
       getAddress(this.id).then(res => {
+		  const {address,latitude,longitude} = res.data
         this.userAddress = res.data;
-        this.addressText = res.data.province + " " + res.data.city + " " + res.data.district;
-        this.address.province = res.data.province;
-        this.address.city = res.data.city;
-        this.address.district = res.data.district;
+        this.addressText = res.data.address || ''
+		this.address = {
+			address,
+			latitude,
+			longitude
+		}
+		// res.data.province + " " + res.data.city + " " + res.data.district;
+  //       this.address.province = res.data.province;
+  //       this.address.city = res.data.city;
+  //       this.address.district = res.data.district;
 		this.$forceUpdate()
       });
     },
@@ -191,13 +198,16 @@ export default {
       } catch (e) {
         return validatorDefaultCatch(e);
       }
+	  const {address,latitude,longitude} = this.address
       try {
         let that = this,
           data = {
             id: that.id,
             real_name: name,
             phone: phone,
-            address: this.address,
+            address,
+			latitude,
+			longitude,
             detail: detail,
             is_default: isDefault ? true : false,
             post_code: ""
@@ -232,19 +242,33 @@ export default {
     ChangeIsDefault: function() {
       this.userAddress.isDefault = !this.userAddress.isDefault;
     },
-    result(values) {
-      console.log(this);
-      console.log(values);
-      this.address = {
-        province: values.province.name || "",
-        city: values.city.name || "",
-        district: values.district.name || "",
-        city_id: values.city.id
-      };
-      this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
-      // this.addressText =
-      //   this.address.province + this.address.city + this.address.district;
-    }
+	getLocation(){
+		let that = this
+		uni.chooseLocation({
+			success(res){
+				const {address,latitude,longitude} = res
+				that.addressText = address
+				that.address = {
+					address,
+					latitude,
+					longitude
+				}
+			}
+		})  
+	},
+    // result(values) {
+    //   console.log(this);
+    //   console.log(values);
+    //   this.address = {
+    //     province: values.province.name || "",
+    //     city: values.city.name || "",
+    //     district: values.district.name || "",
+    //     city_id: values.city.id
+    //   };
+    //   this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
+    //   // this.addressText =
+    //   //   this.address.province + this.address.city + this.address.district;
+    // }
   }
 };
 </script>

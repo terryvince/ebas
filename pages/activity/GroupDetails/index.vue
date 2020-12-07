@@ -185,7 +185,7 @@
 	  			</view>
 	  		</view>
 	  		<view class="right-wrap flex-main-between flex-column flex-item-align-stretch">
-	  			<view class="color-gray fs-24 txt-medium">还差<text class="color-danger">{{item.count}}</text>人成团</view>
+	  			<view class="color-gray fs-24 txt-medium">还差<text class="color-danger">{{item.count}}</text>购买数成团</view>
 	  			<button @click="groupRule(item.id)" class="btn btn-mini btn-linear-green">去拼团</button>
 	  		</view>
 	  	</view>
@@ -298,6 +298,7 @@ import StorePoster from "@/components/StorePoster";
 import { getCombinationDetail } from "@/api/activity";
 import { postCartAdd,getStoreInfo } from "@/api/store";
 import { imageBase64 } from "@/api/public";
+import cookie from "@/utils/store/cookie.js"
 import {
   getCoupon,
   getCollectAdd,
@@ -552,6 +553,7 @@ export default {
       attr.productSelect.stock = that.storeInfo.stock;
       attr.cartAttr = false;
       that.$set(that, "attr", attr);
+	  cookie.set('pink_attr',attr)
     },
     openTeam: function() {
       var that = this;

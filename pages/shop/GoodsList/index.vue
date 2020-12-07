@@ -131,7 +131,7 @@
 
 		<view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container">
 			<view @click="goGoodsCon(item)" class="item" :class="Switch === true ? '' : 'on'" v-for="(item, productListIndex) in productList"
-			 :key="productListIndex" :title="item.storeName">
+			 :key="item.id" :title="item.storeName">
 				<view class="pictrue" :class="Switch === true ? '' : 'on'">
 					<image :src="item.image" :class="Switch === true ? '' : 'on'" />
 				</view>

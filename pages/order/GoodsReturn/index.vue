@@ -66,13 +66,13 @@
 				<view class="item flex-main-between row">
 					<view class="col-7">商家收货电话</view>
 					<text class="txt-right col-17" style="color:#999;">
-						{{postInfo.phone}}
+						{{postInfo.realPhone}}
 					</text>
 				</view>
 				<view class="item flex-main-between row">
 					<view class="col-7">商家收货地址</view>
 					<text class="txt-right col-17" style="color:#999;">
-						{{postInfo.detail}}
+						{{postInfo.realAddress}}
 					</text>
 				</view>
 
@@ -109,14 +109,15 @@
 </template>
 
 <script>
-	import {
-		getAddress
-	} from "@/api/user";
+	// import {
+	// 	getAddress
+	// } from "@/api/user";
 	import {
 		orderDetail,
 		getRefundReason,
 		postOrderRefund,
-		getExpressName
+		getExpressName,
+		getAdressByStoreId
 	} from "@/api/order";
 	import {
 		trim
@@ -149,6 +150,7 @@
 				refund_reason_wap_explain: "",
 				refund_reason_wap_img: [],
 				postInfo: {},
+				isPoint: true
 			};
 		},
 		methods: {
@@ -177,6 +179,11 @@
 				orderDetail(this.id)
 					.then(res => {
 						this.orderInfo = res.data;
+						this.isPoint = !!res.data.useIntegral;
+						return getAdressByStoreId(res.data.merId)
+					})
+					.then(res=>{
+						this.postInfo = res.data;
 					})
 					.catch(err => {
 						uni.showToast({
@@ -194,13 +201,15 @@
 				getExpressName().then(res => {
 					this.expressList = res.data;
 				});
-
-				let that = this;
-				getAddress(1).then(res => {
-					that.postInfo = res.data;
-				});
 			},
 			submit() {
+				if(this.isPoint){
+					uni.showToast({
+						title:'积分商品不能申请退货!',
+						icon:'none'
+					})
+					return
+				}
 				const refund_reason_wap_explain = trim(this.refund_reason_wap_explain),
 					text = this.reason;
 				if (!text) {

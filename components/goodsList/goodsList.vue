@@ -164,7 +164,7 @@
 					<view class="color-gray fs-20 txt-baseline" style="margin-top: 26rpx;">
 						<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
 						<text class="left-10 fs-26 txt-bold">{{item.people}}</text>
-						<text class="txt-medium">人成团</text>
+						<text class="txt-medium">购买数成团</text>
 					</view>
 					<view class="group-extra flex-main-between top-30">
 						<view>

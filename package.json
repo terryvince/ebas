@@ -14,7 +14,8 @@
     "async-validator": "^3.2.4",
     "dayjs": "^1.8.22",
     "eruda": "^2.4.1",
-    "vue-ydui": "^1.2.6"
+    "vue-ydui": "^1.2.6",
+    "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {}
 }

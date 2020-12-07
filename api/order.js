@@ -146,3 +146,6 @@ export function getExpressName() {
 	return request.get("/order/expressName");
 }
 
+export function getAdressByStoreId(id) {
+	return request.get("/store/find/" + id||1);
+}

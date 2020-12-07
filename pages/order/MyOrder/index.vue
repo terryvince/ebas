@@ -292,7 +292,7 @@
 					path: "/pages/order/GoodsReturn/index",
 					query: {
 						refundType: orderInfo.refundType,
-						id: orderInfo.orderId,
+						id: orderInfo.extendOrderId,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
 						refundReasonWap: orderInfo.refundReasonWap,
@@ -304,7 +304,7 @@
 				this.$yrouter.push({
 					path: "/pages/order/Logistics/index",
 					query: {
-						id: order.orderId
+						id: order.extendOrderId
 					}
 				});
 			},
@@ -312,7 +312,7 @@
 				this.$yrouter.push({
 					path: "/pages/order/OrderDetails/index",
 					query: {
-						id: order.orderId
+						id: order.extendOrderId
 					}
 				});
 			},

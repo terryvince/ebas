@@ -14,7 +14,7 @@
 		background-color: #F5F5F5;
 	}
 }
-.pictrue .image {
+.pictrue{
 	width: 49%;
 	margin-right: auto;
 	margin-bottom: 10rpx;
@@ -24,7 +24,7 @@
 	<view  class="user-comment bg-white top-5">
 		<view class="list">
 			<view @click="goEvaluateList()" class="list-item list-item-between">
-				<text class="fs-28 color-text">商品评价（{{replyCount}}）</text>
+				<text class="fs-28 color-text">商品评价（{{replyCount||0}}）</text>
 				<view class="flex-main-start color-text fs-28">
 					<text class="color-danger">{{replyChance||0}}%</text>
 					<text>好评率</text>
@@ -42,9 +42,9 @@
 				<view class="width-full fs-24 top-20">
 					{{item.comment}}
 				</view>
-				<view class="img-list top-20">
-					<view class="pictrue flex flex-wrap" v-for="(itemn, eq) in item.picturesArr" :key="eq">
-						<image :src="itemn" class="image" mode="widthFix"/>
+				<view class="img-list top-20 flex-main-between width-full flex-wrap">
+					<view class="pictrue" v-for="(itemn, eq) in item.picturesArr" :key="eq">
+						<image :src="itemn" class="image width-full" mode="widthFix"/>
 					</view>
 				</view>
 				<view v-show="item.merchantReplyContent" class="comment-reply fs-24 top-20">

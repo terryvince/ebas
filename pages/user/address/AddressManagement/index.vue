@@ -11,7 +11,7 @@
 							<text v-if="item.isDefault==1" class="badge badge-mini-extra badge-primary badge-radius left-10">默认</text>
 						</view>
 						<view class="address-detail">
-							{{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+							{{item.address||''}}
 						</view>
 					</view>
 			

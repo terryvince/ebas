@@ -64,7 +64,7 @@ export default {
 	type: {
 	  type: [String,Number],
 	  default: () => 'goods'
-	}
+	},
   },
   data: function() {
     return {};
@@ -75,6 +75,9 @@ export default {
   methods: {
     closeAttr: function() {
       this.$emit("changeFun", { action: "changeattr", value: false });
+	  if(this.type == 'group'){
+		  this.$emit("changeFun", { action: "pay", value: false });
+	  }
     },
     CartNumDes: function() {
       this.$emit("changeFun", { action: "ChangeCartNum", value: false });

@@ -436,7 +436,10 @@
 			</view>
 
 			<!-- 新版评价 v-if="replyCount"-->
-			<view class="user-comment bg-white top-20">
+			<view class="top-15">
+				<user-comment :reply="reply" :reply-count="replyCount" :reply-chance="replyChance" :product-id="storeInfo.productId||storeInfo.id"></user-comment>
+			</view>
+			<!-- <view class="user-comment bg-white top-20">
 				<view class="list">
 					<view class="list-item list-between" @click="goEvaluateList(id)">
 						<text class="fs-28 color-text">商品评价（{{replyCount||0}}）</text>
@@ -467,7 +470,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 店铺介绍 -->
 			<!-- <view class="bg-white top-20 comment-box">
 				<view class="flex-main-between">
@@ -772,6 +775,33 @@
 			// 		phoneNumber: number
 			// 	});
 			// },
+			bindShare(){
+				// #ifdef H5
+				this.wxReady.then(res=>{
+					if(res){
+						wx.updateAppMessageShareData({ // 分享到朋友
+						    title: '', // 分享标题
+						    desc: '', // 分享描述
+						    link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						    imgUrl: '', // 分享图标
+						    success: function () {
+						      // 设置成功
+						    }
+						  })
+						wx.updateTimelineShareData({ // 分享到朋友圈和qq空间
+						    title: '', // 分享标题
+						    link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						    imgUrl: '', // 分享图标
+						    success: function () {
+						      // 设置成功
+						    }
+						  })
+					}
+				}).catch(err=>{
+					// console.log('',err)
+				})
+				// #endif
+			},
 			// 进入店铺
 			goShopManage() {
 				this.$yrouter.push({

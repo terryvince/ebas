@@ -91,8 +91,8 @@
 			  </view>
 			  <view class="tips-warp">
 			    <text class="tips font-color-red" v-if="pinkBool === 1">恭喜您拼团成功</text>
-			    <text class="tips" v-else-if="pinkBool === -1">还差{{ count }}人，拼团失败</text>
-			    <text class="tips font-color-red" v-else-if="pinkBool === 0">拼团中，还差{{ count }}人拼团成功</text>
+			    <text class="tips" v-else-if="pinkBool === -1">还差{{ count }}购买数，拼团失败</text>
+			    <text class="tips font-color-red" v-else-if="pinkBool === 0">拼团中，还差{{ count }}购买数拼团成功</text>
 			  </view>
 			  
 			  <!-- 灰块 -->
@@ -132,7 +132,7 @@
 			  <view
 			    class="teamBnt bg-color-green"
 			    v-else-if="userBool === 0 && pinkBool === 0 && count > 0"
-			    @click="pay"
+			    @click="open()"
 			  >我要参团</view>
 			  <view
 			    class="teamBnt bg-color-green"
@@ -149,6 +149,7 @@
 			  </view>
 			</view>
 		</view>
+		<ProductWindow v-if="cartNum" v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum" type="group"></ProductWindow>
 	</view>
 </template>
 <script>
@@ -157,12 +158,15 @@ import { getCombinationPink, getCombinationRemove } from "@/api/activity";
 import { postCartAdd } from "@/api/store";
 import { isWeixin, parseQuery, handleQrCode } from "@/utils/index";
 import {countDown} from "@/utils/utils.js";
+import ProductWindow from "@/components/ProductWindow";
+import cookie from "@/utils/store/cookie.js"
 
 const NAME = "GroupRule";
 export default {
   name: NAME,
   components: {
     // CountDown
+	ProductWindow
   },
   props: {},
   data: function() {
@@ -178,6 +182,18 @@ export default {
       count: 0, //拼团剩余人数
       iShidden: false,
 	  countdown:'剩余00:00:00 结束',
+	  cartNum:1,
+	  attr: {
+	    cartAttr: false,
+	    productSelect: {
+	      image: "",
+	      store_name: "",
+	      price: "",
+	      stock: "",
+	      unique: "",
+	      cart_num: 1
+	    }
+	  },
     };
   },
   watch: {
@@ -198,8 +214,36 @@ export default {
       that.pinkId = that.$yroute.query.id;
     }
     that.getCombinationPink();
+	if(cookie.get('pink_attr')){
+		this.attr = cookie.get('pink_attr')
+	}
   },
   methods: {
+	  changeattr: function(res) {
+	    var that = this;
+	    that.attr.cartAttr = res;
+	    this.isOpen = false;
+	  },
+	  ChangeCartNum: function(res) {
+	    var that = this;
+	    that.attr.productSelect.cart_num = 1;
+	    that.cartNum = 1;
+	    uni.showToast({
+	      title: "每人每次限购1",
+	      icon: "none",
+	      duration: 2000
+	    });
+	  },
+	  //将父级向子集多次传送的函数合二为一；
+	  changeFun: function(opt) {
+	    if (typeof opt !== "object") opt = {};
+	    let action = opt.action || "";
+	    let value = opt.value === undefined ? "" : opt.value;
+	    this[action] && this[action](value);
+	  },
+	  open(){
+		  this.attr.cartAttr = true;
+	  },
     pay: function() {
       var that = this;
       var data = {};
