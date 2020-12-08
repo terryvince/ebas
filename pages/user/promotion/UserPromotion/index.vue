@@ -135,7 +135,12 @@
 				this.$yrouter.push("/pages/user/promotion/PromoterList/index");
 			},
 			goCommissionDetails() {
-				this.$yrouter.push("/subpackage/userIntegral/index");
+				this.$yrouter.replace({
+					path: "/subpackage/userIntegral/index",
+					query: {
+						type: 3,
+					}
+				});
 			},
 			goPromoterOrder() {
 				this.$yrouter.push("/pages/user/promotion/PromoterOrder/index");
