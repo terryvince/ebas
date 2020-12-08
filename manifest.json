@@ -168,6 +168,13 @@
         "router" : {
             "mode" : "hash"
         },
-        "template" : "template.h5.html"
+        "template" : "template.h5.html",
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "KOPBZ-JNUL4-HLHU4-D5CRU-53ZJ2-IYFC4"
+                }
+            }
+        }
     }
 }

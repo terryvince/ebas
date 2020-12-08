@@ -88,7 +88,7 @@ import { getAddress, postAddress, getCity,  getAddressRemove,
 import attrs, { required, chs_phone } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
 // import { openAddress } from "@/libs/wechat";
-import { isWeixin } from "@/utils";
+import { isWeixin,checkAuth } from "@/utils";
 export default {
   name: "AddAddress",
   components: {
@@ -106,7 +106,8 @@ export default {
 		latitude:'',
 		longitude:''
 	  },
-	  locationText:''
+	  locationText:'',
+	  isAuth:false
     };
   },
   mounted: function() {
@@ -114,6 +115,16 @@ export default {
     this.id = id;
     this.getUserAddress();
     this.getCityList();
+	this.checkPermission().then(res=>{
+		console.log(res)
+		this.isAuth = true
+	  }).catch(err=>{
+		this.isAuth = false
+		uni.showToast({
+			title:err,
+			icon:none
+		})
+	  })
   },
   watch: {
     // addressText(nextModel2) {
@@ -124,6 +135,9 @@ export default {
 	  /**
 	   * 删除地址
 	   */
+	  checkPermission(){
+		  return checkAuth('userLocation','检测到您未授权获取地理位置，是否跳转到设置页进行授权？')
+	  },
 	  delAddress: function(index) {
 		  var that = this;
 		  uni.showModal({
@@ -192,6 +206,13 @@ export default {
 		locationText = this.locationText,
         detail = this.userAddress.detail,
         isDefault = this.userAddress.isDefault;
+	  if(!locationText && this.isAuth){
+		  uni.showToast({
+		  	title:'请点击获取位置获取地理位置信息',
+			icon:'none'
+		  })
+		  return
+	  }
       try {
         await this.$validator({
           name: [
@@ -256,13 +277,28 @@ export default {
 	// 不一定是当前位置的经纬度，所以需要选取
 	getLocation(){
 		let that = this
-		uni.chooseLocation({
-			success(res){
-				const {latitude,longitude} = res
-				that.location = {latitude,longitude}
-				that.locationText = '已获取（重新获取）'
-			}
-		})  
+		this.checkPermission().then(res=>{
+			console.log(res)
+			this.isAuth = true
+			uni.chooseLocation({
+				success(res){
+					const {latitude,longitude} = res
+					that.location = {latitude,longitude}
+					that.locationText = '已获取（重新获取）'
+				},
+				fail(err){
+					console.error(err)
+				}
+			})  
+		  }).catch(err=>{
+			this.isAuth = false
+			uni.showToast({
+				title:err,
+				icon:none
+			})
+		  })
+		console.log('定位执行')
+		
 	},
     result(values) {
       this.address = {

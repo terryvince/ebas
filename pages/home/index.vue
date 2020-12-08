@@ -229,7 +229,7 @@
 				<goods-list from="seckill" :list="discountList"></goods-list>
 			</view> -->
 			<!-- 精选商品新版 -->
-			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" style="order:1">
+			<view v-if="pickList.length > 0" class="choice-goods x-line gray flex-1" :style="{order:sort.selectedNum}">
 				<view class="flex-main-center relative">
 					<image src="https://res.sdebs.com/text-pick-goods.png" class="home-title" mode="widthFix"></image>
 					<view @click="goPickGoods()" class="pick-more fs-20 color-text-secondary flex-main-start">
@@ -241,7 +241,7 @@
 			</view>
 			
 			<!-- 团购 无字段-->
-			<view v-if="combinationList.length" class="group-list top-30 flex-1" style="order:2">
+			<view v-if="combinationList.length" class="group-list top-30 flex-1" :style="{order:sort.groupNum}">
 				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
 					<view class="flex-main-start fs-34 txt-heavy">
 						<image src="https://res.sdebs.com/icon-mark.png" class="group-title-img"></image>
@@ -256,7 +256,7 @@
 			</view>
 			
 			<!-- 秒杀 -->
-			<view v-if="discountList.length>0" class="seckill-list top-30 flex-1" style="order:3">
+			<view v-if="discountList.length>0" class="seckill-list top-30 flex-1" :style="{order:sort.seckillNum}">
 				<view class="seckill-title flex-main-between color-white" style="margin-bottom: 42rpx;">
 					<view class="flex-main-start">
 						<image src="http://qj5wtf3w8.hn-bkt.clouddn.com/icon-clock.png" class="seckill-title-img"></image>
@@ -296,6 +296,7 @@
 	} from 'vuex';
 	// import GoodsList from '@/components/goodsList/goodsList';
 	import { getSeckillConfig, getSeckillList,queryLotteryDialog,getCombinationList } from "@/api/activity";
+	import {getModuleOrder} from '@/api/public.js'
 	import { getProducts } from "@/api/store";
 	import {countDown} from "../../utils/utils.js";
 	// import GoodList from '@/components/GoodList';
@@ -414,7 +415,8 @@
 				},
 				isShowLottery:false,
 				countdown: {},
-				combinationList:[]
+				combinationList:[],
+				sort:{}
 			};
 		},
 		  computed:{
@@ -509,6 +511,10 @@
 			getCombinationList({ page: 1, limit: 3,isHome:1 }).then(res => {
 				this.combinationList = res.data
 			});
+			
+			getModuleOrder().then(res=>{
+				this.sort = res.data
+			})
 		},
 		methods: {
 			...mapActions(["getLocation"]),

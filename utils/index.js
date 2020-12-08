@@ -151,6 +151,44 @@ export const authorize = (authorizeStr) => {
 	})
 }
 
+export const checkAuth = (authorizeStr,tip) => {
+	return new Promise((resolve, reject) => {
+		authorize(authorizeStr).then(res=>{ // 已授权
+			resolve('授权成功！')
+		}).catch(err=>{ // 未授权
+			uni.authorize({
+				scope: `scope.${authorizeStr}`,
+				success() {
+					resolve('授权成功！')
+				},
+				fail(){
+					uni.showModal({
+						title:'提示',
+						content: tip,
+						success(res){
+							 if (res.confirm) {
+								uni.openSetting({
+									success(res) {
+										if(res.authSetting[`scope.${authorizeStr}`]){
+											resolve('授权成功!')
+											return
+										}
+										reject('您取消了授权！');
+									}
+								})
+							} else{
+								reject('您取消了授权！');
+							}
+						}
+					})
+				}
+			})
+			
+		})
+
+	})
+}
+
 export const login = () => {
 	console.log('————————————————————')
 	console.log('开始登录')

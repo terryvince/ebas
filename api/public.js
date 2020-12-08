@@ -105,3 +105,7 @@ export function getCouponsAll({page=1,limit=3}) {
 	  limit
   }, { login: false });
 }
+
+export function getModuleOrder() {
+  return request.get("/menu/activity", {}, { login: false });
+}
