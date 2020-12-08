@@ -287,12 +287,13 @@
 			this.loading = false;
 		},
 		methods: {
+			// 申请退款
 			goGoodsReturn(orderInfo) {
 				this.$yrouter.push({
 					path: "/pages/order/GoodsReturn/index",
 					query: {
 						refundType: orderInfo.refundType,
-						id: orderInfo.extendOrderId,
+						id: order._status._type == 0 ? order.orderId : order.extendOrderId,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
 						refundReasonWap: orderInfo.refundReasonWap,
@@ -300,19 +301,21 @@
 					}
 				});
 			},
+			// 查看物流
 			goLogistics(order) {
 				this.$yrouter.push({
 					path: "/pages/order/Logistics/index",
 					query: {
-						id: order.extendOrderId
+						id: order._status._type ==0 ? order.orderId : order.extendOrderId
 					}
 				});
 			},
+			// 订单详情
 			goOrderDetails(order) {
 				this.$yrouter.push({
 					path: "/pages/order/OrderDetails/index",
 					query: {
-						id: order.extendOrderId
+						id: order._status._type ==0 ? order.orderId : order.extendOrderId  // 仅待付款传订单id
 					}
 				});
 			},
