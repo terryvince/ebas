@@ -534,16 +534,47 @@ export default {
       that.attr.cartAttr = res;
 	  this.isOpen = false;
     },
-    ChangeCartNum: function(res) {
-      var that = this;
-      that.attr.productSelect.cart_num = 1;
-      that.cartNum = 1;
-      uni.showToast({
-        title: "每人每次限购1" + that.storeInfo.unitName,
-        icon: "none",
-        duration: 2000
-      });
-    },
+    // ChangeCartNum: function(res) {
+    //   var that = this;
+    //   that.attr.productSelect.cart_num = 1;
+    //   that.cartNum = 1;
+    //   uni.showToast({
+    //     title: "每人每次限购1" + that.storeInfo.unitName,
+    //     icon: "none",
+    //     duration: 2000
+    //   });
+    // },
+	ChangeCartNum: function(changeValue) {
+		//changeValue:是否 加|减
+		let stock = this.attr.productSelect.stock || 0;
+		let num = this.attr.productSelect;
+		if (changeValue) { // 有数量
+			num.cart_num++;
+			if (num.cart_num > stock) {  // 大于库存
+				this.$set(this.attr.productSelect, "cart_num", stock);
+				this.$set(this, "cartNum", stock);
+					return
+			}
+				if(num.cart_num > this.storeInfo.people) // 大于可购买数
+				{
+					this.$set(this.attr.productSelect, "cart_num", this.storeInfo.people);
+					this.$set(this, "cartNum", this.storeInfo.people);
+					return;
+				}
+				
+				this.$set(this.attr.productSelect, "cart_num", num.cart_num);
+				this.$set(this, "cartNum", num.cart_num);
+		} else {
+			num.cart_num--;
+			if (num.cart_num < 1) {
+				this.$set(this.attr.productSelect, "cart_num", 1);
+				this.$set(this, "cartNum", 1);
+			} else {
+				this.$set(this.attr.productSelect, "cart_num", num.cart_num);
+				this.$set(this, "cartNum", num.cart_num);
+			}
+		}
+	},
     setProductSelect: function() {
       var that = this;
       var attr = that.attr;

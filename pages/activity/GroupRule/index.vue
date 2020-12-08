@@ -176,7 +176,7 @@ export default {
       pinkBool: 0, //判断拼团是否成功|0=失败,1=成功
       userBool: 0, //判断当前用户是否在团内|0=未在,1=在
       pinkAll: [], //团员
-      pinkT: [], //团长信息
+      pinkT: {}, //团长信息
       storeCombination: [], //拼团产品
       pinkId: 0,
       count: 0, //拼团剩余人数
@@ -214,25 +214,45 @@ export default {
       that.pinkId = that.$yroute.query.id;
     }
     that.getCombinationPink();
-	if(cookie.get('pink_attr')){
+	if(cookie.get('pink_attr')){  // 为了获取拼团商品的信息,只有上个页面有，从缓存中取
 		this.attr = cookie.get('pink_attr')
 	}
   },
   methods: {
 	  changeattr: function(res) {
-	    var that = this;
-	    that.attr.cartAttr = res;
+	    this.attr.cartAttr = res;
 	    this.isOpen = false;
 	  },
-	  ChangeCartNum: function(res) {
-	    var that = this;
-	    that.attr.productSelect.cart_num = 1;
-	    that.cartNum = 1;
-	    uni.showToast({
-	      title: "每人每次限购1",
-	      icon: "none",
-	      duration: 2000
-	    });
+	  ChangeCartNum: function(changeValue) {
+	  	//changeValue:是否 加|减
+	  	let stock = this.attr.productSelect.stock || 0;
+	  	let num = this.attr.productSelect;
+	  	if (changeValue) { // 有数量
+	  		num.cart_num++;
+	  		if (num.cart_num > stock) {  // 大于库存
+	  			this.$set(this.attr.productSelect, "cart_num", stock);
+	  			this.$set(this, "cartNum", stock);
+				return
+	  		}
+			if(num.cart_num > this.count) // 大于可购买数
+			{
+				this.$set(this.attr.productSelect, "cart_num", this.count);
+				this.$set(this, "cartNum", this.count);
+				return;
+			}
+			
+			this.$set(this.attr.productSelect, "cart_num", num.cart_num);
+			this.$set(this, "cartNum", num.cart_num);
+	  	} else {
+	  		num.cart_num--;
+	  		if (num.cart_num < 1) {
+	  			this.$set(this.attr.productSelect, "cart_num", 1);
+	  			this.$set(this, "cartNum", 1);
+	  		} else {
+	  			this.$set(this.attr.productSelect, "cart_num", num.cart_num);
+	  			this.$set(this, "cartNum", num.cart_num);
+	  		}
+	  	}
 	  },
 	  //将父级向子集多次传送的函数合二为一；
 	  changeFun: function(opt) {
@@ -243,12 +263,13 @@ export default {
 	  },
 	  open(){
 		  this.attr.cartAttr = true;
+		  this.isOpen = true;
 	  },
     pay: function() {
       var that = this;
       var data = {};
       data.productId = that.storeCombination.productId;
-      data.cartNum = that.pinkT.totalNum;
+      data.cartNum = this.cartNum;
       data.uniqueId = "";
       data.combinationId = that.storeCombination.id;
       data.new = 1;
