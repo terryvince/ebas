@@ -9,7 +9,7 @@
 	 :indicator-active-color="themeColor">
 		<swiper-item v-for="(url,i) in imgUrls" :key="i">
 			<view class="swiper-item full over-hide">
-				<image :src="url" class="width-full" mode="widthFix"></image>
+				<image :src="url" class="width-full" mode="scaleToFill"></image>
 			</view>
 		</swiper-item>
 	</swiper>
