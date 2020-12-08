@@ -189,12 +189,17 @@
 				refresher: false,
 				where: {
 					page: 1,
-					limit: 10
+					limit: 10,
+					type:0
 				},
 				list: []
 			};
 		},
 		onShow: function() {
+			let that = this;
+			if (that.$yroute.query.type !== undefined) {
+				that.where.type = that.$yroute.query.type;
+			}
 			this.onRefresh()
 		},
 		onLoad() {},
