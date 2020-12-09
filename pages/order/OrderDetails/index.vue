@@ -521,7 +521,7 @@
 					});
 			},
 			takeOrder() {
-				takeOrderHandle(this.orderInfo.orderId).finally(() => {
+				takeOrderHandle(this.orderInfo.extendOrderId).finally(() => {
 					this.getDetail();
 				});
 			},
