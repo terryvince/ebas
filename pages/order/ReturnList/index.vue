@@ -70,7 +70,7 @@ export default {
     goOrderDetails(order) {
       this.$yrouter.push({
         path: "/pages/order/OrderDetails/index",
-        query: { id: order.orderId }
+        query: { id: order._status._type ==0 ? order.orderId : order.extendOrderId }
       });
     },
     getOrderList() {
