@@ -348,7 +348,7 @@ export default {
         that.$set(that, "currentPinkOrder", res.data.currentPinkOrder);
       })
 	  // 模拟数据
-	  // .finally(()=>{
+	  .finally(()=>{
 		 //  that.$set(that, "storeCombination", {
 		 //  	image:require('@/static/logo.png'),
 		 //  	title:'可是大家看法罗迪克十六分',
@@ -366,13 +366,13 @@ export default {
 		 //  		  stopTime: +new Date() + (1000 * 60)
 		 //  })
 		 //  that.$set(that, "userBool", 1);
-		 //  // 设置倒计时
-		 //  clearInterval(this.timer);
-		 //  this.timer = setInterval(()=>{
-			//   this.countdown = countDown(new Date(this.pinkT.stopTime), '剩余hh:mm:ss 结束')
-		 //  },1000)
-		 //  this.$once('hook:beforeDestroy',()=> clearInterval(this.timer))
-	  // })
+		  // 设置倒计时
+		  clearInterval(this.timer);
+		  this.timer = setInterval(()=>{
+			  this.countdown = countDown(new Date(this.pinkT.stopTime), '剩余hh:mm:ss 结束')
+		  },1000)
+		  this.$once('hook:beforeDestroy',()=> clearInterval(this.timer))
+	  })
 	  
     },
     //拼团取消

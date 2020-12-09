@@ -248,20 +248,6 @@
 					2:'即将开始',
 					0:'已结束'
 				}[value] || '马上抢'
-			},
-			formatJson(value){
-				if(typeof value == 'string'){
-					let result = ''
-					try{
-						result = JSON.parse(value)
-					}catch(err){
-						result = ''
-					}
-					result = result.district.split('市')
-					return result.length > 1 ? result[1] : ''
-				}
-				return ''
-				
 			}
 		},
 		created(){

@@ -168,7 +168,7 @@
 	  				<image :src="item.avatar" class="width-full" mode="widthFix"></image>
 	  			</view>
 	  			<view class="avatar-text left-15">
-	  				<view class="badge badge-mini-extra badge-primary badge-radius">渝北区可拼</view>
+	  				<view class="badge badge-mini-extra badge-primary badge-radius">{{addressObj|formatJson}}</view>
 	  				<view class="fs-28 txt-medium color-text">{{item.nickname}}</view>
 	  				<view class="color-gray fs-24 txt-medium flex-main-start">
 	  					<text class="iconfont icon-shijian right-5"></text>
@@ -362,7 +362,8 @@ export default {
         }
       },
       cartNum: 1,
-      userCollect: false
+      userCollect: false,
+	  addressObj:null
     };
   },
   watch: {
@@ -438,6 +439,7 @@ export default {
         that.$set(that, "replyCount", res.data.replyCount);
         that.$set(that, "replyChance", res.data.replyChance);
 		that.$set(that, "tempName", res.data.tempName);
+		that.$set(that, "addressObj", res.data.addressObj);
         that.setProductSelect();
         that.posterData.image = that.storeInfo.image;
         if (that.storeInfo.title.length > 30) {

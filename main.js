@@ -88,6 +88,20 @@ Vue.filter('nameFilter',function(value, keepNumber=3){
 	},'')
 })
 
+Vue.filter('formatJson',function(value){
+	if(typeof value == 'string'){
+		let result = ''
+		try{
+			result = JSON.parse(value)
+		}catch(err){
+			result = ''
+		}
+		result = result.district.split('市')
+		return result.length > 1 ? result[1] : ''
+	}
+	return ''
+})
+
 Vue.filter('timeFormat',function(value, option){
 	// console.log(value, '调用timeFormat过滤器')
 	if(typeof value == 'string' && value.length==10){ // 如果是unix时间戳

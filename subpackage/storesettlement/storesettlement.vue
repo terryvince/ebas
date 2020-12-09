@@ -9,10 +9,9 @@
 	.storesettlement {
 		width: 100%;
 		height: 100%;
-		background-color: #fff;
 		border-radius: 30rpx;
 		margin-top: 20rpx;
-		padding: 10rpx;
+		// padding: 10rpx;
 
 		.imageBg {
 			width: 100%;
@@ -441,11 +440,16 @@
 					this.storeInfo.imageLogo = this.storeInfo.imageLogo ? this.storeInfo.imageLogo.join(",") : ''; // 不是必填项
 					postSettlement(this.storeInfo).then(res=>{
 						if(res.data=="成功"){
-							uni.showToast({
-							  title: "申请成功",
-							  icon: "none",
-							  duration: 2000
-							});
+							// uni.showToast({
+							//   title: "提交入驻信息成功，请等待客服联系！",
+							//   icon: "none",
+							//   duration: 2000
+							// });
+							uni.showModal({
+								title:'提示',
+								content:'提交入驻信息成功，请等待客服联系！',
+								showCancel:false
+							})
 						}
 						return this.$yrouter.back()
 					})

@@ -293,7 +293,7 @@
 					path: "/pages/order/GoodsReturn/index",
 					query: {
 						refundType: orderInfo.refundType,
-						id: order._status._type == 0 ? order.orderId : order.extendOrderId,
+						id: orderInfo._status._type == 0 ? orderInfo.orderId : orderInfo.extendOrderId,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
 						refundReasonWap: orderInfo.refundReasonWap,
