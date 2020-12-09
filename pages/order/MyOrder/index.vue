@@ -374,7 +374,7 @@
 				return STATUS[order._status._type];
 			},
 			cancelOrder(order) {
-				cancelOrderHandle(order.orderId)
+				cancelOrderHandle(order._status._type ==0 ? order.orderId : order.extendOrderId)
 					.then(() => {
 						this.getOrderData();
 						this.orderList.splice(this.orderList.indexOf(order), 1);
