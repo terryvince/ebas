@@ -512,7 +512,7 @@
 				}
 			},
 			cancelOrder() {
-				cancelOrderHandle(this.orderInfo.orderId)
+				cancelOrderHandle(this.orderInfo._status._type ==0 ? this.orderInfo.orderId : this.orderInfo.extendOrderId)
 					.then(() => {
 						setTimeout(() => this.goBack(), 300);
 					})
