@@ -11,7 +11,7 @@
 				<image :src="cart.productInfo.image" class="image" />
 			</view>
 			<view class="text acea-row row-between">
-				<view class="name line2">{{ cart.productInfo.storeName }}</view>
+				<view class="name line2">{{ cart.productInfo.storeName||'' }}</view>
 				<view class="money">
 					<view>
 						￥{{
@@ -20,18 +20,18 @@
             : cart.productInfo.price
             }}
 					</view>
-					<view class="num">x{{ cart.cartNum }}</view>
+					<view class="num">x{{ cart.cartNum||0 }}</view>
 				</view>
 			</view>
 		</view>
 		<view class="list">
 			<view class="item acea-row row-between-wrapper">
 				<view>退货件数</view>
-				<view class="num">{{ orderInfo.totalNum }}</view>
+				<view class="num">{{ orderInfo.totalNum||0 }}</view>
 			</view>
 			<view class="item acea-row row-between-wrapper">
 				<view>退款金额</view>
-				<view class="num">￥{{ orderInfo.payPrice }}</view>
+				<view class="num">￥{{ orderInfo.payPrice||0 }}</view>
 			</view>
 
 			<picker :value="reason" :range="reasonList" @change="changeReason">

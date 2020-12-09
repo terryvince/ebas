@@ -335,7 +335,7 @@
 				});
 			},
 			takeOrder(order) {
-				takeOrderHandle(order.orderId).finally(() => {
+				takeOrderHandle(orderInfo.extendOrderId).finally(() => {
 					this.reload();
 					this.getOrderData();
 				});

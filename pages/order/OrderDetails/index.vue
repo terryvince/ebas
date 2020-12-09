@@ -143,9 +143,9 @@
 		<!-- 给header上与data上加on为退款订单-->
 		<view class="header bg-color-green acea-row row-middle" :class="refundOrder ? 'on' : ''">
 			<view class="data" :class="refundOrder ? 'on' : ''">
-				<view class="state">{{ orderInfo._status._msg }}</view>
+				<view class="state">{{ orderInfo._status._msg||'' }}</view>
 				<view>
-					{{ orderInfo.createTime }}
+					{{ orderInfo.createTime||'' }}
 				</view>
 			</view>
 		</view>
@@ -187,19 +187,19 @@
 			</div>
 			<view class="address" v-if="orderInfo.shippingType === 1">
 				<view class="name">
-					{{ orderInfo.realName }}
-					<text class="phone">{{ orderInfo.userPhone }}</text>
+					{{ orderInfo.realName||'' }}
+					<text class="phone">{{ orderInfo.userPhone||'' }}</text>
 					<!-- <text class="iconfont icon-tonghua font-color-red"></text> -->
 				</view>
-				<view>{{ orderInfo.userAddress }}</view>
+				<view>{{ orderInfo.userAddress||'' }}</view>
 			</view>
 			<div class="address" v-else>
 				<div class="name">
-					{{ system_store.name}}
-					<span class="phone">{{ system_store.phone }}</span>
+					{{ system_store.name||''}}
+					<span class="phone">{{ system_store.phone||'' }}</span>
 					<span class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></span>
 				</div>
-				<div>{{ system_store.address }}</div>
+				<div>{{ system_store.address||'' }}</div>
 			</div>
 			<view class="line" v-if="orderInfo.shippingType === 1">
 				<image src="@/static/images/line.jpg" />

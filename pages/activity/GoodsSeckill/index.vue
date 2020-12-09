@@ -201,7 +201,6 @@ export default {
         that.$set(that, "headerImg", res.data.lovely);
         that.$set(that, "timeList", res.data.seckillTime);
         that.$set(that, "active", res.data.seckillTimeIndex);
-
         let title = [];
         title = res.data.seckillTime.map((item, index) => {
           return {
@@ -239,7 +238,7 @@ export default {
         });
         that.$set(that, "title", title);
         that.datatime = that.timeList[that.active].stop;
-        that.getSeckillList();
+        that.getSeckillList(that.datatime);
         that.$nextTick(function() {
           that.sticky = true;
           uni.hideLoading();
@@ -256,7 +255,7 @@ export default {
       this.seckillList = [];
       that.getSeckillList();
     },
-    getSeckillList: function() {
+    getSeckillList: function(stopTime) {
       var that = this;
       if (that.loadingList) return;
       if (that.status) return;
@@ -266,6 +265,7 @@ export default {
         limit: that.limit
       }).then(res => {
         that.status = res.data.length < that.limit;
+		res.data.forEach(v=>v.stop=stopTime)
         that.seckillList.push.apply(that.seckillList, res.data);
         that.page++;
         uni.hideLoading();
