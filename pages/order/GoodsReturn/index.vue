@@ -248,7 +248,7 @@
 				}
 				var info = {
 					text,
-					uni: this.orderInfo.orderId,
+					uni: this.orderInfo.extendOrderId,
 					refund_reason_wap_img: this.refund_reason_wap_img.join(","),
 					refund_reason_wap_explain: refund_reason_wap_explain,
 					refund_type: refund_type,
