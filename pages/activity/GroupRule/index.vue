@@ -123,12 +123,14 @@
 				  </view>
 			  </view>
 			  
-			  
+			  <!-- @click="goPoster" -->
 			  <view
 			    class="teamBnt bg-color-green"
 			    v-if="userBool === 1 && isOk == 0 && pinkBool === 0"
-			    @click="goPoster"
-			  >邀请好友参团</view>
+			  >
+			  <button type="default" class="hide-full" open-type="share"></button>
+			  邀请好友参团
+			  </view>
 			  <view
 			    class="teamBnt bg-color-green"
 			    v-else-if="userBool === 0 && pinkBool === 0 && count > 0"
@@ -218,6 +220,12 @@ export default {
 		this.attr = cookie.get('pink_attr')
 	}
   },
+  onShareAppMessage() {
+  	return {
+  	  title: this.storeInfo.title,
+  	  path: `/pages/activity/GroupRule/index?pinkId=${this.pinkId}&from=share`
+  	};
+  },
   methods: {
 	  changeattr: function(res) {
 	    this.attr.cartAttr = res;
@@ -292,16 +300,16 @@ export default {
           });
         });
     },
-    goPoster: function() {
-      var that = this;
-      this.$yrouter.push({
-        path: "/pages/activity/Poster/index",
-        query: {
-          id: that.pinkId,
-          type: 1
-        }
-      });
-    },
+    // goPoster: function() {
+    //   var that = this;
+    //   this.$yrouter.push({
+    //     path: "/pages/activity/Poster/index",
+    //     query: {
+    //       id: that.pinkId,
+    //       type: 1
+    //     }
+    //   });
+    // },
     goOrder: function() {
       var that = this;
       this.$yrouter.push({

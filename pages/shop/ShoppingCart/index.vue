@@ -94,53 +94,55 @@
 				 @click="manage">{{ footerswitch ? '取消' : '管理' }}</view>
 			</view>
 			<view style="top: 0rpx; height: 2rpx; width: 100%; background-color: #F0F0F0; z-index: 3; position: fixed;"></view>
-			<view class="shopListClass" v-if="cartList.valid.length > 0">
-				<view class="list" v-for="(shopItem, shopIndex) in cartList.valid" :key="shopIndex">
-					<view class="shopClass">
-						<view class="item acea-row row-between-wrapper" style="height: 30rpx;">
-							<view class="select-btn flex-main-start" style="border-radius: 15rpx;">
-								<view class="checkbox-wrapper">
-									<checkbox-group @change="shopAllChecked(shopItem)">
-										<label class="well-check">
-											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="shopItem.checked"></checkbox>
-										</label>
-									</checkbox-group>
-								</view>
-								<text style="font-size: 28rpx;">{{shopItem.shopName}}</text>
-							</view>
-							<text style="font-size: 28rpx;">共{{shopItem.storeCartQueryVoList.length}}件商品</text>
-						</view>
-						<view class="line-top"></view>
-						<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in shopItem.storeCartQueryVoList"
-						 :key="cartListValidIndex">
-							<label class="select-btn">
-								<view class="checkbox-wrapper">
-									<checkbox-group @change="switchSelect(item)">
-										<label class="well-check">
-											<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="item.checked"></checkbox>
-										</label>
-									</checkbox-group>
-								</view>
-							</label>
-							<view class="picTxt acea-row row-between-wrapper" style="margin-top: 10rpx;">
-								<view class="pictrue relative" @click="goGoodsCon(item)">
-									<view class="overlay full" v-show="item.productInfo.isShow == 0">
-										<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
+			<view class="shopListClass" v-if="cartList.valid.length > 0 || cartList.invalid.length > 0">
+			    <view v-if="cartList.valid.length > 0">
+					<view class="list" v-for="(shopItem, shopIndex) in cartList.valid" :key="shopIndex">
+						<view class="shopClass">
+							<view class="item acea-row row-between-wrapper" style="height: 30rpx;">
+								<view class="select-btn flex-main-start" style="border-radius: 15rpx;">
+									<view class="checkbox-wrapper">
+										<checkbox-group @change="shopAllChecked(shopItem)">
+											<label class="well-check">
+												<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="shopItem.checked"></checkbox>
+											</label>
+										</checkbox-group>
 									</view>
-									<image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
-									<image :src="item.productInfo.image" v-else />
+									<text style="font-size: 28rpx;">{{shopItem.shopName}}</text>
 								</view>
-								<view class="text">
-									<view class="line1">{{ item.productInfo.storeName }}</view>
-									<view class="infor line1" v-if="item.productInfo.attrInfo">属性：{{ item.productInfo.attrInfo.sku }}</view>
-									<view class="money color-danger">￥{{ item.truePrice }}</view>
-								</view>
-								<view class="carnum acea-row row-center-wrapper">
-									<view class="reduce" :class="item.cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(item)">-</view>
-									<view class="num">{{ item.cartNum }}</view>
-									<view class="plus" v-if="item.attrInfo" :class="item.cartNum >= item.attrInfo.stock ? 'on' : ''"
-									 @click.prevent="plus(item)">+</view>
-									<view class="plus" v-else :class="item.cartNum >= item.stock ? 'on' : ''" @click.prevent="plus(item)">+</view>
+								<text style="font-size: 28rpx;">共{{shopItem.storeCartQueryVoList.length}}件商品</text>
+							</view>
+							<view class="line-top"></view>
+							<view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in shopItem.storeCartQueryVoList"
+							 :key="cartListValidIndex">
+								<label class="select-btn">
+									<view class="checkbox-wrapper">
+										<checkbox-group @change="switchSelect(item)">
+											<label class="well-check">
+												<checkbox style="transform:scale(0.9)" color="#71D676" value :checked="item.checked"></checkbox>
+											</label>
+										</checkbox-group>
+									</view>
+								</label>
+								<view class="picTxt acea-row row-between-wrapper" style="margin-top: 10rpx;">
+									<view class="pictrue relative" @click="goGoodsCon(item)">
+										<view class="overlay full" v-show="item.productInfo.isShow == 0">
+											<image src="../../../static/images/goods-off.png" mode="widthFix" class="width-half abs-left-top"></image>
+										</view>
+										<image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
+										<image :src="item.productInfo.image" v-else />
+									</view>
+									<view class="text">
+										<view class="line1">{{ item.productInfo.storeName }}</view>
+										<view class="infor line1" v-if="item.productInfo.attrInfo">属性：{{ item.productInfo.attrInfo.sku }}</view>
+										<view class="money color-danger">￥{{ item.truePrice }}</view>
+									</view>
+									<view class="carnum acea-row row-center-wrapper">
+										<view class="reduce" :class="item.cartNum <= 1 ? 'on' : ''" @click.prevent="reduce(item)">-</view>
+										<view class="num">{{ item.cartNum }}</view>
+										<view class="plus" v-if="item.attrInfo" :class="item.cartNum >= item.attrInfo.stock ? 'on' : ''"
+										 @click.prevent="plus(item)">+</view>
+										<view class="plus" v-else :class="item.cartNum >= item.stock ? 'on' : ''" @click.prevent="plus(item)">+</view>
+									</view>
 								</view>
 							</view>
 						</view>
@@ -664,6 +666,7 @@
 					}
 				}
 				that.$set(that, "cartCount", carnum);
+				that.$set(that, "count", carnum);
 			},
 			//总共价钱；
 			countMoney: function() {

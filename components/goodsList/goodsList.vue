@@ -156,7 +156,7 @@
 				</view>
 				<view class="group-content left-20 flex-1">
 					<view class="group-title fs-28 relative">
-						<text class="group-badge badge badge-mini-extra badge-primary badge-radius">渝北区可拼</text>
+						<text class="group-badge badge badge-mini-extra badge-primary badge-radius txt-ellipsis">{{item.addressObj | formatJson}}</text>
 						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;text-indent: 150rpx;">
 							{{item.title}}
 						</text>
@@ -248,6 +248,20 @@
 					2:'即将开始',
 					0:'已结束'
 				}[value] || '马上抢'
+			},
+			formatJson(value){
+				if(typeof value == 'string'){
+					let result = ''
+					try{
+						result = JSON.parse(value)
+					}catch(err){
+						result = ''
+					}
+					result = result.district.split('市')
+					return result.length > 1 ? result[1] : ''
+				}
+				return ''
+				
 			}
 		},
 		created(){

@@ -80,7 +80,7 @@
 				<view class="num">{{ orderData.evaluatedCount || 0 }}</view>
 			</view>
 			<view class="item" :class="{ on: type === 4 }" @click="changeType(4)">
-				<view>已完成</view>
+				<view>全部</view>
 				<view class="num">{{ orderData.completeCount || 0 }}</view>
 			</view>
 		</view>
@@ -113,7 +113,7 @@
 
 						<block v-if="order.pinkName.indexOf('普通') != -1">
 							<!-- <image src="https://res.sdebs.com/icon-order-miao.png" class="classIcon"> -->
-							<view class="text">普通订单</view>
+							<view class="text">{{order.useIntegral > 0 ? '积分订单' : '普通订单'}}</view>
 							<!-- </image> -->
 						</block>
 						<!-- {{ order.createTime }} -->
@@ -176,7 +176,7 @@
 						<view class="bnt bg-color-green" @click="goOrderDetails(order)">立即付款</view>
 					</template>
 					<!-- 假设订单详情一定会有商品 -->
-					<template v-if="(order._status._type == 1 || order._status._type == 2 )&& order.cartInfo[0].productInfo.id>6">
+					<template v-if="(order._status._type == 1 || order._status._type == 2 ) && order.cartInfo[0].productInfo.id>6">
 						<view class="bnt cancelBnt" @click="goGoodsReturn(order)">申请退款</view>
 					</template>
 					<template v-if="order._status._type == 1 || order._status._type == 9">
