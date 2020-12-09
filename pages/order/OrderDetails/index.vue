@@ -456,7 +456,7 @@
 				this.$yrouter.push({
 					path: "/pages/order/GoodsReturn/index",
 					query: {
-						id: orderInfo.orderId,
+						id: orderInfo.extendOrderId,
 						refundType: orderInfo.refundType,
 						refundStatus: orderInfo.refundStatus,
 						status: orderInfo.status,
