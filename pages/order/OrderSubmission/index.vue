@@ -384,8 +384,9 @@ color: #333333;">
 				if(this.mode=='point'){
 					return this.orderPrice.deductionPrice
 				}
+				let price = (this.orderPrice.totalPrice*1000 - this.orderPrice.payPrice*1000)/1000
 				//<!-- 解决精度问题，小数点后三位可精确计算 -->
-				return (this.orderPrice.totalPrice*1000 - this.orderPrice.payPrice*1000)/1000
+				return price<0 ? 0 : price
 			}
 			
 		},
