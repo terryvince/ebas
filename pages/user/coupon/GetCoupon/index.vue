@@ -59,7 +59,7 @@
 						<div class="condition line1">
 							<span class="line-title bg-color-check" v-if="item.ctype === 0">通用劵</span>
 							<span class="line-title bg-color-check" v-else-if="item.ctype === 1">商品券</span>
-							<span class="line-title bg-color-check" v-else>未知</span>
+							<span class="line-title bg-color-check" v-else>店铺券</span>
 							<span>{{ item.cname }}</span>
 						</div>
 						<div class="data acea-row row-between-wrapper">
