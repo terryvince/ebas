@@ -197,12 +197,39 @@
 		background-color: #64CE5E;
 		border-radius: 10rpx;
 	}
+	// banner
+    .banner swiper, .banner image {
+		// border-radius: 20rpx;
+		width: 750rpx;
+	    height: 350rpx;
+	}
+	.slider-banner{
+		// padding: 0 20rpx;
+		box-sizing: border-box;
+		// margin: 20rpx 0 0rpx;
+	}
+	.swiper-item {
+		height: 100%;
+	}
+	.slider-banner.banner{
+	  // padding: 0 20rpx 0rpx;
+	  height: auto;
+	}
 </style>
 
 <template>
 	<view class="shopManage">
-		<view class="shopBanner">
-			<image :src="shopInfo.coverImage"></image>
+		<!-- banner -->
+		<view class="slider-banner banner">
+			<swiper indicatorDots="true" v-if="shopInfo.coverImage.length > 0" autoplay circular>
+				<block v-for="(item, bannerIndex) in shopInfo.coverImage" :key="bannerIndex">
+					<swiper-item>
+						<view @click="goRoll(item)" class="swiper-item">
+							<image :src="item.image"/>
+						</view>
+					</swiper-item>
+				</block>
+			</swiper>
 		</view>
 		<!-- 店铺介绍 -->
 		<!-- <view class="bg-white comment-box line-down">
@@ -349,7 +376,15 @@
 			getStoreInfo: function() {
 				getStoreInfo(this.where.merId).then(res => {
 					this.shopInfo = res.data;
+					this.shopInfo.coverImage=JSON.parse(res.data.coverImage)
 				})
+			},
+			// 点击banner跳转商品
+			goRoll(item) {
+				console.log(item)
+				if (item.goodsUrl) {
+					this.$yrouter.push(item.goodsUrl)
+				}
 			},
 			// 获取商品数据
 			get_product_list() {
