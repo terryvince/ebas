@@ -235,7 +235,7 @@
 			this.get_product_list();
 		},
 		onReachBottom() {
-			!this.loading && this.get_product_list();
+			!this.loadend && this.get_product_list();
 		},
 		onHide() {
 			// this.hostProduct = [];

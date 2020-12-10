@@ -359,18 +359,18 @@
       </template> -->
 
 			<template v-if="status.type == 2">
-				<view class="bnt default" @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})">查看物流</view>
-				<view class="bnt bg-color-green" @click="takeOrder">确认收货</view>
+				<view class="bnt default" @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id: orderInfo._status._type ==0 ? orderInfo.orderId : orderInfo.extendOrderId }})">查看物流</view>
+				<view class="bnt bg-color-green" @click="takeOrder(orderInfo)">确认收货</view>
 			</template>
 			<template v-if="status.type == 3 && orderInfo.deliveryType == 'express'">
 				<view class="bnt default" @click="
-            $yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})
+            $yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo._status._type ==0 ? orderInfo.orderId : orderInfo.extendOrderId }})
           ">查看物流</view>
 			</template>
 			<template v-if="status.type == 4">
 				<view class="bnt cancel" @click="delOrder">删除订单</view>
 				<view class="bnt default" @click="
-        $yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})
+        $yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo._status._type ==0 ? orderInfo.orderId : orderInfo.extendOrderId }})
         ">查看物流</view>
 			</template>
 			<template v-if="status.type == 6">
@@ -520,8 +520,8 @@
 						this.getDetail();
 					});
 			},
-			takeOrder() {
-				takeOrderHandle(this.orderInfo.extendOrderId).finally(() => {
+			takeOrder(orderInfo) {
+				takeOrderHandle(orderInfo.extendOrderId).finally(() => {
 					this.getDetail();
 				});
 			},
