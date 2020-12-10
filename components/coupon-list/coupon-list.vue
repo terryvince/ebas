@@ -66,6 +66,10 @@
 		padding:9rpx 11rpx;
 		box-sizing: border-box;
 		text-align: center;
+		&.disabled{
+			background-color: #ccc;
+			color: #eee;
+		}
 	}
 	.price-sign{
 		font-size: 19rpx;align-self:flex-end;position: relative;right: -6rpx;top: -16rpx;
@@ -95,7 +99,7 @@
 						</view>
 						<view class="color-white fs-16 flex-main-start txt-ellipsis" style="margin: 6rpx 0 0 10rpx;">满{{item.useMinPrice}}元可使用</view>
 					</view>
-					<view class="color-red fs-20 radius-btn flex-none" @tap="couponReceive(item)">{{item.isUse?"已领取":"点击领取"}}</view>
+					<view :class="['color-red fs-20 radius-btn flex-none ',item.isUse?'disabled':'']" @tap="couponReceive(item)">{{item.isUse|formatUse}}</view>
 				</view>
 			</view>
 			<image class="money-img" src="https://res.sdebs.com/index-money.png" style="width: 74rpx;height: 62rpx;"></image>
@@ -106,6 +110,7 @@
 <script>
 	import { getCoupon,getCouponReceive} from "@/api/user";
 	import {getCouponsAll} from '@/api/public.js'
+	import cookie from '@/utils/store/cookie';
 	export default {
 		props:{
 			ids:{
@@ -126,6 +131,14 @@
 				}
 			};
 		},
+		filters:{
+			formatUse(value){
+				if(typeof value != 'undefined'){
+					return value==2 ? '已领完' : value ? '已领取' : '立即领取'
+				}
+				return '立即领取'
+			}
+		},
 		mounted(){
 			if(this.ids) this.params.merId = this.ids;
 			this.getCouponList();
@@ -133,7 +146,7 @@
 		methods:{
 			// 获取优惠券
 			getCouponList(){
-				if(this.isHome){
+				if(this.isHome && !cookie.get('login_status')){
 					getCouponsAll(this.params).then(res=>{
 						this.list = res.data;
 					})

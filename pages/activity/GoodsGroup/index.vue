@@ -89,7 +89,7 @@ export default {
       status: false, //砍价列表是否获取完成 false 未完成 true 完成
       loading: false, //当前接口是否请求完成 false 完成 true 未完成
       page: 1, //页码
-      limit: 20, //数量
+      limit: 999, //数量
       loadingList: false
     };
   },

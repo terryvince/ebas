@@ -508,7 +508,7 @@
 			})
 			
 			// 团购
-			getCombinationList({ page: 1, limit: 3,isHome:1 }).then(res => {
+			getCombinationList({ page: 1, limit: 4,isHome:1 }).then(res => {
 				this.combinationList = res.data
 			});
 			
