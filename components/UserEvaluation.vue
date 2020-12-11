@@ -1,7 +1,7 @@
 <template>
 	<view class="evaluateWtapper">
 		<view class="evaluateItem" v-for="(item, evaluateWtapperIndex) in reply" :key="evaluateWtapperIndex">
-			<view v-if="item.isShow===1">
+			<view>
 				<view class="pic-text acea-row row-middle">
 					<view class="pictrue">
 						<image :src="item.avatar" class="image" />

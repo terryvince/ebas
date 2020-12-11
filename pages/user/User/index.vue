@@ -362,7 +362,12 @@
 			},
 			goIntegral() {
 				// this.$yrouter.push("/pages/user/signIn/Integral/index");
-				this.$yrouter.push("/subpackage/userIntegral/index");
+				this.$yrouter.push({
+					path:"/subpackage/userIntegral/index",
+					query:{
+						from:'user'
+					}
+				});
 			},
 			goUserPromotion() {
 				this.$yrouter.push("/pages/user/promotion/UserPromotion/index");

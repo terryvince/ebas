@@ -136,8 +136,8 @@
 				<view class="headerCon">
 					<view class="account acea-row row-top row-between">
 						<view class="assets">
-							<view>账户积分</view>
-							<view class="money">{{ info.integral }}</view>
+							<view>{{title}}</view>
+							<view class="money">{{ point }}</view>
 						</view>
 						<navigator url="/subpackage/integralDesc/integralDesc" class="recharge font-color-whitle">
 							积分说明
@@ -192,13 +192,25 @@
 					limit: 10,
 					type:0
 				},
-				list: []
+				list: [],
+				from:''
 			};
+		},
+		computed:{
+			point(){
+				return this.from == 'user' ? this.info.integral : this.info.brokeragePrice
+			},
+			title(){
+				return this.from == 'user' ? '账户积分' : '推广积分'
+			}
 		},
 		onShow: function() {
 			let that = this;
 			if (that.$yroute.query.type !== undefined) {
 				that.where.type = that.$yroute.query.type;
+			}
+			if(this.$yroute.query.from){
+				this.from = this.$yroute.query.from
 			}
 			this.onRefresh()
 		},

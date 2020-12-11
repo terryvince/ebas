@@ -1,7 +1,42 @@
+<style  lang="less">
+page {
+  height: 100%;
+  padding-bottom: 100rpx;
+}
+.distribution-posters {
+  height: 100%;
+}
+
+.banenr {
+  height: 100%;
+}
+
+.banner swiper {
+  height: 100%;
+}
+
+.banner .slide-image {
+  width: 100%;
+  height: auto;
+}
+.distribution-posters .save{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10rpx;
+	background-color: white;
+	.keep{
+		margin: 0;
+		width: 100%;
+	}
+}
+</style>
 <template>
   <view class="distribution-posters">
     <view class="slider-banner banner">
-      <swiper indicatorDots="true">
+      <swiper :indicatorDots="false">
         <block v-for="(item, infoIndex) in info" :key="infoIndex">
           <swiper-item>
             <image
@@ -14,7 +49,10 @@
         </block>
       </swiper>
     </view>
-    <view class="keep bg-color-green" @click="saveImg">保存海报</view>
+	<view class="save flex-main-center">
+		<view class="keep bg-color-green" @click="saveImg">保存海报</view>
+	</view>
+    
   </view>
 </template>
 <script>
@@ -153,25 +191,3 @@ export default {
   }
 };
 </script>
-
-<style  lang="less">
-page {
-  height: 100%;
-}
-.distribution-posters {
-  height: 100%;
-}
-
-.banenr {
-  height: 100%;
-}
-
-.banner swiper {
-  height: 100%;
-}
-
-.banner .slide-image {
-  width: 100%;
-  height: auto;
-}
-</style>

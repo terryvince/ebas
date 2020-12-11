@@ -384,7 +384,8 @@ color: #333333;">
 				if(this.mode=='point'){
 					return this.orderPrice.deductionPrice
 				}
-				let price = (this.orderPrice.totalPrice*1000 - this.orderPrice.payPrice*1000)/1000
+				// 商品总价 + 运费 - 支付价格即抵扣
+				let price = ((this.orderPrice.totalPrice+this.orderPrice.payPostage)*1000 - this.orderPrice.payPrice*1000)/1000
 				//<!-- 解决精度问题，小数点后三位可精确计算 -->
 				return price<0 ? 0 : price
 			}

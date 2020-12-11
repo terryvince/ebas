@@ -79,7 +79,7 @@
 				</view> -->
 				<view class="share flex-main-end relative">
 					<button type="default" class="hide-full" @click="share()" open-type="share"></button>
-					<image src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
+					<image src="@/static/share.png" style="width:40rpx;height: 40rpx;"></image>
 				</view>
 			</view>
 		</view>

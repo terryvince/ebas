@@ -211,10 +211,13 @@ export default {
     var that = this;
     let url = handleQrCode();
     if (url) {
+		// console.log(1,url.pinkId)
       that.pinkId = url.pinkId;
     } else {
+		// console.log(2,that.$yroute.query.id)
       that.pinkId = that.$yroute.query.id;
     }
+	// console.log(that.pinkId)
     that.getCombinationPink();
 	if(cookie.get('pink_attr')){  // 为了获取拼团商品的信息,只有上个页面有，从缓存中取
 		this.attr = cookie.get('pink_attr')

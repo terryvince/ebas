@@ -113,7 +113,7 @@
 
 						<block v-if="order.pinkName.indexOf('普通') != -1">
 							<!-- <image src="https://res.sdebs.com/icon-order-miao.png" class="classIcon"> -->
-							<view class="text">{{order.useIntegral > 0 ? '积分订单' : '普通订单'}}</view>
+							<view class="text">{{order.useIntegral ? '积分订单' : '普通订单'}}</view>
 							<!-- </image> -->
 						</block>
 						<!-- {{ order.createTime }} -->
@@ -153,11 +153,14 @@
 							</view>
 							<view class="money">
 								<view>
-									￥{{
-                  cart.productInfo.attrInfo
-                  ? cart.productInfo.attrInfo.price
-                  : cart.productInfo.price
-                  }}
+									<text v-if="!order.useIntegral">￥</text>
+									<text>{{
+									  cart.productInfo.attrInfo
+									  ? cart.productInfo.attrInfo.price
+									  : cart.productInfo.price
+									  }}
+									</text>
+									<text v-if="order.useIntegral">积分</text>
 								</view>
 								<view>x{{ cart.cartNum }}</view>
 							</view>
@@ -166,8 +169,8 @@
 				</view>
 				<view class="totalPrice flex-main-end" style="padding-bottom: 0rpx !important;">
 					<view class="flex-cross-center top-30">
-						共{{ order.cartInfo.length || 0 }}件商品，应付:
-						<text class="money font-color-red">￥{{ order.payPrice }}</text>
+						共{{ order.cartInfo.length || 0 }}件商品，应付：
+						<text class="money font-color-red">￥ {{ order.payPrice }}</text>
 					</view>
 				</view>
 				<view class="bottom acea-row row-right row-middle">

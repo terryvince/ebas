@@ -67,7 +67,7 @@ count-down::v-deep .styleAll{
 						<view class="share flex-main-end relative left-20">
 							<button type="default" class="hide-full" @click="share()" open-type="share"></button>
 							<!-- @click="setPosterImageStatus" 生成海报 -->
-							<image src="@/static/share.png" mode="widthFix" style="width:40rpx;"></image>
+							<image src="@/static/share.png" style="width:40rpx;height: 40rpx;"></image>
 						</view>
 					</view>
 				</view>
