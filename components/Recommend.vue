@@ -15,8 +15,8 @@
 				<view class="pictrue"><image :src="item.image" class="image" /></view>
 				<view class="name line1">{{ item.storeName }}</view>
 				<view class="money font-color-red">
-					￥
-					<text class="num">{{ item.price }}</text>
+					<text v-if="item.type!=1">￥</text>
+					<text class="num">{{ item.price }}{{item.type==1?'积分':''}}</text>
 				</view>
 			</view>
 		</view>
@@ -47,7 +47,7 @@ export default {
 	},
 	methods: {
 		routerGo(item) {
-			this.$yrouter.push({ path: '/pages/shop/GoodsCon/index', query: { id: item.id } });
+			this.$yrouter.push({ path: '/pages/shop/GoodsCon/index', query: { id: item.id, mode:item.type==1 ? 'point':'goods'} });
 		},
 		hostProducts: function() {
 			let that = this;
