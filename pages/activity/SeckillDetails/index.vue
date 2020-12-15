@@ -193,6 +193,7 @@ count-down::v-deep .styleAll{
 				action: "",
 				imgUrls: [],
 				storeInfo: [],
+				replyChance:0,
 				replyCount: 0,
 				reply: [],
 				cartNum: 1,
