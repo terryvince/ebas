@@ -136,7 +136,12 @@ export default {
 	   * 删除地址
 	   */
 	  checkPermission(){
+		  // #ifdef MP
 		  return checkAuth('userLocation','检测到您未授权获取地理位置，是否跳转到设置页进行授权？')
+		  // #endif
+		  // #ifdef H5
+		  return Promise.resolve('ok')
+		  // #endif
 	  },
 	  delAddress: function(index) {
 		  var that = this;
@@ -277,6 +282,7 @@ export default {
 	// 不一定是当前位置的经纬度，所以需要选取
 	getLocation(){
 		let that = this
+		// #ifdef MP
 		this.checkPermission().then(res=>{
 			console.log(res)
 			this.isAuth = true
@@ -298,6 +304,20 @@ export default {
 			})
 		  })	
 		console.log('定位执行')
+		// #endif
+		// #ifdef H5
+		uni.chooseLocation({
+			success(res){
+				const {latitude,longitude} = res
+				console.log('h5获取定位：',res)
+				that.location = {latitude,longitude}
+				that.locationText = '已获取（重新获取）'
+			},
+			fail(err){
+				console.error(err)
+			}
+		})
+		// #endif
 		
 	},
     result(values) {

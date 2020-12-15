@@ -506,7 +506,7 @@ export default {
       var that = this;
       that.$yrouter.push({
         path: "/pages/activity/GroupRule/index",
-        query: { id }
+        query: { id,product_id:that.$yroute.query.id }
       });
     },
     goReply: function() {
@@ -586,7 +586,7 @@ export default {
       attr.productSelect.stock = that.storeInfo.stock;
       attr.cartAttr = false;
       that.$set(that, "attr", attr);
-	  cookie.set('pink_attr',attr)
+	  // cookie.set('pink_attr',attr)
     },
     openTeam: function() {
       var that = this;

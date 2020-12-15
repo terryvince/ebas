@@ -31,19 +31,26 @@
       </view>
       <view class="cart">
         <view class="title">数量</view>
-        <view class="carnum acea-row row-left">
-          <view class="item reduce" :class="cartNum <= 1 ? 'on' : ''" @click="CartNumDes">-</view>
-          <view class="item num">{{ cartNum }}</view>
-          <view
-            class="item plus"
-            :class="
-              cartNum >= attr.productSelect.stock
-                ? 'on'
-                : ''
-            "
-            @click="CartNumAdd"
-          >+</view>
-        </view>
+		
+		<view class="flex-main-between">
+			<view class="carnum acea-row row-left">
+			  <view class="item reduce" :class="cartNum <= 1 ? 'on' : ''" @click="CartNumDes">-</view>
+			  <view class="item num">{{ cartNum }}</view>
+			  <view
+			    class="item plus"
+			    :class="
+			      cartNum >= attr.productSelect.stock
+			        ? 'on'
+			        : ''
+			    "
+			    @click="CartNumAdd"
+			  >+</view>
+			</view>
+			<button type="default" class="btn btn-linear-green btn-fix-width" style="height: 54rpx;margin-top: 24rpx;" v-if="type=='group'" @click="submit">提交</button>
+		</view>
+        
+		
+		
       </view>
     </view>
     <view class="mask" @touchmove.prevent :hidden="attr.cartAttr === false" @click="closeAttr"></view>
@@ -75,10 +82,10 @@ export default {
   methods: {
     closeAttr: function() {
       this.$emit("changeFun", { action: "changeattr", value: false });
-	  if(this.type == 'group'){
-		  this.$emit("changeFun", { action: "pay", value: false });
-	  }
     },
+	submit(){
+		this.$emit("changeFun", { action: "pay", value: false });
+	},
     CartNumDes: function() {
       this.$emit("changeFun", { action: "ChangeCartNum", value: false });
     },

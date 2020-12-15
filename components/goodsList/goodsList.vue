@@ -158,7 +158,7 @@
 					<view class="group-title fs-28 relative">
 						<text class="group-badge badge badge-mini-extra badge-primary badge-radius txt-ellipsis">{{item.addressObj | formatJson}}</text>
 						<text class="txt-medium txt-ellipsis row-2" style="line-height: 1.2;text-indent: 150rpx;">
-							{{item.title}}
+							{{item.title||''}}
 						</text>
 					</view>
 					<view class="color-gray fs-20 txt-baseline" style="margin-top: 26rpx;">
@@ -170,8 +170,8 @@
 						<view>
 							<view class="fs-22 txt-heavy color-danger txt-baseline">
 								<text>￥</text>
-								<text class="fs-32">{{item.price|toFixed}}</text>
-								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{item.productPrice|toFixed}}</text>
+								<text class="fs-32">{{(item.price|toFixed)||0}}</text>
+								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{(item.productPrice|toFixed)||0}}</text>
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">{{item.sales||0}}</text> 件</view>
 						</view>

@@ -6,7 +6,8 @@
 <template>
 	<view class="point-shopping">
 		<view class="padding-beside-20">
-			<image class="width-full block" src="https://res.sdebs.com/point-shopping-baner-v1.png" mode="widthFix"></image>
+			<!-- https://res.sdebs.com/point-shopping-baner-v1.png -->
+			<image class="width-full block" :src="banner" mode="widthFix"></image>
 		</view>
 		<features-text></features-text>
 		<view v-if="list.length>0" class="list-wrap">
@@ -18,6 +19,7 @@
 
 <script>
 	import { getProducts } from "@/api/store";
+	import {getModuleOrder} from '@/api/public.js'
 	export default {
 		data() {
 			return {
@@ -47,11 +49,15 @@
 					// 	title: "实木复合静音门",
 					// 	point: 400
 					// }
-				]
+				],
+				banner:''
 			};
 		},
 		created(){
 			this.getProductList(1)
+			getModuleOrder().then(({data})=>{
+				this.banner = data.integralBanner ? data.integralBanner : 'https://res.sdebs.com/point-shopping-baner-v1.png'
+			})
 		},
 		onPullDownRefresh(){
 			this.getProductList(1).finally(()=>{

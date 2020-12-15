@@ -117,6 +117,9 @@
 		border-radius: 20rpx;
 		overflow: hidden;
 	}
+	.order-submission .address .addressCon{
+		width: unset;
+	}
 </style>
 <template>
 	<view class="order-submission">
@@ -555,6 +558,7 @@ color: #333333;">
 				this.computedPrice();
 			},
 			createOrder() {
+				const that = this
 				let shipping_type = this.shipping_type;
 				// if (this.mode == 'point' && this.orderPrice.payPrice > 0) {
 				// 	uni.showToast({
@@ -588,6 +592,10 @@ color: #333333;">
 					from.from = "app";
 				}
 				console.log(this.storeItems, this.systemStore);
+				let origin = this.from
+				// #ifdef H5
+				origin = 'wechat'
+				// #endif
 				const couponId = this.mode == 'point' ? 0 : this.usableCoupon.map(v=>v.id).join(',') // 积分商城不传优惠券
 				createOrder(this.orderGroupInfo.orderKey, {
 						// cardNumber: this.cardNumber, // 清关人姓名和身份证
@@ -604,7 +612,7 @@ color: #333333;">
 						seckillId: this.orderGroupInfo.seckill_id,
 						combinationId: this.orderGroupInfo.combination_id,
 						bargainId: this.orderGroupInfo.bargain_id,
-						from: this.from,
+						from: origin,
 						mark: this.mark || "",
 						shippingType: parseInt(shipping_type) + 1,
 						storeId: this.storeItems ? this.storeItems.id : this.systemStore.id,
@@ -666,11 +674,48 @@ color: #333333;">
 									}
 								});
 								setTimeout(() => {
-									// location.href = data.result.jsConfig.mweb_url;
+									location.href = data.result.jsConfig.mweb_url;
 								}, 100);
 								break;
 							case "WECHAT_PAY":
+								// 公众号支付
+								// #ifdef H5
+								this.wxReady.then(wx=>{
+									const {nonceStr,paySign,signType,timestamp} = data.result.jsConfig
+									const packagStr = data.result.jsConfig.package
+									wx.chooseWXPay({
+										nonceStr,
+										package:packagStr, // 保留关键字，不允许同名变量
+										paySign,
+										signType,
+										timestamp,
+										success(ress){
+											console.log('支付成功:',ress)
+											that.$yrouter.replace({
+												path: "/pages/order/PaymentStatus/index",
+												query: {
+													orderNo: data.result.orderId,
+													createTime: res.time,
+													payMoney: that.orderPrice.payPrice
+												}
+											});
+										},
+										fail(err){
+											console.error('支付失败:', err)
+											that.$yrouter.replace({
+												path: "/pages/order/OrderDetails/index",
+												query: {
+													id: data.result.orderId
+												}
+											});
+										}
+									})
+								}).catch(err=>{
+									console.error('支付报错:', err)
+								})
+								// #endif
 								// 小程序支付
+								// #ifdef MP
 								weappPay(data.result.jsConfig)
 									.then(() => {
 										this.$yrouter.replace({
@@ -691,8 +736,10 @@ color: #333333;">
 										});
 									})
 									.finally(() => {
-
+								
 									});
+								// #endif
+								
 								break;
 
 							case "WECHAT_APP_PAY":
@@ -730,6 +777,7 @@ color: #333333;">
 					})
 					.catch(err => {
 						uni.hideLoading();
+						console.error(err)
 						uni.showToast({
 							title: err.msg ||
 								err.response.data.msg ||

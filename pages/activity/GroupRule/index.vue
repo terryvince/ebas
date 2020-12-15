@@ -101,15 +101,18 @@
 				    class="list acea-row row-middle no-margin"
 				    :class="[pinkBool === 1 || pinkBool === -1 ? 'result' : '',iShidden ? 'on' : '']"
 				  >
+					<!-- 团长 -->
 				    <view class="pictrue">
 				      <image :src="pinkT.avatar" />
 				    </view>
+					<!-- 参与者 -->
 				    <view class="acea-row row-middle" v-if="pinkAll.length > 0">
 				      <view class="pictrue" v-for="(item, pinkAllIndex) in pinkAll" :key="pinkAllIndex">
 				        <image :src="item.avatar" />
 				      </view>
 				    </view>
-				    <view class="pictrue" v-for="countIndex in count" :key="countIndex">
+					<!-- 问号 v-for="countIndex in count" :key="countIndex"-->
+				    <view class="pictrue" v-if="count>0">
 				      <image class="img-none" src="@/static/images/vacancy.png" />
 				    </view>
 				  </view>
@@ -156,7 +159,7 @@
 </template>
 <script>
 // import CountDown from "@/components/CountDown";
-import { getCombinationPink, getCombinationRemove } from "@/api/activity";
+import { getCombinationPink, getCombinationRemove,getCombinationDetail } from "@/api/activity";
 import { postCartAdd } from "@/api/store";
 import { isWeixin, parseQuery, handleQrCode } from "@/utils/index";
 import {countDown} from "@/utils/utils.js";
@@ -208,6 +211,7 @@ export default {
     }
   },
   mounted: function() {
+	console.log('页面参数：',this.$yroute.query)
     var that = this;
     let url = handleQrCode();
     if (url) {
@@ -219,15 +223,26 @@ export default {
     }
 	// console.log(that.pinkId)
     that.getCombinationPink();
-	if(cookie.get('pink_attr')){  // 为了获取拼团商品的信息,只有上个页面有，从缓存中取
-		this.attr = cookie.get('pink_attr')
-	}
+	getCombinationDetail(this.$yroute.query.product_id).then(({data})=>{
+		const {storeInfo} = data
+		const {image,title,price,stock} = storeInfo
+		this.attr.productSelect = {
+	      image,
+	      store_name: title,
+	      price,
+	      stock,
+	      unique: "",
+	      cart_num: 1
+	    }
+	}).catch(err=>{
+		console.error('拉取商品属性报错：',err)
+	})
   },
   onShareAppMessage() {
   	return {
   	  title: this.storeInfo.title,
-  	  path: `/pages/activity/GroupRule/index?pinkId=${this.pinkId}&from=share`
-  	};
+  	  path: `/pages/activity/GroupRule/index?pinkId=${this.pinkId}&product_id=${this.$yroute.query.product_id}&from=share`  // ▲ 分享时需要再加上商品id，发请求取商品数据，
+  	}
   },
   methods: {
 	  changeattr: function(res) {

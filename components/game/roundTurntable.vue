@@ -108,7 +108,7 @@
 					this.$emit('endRotation');
 				}, duringTime * 1000 + 500)
 			},
-		},
+		}
 	}
 </script>
 

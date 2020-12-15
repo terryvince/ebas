@@ -90,9 +90,11 @@ export default {
 	}
 	
     login().finally(() => {
+		
       this.$yrouter.switchTab({
         path: "/pages/home/index"
       });
+	  
     });
   },
   methods: {

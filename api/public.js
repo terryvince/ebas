@@ -60,12 +60,12 @@ export function getArticleDetails(id) {
  * 获取微信sdk配置
  * @returns {*}
  */
-export function getWechatConfig() {
-  // return request.get(
-  //   "/wechat/config",
-  //   { url: document.location.href },
-  //   { login: false }
-  // );
+export function getWechatConfig() { 
+  return request.get(
+    "/wechat/config",
+    { url: location.href.split('#')[0] },
+    { login: false }
+  );
 }
 
 /**
