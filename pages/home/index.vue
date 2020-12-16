@@ -1,6 +1,7 @@
 <!-- page 样式不能写在scope下 -->
 <style lang="less">
 	page{
+		// background: red;
 		background: #F6F6F6;
 	}
 </style>
@@ -425,6 +426,12 @@
     }
   },
 		onLoad(options){
+			// #ifdef H5
+			if(window.location.href.indexOf('?')!==-1){
+				console.log('12312',window.location.href)
+				window.location.href=window.location.href.split("?hash=")[0]+decodeURIComponent(window.location.href.split("?hash=")[1])
+			}
+			// #endif
 			if (options.scene) { // 处理扫码场景
 				const scene = decodeURIComponent(options.scene)
 				console.log('scene:',scene)
