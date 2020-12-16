@@ -132,8 +132,8 @@
 						<!-- 商品价格 -->
 						<view class="flex-main-start top-31 fs-22">
 							<text class="color-danger">¥</text>
-							<text class="color-danger fs-32">{{item.price|toFixed}} </text>
-							<text class="color-text-secondary del-line left-6">¥{{item.otPrice|toFixed}}</text>
+							<text class="color-danger fs-32">{{ item.price | toFixed }} </text>
+							<text class="color-text-secondary del-line left-6">¥{{ item.otPrice | toFixed }}</text>
 						</view>
 						<!-- 商户已售 -->
 						<view class="fs-20 color-text-secondary top-19 flex-main-between">
@@ -170,8 +170,8 @@
 						<view>
 							<view class="fs-22 txt-heavy color-danger txt-baseline">
 								<text>￥</text>
-								<text class="fs-32">{{(item.price|toFixed)||0}}</text>
-								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{(item.productPrice|toFixed)||0}}</text>
+								<text class="fs-32">{{ item.price|toFixed }}</text>
+								<text class="txt-bold del-line color-gray" style="margin-left: 3rpx;">￥{{ item.productPrice | toFixed }}</text>
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">{{item.sales||0}}</text> 件</view>
 						</view>
@@ -202,7 +202,7 @@
 							<view class="fs-22 txt-heavy color-danger txt-baseline">
 								<text>秒杀价</text>
 								<text class="left-5">￥</text>
-								<text class="fs-32">{{item.price|toFixed}}</text>
+								<text class="fs-32">{{ item.price | toFixed }}</text>
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">{{item.merName||'未设置店名'}}</view>
 						</view>
@@ -234,13 +234,14 @@
 			}
 		},
 		filters:{
-			toFixed(value, option=2){
-				if(typeof value !== 'number'){
-					return '非数字'
-				}
-				value = +value
-				return value.toFixed(option)
-			},
+			// toFixed(value, option=2){
+			// 	if(typeof value !== 'number'){
+			// 		return '非数字'
+			// 	}
+			// 	value = +value
+				
+			// 	return value.toFixed(option)
+			// },
 			// 秒杀按钮文字
 			formatStatus(value){
 				return {
