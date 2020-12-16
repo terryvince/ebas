@@ -427,7 +427,8 @@
   },
 		onLoad(options){
 			// #ifdef H5
-			if(window.location.href.indexOf('?')!==-1){
+			// console.log('12312',window.location.href)
+			if(window.location.href.indexOf('?hash=')!==-1){
 				console.log('12312',window.location.href)
 				window.location.href=window.location.href.split("?hash=")[0]+decodeURIComponent(window.location.href.split("?hash=")[1])
 			}
