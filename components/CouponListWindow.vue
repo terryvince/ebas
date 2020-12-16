@@ -33,7 +33,7 @@
             </div>
           </div>
         </view>
-        <view class="couponNo bg-color-red" @click="couponNo">不使用优惠券</view>
+        <view class="couponNo bg-color-red" @click="couponNo">确定</view>
       </view>
       <view v-if="!couponList.length && loaded">
         <view class="pictrue">
@@ -125,8 +125,10 @@ export default {
     click(coupon) {
 	  let list = this.checked.filter(v=>v.id!=0) // 过滤空项
 	  console.log(list)
-	  if(list.some(v=>v.id == coupon.id)){  // 点击已存在的什么也不做
+	  if(list.some(v=>v.id == coupon.id)){  // 点击已存在的则取消选择
 	      // console.log('优惠券id已选:',coupon.id)
+		  this.$emit("checked", list.filter(v=>v.id!=coupon.id));
+		  this.check()
 		  return
 	  }
 	  
@@ -142,9 +144,10 @@ export default {
       // this.$emit("input", false);
     },
     couponNo: function() {
-      this.$emit("checked", []);
-      this.$emit("input", false);
-	  this.check()
+   //    this.$emit("checked", []);
+   //    this.$emit("input", false);
+	  // this.check()
+	  this.close()
     }
   }
 };

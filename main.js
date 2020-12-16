@@ -75,6 +75,7 @@ Vue.filter('toFixed',function(value, keepNumber=2){
 		return '非数字'
 	}
 	value = +value
+	// console.log(value,value.toFixed(keepNumber))
 	return value.toFixed(keepNumber)
 })
 // 默认大于3个字显示*号
@@ -106,7 +107,7 @@ Vue.filter('formatJson',function(value){
 		result = result.district.split('市')
 		return result.length > 1 ? result[1] : ''
 	}
-	return ''
+	return '全国可拼'
 })
 
 Vue.filter('timeFormat',function(value, option){

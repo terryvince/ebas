@@ -333,7 +333,7 @@
 			},
 			goChat(){
 				// #ifdef H5
-				location.href = 'https://yzf.qq.com/xv/web/static/chat/index.html?sign=37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2'
+				location.href = 'https://yzf.qq.com/xv/web/static/chat/index.html?sign=37ef9b97872150c42211ccea19e4b23369dfd3a8bdf4dce79b1860bd92b405c4e8209ba2f38f6c490cfa3362cf9476cd45e47adb'
 				// #endif
 				// #ifndef H5
 				this.$yrouter.push("/subpackage/chat/chat");

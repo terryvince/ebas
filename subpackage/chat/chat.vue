@@ -8,7 +8,7 @@
 	export default {
 		data() {
 			return {
-				sign: "bfbc8b1ce23a245f920fde1a998e0d45429ded9c832370d2d07896c53f066cbc60f6ae8281c10ec4ca06fdc4d5a21e68c9263dc4588f8d52e5a7db03e1247fa2",
+				sign: "862dd323d7079dde8ed44dab00ebbb4273bf69ddb671bb83004b8e38b0acf295090a647c2404b23f4b890d632050b56a979b16db9bb97c7084dfba2d7f4bc1c2",
 			}
 		},
 
