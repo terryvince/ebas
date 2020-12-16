@@ -358,6 +358,15 @@
 		background-color: #64CE5E;
 		border-radius: 10rpx;
 	}
+	.pop {
+	    width: 100%;
+	    height: 100%;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    background: rgba(0,0,0,.1);
+	    z-index: 999;
+	}
 </style>
 <template>
 	<view :class="productConClass">
@@ -578,6 +587,8 @@
 				<canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
 			</view>
 		</view>
+		
+		　　<img v-show="isShowShare" @click="displayShare()" src="@/static/toShare.png" class="pop full">
 	</view>
 </template>
 
@@ -702,6 +713,15 @@
 				productConClass: "product-con",
 				tempName: "全国包邮",
 				mode: '',
+				// H5分享信息
+				config:{
+					title: '', // 分享标题
+					desc: '', // 分享描述
+					link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					imgUrl: '', // 分享图标
+				},
+				// 分享蒙层
+				isShowShare:false
 			};
 		},
 		computed: mapGetters(["isLogin", "location"]),
@@ -722,7 +742,7 @@
 		},
 		mounted: function() {
 			let url = handleQrCode();
-			console.log('mounted:url', url)
+			// console.log('mounted:url', url)
 			// console.log('this._route.query:', this._route.query)
 			if (url && (url.productId || url.id)) {
 				this.id = url.productId || url.id
@@ -738,6 +758,7 @@
 					id: this.id
 				}).catch(console.error)
 			}
+			
 			// 获取vip等级
 			// var userinfo = uni.getStorageSync('userInfo')
 			// this.level = userinfo ? userinfo.level : 0
@@ -767,6 +788,10 @@
 			};
 		},
 		methods: {
+			// 分享蒙层
+			displayShare(){
+				this.isShowShare = !this.isShowShare
+			},
 			// callPhone(number) {
 			// 	if (!number) {
 			// 		return;
@@ -775,23 +800,24 @@
 			// 		phoneNumber: number
 			// 	});
 			// },
-			bindShare(){
+			// H5分享
+			bindShare(config){
 				// #ifdef H5
-				this.wxReady.then(res=>{
-					if(res){
+				this.wxReady.then(wx=>{
+					if(wx){
 						wx.updateAppMessageShareData({ // 分享到朋友
-						    title: '', // 分享标题
-						    desc: '', // 分享描述
-						    link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-						    imgUrl: '', // 分享图标
+						    title: config.title, // 分享标题
+						    desc: config.desc, // 分享描述
+						    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						    imgUrl: config.imgUrl, // 分享图标
 						    success: function () {
 						      // 设置成功
 						    }
 						  })
 						wx.updateTimelineShareData({ // 分享到朋友圈和qq空间
-						    title: '', // 分享标题
-						    link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-						    imgUrl: '', // 分享图标
+						    title: config.title, // 分享标题
+						    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						    imgUrl: config.imgUrl, // 分享图标
 						    success: function () {
 						      // 设置成功
 						    }
@@ -883,6 +909,11 @@
 							'<img style="max-width:100%;height:auto;"'
 						);
 						that.$set(that, "storeInfo", res.data.storeInfo);
+						
+						that.$set(that.config, "title", res.data.storeInfo.storeName);
+						that.$set(that.config, "desc", res.data.storeInfo.storeInfo);
+						that.$set(that.config, "imgUrl", res.data.storeInfo.sliderImageArr[0]);
+						that.bindShare(that.config);
 						// 商品类型
 						that.$set(that, "goodsType", res.data.storeInfo.type);
 						// 给 attr 赋值，将请求回来的规格赋值给 attr
@@ -1243,7 +1274,7 @@
 				return;
 				// #endif
 				// #ifdef H5
-					// to do
+					this.displayShare()
 				// #endif
 			},
 			// 联系客服

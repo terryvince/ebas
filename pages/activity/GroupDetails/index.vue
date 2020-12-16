@@ -54,6 +54,15 @@
 .btn-right {
 	border-radius: 0 50rpx 50rpx 0;
 }
+.pop {
+	    width: 100%;
+	    height: 100%;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    background: rgba(0,0,0,.1);
+	    z-index: 999;
+	}
 </style>
 <template>
   <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
@@ -284,6 +293,8 @@
       :posterImageStatus="posterImageStatus"
       :posterData="posterData"
     ></StorePoster>
+	
+	<img v-show="isShowShare" @click="displayShare()" src="@/static/toShare.png" class="pop full">
   </view>
 </template>
 
@@ -363,7 +374,16 @@ export default {
       },
       cartNum: 1,
       userCollect: false,
-	  addressObj:null
+	  addressObj:null,
+	  // H5分享信息
+	  config:{
+	  	title: '', // 分享标题
+	  	desc: '', // 分享描述
+	  	link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	  	imgUrl: '', // 分享图标
+	  },
+	  // 分享蒙层
+	  isShowShare:false
     };
   },
   watch: {
@@ -384,12 +404,45 @@ export default {
 	};
   },
   methods: {
+	  // 分享蒙层
+	  displayShare(){
+	  	this.isShowShare = !this.isShowShare
+	  },
+	  // H5分享
+	  bindShare(config){
+	  	// #ifdef H5
+	  	this.wxReady.then(wx=>{
+	  		if(wx){
+	  			wx.updateAppMessageShareData({ // 分享到朋友
+	  			    title: config.title, // 分享标题
+	  			    desc: config.desc, // 分享描述
+	  			    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	  			    imgUrl: config.imgUrl, // 分享图标
+	  			    success: function () {
+	  			      // 设置成功
+	  			    }
+	  			  })
+	  			wx.updateTimelineShareData({ // 分享到朋友圈和qq空间
+	  			    title: config.title, // 分享标题
+	  			    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	  			    imgUrl: config.imgUrl, // 分享图标
+	  			    success: function () {
+	  			      // 设置成功
+	  			    }
+	  			  })
+	  		}
+	  	}).catch(err=>{
+	  		// console.log('',err)
+	  	})
+	  	// #endif
+	  },
 	share(){
 		// #ifdef MP
 		return;
 		// #endif
 		// #ifdef H5
 			// to do
+			this.displayShare()
 		// #endif
 	},
 	goShopManage() {
@@ -431,6 +484,11 @@ export default {
           /\<img/gi,
           '<img style="max-width:100%;height:auto;"'
         );
+		that.$set(that.config, "title", res.data.storeInfo.title);
+		that.$set(that.config, "desc", res.data.storeInfo.info);
+		that.$set(that.config, "imgUrl", res.data.storeInfo.sliderImageArr[0]);
+		that.bindShare(that.config);
+		
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
