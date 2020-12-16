@@ -28,6 +28,7 @@ import {getWechatConfig} from '@/api/public.js'
 			  jsApiList // 必填，需要使用的JS接口列表
 			});
 			wx.ready(function(){
+				window.wxJs = wx  // 不安全，除非确定jssdk就绪，否则应该取resolve返回的wx
 				resolve(wx)
 			})
 			wx.error(function(res){

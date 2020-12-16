@@ -282,7 +282,7 @@
 					  path: "/pages/activity/SeckillDetails/index",
 					  query: {
 					    id:item.id,
-					    time:item.stop || item.stopTime / 1000
+					    time:item.stop || 0
 					  }
 					});
 					return
