@@ -614,7 +614,11 @@
 			async toPay(type) {
 				var that = this;
 				console.log(type, "支付方式");
-				await payOrderHandle(this.orderInfo.orderId, type, that.from);
+				// #ifdef H5
+				that.from = 'wechat'
+				// #endif
+				await payOrderHandle(this.orderInfo.orderId, type, that.from,this.orderInfo.payPrice);
+				
 				that.getDetail();
 			}
 		}

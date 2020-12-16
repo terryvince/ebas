@@ -148,12 +148,12 @@
 			getCouponList(){
 				if(this.isHome && !cookie.get('login_status')){
 					getCouponsAll(this.params).then(res=>{
-						this.list = res.data;
+						this.list = res.data||[];
 					})
 					return
 				}
 				getCoupon(this.params).then(res=>{
-					this.list = res.data;
+					this.list = res.data||[];
 				})
 			},
 			// 点击领取优惠券

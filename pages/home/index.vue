@@ -465,12 +465,12 @@
 			let count=0
 			getHomeData().then(res => {
 				that.logoUrl = res.data.logoUrl;
-				that.$set(that, 'banner', res.data.banner);
-				that.$set(that, 'menus', res.data.menus);
-				that.$set(that, 'roll', res.data.roll);
+				that.$set(that, 'banner', res.data.banner||[]);
+				that.$set(that, 'menus', res.data.menus||[]);
+				that.$set(that, 'roll', res.data.roll||[]);
 				that.$set(that, 'info', res.data.info);
-				that.$set(that, 'firstList', res.data.firstList);
-				that.$set(that, 'bastList', res.data.bastList);
+				that.$set(that, 'firstList', res.data.firstList||[]);
+				that.$set(that, 'bastList', res.data.bastList||[]);
 				that.$set(that, 'likeInfo', res.data.likeInfo);
 				that.$set(that, 'lovely', res.data.lovely);
 				that.$set(that, 'benefit', res.data.benefit);
@@ -495,7 +495,7 @@
 				return getSeckillList(item.id,{page:1,limit:4,isHome:1})
 			}).then(({data})=>{
 				data.forEach(v=>v.stop=limitTime) // 给商品加上结束时间，方便goodsList组件跳详情用
-				this.discountList = data
+				this.discountList = data||[]
 			}).catch(err=>{
 				console.error('拉取限时折扣列表发生错误',err)
 			}).finally(()=>{
@@ -506,7 +506,7 @@
 			
 			// 精选商品
 			getProducts({...this.params,isHome:1}).then(res=>{
-				this.pickList = res.data
+				this.pickList = res.data||[]
 			}).catch(err => {
 				console.error("获取精选商品列表发生错误！",err)
 			}).finally(()=>{
@@ -517,7 +517,7 @@
 			
 			// 团购
 			getCombinationList({ page: 1, limit: 4,isHome:1 }).then(res => {
-				this.combinationList = res.data
+				this.combinationList = res.data||[]
 			});
 			
 			getModuleOrder().then(res=>{

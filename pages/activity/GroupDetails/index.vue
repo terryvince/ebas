@@ -272,8 +272,7 @@
 			<image src="@/static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 			<text>店铺</text>
 		  </view>
-		  <view class="item relative" style="margin-left: 43rpx;">
-			<button type="default" class="hide-full" open-type="contact"></button>
+		  <view class="item relative" style="margin-left: 43rpx;" @click="contactCustomer()">
 			<image src="@/static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 			<text>客服</text>
 		  </view>
@@ -404,6 +403,35 @@ export default {
 	};
   },
   methods: {
+	  // 联系客服
+	  contactCustomer() {
+	  	let H5Sign,wechatSign;
+	  	this.shopInfo.list.forEach(function (item) {
+	  	    if (item.channelName == "小程序插件") {
+	  			wechatSign = item.webSign;
+	  	    }
+	  		if (item.channelName == "网站-h5") {
+	  			H5Sign = item.webSign;
+	  		}
+	  	    console.log(item);
+	  	});
+	  	
+	  	// #ifdef H5
+	  	if(H5Sign == undefined){
+	  		H5Sign = "37ef9b97db7501c277179ebc1ab5b833cab53aa7491a67bfd430360aa1062ff0008e6c2a431b73b8d72d09514207ad87907925a2"
+	  	}
+	  	location.href =
+	  		'https://yzf.qq.com/xv/web/static/chat/index.html?sign=' + H5Sign
+	  	// #endif
+	  	// #ifndef H5
+	  	this.$yrouter.push({
+	  		path: "/subpackage/chat/chat",
+	  		query: {
+	  			sign: wechatSign,
+	  		}
+	  	});
+	  	// #endif
+	  },
 	  // 分享蒙层
 	  displayShare(){
 	  	this.isShowShare = !this.isShowShare

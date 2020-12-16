@@ -281,11 +281,11 @@
 					// this.where.keyword = this.where.keyword || s;
 					this.loadend = false;
 					this.loading = false;
-					this.where.page = 1;
+					// this.where.page = 1;
 					this.where.sid = id;
 					this.title = title && id ? title : "";
-					this.nows = false;
-					this.$set(this, "productList", []);
+					// this.nows = false;
+					// this.$set(this, "productList", []);
 					this.price = 0;
 					this.stock = 0;
 					// this.get_product_list();
@@ -319,9 +319,9 @@
 				let that = this;
 				switch (index) {
 					case 0:
-						return that.$yrouter.push({
+						that.$yrouter.switchTab({
 							path: "/pages/shop/GoodsClass/index"
-						});
+						})
 					case 1:
 						if (that.price === 0) that.price = 1;
 						else if (that.price === 1) that.price = 2;

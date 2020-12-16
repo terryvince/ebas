@@ -531,7 +531,6 @@
 					</view> -->
 				<!-- </block> -->
 				<view class="item relative" @click="contactCustomer()">
-					<button type="default" class="hide-full" open-type=""></button>
 					<!-- <view class="iconfont icon-shoucang1"></view> -->
 					<image src="@/static/gd-kefu.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
 					<text>客服</text>

@@ -238,7 +238,7 @@ export default {
         });
         that.$set(that, "title", title);
         that.datatime = that.timeList[that.active].stop;
-        that.getSeckillList(that.datatime);
+        that.getSeckillList();
         that.$nextTick(function() {
           that.sticky = true;
           uni.hideLoading();
@@ -255,7 +255,7 @@ export default {
       this.seckillList = [];
       that.getSeckillList();
     },
-    getSeckillList: function(stopTime) {
+    getSeckillList: function() {
       var that = this;
       if (that.loadingList) return;
       if (that.status) return;
@@ -265,7 +265,7 @@ export default {
         limit: that.limit
       }).then(res => {
         that.status = res.data.length < that.limit;
-		res.data.forEach(v=>v.stop=stopTime)
+		res.data.forEach(v=>v.stop=that.datatime)
         that.seckillList.push.apply(that.seckillList, res.data);
         that.page++;
         uni.hideLoading();

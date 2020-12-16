@@ -1,6 +1,9 @@
 import { cancelOrder, takeOrder, delOrder, payOrder } from "@/api/order";
 import dialog from "@/utils/dialog";
 import { weappPay } from "@/libs/wechat";
+import {
+	_router
+} from "@/utils";
 
 export function cancelOrderHandle(orderId) {
   return new Promise((resolve, reject) => {
@@ -70,7 +73,7 @@ export function delOrderHandle(orderId) {
   });
 }
 
-export function payOrderHandle(orderId, type, from) {
+export function payOrderHandle(orderId, type, from,payPrice) {
   console.log(orderId, type, from, '支付')
   return new Promise((resolve, reject) => {
     uni.showLoading({ title: '加载中' })
@@ -95,9 +98,43 @@ export function payOrderHandle(orderId, type, from) {
             resolve(data);
             break;
           case "WECHAT_PAY":
+		    // #ifdef MP
             weappPay(data.result.jsConfig).then(res => {
               resolve(data);
             });
+			// #endif
+			// 公众号支付
+			// #ifdef H5
+			const {nonceStr,paySign,signType,timestamp} = data.result.jsConfig
+			const packagStr = data.result.jsConfig.package
+			window.wxJs.chooseWXPay({
+				nonceStr,
+				package:packagStr, // 保留关键字，不允许同名变量
+				paySign,
+				signType,
+				timestamp,
+				success(ress){
+					console.log('支付成功:',ress)
+					_router.replace({
+						path: "/pages/order/PaymentStatus/index",
+						query: {
+							orderNo: data.result.orderId,
+							createTime: res.time,
+							payMoney: payPrice
+						}
+					});
+				},
+				fail(err){
+					console.error('支付失败:', err)
+					_router.replace({
+						path: "/pages/order/OrderDetails/index",
+						query: {
+							id: data.result.orderId
+						}
+					});
+				}
+			})
+			// #endif
             break;
           case "WECHAT_APP_PAY":
             weappPay(data.result.jsConfig).then(res => {
@@ -107,6 +144,7 @@ export function payOrderHandle(orderId, type, from) {
         }
       })
       .catch(err => {
+		console.log(err)
         uni.hideLoading()
         uni.showToast({
           title: '订单支付失败', icon: 'none', duration: 2000

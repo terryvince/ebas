@@ -110,10 +110,17 @@
 								<view class="text">秒杀</view>
 							</image>
 						</block>
-
-						<block v-if="order.pinkName.indexOf('普通') != -1">
+						<!-- <block v-if="order.pinkName.indexOf('精选') != -1">
+							<view class="text">精选</view>
+						</block> -->
+						<block v-if="order.pinkName.indexOf('普通') != -1 || order.pinkName.indexOf('精选') != -1">
 							<!-- <image src="https://res.sdebs.com/icon-order-miao.png" class="classIcon"> -->
-							<view class="text">{{order.useIntegral ? '积分订单' : '普通订单'}}</view>
+							<view v-if="order.useIntegral>0" class="flex-main-start">
+								<image src="https://res.sdebs.com/icon-order-ji.png" class="classIcon">
+									<view class="text">积分</view>
+								</image>
+							</view>
+							<view v-else class="text">普通订单</view>
 							<!-- </image> -->
 						</block>
 						<!-- {{ order.createTime }} -->
