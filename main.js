@@ -98,7 +98,7 @@ Vue.filter('nameFilter',function(value, keepNumber=3){
 })
 
 Vue.filter('formatJson',function(value){
-	if(typeof value == 'string'){
+	if(typeof value == 'string' && value != '{}' ){
 		let result = ''
 		try{
 			result = JSON.parse(value)
