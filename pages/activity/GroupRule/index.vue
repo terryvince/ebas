@@ -406,6 +406,19 @@ export default {
             icon: "none",
             duration: 2000
           });
+		  setTimeout(()=>{
+			  that.$yrouter.push({
+			  	path: "/pages/order/GoodsReturn/index",
+			  	query: {
+			  		refundType: -1,
+			  		id: that.pinkT.orderId,
+			  		refundStatus: 0,
+			  		status: 0,
+			  		refundReasonWap: '',
+			  		refundReasonWapExplain: '',
+			  	}
+			  });
+		  },2000)
         })
         .catch(res => {
           uni.showToast({

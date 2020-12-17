@@ -180,6 +180,9 @@
 					.then(res => {
 						this.orderInfo = res.data;
 						this.isPoint = !!res.data.useIntegral;
+						if(res.data.merId==0 && this.$yroute.query.refundType == -1 ){ // 取消拼团进来可能是这个值
+							return null
+						}
 						return getAdressByStoreId(res.data.merId)
 					})
 					.then(res=>{
