@@ -128,7 +128,7 @@
 			  
 			  <!-- @click="goPoster" -->
 			  <view
-			    class="teamBnt bg-color-green"
+			    class="teamBnt bg-color-green relative"
 			    v-if="userBool === 1 && isOk == 0 && pinkBool === 0"
 			  >
 			  <button type="default" class="hide-full" open-type="share"></button>
