@@ -143,8 +143,9 @@
 					</view>
 					<!-- 积分商品 -->
 					<view v-else class="color-danger txt-heavy fs-28 top-22">
-						{{item.price}}积分 
+						￥{{item.price}} + {{item.giveIntegral}} 积分
 					</view>
+					
 				</view>
 			</view>
 		</view>

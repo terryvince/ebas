@@ -228,8 +228,14 @@
 			<view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
 				<view>商品总价：</view>
 				<view class="money txt-bold fs-28">
-					<text v-if="mode!='point'">￥</text>
-					<text>{{ orderPrice.totalPrice }} {{mode=='point'?'积分':''}}</text>	
+					<text>￥</text>
+					<text>{{orderPrice.totalPrice}}</text>	
+				</view>
+			</view>
+			<view class="item acea-row row-between-wrapper" v-if="mode == 'point'">
+				<view>使用积分：</view>
+				<view class="money txt-bold fs-28">
+					<text>{{orderPrice.giveIntegral||0}}积分</text>	
 				</view>
 			</view>
 
@@ -560,13 +566,13 @@ color: #333333;">
 			createOrder() {
 				const that = this
 				let shipping_type = this.shipping_type;
-				// if (this.mode == 'point' && this.orderPrice.payPrice > 0) {
-				// 	uni.showToast({
-				// 		icon: 'none',
-				// 		title: '积分不足！'
-				// 	})
-				// 	return
-				// }
+				if (this.mode == 'point' && this.orderPrice.giveIntegral > this.userInfo.integral) {
+					uni.showToast({
+						icon: 'none',
+						title: '积分不足！'
+					})
+					return
+				}
 				if (!this.active) {
 					uni.showToast({
 						title: "请选择支付方式",

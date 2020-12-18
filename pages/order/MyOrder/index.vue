@@ -158,16 +158,16 @@
 								<view class="name line2">{{ cart.productInfo.storeName }}</view>
 								<view class="name line2" style="color: #909090; font-size: 20rpx;">{{ cart.shopName }}</view>
 							</view>
-							<view class="money">
+							<view class="money fs-24">
 								<view>
-									<text v-if="!order.useIntegral">￥</text>
+									<text>￥</text>
 									<text>{{
 									  cart.productInfo.attrInfo
 									  ? cart.productInfo.attrInfo.price
 									  : cart.productInfo.price
 									  }}
 									</text>
-									<text v-if="order.useIntegral">积分</text>
+									<text v-if="order.useIntegral>0">+{{cart.productInfo.giveIntegral}}积分</text>
 								</view>
 								<view>x{{ cart.cartNum }}</view>
 							</view>
