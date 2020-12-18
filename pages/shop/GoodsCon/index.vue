@@ -402,7 +402,10 @@
 						<view class="flex-main-start flex-baseline">
 							<text class="left-20 fs-28 color-type style-type" style="color: #6E77FF;" v-if="storeInfo.type===1">积分</text>
 							<text class="left-20 fs-28 color-type style-type" v-if="storeInfo.type==2">精选</text>
-							<text v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" class="left-20" style="font-size: 38rpx;">{{ mode=='point' ? `${storeInfo.vipPrice}积分` : `&yen;${storeInfo.vipPrice}` }}</text>
+							<text class="left-20" style="font-size: 36rpx;">
+							{{ `&yen;${storeInfo.price||0}` }}
+							</text>
+							<text v-if="mode=='point'" style="font-size: 36rpx;">+{{storeInfo.giveIntegral}}积分</text>
 							<text class="fs-30 left-20 del-price-line" v-if="storeInfo.type!=1">原价{{ `&yen;${storeInfo.otPrice}` }}</text>
 						</view>
 						<!-- <view class="flex-main-start">
@@ -917,6 +920,7 @@
 						that.$set(that, "goodsType", res.data.storeInfo.type);
 						// 给 attr 赋值，将请求回来的规格赋值给 attr
 						that.$set(that.attr, "productAttr", res.data.productAttr);
+						that.$set(that.attr, "giveIntegral", res.data.storeInfo.giveIntegral);
 						that.$set(that, "productValue", res.data.productValue);
 						that.$set(that, "replyCount", res.data.replyCount);
 						that.$set(that, "replyChance", res.data.replyChance);

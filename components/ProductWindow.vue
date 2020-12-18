@@ -8,8 +8,9 @@
         <view class="text">
           <view class="line1">{{ attr.productSelect.store_name }}</view>
           <view class="money font-color-red">
-            <text v-if="type!=1">￥</text>
-            <text class="num">{{ attr.productSelect.price }} {{type==1?'积分':''}}</text>
+            <text>￥</text>
+            <text class="num">{{ attr.productSelect.price }}</text>
+			<text class="num" v-if="type==1">+{{attr.giveIntegral}}积分</text>
             <text class="stock">库存: {{ attr.productSelect.stock||0 }}</text>
           </view>
         </view>

@@ -250,12 +250,14 @@
 		<shop-intro v-if="shopInfo" :shop-info="shopInfo">
 			<text @click="contactCustomer()" class="fs-28 style-receive color-white">联系客服</text>
 		</shop-intro>
-		<view class="goodsCoupon" :class="couponList.length>0?'goodsCouponTop':''">
+		<!-- :class="couponList.length>0?'goodsCouponTop':''" -->
+		<view class="goodsCoupon">
 			<!-- 优惠券领取 -->
-			<!-- v-if="couponList.length>0" -->
-			<coupon-list v-if="couponList.length>0" :class="couponList.length>0?'couponIndex':''" :ids="where.merId"></coupon-list>
+			<!-- v-if="couponList.length>0" :class="couponList.length>0?'couponIndex':''" -->
+			<coupon-list :ids="where.merId"></coupon-list>
 			<!-- 商品 -->
-			<view class="goodsList" :class="couponList.length>0?'goodsListTop':''">
+			<!-- :class="couponList.length>0?'goodsListTop':''" -->
+			<view class="goodsList">
 				<view class="nav acea-row row-middle">
 					<view class="item" :class="['item',title ? 'font-color-red' : '']" @click="set_where(0)">{{ title ? title : "综合" }}</view>
 					<view class="item" @click="set_where(1)">

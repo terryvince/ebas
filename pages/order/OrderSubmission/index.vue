@@ -172,8 +172,9 @@
 						<text class="left-15">{{cart.cartNum}}</text>
 					</view>
 					<view class="color-danger fs-28 txt-bold lh-1 ">
-						<text v-if="mode!='point'">￥</text>
-						<text>{{cart.truePrice}} {{mode=='point'?'积分':''}}</text>
+						<text>￥</text>
+						<text>{{cart.productInfo.price}}</text>
+						<text v-if="mode=='point'">+{{cart.productInfo.giveIntegral}}积分</text>
 					</view>
 				</view>
 			</view>
@@ -286,13 +287,13 @@ font-weight: bold;
 color: #333333;">
 					<view class="color-text txt-bold fs-32">
 						<text>￥</text>
-						<text>{{ orderPrice.payPrice }}</text>
+						<text>{{mode=='point'? orderPrice.totalPrice : orderPrice.payPrice}}</text>
 					</view>
 				</view>
 				<view class="font-color-light fs-24">
 					<text>已抵扣</text>
 					<text v-if="mode!='point'">￥</text>
-					<text>{{ preferPrice||0 }} {{mode=='point'?'积分':''}}</text>
+					<text>{{mode=='point'? 0 : preferPrice||0}}</text>
 				</view>
 			</view>
 			<view class="settlement flex-none" @click="createOrder">{{mode=='point'?'立即兑换':'立即支付'}}</view>
