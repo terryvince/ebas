@@ -236,7 +236,7 @@
 			<view class="item acea-row row-between-wrapper" v-if="mode == 'point'">
 				<view>使用积分：</view>
 				<view class="money txt-bold fs-28">
-					<text>{{orderPrice.giveIntegral||0}}积分</text>	
+					<text>{{orderPrice.usedIntegral||0}}积分</text>	
 				</view>
 			</view>
 
