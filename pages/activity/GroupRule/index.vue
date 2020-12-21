@@ -408,15 +408,15 @@ export default {
           });
 		  setTimeout(()=>{
 			  that.$yrouter.push({
-			  	path: "/pages/order/GoodsReturn/index",
-			  	query: {
-			  		refundType: -1,
-			  		id: that.pinkT.orderId,
-			  		refundStatus: 0,
-			  		status: 0,
-			  		refundReasonWap: '',
-			  		refundReasonWapExplain: '',
-			  	}
+			  	path: "/pages/order/ReturnList/index",
+			  	// query: {
+			  	// 	refundType: -1,
+			  	// 	id: that.pinkT.orderId,
+			  	// 	refundStatus: 0,
+			  	// 	status: 0,
+			  	// 	refundReasonWap: '',
+			  	// 	refundReasonWapExplain: '',
+			  	// }
 			  });
 		  },2000)
         })
