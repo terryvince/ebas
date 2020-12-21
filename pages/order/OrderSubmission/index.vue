@@ -567,7 +567,7 @@ color: #333333;">
 			createOrder() {
 				const that = this
 				let shipping_type = this.shipping_type;
-				if (this.mode == 'point' && this.orderPrice.giveIntegral > this.userInfo.integral) {
+				if (this.mode == 'point' && (this.orderPrice.usedIntegral > this.userInfo.integral)) {
 					uni.showToast({
 						icon: 'none',
 						title: '积分不足！'
