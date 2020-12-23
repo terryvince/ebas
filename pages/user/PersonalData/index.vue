@@ -6,7 +6,7 @@
           <view class="picTxt acea-row row-between-wrapper">
             <view class="pictrue" @tap="chooseImage">
               <div class="pictrue">
-                <img :src="avatar" />
+                <img class="full" :src="avatar" />
               </div>
               <!-- <image src="@/static/images/alter.png" class="alter" /> -->
             </view>

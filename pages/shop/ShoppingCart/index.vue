@@ -185,8 +185,8 @@
 				</view>
 				<Recommend></Recommend>
 			</view>
-			<view style="height:90rpx"></view>
-			<view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
+			<view style="height:100rpx"></view>
+			<view :class="['footer acea-row row-between-wrapper']" :style="{bottom:tabHeight+'px'}" v-if="cartList.valid.length > 0">
 				<view>
 					<view class="select-btn">
 						<view class="checkbox-wrapper">
@@ -265,7 +265,8 @@
 				invalidGoodsHidden: false,
 				footerswitch: false,
 				checkedIds: [],
-				loaded: false
+				loaded: false,
+				tabHeight:0
 			};
 		},
 		computed: mapGetters(["userInfo", "token"]),
@@ -312,6 +313,9 @@
 				this.getCartList();
 				this.gainCount();
 			}
+			// #ifdef H5
+			this.tabHeight = 50
+			// #endif
 		},
 		methods: {
 			shopAllChecked(shop) {

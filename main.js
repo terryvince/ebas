@@ -13,6 +13,7 @@ import {getWechatConfig} from '@/api/public.js'
 	// 调试模块
 	// import eruda from 'eruda';
 	// eruda.init()
+	window.Clipboard = require('clipboard')
 	// 导入分享模块
 	getWechatConfig().then(res=>{
 		console.log('拉取jssdk配置',res.data)

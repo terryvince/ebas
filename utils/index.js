@@ -96,8 +96,19 @@ export function getCurrentPageUrlWithArgs() {
 	return urlWithArgs
 }
 
-// 复制到剪切板
-export const copyClipboard = (data) => {
+// 复制到剪切板 selector h5需要提供选择器
+export const copyClipboard = (data,selector) => {
+	// #ifdef H5
+	var clipboard = new Clipboard(selector);
+	clipboard.on('success', function(e) {
+		uni.showToast({
+			title: '复制成功',
+			icon: 'success',
+			duration: 2000
+		})
+	});
+	// #endif
+	// #ifndef H5
 	uni.setClipboardData({
 		data: data,
 		success: (res) => {
@@ -108,6 +119,8 @@ export const copyClipboard = (data) => {
 			})
 		}
 	})
+	// #endif
+	
 }
 
 export const getProvider = (service) => {
@@ -599,6 +612,7 @@ export function reLaunch(location, complete, fail, success) {
 	})
 }
 
+// 非负，取负会有问题，在内嵌iframe的页面，导致返回到iframe
 export function go(delta) {
 	uni.navigateBack({
 		delta
@@ -914,6 +928,7 @@ export function chooseImage(callback) {
 				src: res.tempFilePaths[0],
 				success: image => {
 					console.log(image);
+					
 					uni.showLoading({ title: "图片上传中", mask: true });
 					uni.uploadFile({
 						url: `${VUE_APP_API_URL}/api/upload`,

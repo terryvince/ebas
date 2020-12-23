@@ -39,6 +39,11 @@
 	</view>
 </template>
 <style scoped lang="less">
+	.evaluate-con .score .textarea .list .pictrue .icon-guanbi1{
+		background: linear-gradient(45deg, white, white)no-repeat center;
+		background-size: 10px 10px;
+		border-radius: 50%;
+	}
 	.evaluate-con .score .textarea .list .pictrue.uploadBnt {
 		border: 1px solid #ddd;
 	}

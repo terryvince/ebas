@@ -212,7 +212,7 @@
 				<view>订单编号：</view>
 				<view class="conter acea-row row-middle row-right">
 					{{ orderInfo.orderId }}
-					<text class="copy copy-data" @click="copyClipboard(orderInfo.orderId)">复制</text>
+					<text class="copy copy-data" :data-clipboard-text="orderInfo.orderId" @click="copyClipboard(orderInfo.orderId,'.copy')">复制</text>
 				</view>
 			</view>
 			<view class="item acea-row row-between">

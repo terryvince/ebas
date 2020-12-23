@@ -166,6 +166,7 @@
 					<view class="flex-main-start fs-20 txt-bold lh-1 color-gray" style="margin-top: 18rpx;">
 						<text>{{cart.shopName}}</text>
 						<text class="left-10" v-if="cart.productInfo.attrInfo">{{cart.productInfo.attrInfo.sku}}</text>
+						<text class="left-10">邮费:￥{{cart.postage||0}}</text>
 					</view>
 					<view class="flex-main-end lh-1 fs-28 txt-bold">
 						<text>x</text>

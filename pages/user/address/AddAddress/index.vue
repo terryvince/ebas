@@ -205,6 +205,7 @@ export default {
     },
     getAddress() {},
     async submit() {
+		console.log(this.location)
       let name = this.userAddress.realName,
         phone = this.userAddress.phone,
         addressText = this.addressText,
@@ -266,7 +267,9 @@ export default {
             //   path: "/pages/user/PersonalData/index"
             // });
           }
-          that.$yrouter.go(-1);
+		  uni.navigateBack({
+		  		delta: 1
+		  });
         });
       } catch (err) {
         uni.showToast({
@@ -312,6 +315,7 @@ export default {
 				console.log('h5获取定位：',res)
 				that.location = {latitude,longitude}
 				that.locationText = '已获取（重新获取）'
+				
 			},
 			fail(err){
 				console.error(err)

@@ -183,10 +183,19 @@ export default {
       });
     },
     saveImg: function() {
-      this.downloadIamge(
-        this.info[this.activeIndex].wap_poster,
-        "poster" + this.activeIndex
-      );
+		// #ifdef H5
+		uni.showToast({
+			title:'长按图片保存！',
+			icon:'none'
+		})
+		// #endif
+		// #ifndef H5
+		this.downloadIamge(
+		  this.info[this.activeIndex].wap_poster,
+		  "poster" + this.activeIndex
+		);
+		// #endif
+      
     }
   }
 };
