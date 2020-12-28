@@ -241,7 +241,7 @@
 				<goodsList :list="pickList"></goodsList>
 			</view>
 			
-			<!-- 团购 无字段-->
+			<!-- 团购-->
 			<view v-if="combinationList.length" class="group-list top-30 flex-1" :style="{order:sort.groupNum}">
 				<view class="group-title flex-main-between color-white" style="margin-bottom: 51rpx;">
 					<view class="flex-main-start fs-34 txt-heavy">

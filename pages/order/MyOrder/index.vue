@@ -49,11 +49,14 @@
 		font-size: 28rpx;
 		font-weight: bold;
 	}
+	.bg-linear-green{
+		background: linear-gradient(52deg, #71D676, #5FCB55);
+	}
 </style>
 
 <template>
 	<view class="my-order" ref="container">
-		<view class="header bg-color-green">
+		<view class="header bg-linear-green">
 			<view class="picTxt acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name">订单信息</view>
@@ -183,18 +186,18 @@
 				<view class="bottom acea-row row-right row-middle">
 					<template v-if="order._status._type == 0">
 						<view class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</view>
-						<view class="bnt bg-color-green" @click="goOrderDetails(order)">立即付款</view>
+						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">立即付款</view>
 					</template>
 					<!-- 假设订单详情一定会有商品 -->
 					<template v-if="(order._status._type == 1 || order._status._type == 2 ) && order.cartInfo[0].productInfo.id>6">
 						<view class="bnt cancelBnt" @click="goGoodsReturn(order)">申请退款</view>
 					</template>
 					<template v-if="order._status._type == 1 || order._status._type == 9">
-						<view class="bnt bg-color-green" @click="goOrderDetails(order)">查看详情</view>
+						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">查看详情</view>
 					</template>
 					<template v-if="order._status._type == 2">
 						<view class="bnt default" @click="goLogistics(order)">查看物流</view>
-						<view class="bnt bg-color-green" @click="takeOrder(order)">确认收货</view>
+						<view class="bnt bg-linear-green" @click="takeOrder(order)">确认收货</view>
 					</template>
 					<template v-if="order._status._type == 3">
 						<!--<view-->
@@ -206,10 +209,10 @@
 						<!--&gt;-->
 						<!--查看物流-->
 						<!--</view>-->
-						<view class="bnt bg-color-green" @click="goOrderDetails(order)">去评价</view>
+						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">去评价</view>
 					</template>
 					<template v-if="order._status._type === 4">
-						<view class="bnt bg-color-green" @click="goOrderDetails(order)">查看订单</view>
+						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">查看订单</view>
 					</template>
 				</view>
 			</view>

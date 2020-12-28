@@ -426,7 +426,7 @@
 			<!-- 商品规格 -->
 			<view class="wrapper over-hide">
 				<view class="introduce txt-ellipsis row-2">{{ storeInfo.storeName }}</view>
-				<view class="share flex-main-between line-top">
+				<!-- <view class="share flex-main-between line-top">
 					<view>
 						<text class="fs-24 color-number">运费：{{ tempName }}</text>
 					</view>
@@ -434,10 +434,17 @@
 						<text class="fs-24 color-number">库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
 						<text class="fs-24 color-number left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
 					</view>
-				</view>
-				<view @click="selecAttrTap" class="list">
+				</view> -->
+				<view @click="selecAttrTap" class="list list-mini fs-24">
 					<view class="list-item list-between">
-						<text class="fs-28 color-text">数量选择</text>
+						<text class="color-number">运费：{{ tempName }}</text>
+						<view>
+							<text class="color-number">库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
+							<text class="color-number left-30">已售{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+						</view>
+					</view>
+					<view class="list-item list-between">
+						<text class="color-number">数量选择</text>
 						<view class="iconfont icon-jiantou arrow-atr"></view>
 					</view>
 				</view>
@@ -505,7 +512,7 @@
 				<view class="flex-main-center">
 					<view class="gd-title fs-32 color-text">商品详情</view>
 				</view>
-				<view class="width-full">
+				<view class="width-full top-20">
 					<rich-text :nodes="storeInfo.description"></rich-text>
 				</view>
 				<!-- <view class="width-full" v-html=""></view> -->
@@ -524,7 +531,7 @@
 				<view @click="goShopManage()" class="item relative">
 					<!-- <view class="iconfont icon-shoucang1"></view> -->
 					<image src="@/static/icon-shop.png" class="block" style="height:40rpx;width: 44.6rpx;"></image>
-					<text>店鋪</text>
+					<text>店铺</text>
 				</view>
 				<!-- 					<view @click="goShoppingCart()" class="item animated" v-if="!animated">
 						<view class="iconfont icon-gouwuche1">
@@ -792,7 +799,9 @@
 		methods: {
 			// 分享蒙层
 			displayShare(){
+				// #ifdef H5
 				this.isShowShare = !this.isShowShare
+				// #endif
 			},
 			// callPhone(number) {
 			// 	if (!number) {

@@ -176,7 +176,7 @@
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">已拼成 <text class="txt-heavy fs-24">{{item.sales||0}}</text> 件</view>
 						</view>
-						<button class="btn btn-linear-green btn-fix-width">拼团</button>
+						<button v-if="isShowButton" class="btn btn-linear-green btn-fix-width btn-round">拼团</button>
 					</view>
 					
 				</view>
@@ -207,7 +207,7 @@
 							</view>
 							<view class="color-gray fs-20 txt-medium top-15">{{item.merName||'未设置店名'}}</view>
 						</view>
-						<button :class="['btn btn-fix-width',item.status == 1 ? 'btn-linear-orange':'btn-gray']">{{item.status | formatStatus}}</button>
+						<button :class="['btn btn-fix-width btn-round',item.status == 1 ? 'btn-linear-orange':'btn-gray']">{{item.status | formatStatus}}</button>
 					</view>
 					
 				</view>
@@ -232,6 +232,10 @@
 			keyMap:{
 				type:[String],
 				default:null
+			},
+			isShowButton:{
+				type:[Boolean],
+				default:true
 			}
 		},
 		filters:{

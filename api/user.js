@@ -72,7 +72,7 @@ export function registerReset(data) {
  * */
 export function getCoupon(q) {
 	return request.get("/coupons", q, {
-		login: false
+		login: true
 	});
 }
 

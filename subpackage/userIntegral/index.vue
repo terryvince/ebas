@@ -155,7 +155,8 @@
 				<view class="date">
 					{{item.createTime}}
 				</view>
-				<view class="amount">
+				<!-- #5FCB55 -->
+				<view class="amount" :style="{color: item.pm==0?'#303030':'#FF6B17'}">
 					{{item.pm===0?'-':'+'}}{{item.number}}
 				</view>
 			</view>

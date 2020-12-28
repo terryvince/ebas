@@ -1,7 +1,9 @@
 <style scoped lang="less">
 .comment-box {
 	padding: 40rpx 30rpx 56rpx;
-
+	.list-item{
+		padding: 20rpx 30rpx;
+	}
 	.avator {
 		width: 92rpx;
 		height: 92rpx;
@@ -24,11 +26,11 @@
 	<view  class="user-comment bg-white top-5">
 		<view class="list">
 			<view @click="goEvaluateList()" class="list-item list-item-between">
-				<text class="fs-28 color-text">商品评价（{{replyCount||0}}）</text>
+				<text class="fs-28 color-text txt-medium">商品评价（{{replyCount||0}}）</text>
 				<view class="flex-main-start color-text fs-28">
 					<text class="color-danger">{{replyChance||0}}%</text>
 					<text>好评率</text>
-					<view class="iconfont icon-jiantou fs-22 color-arrow left-10"></view>
+					<view class="iconfont icon-jiantou fs-28 color-arrow left-10"></view>
 				</view>
 			</view>
 		</view>
@@ -37,9 +39,9 @@
 			<view class="comment-info flex-1 left-15">
 				<view class="flex-main-between">
 					<text class="fs-28 txt-bold">{{item.nickname|nameFilter}}</text>
-					<text class="color-gray fs-24">{{item.createTime}}</text>
+					<text class="color-gray fs-26">{{item.createTime}}</text>
 				</view>
-				<view class="width-full fs-24 top-20">
+				<view class="width-full fs-26 top-20">
 					{{item.comment}}
 				</view>
 				<view class="img-list top-20 flex-main-between width-full flex-wrap">
@@ -47,7 +49,7 @@
 						<image :src="itemn" class="image width-full" mode="widthFix"/>
 					</view>
 				</view>
-				<view v-show="item.merchantReplyContent" class="comment-reply fs-24 top-20">
+				<view v-show="item.merchantReplyContent" class="comment-reply fs-26 top-20">
 					<text>掌柜回复：{{item.merchantReplyContent}}</text>
 				</view>
 			</view>

@@ -95,7 +95,7 @@
 	</view>
 	
 	<!-- 商品属性 -->
-	<view class="list bg-white">
+	<view class="list list-mini bg-white">
 		<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 20rpx 32rpx;" v-text="storeInfo.title"></view>
 		<view class="list-item list-item-between fs-24 txt-medium color-number line-down">
 			<text>运费：{{storeInfo.isPostage==1?'包邮':storeInfo.postage+'元'}}</text>
@@ -105,7 +105,7 @@
 			</view>
 		</view>
 		<view @click="selecAttrTap" class="list-item list-item-between">
-			<text class="color-text txt-medium">数量选择</text>
+			<text class="color-number fs-24">数量选择</text>
 			<text class="iconfont icon-jiantou fs-24 color-gray"></text>
 		</view>
 	</view>
@@ -118,8 +118,8 @@
         <view v-text="'已拼:' + storeInfo.sales + storeInfo.unitName"></view>
       </view>
     </view> -->
-    <view class="notice acea-row row-middle">
-      <view class="num font-color-red">
+    <view class="notice acea-row row-middle flex-nowrap">
+      <view class="num font-color-red flex-none" style="font-size: 26rpx;line-height: 62rpx;">
         <text class="iconfont icon-laba"></text>
         已拼{{ storeInfo.sales
         }}{{ storeInfo.unitName }}
@@ -129,7 +129,7 @@
         <swiper class="swiper-wrapper" :options="swiperTip" :autoplay="true" :interval="3000">
           <block v-for="(item, itemNewIndex) in itemNew" :key="itemNewIndex">
             <swiper-item>
-              <view class="line1">{{ item }}</view>
+              <view class="line1" style="font-size: 26rpx;">{{ item }}</view>
             </swiper-item>
           </block>
         </swiper>
@@ -174,7 +174,7 @@
 	  	<view v-for="(item, groupListindex) in groupList" :key="groupListindex" v-if="groupListindex < groupListCount" class="list-item list-item-between line-down">
 	  		<view class="left-wrap flex-main-start">
 	  			<view class="avatar-wrap">
-	  				<image :src="item.avatar" class="width-full" mode="widthFix"></image>
+	  				<image :src="item.avatar" class="width-full radius-circle" mode="widthFix"></image>
 	  			</view>
 	  			<view class="avatar-text left-15">
 	  				<view class="badge badge-mini-extra badge-primary badge-radius">{{addressObj|formatJson}}</view>
@@ -195,7 +195,7 @@
 	  		</view>
 	  		<view class="right-wrap flex-main-between flex-column flex-item-align-stretch">
 	  			<view class="color-gray fs-24 txt-medium">还差<text class="color-danger">{{item.count}}</text>购买数成团</view>
-	  			<button @click="groupRule(item.id)" class="btn btn-mini btn-linear-green">去拼团</button>
+	  			<button @click="groupRule(item.id)" class="btn btn-mini btn-linear-green" style="font-size: 24rpx;">去拼团</button>
 	  		</view>
 	  	</view>
 	  </view>
@@ -208,15 +208,15 @@
 	<!-- 拼团玩法 -->
 	<view class="play-way top-20">
 		<view class="list bg-white">
-			<view class="list-item line-down bg-white">拼团玩法</view>
+			<view class="list-item line-down bg-white fs-28">拼团玩法</view>
 		</view>
 		<view class="list no-bg">
-			<view class="list-item flex-main-between">
-				<view class="badge badge-middle badge-orange badge-radius">1.开团/参团</view>
-				<view class="iconfont icon-arrow"></view>
-				<view class="badge badge-middle badge-red-light badge-radius">2.邀请好友</view>
-				<view class="iconfont icon-arrow"></view>
-				<view class="badge badge-middle badge-red badge-radius">3.满员发货</view>
+			<view class="list-item flex-main-center">
+				<view class="badge badge-middle badge-orange badge-radius" style="font-size: 26rpx;">1.开团/参团</view>
+				<view class="iconfont icon-arrow left-10"></view>
+				<view class="badge badge-middle badge-red-light badge-radius left-10" style="font-size: 26rpx;">2.邀请好友</view>
+				<view class="iconfont icon-arrow left-10"></view>
+				<view class="badge badge-middle badge-red badge-radius left-10" style="font-size: 26rpx;">3.满员发货</view>
 			</view>
 		</view>
 	</view>
@@ -253,7 +253,7 @@
 		<view class="flex-main-center">
 			<view class="gd-title fs-32 color-text">商品详情</view>
 		</view>
-		<view class="width-full">
+		<view class="width-full top-20">
 			<rich-text :nodes="storeInfo.description"></rich-text>
 		</view>
 		<!-- <view class="width-full" v-html=""></view> -->

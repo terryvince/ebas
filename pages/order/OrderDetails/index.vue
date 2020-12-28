@@ -136,16 +136,67 @@
 		position: absolute;
 		font-size: 29rpx;
 	}
+	count-down::v-deep .time{
+		margin-left: 0!important;
+	}
+	.radius-wrap{
+		overflow: hidden;
+		margin: 20rpx;
+		border-radius: 20rpx;
+		background-color: white;
+	}
+	.order-details .wrapper.order-info .item .conter{
+		text-align: left;
+	}
+	.order-details .wrapper .item .conter .copy {
+		font-size: 24rpx;
+		color: #EB4559;
+		font-weight: 500;
+		border: 0;
+		margin: 0;
+		padding: 0;
+	}
+	.order-details .wrapper .item {
+		color: #303030;
+		font-size: 24rpx;
+	}
+	.order-details .wrapper .item .conter {
+		color: #303030;
+		font-size: 24rpx;
+	}
+	.bg-linear-green{
+		background: linear-gradient(52deg, #71D676, #5FCB55);
+	}
+	.order-details .wrapper .acea-row{
+		flex-wrap: nowrap!important;
+	}
 </style>
 
 <template>
 	<view class="order-details">
 		<!-- 给header上与data上加on为退款订单-->
-		<view class="header bg-color-green acea-row row-middle" :class="refundOrder ? 'on' : ''">
+		<view v-if="orderInfo._status._type !=0" class="header bg-linear-green acea-row row-middle" :class="refundOrder ? 'on' : ''">
 			<view class="data" :class="refundOrder ? 'on' : ''">
-				<view class="state">{{ orderInfo._status._msg||'' }}</view>
+				<!-- ||'' : order_status -->
+				<view class="state">{{ orderInfo._status._msg }}</view>
 				<view>
 					{{ orderInfo.createTime||'' }}
+				</view>
+			</view>
+		</view>
+		<!-- 待付款 -->
+		<view v-else class="header bg-linear-green acea-row row-middle" :class="refundOrder ? 'on' : ''">
+			<view class="data" :class="refundOrder ? 'on' : ''">
+				<!-- ||'' : order_status -->
+				<view class="state">{{ order_status }}</view>
+				<view v-if="!isExpire" class="flex-main-start">
+					<text>剩</text>
+					<count-down :isDay="false" :tipText="false" :dayText="false" :hourText="' : '" :minuteText="' : '" :secondText="false"
+					 :datatime="datatime"></count-down>
+					 <text>后自动取消订单</text>
+				</view>
+				<view v-else class="flex-main-start">
+					订单已过期
 				</view>
 			</view>
 		</view>
@@ -185,44 +236,54 @@
 					<span class="iconfont icon-weizhi"></span>查看位置
 				</div>
 			</div>
-			<view class="address" v-if="orderInfo.shippingType === 1">
-				<view class="name">
-					{{ orderInfo.realName||'' }}
-					<text class="phone">{{ orderInfo.userPhone||'' }}</text>
-					<!-- <text class="iconfont icon-tonghua font-color-red"></text> -->
+			<!-- 地址栏 -->
+			<view class="radius-wrap">
+				<view class="address" v-if="orderInfo.shippingType === 1">
+					<view class="name">
+						{{ orderInfo.realName||'' }}
+						<text class="phone">{{ orderInfo.userPhone||'' }}</text>
+						<!-- <text class="iconfont icon-tonghua font-color-red"></text> -->
+					</view>
+					<view>{{ orderInfo.userAddress||'' }}</view>
 				</view>
-				<view>{{ orderInfo.userAddress||'' }}</view>
-			</view>
-			<div class="address" v-else>
-				<div class="name">
-					{{ system_store.name||''}}
-					<span class="phone">{{ system_store.phone||'' }}</span>
-					<span class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></span>
-				</div>
-				<div>{{ system_store.address||'' }}</div>
-			</div>
-			<view class="line" v-if="orderInfo.shippingType === 1">
-				<image src="@/static/images/line.jpg" />
+				<view class="address" v-else>
+					<view class="name">
+						{{ system_store.name||''}}
+						<text class="phone">{{ system_store.phone||'' }}</text>
+						<text class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></text>
+					</view>
+					<view>{{ system_store.address||'' }}</view>
+				</view>
+				<view class="line" v-if="orderInfo.shippingType === 1">
+					<image src="@/static/images/line.jpg" />
+				</view>
 			</view>
 		</template>
 		<!-- orderInfo.useIntegral>0 用了积分即积分支付 -->
-		<OrderGoods :evaluate="status.type || 0" :cartInfo="orderInfo.cartInfo || []" :useIntegral="orderInfo.useIntegral"></OrderGoods>
-		<view class="wrapper">
-			<view class="item acea-row row-between">
-				<view>订单编号：</view>
-				<view class="conter acea-row row-middle row-right">
-					{{ orderInfo.orderId }}
+		<view class="radius-wrap">
+			<OrderGoods :evaluate="status.type || 0" :cartInfo="orderInfo.cartInfo || []" :useIntegral="orderInfo.useIntegral" :name="orderInfo.pinkName"></OrderGoods>
+		</view>
+		
+		<view class="wrapper radius-wrap order-info">
+			<view class="item acea-row">
+				<view class="txt-bold color-danger">丨</view>
+				<text class="txt-bold" style="color: #303030;">订单信息</text>
+			</view>
+			<view class="item acea-row">
+				<view class="flex-none">订单编号：</view>
+				<view class="conter acea-row row-middle row-between">
+					{{ orderInfo.orderId||'' }}
 					<text class="copy copy-data" :data-clipboard-text="orderInfo.orderId" @click="copyClipboard(orderInfo.orderId,'.copy')">复制</text>
 				</view>
 			</view>
-			<view class="item acea-row row-between">
-				<view>下单时间：</view>
+			<view class="item acea-row">
+				<view class="flex-none">下单时间：</view>
 				<view class="conter">
-					{{ orderInfo.createTime }}
+					{{ orderInfo.createTime||'' }}
 				</view>
 			</view>
-			<view v-if="orderInfo.estimateTime" class="item acea-row row-between">
-				<view>预计发货时间：</view>
+			<view v-if="orderInfo.estimateTime" class="item acea-row">
+				<view class="flex-none">预计发货时间：</view>
 				<view class="conter">
 					{{ orderInfo.estimateTime | timeFormat('date') }}
 				</view>
@@ -239,20 +300,20 @@
 					{{ orderInfo.confirmTime||'' }}
 				</view>
 			</view> -->
-			<view class="item acea-row row-between">
-				<view>订单类型：</view>
+			<view class="item acea-row">
+				<view class="flex-none">订单类型：</view>
 				<view class="conter">{{ orderTypeName }}</view>
 			</view>
-			<view class="item acea-row row-between">
-				<view>支付状态：</view>
+			<view class="item acea-row">
+				<view class="flex-none">支付状态：</view>
 				<view class="conter">{{ orderInfo.paid ? "已支付" : "未支付" }}</view>
 			</view>
-			<view class="item acea-row row-between">
-				<view>支付方式：</view>
+			<view class="item acea-row">
+				<view class="flex-none">支付方式：</view>
 				<view class="conter">{{ orderInfo._status._payType }}</view>
 			</view>
-			<view class="item acea-row row-between" v-if="orderInfo.mark">
-				<view>买家留言：</view>
+			<view class="item acea-row" v-if="orderInfo.mark">
+				<view class="flex-none">买家留言：</view>
 				<view class="conter">{{ orderInfo.mark }}</view>
 			</view>
 		</view>
@@ -265,11 +326,11 @@
 					<view class="conter">发货</view>
 				</view> -->
 				<view class="item acea-row row-between">
-					<view>快递公司：</view>
+					<view class="flex-none">快递公司：</view>
 					<view class="conter">{{ orderInfo.deliveryName || "" }}</view>
 				</view>
 				<view class="item acea-row row-between">
-					<view>快递单号：</view>
+					<view class="flex-none">快递单号：</view>
 					<view class="conter">{{ orderInfo.deliveryId || "" }}</view>
 				</view>
 			</view>
@@ -293,23 +354,23 @@
 			</view> -->
 		</view>
 		<!--     退款订单详情 -->
-		<view class="wrapper" v-if="refundOrder">
+		<view class="wrapper radius-wrap" v-if="refundOrder">
 			<view class="item acea-row row-between">
-				<view>收货人：</view>
+				<view class="flex-none">收货人：</view>
 				<view class="conter">{{ orderInfo.realName }}</view>
 			</view>
 			<view class="item acea-row row-between">
-				<view>联系电话：</view>
+				<view class="flex-none">联系电话：</view>
 				<view class="conter">{{ orderInfo.userPhone }}</view>
 			</view>
 			<view class="item acea-row row-between">
-				<view>收货地址：</view>
+				<view class="flex-none">收货地址：</view>
 				<view class="conter">{{ orderInfo.userAddress }}</view>
 			</view>
 		</view>
-		<view class="wrapper">
+		<view class="wrapper radius-wrap">
 			<view class="item acea-row row-between">
-				<view>商品总价：</view>
+				<view class="flex-none">商品总价：</view>
 				<view class="conter">
 					<text>￥</text>
 					<text>{{ orderInfo.totalPrice }}</text>
@@ -318,21 +379,21 @@
 				</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.couponPrice > 0">
-				<view>优惠券抵扣：</view>
+				<view class="flex-none">优惠券抵扣：</view>
 				<view class="conter">-￥{{ orderInfo.couponPrice }}</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.useIntegral > 0">
-				<view>积分抵扣：</view>
+				<view class="flex-none">积分抵扣：</view>
 				<view class="conter">
 					<text>{{ orderInfo.deductionPrice }}积分</text>
 				</view>
 			</view>
 			<view class="item acea-row row-between" v-if="orderInfo.payPostage > 0">
-				<view>运费：</view>
+				<view class="flex-none">运费：</view>
 				<view class="conter">￥{{ orderInfo.payPostage }}</view>
 			</view>
 			<view class="item acea-row row-between">
-				<view>应付：</view>
+				<view class="flex-none">应付：</view>
 				<view class="conter font-color-red">￥{{ orderInfo.payPrice }}</view>
 			</view>
 		</view>
@@ -347,21 +408,21 @@
 
 			<template v-if="status.type == 0">
 				<view class="bnt cancel" @click="cancelOrder">取消订单</view>
-				<view class="bnt bg-color-green" @click="pay = true">立即付款</view>
+				<view class="bnt bg-linear-green" @click="pay = true">立即付款</view>
 			</template>
-			<template v-if="status.type == 1 || status.type == 2">
-				<view class="bnt cancel" @click="goGoodsReturn(orderInfo)">
+			<template v-if="status.type == 1 || status.type == 2 || status.type == -1">
+				<view :class="['bnt',orderInfo.refundStatus==3 ? 'bg-linear-green':'cancel']" @click="goGoodsReturn(orderInfo)">
 					{{orderInfo.refundStatus == 3?"确认退货":"申请退款"}}
 				</view>
 			</template>
 
-			<!--    <template v-if="status.type == 1">
-        <view class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请退款</view>
-      </template> -->
+			  <!-- <template v-if="refundStatus == 3">
+				<view class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请退款</view>
+			  </template> -->
 
 			<template v-if="status.type == 2">
 				<view class="bnt default" @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id: orderInfo._status._type ==0 ? orderInfo.orderId : orderInfo.extendOrderId }})">查看物流</view>
-				<view class="bnt bg-color-green" @click="takeOrder(orderInfo)">确认收货</view>
+				<view class="bnt bg-linear-green" @click="takeOrder(orderInfo)">确认收货</view>
 			</template>
 			<template v-if="status.type == 3 && orderInfo.deliveryType == 'express'">
 				<view class="bnt default" @click="
@@ -375,7 +436,7 @@
         ">查看物流</view>
 			</template>
 			<template v-if="status.type == 6">
-				<view class="bnt bg-color-green" @click="goGroupRule(orderInfo)">查看拼团</view>
+				<view class="bnt bg-linear-green" @click="goGroupRule(orderInfo)">查看拼团</view>
 			</template>
 		</view>
 		<Payment v-model="pay" :types="payType" @checked="toPay" :balance="userInfo.nowMoney"></Payment>
@@ -392,6 +453,7 @@
 	} from "@/api/order";
 	import Payment from "@/components/Payment";
 	import DataFormat from "@/components/DataFormat";
+	import CountDown from "@/components/CountDown";
 	import {
 		isWeixin,
 		copyClipboard
@@ -414,7 +476,8 @@
 		components: {
 			OrderGoods,
 			Payment,
-			DataFormat
+			DataFormat,
+			CountDown
 		},
 		props: {},
 		data: function() {
@@ -433,12 +496,32 @@
 				from: this.$deviceType,
 				system_store: {},
 				mapKay: "",
-				mapShow: false
+				mapShow: false,
+				isExpire:false
 			};
 		},
 		computed: {
+			datatime(){
+				let endDate = this.orderInfo._status._date
+				this.isExpire = endDate - new Date() <= 0
+				return ~~(this.orderInfo._status._date/1000) || 0
+			},
 			refundOrder() {
 				return this.orderInfo.refund_status > 0;
+			},
+			order_status() {
+				return [
+						"待付款",
+						"待发货",
+						"待收货",
+						"待评价",
+						"已完成",
+						"",
+						"",
+						"",
+						"",
+						"待付款"
+					][this.orderInfo._status._type]||'';
 			},
 			...mapGetters(["userInfo"])
 		},
@@ -472,7 +555,8 @@
 				this.$yrouter.push({
 					path: "/pages/activity/GroupRule/index",
 					query: {
-						id: orderInfo.pinkId
+						id: orderInfo.pinkId,
+						product_id:orderInfo.combinationId 
 					}
 				});
 			},

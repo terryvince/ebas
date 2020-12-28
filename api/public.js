@@ -60,10 +60,10 @@ export function getArticleDetails(id) {
  * 获取微信sdk配置
  * @returns {*}
  */
-export function getWechatConfig() { 
+export function getWechatConfig() {
   return request.get(
     "/wechat/config",
-    { url: location.href.split('#')[0] },
+    { url: location.href.split('#')[0] }, // .replace(/[&]?state[=]+[^&]*/g,'')含有state查询参数会导致签名无效
     { login: false }
   );
 }

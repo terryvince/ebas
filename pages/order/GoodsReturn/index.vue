@@ -46,7 +46,7 @@
 				<view>退款方式</view>
 				<radio-group @change="radioChange">
 					<view class="flex-main-start">
-						<label class="radio right-10 flex-main-start" v-model="refund_type">
+						<label v-if="refundStatus != 3  && refundStatus != 4 " class="radio right-10 flex-main-start" v-model="refund_type">
 							<radio :value="0" :checked="refund_type == 0" />仅退款</label>
 						<block v-if="status!=0">
 							<label class="radio flex-main-start">

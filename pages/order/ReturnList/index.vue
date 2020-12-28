@@ -3,7 +3,10 @@
     <view class="goodWrapper" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
       <view class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></view>
       <view class="iconfont icon-yituikuan" v-if="order._status._type === -2"></view>
-      <view class="orderNum">订单号：{{ order.orderId }}</view>
+      <view class="orderNum flex-main-between">
+		  <text>订单号：{{ order.orderId }}</text>
+		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order.refundStatus|toRefundText}}</text>
+	  </view>
       <view
         class="item acea-row row-between-wrapper"
         v-for="(cart,cartInfoIndex) in order.cartInfo"
@@ -59,6 +62,17 @@ export default {
       loading: false,
       loaded: false
     };
+  },
+  filters:{
+	  toRefundText(v){
+		  return {
+			 0:'未退款',
+			 1:'申请中',
+			 2:'已退款',
+			 3:'待退货',
+			 4:'买家发货'
+		  }[v]||'0'
+	  }
   },
   methods: {
     goGoodsCon(cart) {

@@ -4,6 +4,15 @@
 	}
 </style>
 <style lang="less" scoped>
+	.pop {
+	    width: 100%;
+	    height: 100%;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    background: rgba(0,0,0,.1);
+	    z-index: 999;
+	}
 	.group-banner{
 		width: 100%;
 		height: 220rpx;
@@ -66,7 +75,7 @@
 		<view class="group-wrap" v-if="storeCombination">
 			<!-- 改成列表，借用组件样式 -->
 			<view class="padding-beside-20">
-				<goodsList :list="[storeCombination]" from="group"></goodsList>
+				<goodsList :list="[storeCombination]" from="group" :is-show-button="false"></goodsList>
 				<!-- 拼团成功的标记，不需要了 -->
 				<!-- <view v-if="pinkBool === -1" class="iconfont icon-pintuanshibai"></view>
 				<view v-else-if="pinkBool === 1" class="iconfont icon-pintuanchenggong font-color-red"></view> -->
@@ -131,7 +140,7 @@
 			    class="teamBnt bg-color-green relative"
 			    v-if="userBool === 1 && isOk == 0 && pinkBool === 0"
 			  >
-			  <button type="default" class="hide-full" open-type="share"></button>
+			  <button type="default" class="hide-full" open-type="share" @click="displayShare()"></button>
 			  邀请好友参团
 			  </view>
 			  <view
@@ -154,6 +163,7 @@
 			  </view>
 			</view>
 		</view>
+		<img v-show="isShowShare" @click="displayShare()" src="@/static/toShare.png" class="pop full">
 		<ProductWindow v-if="cartNum" v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum" type="group"></ProductWindow>
 	</view>
 </template>
@@ -176,6 +186,8 @@ export default {
   props: {},
   data: function() {
     return {
+		// 分享蒙层
+	  isShowShare:false,
       currentPinkOrder: "", //当前拼团订单
       isOk: 0, //判断拼团是否完成
       pinkBool: 0, //判断拼团是否成功|0=失败,1=成功
@@ -234,9 +246,15 @@ export default {
 	      unique: "",
 	      cart_num: 1
 	    }
+		this.bindShare({
+			title: title,
+			desc:'拼实惠，团好货，点滴幸福，优质生活！',
+			imgUrl: image
+		})
 	}).catch(err=>{
 		console.error('拉取商品属性报错：',err)
 	})
+	
   },
   onShareAppMessage() {
   	return {
@@ -245,6 +263,40 @@ export default {
   	}
   },
   methods: {
+	  // H5分享
+	  bindShare(config){
+	  	// #ifdef H5
+	  	this.wxReady.then(wx=>{
+	  		if(wx){
+	  			wx.updateAppMessageShareData({ // 分享到朋友
+	  			    title: config.title, // 分享标题
+	  			    desc: config.desc, // 分享描述
+	  			    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	  			    imgUrl: config.imgUrl, // 分享图标
+	  			    success: function () {
+	  			      // 设置成功
+	  			    }
+	  			  })
+	  			wx.updateTimelineShareData({ // 分享到朋友圈和qq空间
+	  			    title: config.title, // 分享标题
+	  			    link: window.location.href.split('/#')[0]+'?hash='+encodeURIComponent(window.location.hash), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	  			    imgUrl: config.imgUrl, // 分享图标
+	  			    success: function () {
+	  			      // 设置成功
+	  			    }
+	  			  })
+	  		}
+	  	}).catch(err=>{
+	  		// console.log('',err)
+	  	})
+	  	// #endif
+	  },
+	  // 分享蒙层
+	  displayShare(){
+	  	// #ifdef H5
+	  	this.isShowShare = !this.isShowShare
+	  	// #endif
+	  },
 	  changeattr: function(res) {
 	    this.attr.cartAttr = res;
 	    this.isOpen = false;

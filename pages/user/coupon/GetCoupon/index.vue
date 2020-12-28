@@ -110,7 +110,7 @@
 		data: function() {
 			return {
 				page: 1,
-				limit: 10,
+				limit: 999999,
 				couponsList: [],
 				loading: false,
 				loadend: false

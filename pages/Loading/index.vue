@@ -106,7 +106,8 @@ export default {
 	  const scope = 'snsapi_userinfo'
 	  const appid = 'wx007347fbd7deb6f9'
 	  const state = ''
-	  const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=${state}#wechat_redirect`
+	  // &state=${state}
+	  const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}#wechat_redirect`
 	  console.log('重定向url:',decodeURIComponent(redirect_uri))
 	  window.location.replace(url)
 	},

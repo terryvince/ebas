@@ -100,19 +100,7 @@
 
 // 带删除线
 .del-line{
-	position: relative;
-	&::after{
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		margin: auto;
-		transform: translate(0,-50%);
-		width: 100%;
-		height: 2rpx;
-		background: #9E9E9E;
-	}
+	text-decoration: line-through;
 }
 .del-price-line{
 	position: relative;
@@ -446,6 +434,9 @@ each(range(5,30,5),{
 		color: white;
 		background: linear-gradient(169deg, #FF9322, #FFC13D);
 	}
+	&.btn-round{
+		border-radius: 30rpx;
+	}
 }
 // 列表
 .list{
@@ -460,7 +451,14 @@ each(range(5,30,5),{
 	}
 	&.list-middle{
 		.list-item{
-			padding: 40rpx 20rpx;
+			padding-top: 40rpx!important;
+			padding-bottom: 40rpx!important;
+		}
+	}
+	&.list-mini{
+		.list-item{
+			padding-top: 15rpx!important;
+			padding-bottom: 15rpx!important;
 		}
 	}
 }
@@ -483,5 +481,16 @@ each(range(5,30,5),{
 		left: 0;
 		top: 50%;
 		transform: translate(-130%,-50%);
+	}
+}
+
+.product-con{
+	letter-spacing: 4rpx;
+	.florid-box{
+		letter-spacing: normal;
+	}
+	.attribute{
+		padding-left: 20rpx;
+		padding-right: 20rpx;
 	}
 }

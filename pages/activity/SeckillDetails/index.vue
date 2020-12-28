@@ -84,7 +84,7 @@ count-down::v-deep .styleAll{
 		</view>
 
 		<!-- 商品属性 -->
-		<view class="list bg-white">
+		<view class="list list-mini bg-white fs-24">
 			<view class="txt-bold fs-32 txt-ellipsis row-2 line-down" style="padding: 38rpx 20rpx 32rpx;" v-text="storeInfo.title"></view>
 			<view class="list-item list-item-between fs-24 txt-medium color-number line-down">
 				<text>运费：{{storeInfo.isPostage==1?'包邮':storeInfo.postage+'元'}}</text>
@@ -94,7 +94,7 @@ count-down::v-deep .styleAll{
 				</view>
 			</view>
 			<view @click="selecAttrTap" class="list-item list-item-between">
-				<text class="color-text txt-medium">数量选择</text>
+				<text class="color-number txt-medium fs-24">数量选择</text>
 				<text class="iconfont icon-jiantou fs-24 color-gray"></text>
 			</view>
 		</view>
@@ -112,7 +112,7 @@ count-down::v-deep .styleAll{
 			<view class="flex-main-center">
 				<view class="gd-title fs-32 color-text">商品详情</view>
 			</view>
-			<view class="width-full">
+			<view class="width-full top-20">
 				<rich-text :nodes="storeInfo.description"></rich-text>
 			</view>
 			<!-- <view class="width-full" v-html=""></view> -->

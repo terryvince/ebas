@@ -91,7 +91,8 @@
 							<text class="color-white lh-1 price-sign">￥</text>
 							<!-- {{item.coupon_price}} -->
 							<text class="color-linear-yellow txt-bold lh-1" style="font-size: 40rpx;">{{item.couponPrice}}</text>
-							<view class="color-linear-yellow fs-18 flex-main-start flex-column" style="margin: 0 10rpx;">
+							<!-- 文字渐变色会导致文字隐形 -->
+							<view class="fs-18 flex-main-start flex-column" style="margin: 16rpx 10rpx 0;color: #f1eec3;">
 								<text>优</text>
 								<text>惠</text>
 								<text>券</text>
@@ -127,7 +128,7 @@
 				list:[],
 				params:{
 					page: 1,
-					limit: 3
+					limit: 999999
 				}
 			};
 		},
@@ -148,12 +149,12 @@
 			getCouponList(){
 				if(this.isHome && !cookie.get('login_status')){
 					getCouponsAll(this.params).then(res=>{
-						this.list = res.data||[];
+						this.list = res.data ? res.data.slice(0,3):[];
 					})
 					return
 				}
 				getCoupon(this.params).then(res=>{
-					this.list = res.data||[];
+					this.list = res.data ? res.data.slice(0,3):[];
 				})
 			},
 			// 点击领取优惠券

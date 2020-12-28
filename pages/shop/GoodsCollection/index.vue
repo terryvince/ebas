@@ -82,7 +82,7 @@
 		 		</view>
 		 		<view class="content">
 		 			<!-- 商品名 -->
-		 			<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 56rpx;">{{item.storeName}}</view>
+		 			<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 52rpx;">{{item.storeName}}</view>
 		 			<view>
 		 				<!-- 商品价格 -->
 		 				<view class="flex-main-start top-31 fs-22">
