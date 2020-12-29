@@ -107,7 +107,7 @@ export default {
 		  return {
 			 0:'未退款',
 			 1:'申请中',
-			 2: order.refundStatus==0 ? '已退款':'已退货',
+			 2: order.refundType==0 ? '已退款':'已退货',
 			 3:'待退货',
 			 4:'买家发货'
 		  }[order.refundStatus]||'0'
