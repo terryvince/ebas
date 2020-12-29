@@ -205,8 +205,8 @@
 
 			<view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false && mode!='vip' && mode!='point'">
 				<view>优惠券</view>
-				<view class="discount">
-					{{ usableCoupon.length ? couponTitle : "请选择" }}
+				<view class="discount flex-main-end">
+					<text :class="[usableCoupon.length ? '':'color-danger' ]">{{ usableCoupon.length ? couponTitle : `${usableCoupon.length}张可用` }}</text>
 					<text class="iconfont icon-jiantou"></text>
 				</view>
 			</view>
@@ -286,7 +286,7 @@
 font-size: 32rpx;
 font-weight: bold;
 color: #333333;">
-					<view class="color-text txt-bold fs-32">
+					<view class="color-danger txt-bold fs-32">
 						<text>￥</text>
 						<text>{{mode=='point'? orderPrice.totalPrice : orderPrice.payPrice}}</text>
 					</view>

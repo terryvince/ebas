@@ -444,8 +444,8 @@
 						</view>
 					</view>
 					<view class="list-item list-between">
-						<text class="color-number">数量选择</text>
-						<view class="iconfont icon-jiantou arrow-atr"></view>
+						<text class="color-text txt-medium fs-28">数量选择</text>
+						<view class="iconfont icon-jiantou arrow-atr fs-28"></view>
 					</view>
 				</view>
 			</view>

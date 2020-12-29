@@ -94,8 +94,8 @@ count-down::v-deep .styleAll{
 				</view>
 			</view>
 			<view @click="selecAttrTap" class="list-item list-item-between">
-				<text class="color-number txt-medium fs-24">数量选择</text>
-				<text class="iconfont icon-jiantou fs-24 color-gray"></text>
+				<text class="color-text txt-medium fs-28">数量选择</text>
+				<text class="iconfont icon-jiantou fs-28 color-gray"></text>
 			</view>
 		</view>
 

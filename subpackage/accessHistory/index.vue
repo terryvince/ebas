@@ -5,7 +5,7 @@
 </style>
 <template>
 	<view class="access-history">
-		<goods-list :list="list"></goods-list>
+		<goods-list :list="list" :is-show-date="true"></goods-list>
 	</view>
 </template>
 

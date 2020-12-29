@@ -53,7 +53,7 @@
 							<div v-if="item.endTime === 0">不限时</div>
 							<div v-else>{{ item.createTime }}-{{ item.endTime }}</div>
 							<div class="bnt gray" v-if="item._type === 0">{{ item._msg }}</div>
-							<div class="bnt bg-color-red" v-else>{{ item._msg }}</div>
+							<div @click="goStore(item)" class="bnt bg-color-red" v-else>{{ item._msg }}</div>
 						</div>
 					</div>
 				</view>
@@ -109,6 +109,20 @@
 		methods: {
 			more(item) {
 				item.isMore = !item.isMore
+			},
+			goStore(item){
+				if(item.merId == 0) {  // 通用券跳首页
+					this.$yrouter.switchTab({
+						path: "/pages/home/index",
+					});
+					return
+				}
+				this.$yrouter.push({ // 店铺券跳店铺
+					path: "/subpackage/shop/shop",
+					query: {
+						merId: item.merId
+					}
+				});
 			},
 			getUseCoupons: function() {
 				let that = this,

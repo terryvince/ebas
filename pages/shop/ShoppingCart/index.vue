@@ -107,7 +107,7 @@
 											</label>
 										</checkbox-group>
 									</view>
-									<text style="font-size: 28rpx;">{{shopItem.shopName}}</text>
+									<text @click="goShop(shopItem)" style="font-size: 28rpx;">{{shopItem.shopName}}</text>
 								</view>
 								<text style="font-size: 28rpx;">共{{shopItem.storeCartQueryVoList.length}}件商品</text>
 							</view>
@@ -318,6 +318,14 @@
 			// #endif
 		},
 		methods: {
+			goShop(item){
+				this.$yrouter.push({
+					path: "/subpackage/shop/shop",
+					query: {
+						merId: item.shopId
+					}
+				});
+			},
 			shopAllChecked(shop) {
 				console.log(shop)
 				let that = this;

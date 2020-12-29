@@ -63,6 +63,9 @@
 	    background: rgba(0,0,0,.1);
 	    z-index: 999;
 	}
+.flex-col-end{
+	align-items: flex-end;
+}
 </style>
 <template>
   <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
@@ -105,8 +108,8 @@
 			</view>
 		</view>
 		<view @click="selecAttrTap" class="list-item list-item-between">
-			<text class="color-number fs-24">数量选择</text>
-			<text class="iconfont icon-jiantou fs-24 color-gray"></text>
+			<text class="color-text txt-medium fs-28">数量选择</text>
+			<text class="iconfont icon-jiantou fs-28 color-gray"></text>
 		</view>
 	</view>
 	
@@ -181,7 +184,7 @@
 	  				<view class="fs-28 txt-medium color-text">{{item.nickname}}</view>
 	  				<view class="color-gray fs-24 txt-medium flex-main-start">
 	  					<!-- <text class="iconfont icon-shijian right-5"></text> -->
-						<image src="../../../static/logo-circle.png" class="right-5" style="width: 19rpx;height: 19rpx;"></image>
+						<image src="https://res.sdebs.com/group-detail-time.png" class="right-10" style="width: 19rpx;height: 19rpx;"></image>
 	  					<count-down
 	  					  :isDay="false"
 	  					  :tipText="'剩余 '"
@@ -194,7 +197,7 @@
 	  				</view>
 	  			</view>
 	  		</view>
-	  		<view class="right-wrap flex-main-between flex-column flex-item-align-stretch">
+	  		<view class="right-wrap flex-main-between flex-column flex-item-align-stretch flex-col-end">
 	  			<view class="color-gray fs-24 txt-medium">还差<text class="color-danger">{{item.count}}</text>购买数成团</view>
 	  			<button @click="groupRule(item.id)" class="btn btn-mini btn-linear-green" style="font-size: 24rpx;">去拼团</button>
 	  		</view>

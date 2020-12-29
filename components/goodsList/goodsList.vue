@@ -75,6 +75,9 @@
 		margin-bottom: 20rpx;
 		&:last-child{
 			margin-bottom: 0;
+			.line-down{
+				display: none;
+			}
 		}
 	}
 	.group-badge{
@@ -100,6 +103,9 @@
  		margin-bottom: 32rpx;
  		&:last-child{
  			margin-bottom: 0;
+			.line-down{
+				display: none;
+			}
  		}
  	}
  	.seckill-title{
@@ -111,6 +117,12 @@
 	 left: 110rpx;
 	 top: 50%;
 	 transform: translate(0,-50%);
+ }
+ .line-down{
+	 position: absolute;left: 0;bottom: -10rpx;
+	 &::before{
+	 	background-color: #f1f1f1;
+	 }
  }
 </style>
 <template>
@@ -128,6 +140,7 @@
 				<view class="content">
 					<!-- 商品名 -->
 					<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 64rpx;line-height: 32rpx;">{{item.storeName}}</view>
+					<view v-show="isShowDate" class="fs-20 color-gray top-31">{{item.updateTime| timeFormat}}</view>
 					<view v-if="from == 'goods'">
 						<!-- 商品价格 -->
 						<view class="flex-main-start top-31 fs-22">
@@ -151,7 +164,7 @@
 		</view>
 		<!-- 团购商品 -->
 		<view v-else-if="from=='group'" class="group-list color-text lh-1">
-			<view @click="goDetail(item)" class="group-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
+			<view @click="goDetail(item)" class="group-item flex-main-start lh-1 relative" v-for="(item,i) in list" :key="i">
 				<view class="group-img-wrap flex-none flex-main-center">
 					<image :src="item.image" class="width-full" mode="aspectFit"></image>
 				</view>
@@ -180,11 +193,13 @@
 					</view>
 					
 				</view>
+				
+				<view class="line-down width-full"></view>
 			</view>
 		</view>
 		<!-- 秒杀商品 -->
 		<view v-else-if="from=='seckill'" class="seckill-list color-text lh-1">
-			<view @click="goDetail(item)" class="seckill-item flex-main-start lh-1" v-for="(item,i) in list" :key="i">
+			<view @click="goDetail(item)" class="seckill-item flex-main-start lh-1 relative" v-for="(item,i) in list" :key="i">
 				<view class="seckill-img-wrap flex-none">
 					<image :src="item.image" class="full"></image>
 				</view>
@@ -211,6 +226,9 @@
 					</view>
 					
 				</view>
+				
+				<view class="line-down width-full"></view>
+				
 			</view>
 		</view>
 	</view>
@@ -236,6 +254,10 @@
 			isShowButton:{
 				type:[Boolean],
 				default:true
+			},
+			isShowDate:{
+				type:[Boolean],
+				default:false
 			}
 		},
 		filters:{
