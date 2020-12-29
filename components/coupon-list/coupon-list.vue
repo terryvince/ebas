@@ -128,7 +128,7 @@
 				list:[],
 				params:{
 					page: 1,
-					limit: 999999
+					limit: 99999
 				}
 			};
 		},

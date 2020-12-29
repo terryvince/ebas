@@ -59,7 +59,7 @@
 		<view class="flex-cross-center header flex-column">
 			<image class="icon" src="https://res.sdebs.com/icon-sucess.png" mode=""></image>
 			<view class="title">售后申请提交成功</view>
-			<view class="backBtn">返回</view>
+			<view class="backBtn" @click="backClick">返回</view>
 		</view>
 
 		<view class="desrc">
@@ -67,14 +67,25 @@
 			</view>
 			<view>
 				温馨提示：
-				<view>1.商品寄回地址将在审核通过后以短信形式告知，或在申请记
+				<!-- <view>1.商品寄回地址将在审核通过后以短信形式告知，或在申请记
 				</view>
 				<view>录中查询.</view>
-				<view>2.退货处理成功后退款金额将原路返回到您的支持账户中</view>
+				<view>2.退货处理成功后退款金额将原路返回到您的支持账户中</view> -->
+				<view>1.退货处理成功后退款金额将原路返回到您的支持账户中</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default{
+		methods:{
+			backClick(){
+				// this.$yrouter.back();
+				this.$yrouter.push({
+					path:"/page/order/MyOrder/index"
+				})
+			}
+		}
+	}
 </script>
