@@ -180,7 +180,8 @@
 	  				<view class="badge badge-mini-extra badge-primary badge-radius">{{addressObj|formatJson}}</view>
 	  				<view class="fs-28 txt-medium color-text">{{item.nickname}}</view>
 	  				<view class="color-gray fs-24 txt-medium flex-main-start">
-	  					<text class="iconfont icon-shijian right-5"></text>
+	  					<!-- <text class="iconfont icon-shijian right-5"></text> -->
+						<image src="../../../static/logo-circle.png" class="right-5" style="width: 19rpx;height: 19rpx;"></image>
 	  					<count-down
 	  					  :isDay="false"
 	  					  :tipText="'剩余 '"
