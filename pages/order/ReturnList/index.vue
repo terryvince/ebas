@@ -40,7 +40,7 @@
       <view class="iconfont icon-yituikuan" v-if="order._status._type === -2"></view>
       <view class="orderNum flex-main-between">
 		  <text>订单号：{{ order.orderId }}</text>
-		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order.refundStatus|toRefundText}}</text>
+		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order|toRefundText}}</text>
 	  </view>
       <view
         class="item acea-row row-between-wrapper"
@@ -103,14 +103,14 @@ export default {
     };
   },
   filters:{
-	  toRefundText(v){
+	  toRefundText(order){
 		  return {
 			 0:'未退款',
 			 1:'申请中',
-			 2:'已退款',
+			 2: order.refundStatus==0 ? '已退款':'已退货',
 			 3:'待退货',
 			 4:'买家发货'
-		  }[v]||'0'
+		  }[order.refundStatus]||'0'
 	  }
   },
   methods: {
