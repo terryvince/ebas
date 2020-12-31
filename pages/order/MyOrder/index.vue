@@ -209,7 +209,7 @@
 						<!--&gt;-->
 						<!--查看物流-->
 						<!--</view>-->
-						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">去评价</view>
+						<view class="bnt bg-linear-green" @click="routerGo(order.cartInfo[0])">立即评价</view>
 					</template>
 					<template v-if="order._status._type === 4">
 						<view class="bnt bg-linear-green" @click="goOrderDetails(order)">查看订单</view>
@@ -300,6 +300,14 @@
 			this.loading = false;
 		},
 		methods: {
+			routerGo(cartGoods){
+				this.$yrouter.push({
+					path: "/pages/shop/GoodsEvaluate/index",
+					query: {
+						id: cartGoods.unique
+					}
+				})
+			},
 			// 申请退款
 			goGoodsReturn(orderInfo) {
 				this.$yrouter.push({

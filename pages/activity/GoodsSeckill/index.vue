@@ -68,6 +68,9 @@
 }
 .seckill-box::v-deep .seckill-list .seckill-item{
 	margin-bottom: 30rpx;
+	.line-down{
+		bottom: -15rpx;
+	}
 }
 </style>
 <template>

@@ -1,11 +1,46 @@
+<style lang="less" scoped>
+	.return-menu{
+		height: 110rpx;
+		line-height: 110rpx;
+		color: #101010;
+		margin-bottom: 20rpx;
+		font-size: 28rpx;
+		box-sizing: border-box;
+	}
+	.return-menu-item{
+		// width: 25%;
+	}
+	.red-bar{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 60rpx;
+		height: 8rpx;
+		background: linear-gradient(90deg, #EB4559 0%, #F47454 100%);
+		border-radius: 4rpx;
+		transform: translate(0);
+		transition: transform .3s;
+		transition-timing-function: ease-out;
+	}
+</style>
 <template>
   <view class="return-list" ref="container">
+	  <view class="padding-beside-20 bg-white">
+		  <!-- type -1 申请中 -2 已退款 -4 已退货 -5 退货中 -3 退款 -->
+		  <view class="relative return-menu flex-main-between txt-medium">
+		  	<text @click="switchTab(-1)" class="return-menu-item">申请中</text>
+			<text @click="switchTab(-5)" class="return-menu-item">退货中</text>
+		  	<text @click="switchTab(-2)" class="return-menu-item">已退款</text>
+			<text @click="switchTab(-4)" class="return-menu-item">已退货</text>
+		  	<view class="red-bar" :style="{transform:`translate(${translate}px)`}"></view>
+		  </view>
+	  </view>
     <view class="goodWrapper" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
       <view class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></view>
       <view class="iconfont icon-yituikuan" v-if="order._status._type === -2"></view>
       <view class="orderNum flex-main-between">
 		  <text>订单号：{{ order.orderId }}</text>
-		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order.refundStatus|toRefundText}}</text>
+		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order|toRefundText}}</text>
 	  </view>
       <view
         class="item acea-row row-between-wrapper"
@@ -47,6 +82,7 @@
 
 <script>
 import { getOrderList } from "@/api/order";
+import { querySelectorAll } from "@/utils/utils";
 import Loading from "@/components/Loading";
 
 export default {
@@ -60,18 +96,21 @@ export default {
       page: 1,
       limit: 20,
       loading: false,
-      loaded: false
+      loaded: false,
+	  translate:0,
+	  type:-1,
+	  menuPosition:[]
     };
   },
   filters:{
-	  toRefundText(v){
+	  toRefundText(order){
 		  return {
 			 0:'未退款',
 			 1:'申请中',
-			 2:'已退款',
+			 2: order.refundType==0 ? '已退款':'已退货',
 			 3:'待退货',
 			 4:'买家发货'
-		  }[v]||'0'
+		  }[order.refundStatus]||'0'
 	  }
   },
   methods: {
@@ -87,6 +126,7 @@ export default {
         query: { id: order._status._type ==0 ? order.orderId : order.extendOrderId }
       });
     },
+	// type -1 申请中 -2 已退款 -4 已退货 -5 退货中 -3 退款 
     getOrderList() {
       const { page, limit } = this;
       if (this.loading || this.loaded) return;
@@ -94,17 +134,36 @@ export default {
       getOrderList({
         page,
         limit,
-        type: -3
+        type: this.type
       }).then(res => {
         this.orderList = this.orderList.concat(res.data);
         this.loading = false;
         this.loaded = res.data.length < limit;
         this.page++;
       });
-    }
+    },
+	// 切换tab项
+	switchTab(type){
+		this.type = type || this.type;
+		this.translate = {
+				  "-1": this.menuPosition[0].left - this.menuPosition[0].left,
+				  "-5": this.menuPosition[1].left - this.menuPosition[0].left,
+				  "-2": this.menuPosition[2].left - this.menuPosition[0].left,
+				  "-4": this.menuPosition[3].left - this.menuPosition[0].left,
+		}[type+''] || 0;
+		this.page = 1
+		this.loading = this.loaded = false
+		this.orderList = []
+		this.getOrderList();
+	},
+	async getMenuPosition(){
+		  const data = await querySelectorAll('.return-menu-item')
+		  this.menuPosition = data
+	},
   },
   mounted() {
-    this.getOrderList();
+	this.getOrderList(-1);
+	this.getMenuPosition()
   },
   onReachBottom() {
     !this.loading && this.getOrderList();

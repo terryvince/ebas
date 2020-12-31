@@ -85,11 +85,15 @@
 		 			<view class="fs-26 color-text top-22 txt-medium width-full txt-ellipsis row-2" style="height: 52rpx;">{{item.storeName}}</view>
 		 			<view>
 		 				<!-- 商品价格 -->
-		 				<view class="flex-main-start top-31 fs-22">
+		 				<view v-if="item.productType != 1" class="flex-main-start top-31 fs-22">
 		 					<text class="color-danger">¥</text>
 		 					<text class="color-danger fs-32">{{item.price|toFixed}} </text>
 		 					<text class="color-text-secondary del-line left-6">¥{{item.otPrice|toFixed}}</text>
 		 				</view>
+						<view v-else class="color-danger fs-32 top-31">
+							<text class="fs-22">￥</text>
+							<text>{{item.price|toFixed}} + {{item.giveIntegral}}积分 </text>
+						</view>
 		 				<!-- 商户已售 -->
 		 				<view class="fs-20 color-text-secondary top-19 flex-main-between">
 		 					<text class="txt-bold">{{item.merName||'未设置店名'}}</text>
@@ -180,9 +184,10 @@ export default {
 	  if(item.isShow ==0){ // 下架商品
 		  return
 	  }
+	  const mode = item.productType == 1 ? 'point': 'goods'
       this.$yrouter.push({
         path: "/pages/shop/GoodsCon/index",
-        query: { id: item.pid }
+        query: { id: item.pid, mode }
       });
     },
     get_user_collect_product: function() {

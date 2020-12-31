@@ -6,6 +6,13 @@ export const querySelector = (selector) => new Promise((resolve, reject) => {
 	}).exec();
 })
 
+export const querySelectorAll = (selector) => new Promise((resolve, reject) => {
+	const query = uni.createSelectorQuery();
+	query.selectAll(selector).boundingClientRect(data => {
+		resolve(data)
+	}).exec();
+})
+
 /** 转换对象的key
  * @param origin {object} -原始对象
  * @param map {object} -映射关系对象 {oldKey:newKey}
@@ -90,6 +97,7 @@ export function parseUrl(url){
 }
 
 export default{
+	querySelectorAll,
 	querySelector,
 	objectMap,
 	countDown,
