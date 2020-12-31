@@ -206,7 +206,7 @@
 			<view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false && mode!='vip' && mode!='point'">
 				<view>优惠券</view>
 				<view class="discount flex-main-end">
-					<text :class="[usableCoupon.length ? '':'color-danger' ]">{{ usableCoupon.length ? couponTitle : `${usableCoupon.length}张可用` }}</text>
+					<text :class="[usableCoupon.length > 0 ? '':'color-danger' ]">{{ usableCoupon.length ? couponTitle : `${couponList.length}张可用` }}</text>
 					<text class="iconfont icon-jiantou"></text>
 				</view>
 			</view>
@@ -313,6 +313,7 @@ color: #333333;">
 	import OrderGoods from "@/components/OrderGoods";
 	import CouponListWindow from "@/components/CouponListWindow";
 	import AddressWindow from "@/components/AddressWindow";
+	import { getOrderCoupon } from "@/api/order";
 	import cookie from '@/utils/store/cookie';
 	import {
 		postOrderConfirm,
@@ -376,7 +377,8 @@ color: #333333;">
 				isShowInput: false,
 				isShowInput2: false,
 				isShowInput3: false,
-				isShowMore: false
+				isShowMore: false,
+				couponList:[]
 			};
 		},
 		computed: {
@@ -435,8 +437,14 @@ color: #333333;">
 			if (that.mode == 'point') { // 默认勾选积分抵扣
 				this.useIntegral = 'true'
 			}
+			this.getCoupon();
 		},
 		methods: {
+			getCoupon() {
+			  getOrderCoupon(this.cartid).then(res => {
+			    this.couponList = res.data;
+			  });
+			},
 			switchMore() {
 				if (this.orderGroupInfo.cartInfo.length < 3) {
 					uni.showToast({
@@ -511,7 +519,7 @@ color: #333333;">
 						this.orderGroupInfo = res.data;
 						this.deduction = res.data.deduction;
 						this.usableCoupon = Array.isArray(res.data.usableCoupon) ?  res.data.usableCoupon : []
-						this.usableCoupon =  [];
+						// this.usableCoupon =  [];
 						this.addressInfo = res.data.addressInfo || {};
 						this.systemStore = res.data.systemStore || {};
 						this.storeSelfMention = res.data.storeSelfMention;

@@ -22,6 +22,17 @@
 		transition: transform .3s;
 		transition-timing-function: ease-out;
 	}
+	.goodWrapper{
+		margin: 20rpx;
+		border-radius: 20rpx;
+		overflow: hidden;
+	}
+	.return-list .goodWrapper .totalSum {
+	    padding: 30rpx 30rpx 32rpx 30rpx;
+	}
+	.goodWrapper .item {
+		height: 250rpx;
+	}
 </style>
 <template>
   <view class="return-list" ref="container">
@@ -39,35 +50,37 @@
       <view class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></view>
       <view class="iconfont icon-yituikuan" v-if="order._status._type === -2"></view>
       <view class="orderNum flex-main-between">
-		  <text>订单号：{{ order.orderId }}</text>
-		  <text class="badge badge-middle badge-primary badge-radius lh-1">{{order|toRefundText}}</text>
+		  <text class="color-black txt-bold">{{order.cartInfo[0].shopName || '未设置店铺'}}</text>
+		  <text class="color-danger fs-28 txt-bold">{{order|toRefundText}}</text>
 	  </view>
       <view
-        class="item acea-row row-between-wrapper"
+        class="item acea-row row-between-wrapper flex-nowrap"
         v-for="(cart,cartInfoIndex) in order.cartInfo"
         :key="cartInfoIndex"
+		style="border-bottom: 1px solid #eee;"
         @click="goOrderDetails(order)"
       >
-        <view class="pictrue">
+        <view class="pictrue flex-none right-10">
           <image :src="cart.productInfo.image" class="image" @click.stop="goGoodsCon(cart)" />
         </view>
-        <view class="text">
+        <view class="text flex-1">
           <view class="acea-row row-between-wrapper">
-            <view class="name line1">{{ cart.productInfo.storeName }}</view>
+            <view class="name txt-ellipsis row-2">{{ cart.productInfo.storeName }}</view>
             <view class="num">x {{ cart.cartNum }}</view>
           </view>
           <view
             class="attr line1"
+			style="margin-top:18rpx;"
             v-if="cart.productInfo.attrInfo"
           >{{ cart.productInfo.attrInfo.sku }}</view>
-          <view class="attr line1" v-else>{{ cart.productInfo.storeName }}</view>
-          <view class="money">￥{{ cart.productInfo.price }}</view>
+          <view class="attr line1" style="width: 453rpx;margin-top:18rpx;" v-else>{{ cart.productInfo.storeName }}</view>
+          <view class="money color-danger">￥{{ cart.productInfo.price }}</view>
         </view>
       </view>
       <view class="totalSum">
         共{{ order.cartInfo.length || 0 }}件商品，总金额
         <text
-          class="font-color-red price"
+          class="font-color-red price left-10"
         >￥{{ order.payPrice }}</text>
       </view>
     </view>
@@ -76,7 +89,7 @@
         <image src="@/static/images/noOrder.png" />
       </view>
     </view>
-    <Loading :loaded="loaded" :loading="loading"></Loading>
+    <Loading :loaded="true" :loading="loading"></Loading>
   </view>
 </template>
 
@@ -99,7 +112,8 @@ export default {
       loaded: false,
 	  translate:0,
 	  type:-1,
-	  menuPosition:[]
+	  menuPosition:[],
+	  timer:null
     };
   },
   filters:{
@@ -136,7 +150,11 @@ export default {
         limit,
         type: this.type
       }).then(res => {
-        this.orderList = this.orderList.concat(res.data);
+		if(this.page == 1){
+			this.orderList = res.data
+		}else{
+			this.orderList = this.orderList.concat(res.data);
+		}
         this.loading = false;
         this.loaded = res.data.length < limit;
         this.page++;
@@ -154,7 +172,13 @@ export default {
 		this.page = 1
 		this.loading = this.loaded = false
 		this.orderList = []
-		this.getOrderList();
+		
+		this.timer && clearTimeout(this.timer)  // 500毫秒内重复点击取消上一次请求
+		const get = ()=>{
+			this.getOrderList();
+		}
+		this.timer = setTimeout(get,500)
+		
 	},
 	async getMenuPosition(){
 		  const data = await querySelectorAll('.return-menu-item')
