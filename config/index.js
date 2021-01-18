@@ -8,4 +8,3 @@ export const VUE_APP_API_URL = 'https://www.sdebs.com/ebashi/api';
 export const VUE_APP_IMAGE_URL = 'https://res.sdebs.com/' //七牛云图片地址
 // export const VUE_APP_RESOURCES_URL = 'http://ebashi.huacunkj.com/static';
 // export const VUE_APP_RESOURCES_URL = 'https://h5.yixiang.co/static';
-
